@@ -12,6 +12,8 @@ func main() {
 		if error == nil {
 			fmt.Printf("Request: %s\n", body)
 			fmt.Fprintf(response, "Response: %s", body)
+		} else {
+			http.Error(response, "Bad request...", http.StatusBadRequest)
 		}
 	})
 	http.ListenAndServe(":10000", nil)
