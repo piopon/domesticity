@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/handlers"
 )
@@ -17,8 +18,11 @@ func main() {
 	serveMux.Handle("/", homeHandler)
 
 	server := http.Server{
-		Addr:    ":10000",
-		Handler: serveMux,
+		Addr:         ":10000",
+		Handler:      serveMux,
+		IdleTimeout:  300 * time.Second,
+		ReadTimeout:  1 * time.Second,
+		WriteTimeout: 1 * time.Second,
 	}
 	server.ListenAndServe()
 }
