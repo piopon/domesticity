@@ -16,5 +16,9 @@ func main() {
 	serveMux := http.NewServeMux()
 	serveMux.Handle("/", homeHandler)
 
-	http.ListenAndServe(":10000", serveMux)
+	server := http.Server{
+		Addr:    ":10000",
+		Handler: serveMux,
+	}
+	server.ListenAndServe()
 }
