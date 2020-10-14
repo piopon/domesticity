@@ -23,6 +23,6 @@ func (home *Home) ServeHTTP(response http.ResponseWriter, request *http.Request)
 		http.Error(response, "Bad request...", http.StatusBadRequest)
 		return
 	}
-	fmt.Printf("Request: %s\n", body)
+	home.logger.Printf("Request: %s\n", body)
 	fmt.Fprintf(response, "Response: %s", body)
 }
