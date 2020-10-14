@@ -6,7 +6,12 @@ import (
 	"net/http"
 )
 
-type Home struct {
+// Home is a service handler used after visiting main service URL
+type Home struct{}
+
+// NewHome is a factory method to create Home service handler
+func NewHome() *Home {
+	return &Home{}
 }
 
 func (home *Home) ServeHTTP(response http.ResponseWriter, request *http.Request) {
