@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"os"
@@ -29,4 +30,10 @@ func main() {
 	if workError != nil {
 		logger.Fatal(workError)
 	}
+
+	shutdownCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	if cancel != nil {
+		logger.Fatal(cancel)
+	}
+	server.Shutdown(shutdownCtx)
 }
