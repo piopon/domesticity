@@ -24,5 +24,9 @@ func main() {
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 1 * time.Second,
 	}
-	server.ListenAndServe()
+
+	workError := server.ListenAndServe()
+	if workError != nil {
+		logger.Fatal(workError)
+	}
 }
