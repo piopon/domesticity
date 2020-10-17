@@ -22,9 +22,11 @@ func (events *Events) ServeHTTP(response http.ResponseWriter, request *http.Requ
 		events.getEvents(response, request)
 		return
 	}
+	response.WriteHeader(http.StatusMethodNotAllowed)
 }
 
 func (events *Events) getEvents(response http.ResponseWriter, request *http.Request) {
+	events.logger.Println("Handling GET events")
 	allEvents := data.GetEvents()
 	error := allEvents.ToJSON(response)
 	if error != nil {
