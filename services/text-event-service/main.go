@@ -14,10 +14,9 @@ import (
 func main() {
 	logger := log.New(os.Stdout, "text-event-service > ", log.LstdFlags|log.Lmsgprefix)
 
-	homeHandler := handlers.NewHome(logger)
-
 	serveMux := http.NewServeMux()
-	serveMux.Handle("/", homeHandler)
+	serveMux.Handle("/", handlers.NewHome(logger))
+	serveMux.Handle("/events", handlers.NewEvents(logger))
 
 	server := &http.Server{
 		Addr:         ":10000",
