@@ -2,11 +2,11 @@ package data
 
 // Event defines the structure for an API event
 type Event struct {
-	ID       int
-	Title    string
-	Owner    string
-	Category string
-	Content  string
+	ID       int    `json:"id"`
+	Title    string `json:"title"`
+	Owner    string `json:"owner"`
+	Category string `json:"category"`
+	Content  string `json:"content"`
 }
 
 // GetEvents returns all events stored in DB
