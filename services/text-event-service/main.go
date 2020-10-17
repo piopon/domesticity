@@ -40,8 +40,7 @@ func main() {
 	logger.Println("Shutting down by", <-quitChannel)
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	if cancel != nil {
-		logger.Fatal(cancel)
-	}
+	defer cancel()
+
 	server.Shutdown(shutdownCtx)
 }
