@@ -26,10 +26,12 @@ func main() {
 		WriteTimeout: 1 * time.Second,
 	}
 
-	workError := server.ListenAndServe()
-	if workError != nil {
-		logger.Fatal(workError)
-	}
+	go func() {
+		workError := server.ListenAndServe()
+		if workError != nil {
+			logger.Fatal(workError)
+		}
+	}()
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	if cancel != nil {
