@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
 	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/handlers"
@@ -32,6 +33,11 @@ func main() {
 			logger.Fatal(workError)
 		}
 	}()
+
+	quitChannel := make(chan os.Signal)
+	signal.Notify(quitChannel, os.Interrupt)
+	signal.Notify(quitChannel, os.Kill)
+	logger.Println("Shutting down by", <-quitChannel)
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	if cancel != nil {
