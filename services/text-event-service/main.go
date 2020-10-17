@@ -11,6 +11,9 @@ import (
 	"github.com/piopon/domesticity/services/text-event-service/handlers"
 )
 
+var addressIP = ""
+var addressPort = "9999"
+
 func main() {
 	logger := log.New(os.Stdout, "text-event-service > ", log.LstdFlags|log.Lmsgprefix)
 
@@ -19,21 +22,24 @@ func main() {
 	serveMux.Handle("/events", handlers.NewEvents(logger))
 
 	server := &http.Server{
-		Addr:         ":10000",
+		Addr:         addressIP + ":" + addressPort,
 		Handler:      serveMux,
+		ErrorLog:     logger,
 		IdleTimeout:  300 * time.Second,
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 1 * time.Second,
 	}
 
 	go func() {
+		logger.Println("Starting server on port", addressPort)
 		workError := server.ListenAndServe()
 		if workError != nil {
-			logger.Fatal(workError)
+			logger.Fatal("Error starting server:", workError)
+			os.Exit(1)
 		}
 	}()
 
-	quitChannel := make(chan os.Signal)
+	quitChannel := make(chan os.Signal, 1)
 	signal.Notify(quitChannel, os.Interrupt)
 	signal.Notify(quitChannel, os.Kill)
 	logger.Println("Shutting down by", <-quitChannel)
