@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 
@@ -20,9 +19,8 @@ func NewEvents(logger *log.Logger) *Events {
 
 func (events *Events) ServeHTTP(response http.ResponseWriter, request *http.Request) {
 	allEvents := data.GetEvents()
-	data, error := json.Marshal(allEvents)
+	error := allEvents.ToJSON(response)
 	if error != nil {
 		events.logger.Println("Unable to marshal events data")
 	}
-	response.Write(data)
 }
