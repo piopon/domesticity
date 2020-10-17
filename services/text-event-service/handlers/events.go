@@ -18,6 +18,13 @@ func NewEvents(logger *log.Logger) *Events {
 }
 
 func (events *Events) ServeHTTP(response http.ResponseWriter, request *http.Request) {
+	if http.MethodGet == request.Method {
+		events.getEvents(response, request)
+		return
+	}
+}
+
+func (events *Events) getEvents(response http.ResponseWriter, request *http.Request) {
 	allEvents := data.GetEvents()
 	error := allEvents.ToJSON(response)
 	if error != nil {
