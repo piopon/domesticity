@@ -1,5 +1,10 @@
 package data
 
+import (
+	"encoding/json"
+	"io"
+)
+
 // Event defines the structure for an API event
 type Event struct {
 	ID       int    `json:"id"`
@@ -11,6 +16,12 @@ type Event struct {
 
 // Events is a type definition for slice of Event pointers
 type Events []*Event
+
+//ToJSON is a method called on Event slice with specified IO Writer
+func (events *Events) ToJSON(writer io.Writer) error {
+	encoder := json.NewEncoder(writer)
+	return encoder.Encode(events)
+}
 
 // GetEvents returns all events stored in DB
 func GetEvents() Events {
