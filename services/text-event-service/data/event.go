@@ -9,6 +9,11 @@ type Event struct {
 	Content  string
 }
 
+// GetEvents returns all events stored in DB
+func GetEvents() []*Event {
+	return eventList
+}
+
 var eventList = []*Event{
 	&Event{
 		ID:       1,
