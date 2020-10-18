@@ -22,6 +22,10 @@ func (events *Events) ServeHTTP(response http.ResponseWriter, request *http.Requ
 		events.getEvents(response, request)
 		return
 	}
+	if http.MethodPost == request.Method {
+		events.addEvent(response, request)
+		return
+	}
 	response.WriteHeader(http.StatusMethodNotAllowed)
 }
 
@@ -32,4 +36,8 @@ func (events *Events) getEvents(response http.ResponseWriter, request *http.Requ
 	if error != nil {
 		events.logger.Println("Unable to marshal events data")
 	}
+}
+
+func (events *Events) addEvent(response http.ResponseWriter, request *http.Request) {
+	events.logger.Println("Handling POST event")
 }
