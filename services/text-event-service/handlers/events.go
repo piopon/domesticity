@@ -28,6 +28,11 @@ func (events *Events) ServeHTTP(response http.ResponseWriter, request *http.Requ
 		events.addEvent(response, request)
 		return
 	}
+	if http.MethodPut == request.Method {
+		id := events.parseID(request.URL.Path)
+		events.updateEvent(id, response, request)
+		return
+	}
 	response.WriteHeader(http.StatusMethodNotAllowed)
 }
 
@@ -48,6 +53,10 @@ func (events *Events) addEvent(response http.ResponseWriter, request *http.Reque
 		events.logger.Println("Unable to unmarshal events data")
 	}
 	data.AddEvent(event)
+}
+
+func (events *Events) updateEvent(id int, response http.ResponseWriter, request *http.Request) {
+
 }
 
 func (events *Events) parseID(urlPath string) int {
