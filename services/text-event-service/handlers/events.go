@@ -3,6 +3,8 @@ package handlers
 import (
 	"log"
 	"net/http"
+	"regexp"
+	"strconv"
 
 	"github.com/piopon/domesticity/services/text-event-service/data"
 )
@@ -46,4 +48,19 @@ func (events *Events) addEvent(response http.ResponseWriter, request *http.Reque
 		events.logger.Println("Unable to unmarshal events data")
 	}
 	data.AddEvent(event)
+}
+
+func (events *Events) parseID(urlPath string) int {
+	regex := regexp.MustCompile("/([0-9]+)")
+	found := regex.FindAllStringSubmatch(urlPath, -1)
+	if len(found) != 1 || len(found[0]) != 2 {
+		events.logger.Println("Invalid URI inputted", urlPath)
+		return -1
+	}
+	id, error := strconv.Atoi(found[0][1])
+	if error != nil {
+		events.logger.Println("Invalid URI inputted", urlPath)
+		return -1
+	}
+	return id
 }
