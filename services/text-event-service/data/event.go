@@ -17,6 +17,12 @@ type Event struct {
 // Events is a type definition for slice of Event pointers
 type Events []*Event
 
+//FromJSON is a method called on Event struct with specified IO Reader
+func (event *Event) FromJSON(reader io.Reader) error {
+	decoder := json.NewDecoder(reader)
+	return decoder.Decode(event)
+}
+
 //ToJSON is a method called on Event slice with specified IO Writer
 func (events *Events) ToJSON(writer io.Writer) error {
 	encoder := json.NewEncoder(writer)
