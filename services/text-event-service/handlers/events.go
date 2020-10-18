@@ -40,4 +40,10 @@ func (events *Events) getEvents(response http.ResponseWriter, request *http.Requ
 
 func (events *Events) addEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling POST event")
+	event := &data.Event{}
+	error := event.FromJSON(request.Body)
+	if error != nil {
+		events.logger.Println("Unable to unmarshal events data")
+	}
+	data.AddEvent(event)
 }
