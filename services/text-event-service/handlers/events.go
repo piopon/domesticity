@@ -47,22 +47,18 @@ func (events *Events) getEvents(response http.ResponseWriter, request *http.Requ
 
 func (events *Events) addEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling POST event")
-	event := &data.Event{}
-	error := event.FromJSON(request.Body)
+	event, error := events.parseEvent(request)
 	if error != nil {
-		events.logger.Println("Unable to unmarshal events data")
-		return
+		http.Error(response, "Bad URL", http.StatusBadRequest)
 	}
 	data.AddEvent(event)
 }
 
 func (events *Events) updateEvent(id int, response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling POST event")
-	event := &data.Event{}
-	error := event.FromJSON(request.Body)
+	event, error := events.parseEvent(request)
 	if error != nil {
-		events.logger.Println("Unable to unmarshal events data")
-		return
+		http.Error(response, "Bad URL", http.StatusBadRequest)
 	}
 	updateError := data.UpdateEvent(id, event)
 	if updateError != nil {
