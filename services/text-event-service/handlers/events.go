@@ -71,6 +71,14 @@ func (events *Events) updateEvent(id int, response http.ResponseWriter, request 
 	}
 }
 
+func (events *Events) parseEvent(request *http.Request) (*data.Event, error) {
+	event := &data.Event{}
+	error := event.FromJSON(request.Body)
+	if error != nil {
+		events.logger.Println("Unable to unmarshal events data")
+		return nil, error
+	}
+	return event, nil
 }
 
 func (events *Events) parseID(urlPath string) int {
