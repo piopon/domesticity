@@ -2,6 +2,7 @@ package data
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 )
 
@@ -43,6 +44,13 @@ func AddEvent(event *Event) {
 // UpdateEvent updates an event with specified ID
 func UpdateEvent(id int, event *Event) error {
 
+func findEvent(id int) (int, error) {
+	for i, event := range eventList {
+		if event.ID == id {
+			return i, nil
+		}
+	}
+	return -1, fmt.Errorf("Event not found")
 }
 
 func getNextID() int {
