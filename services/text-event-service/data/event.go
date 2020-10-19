@@ -43,6 +43,14 @@ func AddEvent(event *Event) {
 
 // UpdateEvent updates an event with specified ID
 func UpdateEvent(id int, event *Event) error {
+	index, error := findEvent(id)
+	if error != nil {
+		return error
+	}
+	event.ID = id
+	eventList[index] = event
+	return nil
+}
 
 func findEvent(id int) (int, error) {
 	for i, event := range eventList {
