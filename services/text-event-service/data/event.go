@@ -40,6 +40,11 @@ func AddEvent(event *Event) {
 	eventList = append(eventList, event)
 }
 
+// UpdateEvent updates an event with specified ID
+func UpdateEvent(id int, event *Event) error {
+
+}
+
 func getNextID() int {
 	return eventList[len(eventList)-1].ID + 1
 }
