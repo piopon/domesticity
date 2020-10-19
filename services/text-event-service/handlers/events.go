@@ -51,6 +51,7 @@ func (events *Events) addEvent(response http.ResponseWriter, request *http.Reque
 	error := event.FromJSON(request.Body)
 	if error != nil {
 		events.logger.Println("Unable to unmarshal events data")
+		return
 	}
 	data.AddEvent(event)
 }
@@ -61,8 +62,13 @@ func (events *Events) updateEvent(id int, response http.ResponseWriter, request 
 	error := event.FromJSON(request.Body)
 	if error != nil {
 		events.logger.Println("Unable to unmarshal events data")
+		return
 	}
-	data.UpdateEvent(id, event)
+	updateError := data.UpdateEvent(id, event)
+	if updateError != nil {
+		events.logger.Println("Invalid event ID")
+		return
+	}
 }
 
 }
