@@ -8,6 +8,7 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/gorilla/mux"
 	"github.com/piopon/domesticity/services/text-event-service/handlers"
 )
 
@@ -17,13 +18,20 @@ var addressPort = "9999"
 func main() {
 	logger := log.New(os.Stdout, "text-event-service > ", log.LstdFlags|log.Lmsgprefix)
 
-	serveMux := http.NewServeMux()
-	serveMux.Handle("/", handlers.NewHome(logger))
-	serveMux.Handle("/events", handlers.NewEvents(logger))
+	homeHandler := handlers.NewHome(logger)
+	eventsHandler := handlers.NewEvents(logger)
+
+	routerMain := mux.NewRouter()
+
+	routerGET := routerMain.Methods(http.MethodGet).Subrouter()
+
+	routerPOST := routerMain.Methods(http.MethodPost).Subrouter()
+
+	routerPUT := routerMain.Methods(http.MethodPut).Subrouter()
 
 	server := &http.Server{
 		Addr:         addressIP + ":" + addressPort,
-		Handler:      serveMux,
+		Handler:      routerMain,
 		ErrorLog:     logger,
 		IdleTimeout:  300 * time.Second,
 		ReadTimeout:  1 * time.Second,
