@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"strconv"
@@ -60,16 +61,6 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	}
 }
 
-func (events *Events) parseEvent(request *http.Request) (*data.Event, error) {
-	event := &data.Event{}
-	error := event.FromJSON(request.Body)
-	if error != nil {
-		events.logger.Println("Unable to unmarshal events data")
-		return nil, error
-	}
-	return event, nil
-}
-
 func (events *Events) parseID(urlPath string) int {
 	regex := regexp.MustCompile("/([0-9]+)")
 	found := regex.FindAllStringSubmatch(urlPath, -1)
@@ -83,4 +74,20 @@ func (events *Events) parseID(urlPath string) int {
 		return -1
 	}
 	return id
+}
+
+// ValidationMiddleware is used to parse and validate Event from request
+func (events *Events) ValidationMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
+		event := data.Event{}
+		error := event.FromJSON(request.Body)
+		if error != nil {
+			events.logger.Println("Unable to unmarshal events data")
+			return
+		}
+		// add event to the context and call next handler (other middleware or final handler)
+		ctx := context.WithValue(request.Context(), KeyEvent{}, event)
+		request = request.WithContext(ctx)
+		next.ServeHTTP(response, request)
+	})
 }
