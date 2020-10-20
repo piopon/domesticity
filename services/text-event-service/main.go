@@ -24,6 +24,7 @@ func main() {
 	routerMain := mux.NewRouter()
 
 	routerGET := routerMain.Methods(http.MethodGet).Subrouter()
+	routerGET.HandleFunc("/", homeHandler.ServeHTTP)
 
 	routerPOST := routerMain.Methods(http.MethodPost).Subrouter()
 
