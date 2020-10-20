@@ -55,21 +55,6 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	}
 }
 
-func (events *Events) parseID(urlPath string) int {
-	regex := regexp.MustCompile("/([0-9]+)")
-	found := regex.FindAllStringSubmatch(urlPath, -1)
-	if len(found) != 1 || len(found[0]) != 2 {
-		events.logger.Println("Invalid URI inputted", urlPath)
-		return -1
-	}
-	id, error := strconv.Atoi(found[0][1])
-	if error != nil {
-		events.logger.Println("Invalid URI inputted", urlPath)
-		return -1
-	}
-	return id
-}
-
 // ValidationMiddleware is used to parse and validate Event from request
 func (events *Events) ValidationMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
