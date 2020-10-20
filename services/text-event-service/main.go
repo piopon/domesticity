@@ -29,9 +29,11 @@ func main() {
 
 	routerPOST := routerMain.Methods(http.MethodPost).Subrouter()
 	routerPOST.HandleFunc("/events", eventsHandler.AddEvent)
+	routerPOST.Use(eventsHandler.ValidationMiddleware)
 
 	routerPUT := routerMain.Methods(http.MethodPut).Subrouter()
-	routerPOST.HandleFunc("/events/{id:[0-9]+}", eventsHandler.UpdateEvent)
+	routerPUT.HandleFunc("/events/{id:[0-9]+}", eventsHandler.UpdateEvent)
+	routerPUT.Use(eventsHandler.ValidationMiddleware)
 
 	server := &http.Server{
 		Addr:         addressIP + ":" + addressPort,
