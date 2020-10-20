@@ -36,11 +36,8 @@ func (events *Events) GetEvents(response http.ResponseWriter, request *http.Requ
 // AddEvent is used to add new event and store it in DB
 func (events *Events) AddEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling POST event")
-	event, error := events.parseEvent(request)
-	if error != nil {
-		http.Error(response, "Bad URL", http.StatusBadRequest)
-	}
-	data.AddEvent(event)
+	event := request.Context().Value(KeyEvent{}).(data.Event)
+	data.AddEvent(&event)
 }
 
 // UpdateEvent is used to update event with specified ID stored in DB
@@ -50,11 +47,8 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	if error != nil {
 		http.Error(response, "Bad URL", http.StatusBadRequest)
 	}
-	event, error := events.parseEvent(request)
-	if error != nil {
-		http.Error(response, "Bad URL", http.StatusBadRequest)
-	}
-	updateError := data.UpdateEvent(id, event)
+	event := request.Context().Value(KeyEvent{}).(data.Event)
+	updateError := data.UpdateEvent(id, &event)
 	if updateError != nil {
 		events.logger.Println("Invalid event ID")
 		return
