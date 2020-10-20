@@ -14,6 +14,9 @@ type Events struct {
 	logger *log.Logger
 }
 
+// KeyEvent is a key used for add and get the Event object in the context
+type KeyEvent struct{}
+
 // NewEvents is a factory method to create Events service handler with defined logger
 func NewEvents(logger *log.Logger) *Events {
 	return &Events{logger}
