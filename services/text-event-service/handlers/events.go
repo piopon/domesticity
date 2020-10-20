@@ -3,9 +3,9 @@ package handlers
 import (
 	"log"
 	"net/http"
-	"regexp"
 	"strconv"
 
+	"github.com/gorilla/mux"
 	"github.com/piopon/domesticity/services/text-event-service/data"
 )
 
@@ -40,8 +40,12 @@ func (events *Events) AddEvent(response http.ResponseWriter, request *http.Reque
 }
 
 // UpdateEvent is used to update event with specified ID stored in DB
-func (events *Events) UpdateEvent(id int, response http.ResponseWriter, request *http.Request) {
-	events.logger.Println("Handling POST event")
+func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Request) {
+	events.logger.Println("Handling PUT event")
+	id, error := strconv.Atoi(mux.Vars(request)["id"])
+	if error != nil {
+		http.Error(response, "Bad URL", http.StatusBadRequest)
+	}
 	event, error := events.parseEvent(request)
 	if error != nil {
 		http.Error(response, "Bad URL", http.StatusBadRequest)
