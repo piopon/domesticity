@@ -19,23 +19,6 @@ func NewEvents(logger *log.Logger) *Events {
 	return &Events{logger}
 }
 
-func (events *Events) ServeHTTP(response http.ResponseWriter, request *http.Request) {
-	if http.MethodGet == request.Method {
-		events.GetEvents(response, request)
-		return
-	}
-	if http.MethodPost == request.Method {
-		events.AddEvent(response, request)
-		return
-	}
-	if http.MethodPut == request.Method {
-		id := events.parseID(request.URL.Path)
-		events.UpdateEvent(id, response, request)
-		return
-	}
-	response.WriteHeader(http.StatusMethodNotAllowed)
-}
-
 // GetEvents is used to retrieve all currently stored events
 func (events *Events) GetEvents(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling GET events")
