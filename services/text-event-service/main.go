@@ -25,10 +25,13 @@ func main() {
 
 	routerGET := routerMain.Methods(http.MethodGet).Subrouter()
 	routerGET.HandleFunc("/", homeHandler.ServeHTTP)
+	routerGET.HandleFunc("/events", eventsHandler.GetEvents)
 
 	routerPOST := routerMain.Methods(http.MethodPost).Subrouter()
+	routerPOST.HandleFunc("/events", eventsHandler.AddEvent)
 
 	routerPUT := routerMain.Methods(http.MethodPut).Subrouter()
+	routerPOST.HandleFunc("/events/{id:[0-9]+}", eventsHandler.UpdateEvent)
 
 	server := &http.Server{
 		Addr:         addressIP + ":" + addressPort,
