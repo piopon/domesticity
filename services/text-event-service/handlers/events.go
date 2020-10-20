@@ -21,22 +21,23 @@ func NewEvents(logger *log.Logger) *Events {
 
 func (events *Events) ServeHTTP(response http.ResponseWriter, request *http.Request) {
 	if http.MethodGet == request.Method {
-		events.getEvents(response, request)
+		events.GetEvents(response, request)
 		return
 	}
 	if http.MethodPost == request.Method {
-		events.addEvent(response, request)
+		events.AddEvent(response, request)
 		return
 	}
 	if http.MethodPut == request.Method {
 		id := events.parseID(request.URL.Path)
-		events.updateEvent(id, response, request)
+		events.UpdateEvent(id, response, request)
 		return
 	}
 	response.WriteHeader(http.StatusMethodNotAllowed)
 }
 
-func (events *Events) getEvents(response http.ResponseWriter, request *http.Request) {
+// GetEvents is used to retrieve all currently stored events
+func (events *Events) GetEvents(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling GET events")
 	allEvents := data.GetEvents()
 	error := allEvents.ToJSON(response)
@@ -45,7 +46,8 @@ func (events *Events) getEvents(response http.ResponseWriter, request *http.Requ
 	}
 }
 
-func (events *Events) addEvent(response http.ResponseWriter, request *http.Request) {
+// AddEvent is used to add new event and store it in DB
+func (events *Events) AddEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling POST event")
 	event, error := events.parseEvent(request)
 	if error != nil {
@@ -54,7 +56,8 @@ func (events *Events) addEvent(response http.ResponseWriter, request *http.Reque
 	data.AddEvent(event)
 }
 
-func (events *Events) updateEvent(id int, response http.ResponseWriter, request *http.Request) {
+// UpdateEvent is used to update event with specified ID stored in DB
+func (events *Events) UpdateEvent(id int, response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling POST event")
 	event, error := events.parseEvent(request)
 	if error != nil {
