@@ -4,13 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+
+	"github.com/go-playground/validator"
 )
 
 // Event defines the structure for an API event
 type Event struct {
 	ID       int    `json:"id"`
-	Title    string `json:"title"`
-	Owner    string `json:"owner"`
+	Title    string `json:"title" validate:"required"`
+	Owner    string `json:"owner" validate:"required"`
 	Category string `json:"category"`
 	Content  string `json:"content"`
 }
@@ -28,6 +30,12 @@ func (event *Event) FromJSON(reader io.Reader) error {
 func (events *Events) ToJSON(writer io.Writer) error {
 	encoder := json.NewEncoder(writer)
 	return encoder.Encode(events)
+}
+
+// Validate is a method used to check Event struct values
+func (event *Event) Validate() error {
+	validator := validator.New()
+	return validator.Struct(event)
 }
 
 // GetEvents returns all events stored in DB
