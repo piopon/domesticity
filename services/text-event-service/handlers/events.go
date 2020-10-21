@@ -62,11 +62,13 @@ func (events *Events) ValidationMiddleware(next http.Handler) http.Handler {
 		error := event.FromJSON(request.Body)
 		if error != nil {
 			events.logger.Println("Unable to unmarshal events data")
+			http.Error(response, "Error reading event", http.StatusBadRequest)
 			return
 		}
 		validationError := event.Validate()
 		if validationError != nil {
 			events.logger.Println("Unable to validate events data")
+			http.Error(response, "Error validating event", http.StatusBadRequest)
 			return
 		}
 		// add event to the context and call next handler (other middleware or final handler)
