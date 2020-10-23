@@ -26,17 +26,19 @@ type ValidationError struct {
 	validator.FieldError
 }
 
-func (validationError ValidationError) Error() string {
+// Error returns the error string
+func (vError ValidationError) Error() string {
 	return fmt.Sprintf("'%s' error: '%s' field validation failed on the '%s' tag",
-		validationError.Namespace(),
-		validationError.Field(),
-		validationError.Tag(),
+		vError.Namespace(),
+		vError.Field(),
+		vError.Tag(),
 	)
 }
 
 // ValidationErrors is a collection of ValidationError objects
 type ValidationErrors []ValidationError
 
+// Errors returns all error in a string (slice) format
 func (vErrors ValidationErrors) Errors() []string {
 	errors := []string{}
 	for _, error := range vErrors {
