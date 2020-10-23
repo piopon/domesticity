@@ -17,8 +17,17 @@ func NewValidator() *Validator {
 }
 
 // Validate is a Validator method used to inspect inputted interface
-func (validator *Validator) Validate(i interface{}) error {
-	return validator.validate.Struct(i)
+func (v *Validator) Validate(i interface{}) ValidationErrors {
+	errors := v.validate.Struct(i).(validator.ValidationErrors)
+	if len(errors) == 0 {
+		return nil
+	}
+	var result ValidationErrors
+	for _, error := range errors {
+		ve := ValidationError{error.(validator.FieldError)}
+		result = append(result, ve)
+	}
+	return result
 }
 
 // ValidationError wraps validator FieldError to control exposed format
