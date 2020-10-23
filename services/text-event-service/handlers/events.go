@@ -56,6 +56,17 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 }
 
 func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Request) {
+	events.logger.Println("Handling DELETE event")
+	id, error := strconv.Atoi(mux.Vars(request)["id"])
+	if error != nil {
+		http.Error(response, "Bad URL", http.StatusBadRequest)
+	}
+	deleteError := data.DeleteEvent(id)
+	if deleteError != nil {
+		events.logger.Println("Invalid event ID")
+		return
+	}
+	response.WriteHeader(http.StatusNoContent)
 }
 
 // ValidationMiddleware is used to parse and validate Event from request
