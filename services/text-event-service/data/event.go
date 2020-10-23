@@ -60,6 +60,16 @@ func UpdateEvent(id int, event *Event) error {
 	return nil
 }
 
+// DeleteEvent deletes a event with specified ID from the database
+func DeleteEvent(id int) error {
+	index, error := findEvent(id)
+	if error != nil {
+		return error
+	}
+	eventList = append(eventList[:index], eventList[index+1])
+	return nil
+}
+
 func findEvent(id int) (int, error) {
 	for i, event := range eventList {
 		if event.ID == id {
