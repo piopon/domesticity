@@ -28,12 +28,15 @@ func main() {
 	routerGET.HandleFunc("/events", eventsHandler.GetEvents)
 
 	routerPOST := routerMain.Methods(http.MethodPost).Subrouter()
-	routerPOST.HandleFunc("/events", eventsHandler.AddEvent)
 	routerPOST.Use(eventsHandler.ValidationMiddleware)
+	routerPOST.HandleFunc("/events", eventsHandler.AddEvent)
 
 	routerPUT := routerMain.Methods(http.MethodPut).Subrouter()
-	routerPUT.HandleFunc("/events/{id:[0-9]+}", eventsHandler.UpdateEvent)
 	routerPUT.Use(eventsHandler.ValidationMiddleware)
+	routerPUT.HandleFunc("/events/{id:[0-9]+}", eventsHandler.UpdateEvent)
+
+	routerDELETE := routerMain.Methods(http.MethodDelete).Subrouter()
+	routerDELETE.HandleFunc("/events/{id:[0-9]+}", eventsHandler.DeleteEvent)
 
 	server := &http.Server{
 		Addr:         addressIP + ":" + addressPort,
