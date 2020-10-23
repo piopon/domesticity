@@ -56,6 +56,7 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	}
 }
 
+// DeleteEvent is used to delete event with specified ID stored in DB
 func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling DELETE event")
 	id, error := strconv.Atoi(mux.Vars(request)["id"])
