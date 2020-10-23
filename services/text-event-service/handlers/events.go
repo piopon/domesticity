@@ -55,6 +55,9 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	}
 }
 
+func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Request) {
+}
+
 // ValidationMiddleware is used to parse and validate Event from request
 func (events *Events) ValidationMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
