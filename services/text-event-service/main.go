@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/piopon/domesticity/services/text-event-service/data"
 	"github.com/piopon/domesticity/services/text-event-service/handlers"
 )
 
@@ -19,7 +20,7 @@ func main() {
 	logger := log.New(os.Stdout, "text-event-service > ", log.LstdFlags|log.Lmsgprefix)
 
 	homeHandler := handlers.NewHome(logger)
-	eventsHandler := handlers.NewEvents(logger)
+	eventsHandler := handlers.NewEvents(logger, data.NewValidator())
 
 	routerMain := mux.NewRouter()
 

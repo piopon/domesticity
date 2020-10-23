@@ -12,15 +12,16 @@ import (
 
 // Events is a service handler responsible for getting and updating events
 type Events struct {
-	logger *log.Logger
+	logger    *log.Logger
+	validator *data.Validator
 }
 
 // KeyEvent is a key used for add and get the Event object in the context
 type KeyEvent struct{}
 
 // NewEvents is a factory method to create Events service handler with defined logger
-func NewEvents(logger *log.Logger) *Events {
-	return &Events{logger}
+func NewEvents(logger *log.Logger, validator *data.Validator) *Events {
+	return &Events{logger, validator}
 }
 
 // GetEvents is used to retrieve all currently stored events
@@ -72,15 +73,15 @@ func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Re
 // ValidationMiddleware is used to parse and validate Event from request
 func (events *Events) ValidationMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
-		event := data.Event{}
+		event := &data.Event{}
 		error := event.FromJSON(request.Body)
 		if error != nil {
 			events.logger.Println("Unable to unmarshal events data")
 			http.Error(response, "Error reading event", http.StatusBadRequest)
 			return
 		}
-		validationError := event.Validate()
-		if validationError != nil {
+		validationErrors := events.validator.Validate(event)
+		if validationErrors != nil {
 			events.logger.Println("Unable to validate events data")
 			http.Error(response, "Error validating event", http.StatusBadRequest)
 			return
