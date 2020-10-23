@@ -33,3 +33,14 @@ func (validationError ValidationError) Error() string {
 		validationError.Tag(),
 	)
 }
+
+// ValidationErrors is a collection of ValidationError objects
+type ValidationErrors []ValidationError
+
+func (vErrors ValidationErrors) Errors() []string {
+	errors := []string{}
+	for _, error := range vErrors {
+		errors = append(errors, error.Error())
+	}
+	return errors
+}
