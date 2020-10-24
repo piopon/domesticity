@@ -12,6 +12,8 @@ func (events *Events) GetEvents(response http.ResponseWriter, request *http.Requ
 	allEvents := data.GetEvents()
 	error := data.ToJSON(allEvents, response)
 	if error != nil {
+		http.Error(response, "Cannot send JSON response in GET request", http.StatusInternalServerError)
 		events.logger.Println("Unable to marshal events data")
+		return
 	}
 }

@@ -30,6 +30,18 @@ func (v *Validator) Validate(i interface{}) ValidationErrors {
 	return result
 }
 
+// ValidationErrors is a collection of ValidationError objects
+type ValidationErrors []ValidationError
+
+// Errors returns all error in a string (slice) format
+func (vErrors ValidationErrors) Errors() []string {
+	errors := []string{}
+	for _, error := range vErrors {
+		errors = append(errors, error.Error())
+	}
+	return errors
+}
+
 // ValidationError wraps validator FieldError to control exposed format
 type ValidationError struct {
 	validator.FieldError
@@ -42,16 +54,4 @@ func (vError ValidationError) Error() string {
 		vError.Field(),
 		vError.Tag(),
 	)
-}
-
-// ValidationErrors is a collection of ValidationError objects
-type ValidationErrors []ValidationError
-
-// Errors returns all error in a string (slice) format
-func (vErrors ValidationErrors) Errors() []string {
-	errors := []string{}
-	for _, error := range vErrors {
-		errors = append(errors, error.Error())
-	}
-	return errors
 }

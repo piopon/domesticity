@@ -12,6 +12,7 @@ func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Re
 	id := readEventID(request)
 	deleteError := data.DeleteEvent(id)
 	if deleteError != nil {
+		http.Error(response, "Invalid ID in DELETE request", http.StatusBadRequest)
 		events.logger.Println("Invalid event ID")
 		return
 	}

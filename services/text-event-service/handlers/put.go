@@ -13,6 +13,7 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	event := request.Context().Value(KeyEvent{}).(data.Event)
 	updateError := data.UpdateEvent(id, &event)
 	if updateError != nil {
+		http.Error(response, "Invalid ID in PUT request", http.StatusBadRequest)
 		events.logger.Println("Invalid event ID")
 		return
 	}
