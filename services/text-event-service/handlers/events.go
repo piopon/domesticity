@@ -28,7 +28,7 @@ func NewEvents(logger *log.Logger, validator *data.Validator) *Events {
 func (events *Events) GetEvents(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling GET events")
 	allEvents := data.GetEvents()
-	error := allEvents.ToJSON(response)
+	error := data.ToJSON(allEvents, response)
 	if error != nil {
 		events.logger.Println("Unable to marshal events data")
 	}
@@ -75,7 +75,7 @@ func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Re
 func (events *Events) ValidationMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
 		event := &data.Event{}
-		error := event.FromJSON(request.Body)
+		error := data.FromJSON(event, request.Body)
 		if error != nil {
 			events.logger.Println("Unable to unmarshal events data")
 			http.Error(response, "Error reading event", http.StatusBadRequest)

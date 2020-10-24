@@ -5,14 +5,14 @@ import (
 	"io"
 )
 
-// FromJSON is a method called on Event struct with specified IO Reader
-func (event *Event) FromJSON(reader io.Reader) error {
+// FromJSON deserializes the object from JSON format string
+func FromJSON(i interface{}, reader io.Reader) error {
 	decoder := json.NewDecoder(reader)
-	return decoder.Decode(event)
+	return decoder.Decode(i)
 }
 
-// ToJSON is a method called on Event slice with specified IO Writer
-func (events *Events) ToJSON(writer io.Writer) error {
+// ToJSON serializes the interface into a JSON format string
+func ToJSON(i interface{}, writer io.Writer) error {
 	encoder := json.NewEncoder(writer)
-	return encoder.Encode(events)
+	return encoder.Encode(i)
 }
