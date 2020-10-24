@@ -37,8 +37,8 @@ func (events *Events) GetEvents(response http.ResponseWriter, request *http.Requ
 // AddEvent is used to add new event and store it in DB
 func (events *Events) AddEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling POST event")
-	event := request.Context().Value(KeyEvent{}).(data.Event)
-	data.AddEvent(&event)
+	event := request.Context().Value(KeyEvent{}).(*data.Event)
+	data.AddEvent(event)
 }
 
 // UpdateEvent is used to update event with specified ID stored in DB
