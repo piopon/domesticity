@@ -56,21 +56,6 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	}
 }
 
-// DeleteEvent is used to delete event with specified ID stored in DB
-func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Request) {
-	events.logger.Println("Handling DELETE event")
-	id, error := strconv.Atoi(mux.Vars(request)["id"])
-	if error != nil {
-		http.Error(response, "Bad URL", http.StatusBadRequest)
-	}
-	deleteError := data.DeleteEvent(id)
-	if deleteError != nil {
-		events.logger.Println("Invalid event ID")
-		return
-	}
-	response.WriteHeader(http.StatusNoContent)
-}
-
 // ValidationMiddleware is used to parse and validate Event from request
 func (events *Events) ValidationMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
