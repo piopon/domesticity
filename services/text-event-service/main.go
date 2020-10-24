@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -58,8 +59,7 @@ func main() {
 	}()
 
 	quitChannel := make(chan os.Signal, 1)
-	signal.Notify(quitChannel, os.Interrupt)
-	signal.Notify(quitChannel, os.Kill)
+	signal.Notify(quitChannel, os.Interrupt, os.Kill, syscall.SIGINT, syscall.SIGTERM)
 	logger.Println("Shutting down by", <-quitChannel)
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
