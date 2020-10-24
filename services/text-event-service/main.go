@@ -26,19 +26,19 @@ func main() {
 	routerMain := mux.NewRouter()
 
 	routerGET := routerMain.Methods(http.MethodGet).Subrouter()
-	routerGET.HandleFunc("/", homeHandler.ServeHTTP)
-	routerGET.HandleFunc("/events", eventsHandler.GetEvents)
+	routerGET.Path("/").HandlerFunc(homeHandler.ServeHTTP)
+	routerGET.Path("/events").HandlerFunc(eventsHandler.GetEvents)
 
 	routerPOST := routerMain.Methods(http.MethodPost).Subrouter()
 	routerPOST.Use(eventsHandler.ValidationMiddleware)
-	routerPOST.HandleFunc("/events", eventsHandler.AddEvent)
+	routerPOST.Path("/events").HandlerFunc(eventsHandler.AddEvent)
 
 	routerPUT := routerMain.Methods(http.MethodPut).Subrouter()
 	routerPUT.Use(eventsHandler.ValidationMiddleware)
-	routerPUT.HandleFunc("/events/{id:[0-9]+}", eventsHandler.UpdateEvent)
+	routerPUT.Path("/events/{id:[0-9]+}").HandlerFunc(eventsHandler.UpdateEvent)
 
 	routerDELETE := routerMain.Methods(http.MethodDelete).Subrouter()
-	routerDELETE.HandleFunc("/events/{id:[0-9]+}", eventsHandler.DeleteEvent)
+	routerDELETE.Path("/events/{id:[0-9]+}").HandlerFunc(eventsHandler.DeleteEvent)
 
 	server := &http.Server{
 		Addr:         addressIP + ":" + addressPort,
