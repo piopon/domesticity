@@ -24,13 +24,6 @@ func NewEvents(logger *log.Logger, validator *data.Validator) *Events {
 	return &Events{logger, validator}
 }
 
-// AddEvent is used to add new event and store it in DB
-func (events *Events) AddEvent(response http.ResponseWriter, request *http.Request) {
-	events.logger.Println("Handling POST event")
-	event := request.Context().Value(KeyEvent{}).(*data.Event)
-	data.AddEvent(event)
-}
-
 // UpdateEvent is used to update event with specified ID stored in DB
 func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling PUT event")
