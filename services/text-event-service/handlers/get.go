@@ -6,9 +6,9 @@ import (
 	"github.com/piopon/domesticity/services/text-event-service/data"
 )
 
-// GetEvents is used to retrieve all currently stored events
-func (events *Events) GetEvents(response http.ResponseWriter, request *http.Request) {
-	events.logger.Println("Handling GET events")
+// GetAllEvents is used to retrieve all currently stored events
+func (events *Events) GetAllEvents(response http.ResponseWriter, request *http.Request) {
+	events.logger.Println("Handling GET all events")
 	allEvents := data.GetEvents()
 	error := data.ToJSON(allEvents, response)
 	if error != nil {

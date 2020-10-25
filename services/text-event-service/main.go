@@ -27,7 +27,7 @@ func main() {
 
 	routerGET := routerMain.Methods(http.MethodGet).Subrouter()
 	routerGET.Path("/").HandlerFunc(homeHandler.ServeHTTP)
-	routerGET.Path("/events").HandlerFunc(eventsHandler.GetEvents)
+	routerGET.Path("/events").HandlerFunc(eventsHandler.GetAllEvents)
 
 	routerPOST := routerMain.Methods(http.MethodPost).Subrouter()
 	routerPOST.Use(eventsHandler.ValidationMiddleware)
