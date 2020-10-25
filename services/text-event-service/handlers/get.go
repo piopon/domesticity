@@ -8,7 +8,7 @@ import (
 
 // GetAllEvents is used to retrieve all currently stored events
 func (events *Events) GetAllEvents(response http.ResponseWriter, request *http.Request) {
-	allEvents := data.GetEvents(request.URL.Query())
+	allEvents := data.GetEvents()
 	error := data.ToJSON(allEvents, response)
 	if error != nil {
 		http.Error(response, "Cannot send JSON response in GET request", http.StatusInternalServerError)
