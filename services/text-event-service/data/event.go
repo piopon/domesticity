@@ -21,6 +21,15 @@ func GetEvents() Events {
 	return eventList
 }
 
+// GetEventByID returns event with specified ID (or error if not found)
+func GetEventByID(id int) (*Event, error) {
+	index, error := findEvent(id)
+	if error != nil {
+		return nil, error
+	}
+	return eventList[index], nil
+}
+
 // AddEvent adds passed event item to DB
 func AddEvent(event *Event) {
 	event.ID = getNextID()
