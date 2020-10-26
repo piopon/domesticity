@@ -13,9 +13,6 @@ type Event struct {
 	Content  string `json:"content"`
 }
 
-// Events is a type definition for slice of Event pointers
-type Events []*Event
-
 // GetEvents returns all events stored in DB
 func GetEvents() Events {
 	return eventList
