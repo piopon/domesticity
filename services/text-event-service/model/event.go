@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"net/url"
 )
 
 // Event defines the structure for an API event
@@ -14,8 +15,8 @@ type Event struct {
 }
 
 // GetEvents returns all events stored in DB
-func GetEvents() Events {
-	return eventList
+func GetEvents(queryParams url.Values) (*Events, error) {
+	return eventList.Filter(queryParams)
 }
 
 // GetEventByID returns event with specified ID (or error if not found)
