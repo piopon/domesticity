@@ -9,11 +9,20 @@ import (
 // Events is a type definition for slice of Event pointers
 type Events []*Event
 
+var availableFilters = map[string]interface{}{
+	"limit": filterLimit,
+}
+
 // Filter filters current event list according to provided params
 func (events *Events) Filter(params url.Values) (*Events, error) {
 	filteredEvents := *events
 	for key, value := range params {
-		fmt.Println(key, " => ", value)
+		if filter, ok := availableFilters[key]; ok {
+			error := filter.(func(*Events, string) error)(&filteredEvents, value[0])
+			if error != nil {
+				return events, error
+			}
+		}
 	}
 	return &filteredEvents, nil
 }
