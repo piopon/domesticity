@@ -7,8 +7,8 @@ import (
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
 
-// GetAllEvents is used to retrieve all currently stored events
-func (events *Events) GetAllEvents(response http.ResponseWriter, request *http.Request) {
+// GetEvents is used to retrieve all currently stored events
+func (events *Events) GetEvents(response http.ResponseWriter, request *http.Request) {
 	allEvents, error := model.GetEvents(request.URL.Query())
 	if error != nil {
 		http.Error(response, "Bad query parameters", http.StatusBadRequest)
@@ -23,8 +23,8 @@ func (events *Events) GetAllEvents(response http.ResponseWriter, request *http.R
 	}
 }
 
-// GetSingleEvent is used to retrieve stored events with specified ID
-func (events *Events) GetSingleEvent(response http.ResponseWriter, request *http.Request) {
+// GetEvent is used to retrieve stored events with specified ID
+func (events *Events) GetEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling GET single event")
 	id := readEventID(request)
 	event, error := model.GetEventByID(id)
