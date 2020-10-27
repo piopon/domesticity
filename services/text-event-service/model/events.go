@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 // Events is a type definition for slice of Event pointers
@@ -58,13 +59,13 @@ func filterCategory(input *Events, category string) error {
 
 func filterTitle(input *Events, title string) error {
 	return filterEventField(input, func(event *Event) bool {
-		return event.Title == title
+		return strings.Contains(event.Title, title)
 	})
 }
 
 func filterContent(input *Events, content string) error {
 	return filterEventField(input, func(event *Event) bool {
-		return event.Content == content
+		return strings.Contains(event.Content, content)
 	})
 }
 
