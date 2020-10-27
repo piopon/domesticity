@@ -11,6 +11,7 @@ type Events []*Event
 
 var availableFilters = map[string]interface{}{
 	"limit": filterLimit,
+	"owner": filterOwner,
 }
 
 // Filter filters current event list according to provided params
@@ -37,5 +38,16 @@ func filterLimit(input *Events, limit string) error {
 		limitParsed = len(*input)
 	}
 	*input = (*input)[:limitParsed]
+	return nil
+}
+
+func filterOwner(input *Events, owner string) error {
+	filteredEvents := Events{}
+	for i := range *input {
+		if (*input)[i].Owner == owner {
+			filteredEvents = append(filteredEvents, (*input)[i])
+		}
+	}
+	*input = filteredEvents
 	return nil
 }
