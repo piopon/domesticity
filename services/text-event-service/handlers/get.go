@@ -9,9 +9,14 @@ import (
 
 // GetAllEvents is used to retrieve all currently stored events
 func (events *Events) GetAllEvents(response http.ResponseWriter, request *http.Request) {
-	allEvents := model.GetEvents()
-	error := utils.ToJSON(allEvents, response)
+	allEvents, error := model.GetEvents(request.URL.Query())
 	if error != nil {
+		http.Error(response, "Bad query parameters", http.StatusBadRequest)
+		events.logger.Println("Bad query parameters:", request.URL.Query().Encode())
+		return
+	}
+	jsonError := utils.ToJSON(allEvents, response)
+	if jsonError != nil {
 		http.Error(response, "Cannot send JSON response in GET request", http.StatusInternalServerError)
 		events.logger.Println("Unable to marshal events data")
 		return
