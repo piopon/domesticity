@@ -10,8 +10,11 @@ import (
 type Events []*Event
 
 var availableFilters = map[string]interface{}{
-	"limit": filterLimit,
-	"owner": filterOwner,
+	"limit":    filterLimit,
+	"title":    filterTitle,
+	"owner":    filterOwner,
+	"category": filterCategory,
+	"content":  filterContent,
 }
 
 // Filter filters current event list according to provided params
@@ -44,6 +47,24 @@ func filterLimit(input *Events, limit string) error {
 func filterOwner(input *Events, owner string) error {
 	return filterEventField(input, func(event *Event) bool {
 		return event.Owner == owner
+	})
+}
+
+func filterCategory(input *Events, category string) error {
+	return filterEventField(input, func(event *Event) bool {
+		return event.Category == category
+	})
+}
+
+func filterTitle(input *Events, title string) error {
+	return filterEventField(input, func(event *Event) bool {
+		return event.Title == title
+	})
+}
+
+func filterContent(input *Events, content string) error {
+	return filterEventField(input, func(event *Event) bool {
+		return event.Content == content
 	})
 }
 
