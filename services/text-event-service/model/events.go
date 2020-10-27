@@ -51,3 +51,14 @@ func filterOwner(input *Events, owner string) error {
 	*input = filteredEvents
 	return nil
 }
+
+func filterEventField(input *Events, predicate func(*Event) bool) error {
+	filteredEvents := Events{}
+	for i := range *input {
+		if predicate((*input)[i]) {
+			filteredEvents = append(filteredEvents, (*input)[i])
+		}
+	}
+	*input = filteredEvents
+	return nil
+}
