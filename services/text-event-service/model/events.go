@@ -42,14 +42,9 @@ func filterLimit(input *Events, limit string) error {
 }
 
 func filterOwner(input *Events, owner string) error {
-	filteredEvents := Events{}
-	for i := range *input {
-		if (*input)[i].Owner == owner {
-			filteredEvents = append(filteredEvents, (*input)[i])
-		}
-	}
-	*input = filteredEvents
-	return nil
+	return filterEventField(input, func(event *Event) bool {
+		return event.Owner == owner
+	})
 }
 
 func filterEventField(input *Events, predicate func(*Event) bool) error {
