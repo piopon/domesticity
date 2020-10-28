@@ -7,11 +7,12 @@ import (
 
 // Event defines the structure for an API event
 type Event struct {
-	ID       int    `json:"id"`
-	Title    string `json:"title" validate:"required"`
-	Owner    string `json:"owner" validate:"required"`
-	Category string `json:"category"`
-	Content  string `json:"content"`
+	ID        int      `json:"id"`
+	Title     string   `json:"title" validate:"required"`
+	Owner     string   `json:"owner" validate:"required"`
+	Occurence TimeSpan `json:"date"  validate:"required"`
+	Category  string   `json:"category"`
+	Content   string   `json:"content"`
 }
 
 // GetEvents returns all events stored in DB
