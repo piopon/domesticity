@@ -12,6 +12,7 @@ type Events []*Event
 
 var availableFilters = map[string]interface{}{
 	"limit":    filterLimit,
+	"offset":   filterOffset,
 	"title":    filterTitle,
 	"owner":    filterOwner,
 	"category": filterCategory,
@@ -42,6 +43,19 @@ func filterLimit(input *Events, limit string) error {
 		limitParsed = len(*input)
 	}
 	*input = (*input)[:limitParsed]
+	return nil
+}
+
+func filterOffset(input *Events, offset string) error {
+	offsetParsed, error := strconv.Atoi(offset)
+	if error != nil {
+		fmt.Println("Filter offset: cannot parse offset value", offset)
+		return error
+	}
+	if offsetParsed > len(*input) {
+		offsetParsed = 0
+	}
+	*input = (*input)[offsetParsed:]
 	return nil
 }
 
