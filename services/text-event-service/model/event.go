@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"net/url"
+	"time"
 )
 
 // Event defines the structure for an API event
@@ -71,16 +72,22 @@ func getNextID() int {
 
 var eventList = Events{
 	&Event{
-		ID:       1,
-		Title:    "This is my first event",
-		Owner:    "Admin",
+		ID:    1,
+		Title: "This is my first event",
+		Owner: "Admin",
+		Occurence: TimeSpan{
+			Start: time.Date(2020, 01, 01, 12, 12, 00, 00, time.Local),
+			Stop:  time.Date(2020, 01, 02, 12, 32, 00, 00, time.Local)},
 		Category: "Notes",
 		Content:  "Test event number 1",
 	},
 	&Event{
-		ID:       2,
-		Title:    "2nd event",
-		Owner:    "Admin",
+		ID:    2,
+		Title: "2nd event",
+		Owner: "Admin",
+		Occurence: TimeSpan{
+			Start: time.Date(2020, 01, 01, 12, 12, 00, 00, time.Local),
+			Stop:  time.Date(2020, 01, 02, 12, 32, 00, 00, time.Local)},
 		Category: "Stuff",
 		Content:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
 	},
