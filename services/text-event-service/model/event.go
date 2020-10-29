@@ -76,7 +76,7 @@ var eventList = Events{
 		Title: "This is my first event",
 		Owner: "Admin",
 		Occurence: TimeSpan{
-			Start: time.Date(2020, 01, 01, 12, 12, 00, 00, time.Local),
+			Start: time.Date(2020, 01, 02, 12, 12, 00, 00, time.Local),
 			Stop:  time.Date(2020, 01, 02, 12, 32, 00, 00, time.Local)},
 		Category: "Notes",
 		Content:  "Test event number 1",
@@ -86,8 +86,8 @@ var eventList = Events{
 		Title: "2nd event",
 		Owner: "Admin",
 		Occurence: TimeSpan{
-			Start: time.Date(2020, 01, 01, 12, 12, 00, 00, time.Local),
-			Stop:  time.Date(2020, 01, 02, 12, 32, 00, 00, time.Local)},
+			Start: time.Date(2020, 07, 13, 12, 12, 00, 00, time.Local),
+			Stop:  time.Date(2020, 07, 13, 12, 32, 00, 00, time.Local)},
 		Category: "Stuff",
 		Content:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
 	},
