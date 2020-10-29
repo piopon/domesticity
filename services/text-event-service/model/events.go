@@ -16,6 +16,7 @@ var availableFilters = map[string]interface{}{
 	"title":    filterTitle,
 	"owner":    filterOwner,
 	"dayStart": filterDayStart,
+	"dayStop":  filterDayStop,
 	"category": filterCategory,
 	"content":  filterContent,
 }
@@ -85,6 +86,12 @@ func filterContent(input *Events, content string) error {
 func filterDayStart(input *Events, dateStart string) error {
 	return filterEventField(input, func(event *Event) bool {
 		return event.Occurence.Start.Format("2006-01-02") == dateStart
+	})
+}
+
+func filterDayStop(input *Events, dateStop string) error {
+	return filterEventField(input, func(event *Event) bool {
+		return event.Occurence.Stop.Format("2006-01-02") == dateStop
 	})
 }
 
