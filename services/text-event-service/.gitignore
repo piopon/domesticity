@@ -1,0 +1,4 @@
+# local gitignore file used to hide files specific to text-event-service
+
+# output directory
+bin
