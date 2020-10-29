@@ -11,7 +11,7 @@ import (
 func (events *Events) GetEvents(response http.ResponseWriter, request *http.Request) {
 	allEvents, error := model.GetEvents(request.URL.Query())
 	if error != nil {
-		http.Error(response, "Bad query parameters", http.StatusBadRequest)
+		http.Error(response, "Bad query parameters: "+error.Error(), http.StatusBadRequest)
 		events.logger.Println("Bad query parameters:", request.URL.Query().Encode())
 		return
 	}
