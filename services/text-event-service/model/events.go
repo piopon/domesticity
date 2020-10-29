@@ -36,8 +36,7 @@ func (events *Events) Filter(params url.Values) (*Events, error) {
 func filterLimit(input *Events, limit string) error {
 	limitParsed, error := strconv.Atoi(limit)
 	if error != nil {
-		fmt.Println("Filter limit: cannot parse limit value", limit)
-		return error
+		return fmt.Errorf("Filter limit: cannot parse limit value %s", limit)
 	}
 	if limitParsed > len(*input) {
 		limitParsed = len(*input)
@@ -49,8 +48,7 @@ func filterLimit(input *Events, limit string) error {
 func filterOffset(input *Events, offset string) error {
 	offsetParsed, error := strconv.Atoi(offset)
 	if error != nil {
-		fmt.Println("Filter offset: cannot parse offset value", offset)
-		return error
+		return fmt.Errorf("Filter limit: cannot parse offset value %s", offset)
 	}
 	if offsetParsed > len(*input) {
 		offsetParsed = 0
