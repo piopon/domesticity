@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	_ "github.com/piopon/domesticity/services/text-event-service/docs"
 	"github.com/piopon/domesticity/services/text-event-service/handlers"
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
