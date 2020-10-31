@@ -1,5 +1,4 @@
 // Package docs Domesticity Text Event Service API
-// NOTE: Types defined here are purely for documentation purposes
 //
 // Documentation for Text Event Service API used by Domesticity application
 //
