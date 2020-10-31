@@ -9,9 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/go-openapi/runtime/middleware"
 	"github.com/gorilla/mux"
-	_ "github.com/piopon/domesticity/services/text-event-service/docs"
 	"github.com/piopon/domesticity/services/text-event-service/handlers"
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
@@ -23,15 +21,15 @@ func main() {
 	logger := log.New(os.Stdout, "text-event-service > ", log.LstdFlags|log.Lmsgprefix)
 
 	homeHandler := handlers.NewHome(logger)
-	docsHandler := middleware.Redoc(middleware.RedocOpts{SpecURL: "docs/swagger.yaml"}, nil)
+	docsHandler := handlers.NewDocs("docs/swagger.yaml")
 	eventsHandler := handlers.NewEvents(logger, utils.NewValidator())
 
 	routerMain := mux.NewRouter()
 
 	routerGET := routerMain.Methods(http.MethodGet).Subrouter()
 	routerGET.Path("/").HandlerFunc(homeHandler.ServeHTTP)
-	routerGET.Path("/docs").HandlerFunc(docsHandler.ServeHTTP)
-	routerGET.Path("/docs/swagger.yaml").HandlerFunc(http.FileServer(http.Dir("")).ServeHTTP)
+	routerGET.Path("/docs").HandlerFunc(docsHandler.GetDocumentation)
+	routerGET.Path("/docs/swagger.yaml").HandlerFunc(docsHandler.GetSwagger)
 	routerGET.Path("/events").HandlerFunc(eventsHandler.GetEvents)
 	routerGET.Path("/events/{id:[0-9]+}").HandlerFunc(eventsHandler.GetEvent)
 
