@@ -1,13 +1,105 @@
 basePath: /
 consumes:
 - application/json
+definitions:
+  Event:
+    description: Event defines the structure for an API event
+    properties:
+      category:
+        type: string
+        x-go-name: Category
+      content:
+        type: string
+        x-go-name: Content
+      date:
+        $ref: '#/definitions/TimeSpan'
+      id:
+        format: int64
+        type: integer
+        x-go-name: ID
+      owner:
+        type: string
+        x-go-name: Owner
+      title:
+        type: string
+        x-go-name: Title
+    type: object
+    x-go-package: github.com/piopon/domesticity/services/text-event-service/model
+  Events:
+    description: Events is a type definition for slice of Event pointers
+    items:
+      $ref: '#/definitions/Event'
+    type: array
+    x-go-package: github.com/piopon/domesticity/services/text-event-service/model
+  TimeSpan:
+    description: TimeSpan is an struct representing event start and end time
+    properties:
+      start:
+        format: date-time
+        type: string
+        x-go-name: Start
+      stop:
+        format: date-time
+        type: string
+        x-go-name: Stop
+    type: object
+    x-go-package: github.com/piopon/domesticity/services/text-event-service/model
 info:
+  contact:
+    email: piopon.github@gmail.com
+    name: Piotr Ponikowski
   description: Documentation for Text Event Service API used by Domesticity application
-  title: Domesticity Text Event Service API
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/GPL-3.0
+  title: |-
+    Domesticity Text Event Service API
+    NOTE: Types defined here are purely for documentation purposes
   version: 1.0.0
-paths: {}
+paths:
+  /event/{id}:
+    get:
+      description: Returns a event with provided id
+      operationId: getEvent
+      responses:
+        "200":
+          $ref: '#/responses/eventResponse'
+        "404":
+          $ref: '#/responses/errorNotFound'
+        "500":
+          $ref: '#/responses/errorInternal'
+      tags:
+      - events
+  /events:
+    get:
+      description: Returns a list of currently stored events (all or filtered)
+      operationId: getEvents
+      responses:
+        "200":
+          $ref: '#/responses/eventsResponse'
+        "400":
+          $ref: '#/responses/errorBadQuery'
+        "500":
+          $ref: '#/responses/errorInternal'
+      tags:
+      - events
 produces:
 - application/json
+responses:
+  errorBadQuery:
+    description: Error message returned as a string when bad request was invoked (400)
+  errorInternal:
+    description: Error message returned as a string when internal server error occurs (500)
+  errorNotFound:
+    description: Error message returned as a string when desired item is not found (404)
+  eventResponse:
+    description: EventResponse with single event from DB (depends on ID parameter)
+    schema:
+      $ref: '#/definitions/Event'
+  eventsResponse:
+    description: EventsResponse with all or filtered events from DB (depends on query params)
+    schema:
+      $ref: '#/definitions/Events'
 schemes:
 - http
 swagger: "2.0"
