@@ -7,7 +7,14 @@ import (
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
 
-// GetEvents is used to retrieve all currently stored events
+// GetEvents is used to retrieve currently stored events
+//
+// swagger:route GET /events events getEvents
+// Returns a list of currently stored events (all or filtered)
+// responses:
+//  200: eventsResponse
+//  400: errorBadQuery
+//  500: errorInternal
 func (events *Events) GetEvents(response http.ResponseWriter, request *http.Request) {
 	allEvents, error := model.GetEvents(request.URL.Query())
 	if error != nil {
@@ -24,6 +31,13 @@ func (events *Events) GetEvents(response http.ResponseWriter, request *http.Requ
 }
 
 // GetEvent is used to retrieve stored events with specified ID
+//
+// swagger:route GET /event/{id} events getEvent
+// Returns a event with provided id
+// responses:
+//  200: eventResponse
+//  404: errorNotFound
+//  500: errorInternal
 func (events *Events) GetEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling GET single event")
 	id := readEventID(request)
