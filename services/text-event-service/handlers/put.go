@@ -7,6 +7,12 @@ import (
 )
 
 // UpdateEvent is used to update event with specified ID stored in DB
+//
+// swagger:route PUT /events/{id} events updateEvent
+// Updates an event in DB by specified ID parameter
+// responses:
+//  204: noContentResponse
+//  400: errorBadQuery
 func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling PUT event")
 	id := readEventID(request)
