@@ -74,3 +74,12 @@ type paramID struct {
 	// required: true
 	ID int `json:"id"`
 }
+
+// swagger:parameters addEvent updateEvent
+type paramEvent struct {
+	// Event data structure to update or create.
+	// Note: the id field is ignored by update and create operations
+	// in: body
+	// required: true
+	Body model.Event
+}
