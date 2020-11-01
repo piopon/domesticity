@@ -50,11 +50,29 @@ info:
     name: Piotr Ponikowski
   description: Documentation for Text Event Service API used by Domesticity application
   license:
-    name: MIT
+    name: GPL-3.0
     url: https://opensource.org/licenses/GPL-3.0
   title: Domesticity Text Event Service API
   version: 1.0.0
 paths:
+  /docs:
+    get:
+      description: Returns this documentation
+      operationId: getDocumentation
+      responses:
+        "204":
+          $ref: '#/responses/noContentResponse'
+      tags:
+      - documentation
+  /docs/swagger.yaml:
+    get:
+      description: Returns swagger.yaml script file
+      operationId: getSwagger
+      responses:
+        "204":
+          $ref: '#/responses/noContentResponse'
+      tags:
+      - documentation
   /event/{id}:
     get:
       description: Returns a event with provided id
@@ -81,6 +99,37 @@ paths:
           $ref: '#/responses/errorInternal'
       tags:
       - events
+    post:
+      description: Creates a new event and adds it to DB
+      operationId: addEvent
+      responses:
+        "200":
+          $ref: '#/responses/eventResponse'
+        "400":
+          $ref: '#/responses/errorBadQuery'
+      tags:
+      - events
+  /events/{id}:
+    delete:
+      description: Deletes an event from DB by specified ID parameter
+      operationId: deleteEvent
+      responses:
+        "204":
+          $ref: '#/responses/noContentResponse'
+        "400":
+          $ref: '#/responses/errorBadQuery'
+      tags:
+      - events
+    put:
+      description: Updates an event in DB by specified ID parameter
+      operationId: updateEvent
+      responses:
+        "204":
+          $ref: '#/responses/noContentResponse'
+        "400":
+          $ref: '#/responses/errorBadQuery'
+      tags:
+      - events
 produces:
 - application/json
 responses:
@@ -98,6 +147,8 @@ responses:
     description: EventsResponse with all or filtered events from DB (depends on query params)
     schema:
       $ref: '#/definitions/Events'
+  noContentResponse:
+    description: NoContentResponse is returned when no specific response is needed
 schemes:
 - http
 swagger: "2.0"

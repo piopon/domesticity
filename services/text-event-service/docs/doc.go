@@ -5,7 +5,7 @@
 // Schemes: http
 // BasePath: /
 // Version: 1.0.0
-// License: MIT https://opensource.org/licenses/GPL-3.0
+// License: GPL-3.0 https://opensource.org/licenses/GPL-3.0
 // Contact: Piotr Ponikowski <piopon.github@gmail.com>
 //
 // Consumes:
@@ -36,6 +36,11 @@ type eventResponse struct {
 	// Single event from DB
 	// in: body
 	Body model.Event
+}
+
+// NoContentResponse is returned when no specific response is needed
+// swagger:response noContentResponse
+type noContentResponse struct {
 }
 
 // Error message returned as a string when bad request was invoked (400)
