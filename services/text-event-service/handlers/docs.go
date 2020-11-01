@@ -25,7 +25,11 @@ func NewDocs(swaggerFile string) *Docs {
 // responses:
 //  204: responseNoContent
 func (docs *Docs) GetDocumentation(response http.ResponseWriter, request *http.Request) {
-	middleware.Redoc(middleware.RedocOpts{SpecURL: docs.swaggerFile}, nil).ServeHTTP(response, request)
+	options := middleware.RedocOpts{
+		SpecURL: docs.swaggerFile,
+		Title:   "Text Event Service API docs",
+	}
+	middleware.Redoc(options, nil).ServeHTTP(response, request)
 }
 
 // GetSwagger is used to retrieve Swagger YAML file
