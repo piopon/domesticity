@@ -11,7 +11,7 @@ import (
 // swagger:route DELETE /events/{id} events deleteEvent
 // Deletes an event from DB by specified ID parameter
 // responses:
-//  204: noContentResponse
+//  204: responseNoContent
 //  400: errorBadQuery
 func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling DELETE event")

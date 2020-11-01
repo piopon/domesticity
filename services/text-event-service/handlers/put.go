@@ -11,7 +11,7 @@ import (
 // swagger:route PUT /events/{id} events updateEvent
 // Updates an event in DB by specified ID parameter
 // responses:
-//  204: noContentResponse
+//  204: responseNoContent
 //  400: errorBadQuery
 func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling PUT event")
