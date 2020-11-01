@@ -66,3 +66,11 @@ type errorInternal struct {
 	// in: body
 	Body string
 }
+
+// swagger:parameters getEvent updateEvent deleteEvent
+type paramID struct {
+	// The id of the event for which the operation relates
+	// in: path
+	// required: true
+	ID int `json:"id"`
+}
