@@ -4,4 +4,4 @@ build:
 
 swagger-doc:
 	$(info generating swagger OpenAPI2 documentation)
-	@swagger generate spec .. -o ../docs/swagger.yaml --scan-models
+	@swagger generate spec .. -o swagger.yaml --scan-models

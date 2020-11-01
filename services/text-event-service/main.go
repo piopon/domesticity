@@ -21,7 +21,7 @@ func main() {
 	logger := log.New(os.Stdout, "text-event-service > ", log.LstdFlags|log.Lmsgprefix)
 
 	homeHandler := handlers.NewHome(logger)
-	docsHandler := handlers.NewDocs("docs/swagger.yaml")
+	docsHandler := handlers.NewDocs("scripts/swagger.yaml")
 	eventsHandler := handlers.NewEvents(logger, utils.NewValidator())
 
 	routerMain := mux.NewRouter()
@@ -29,7 +29,7 @@ func main() {
 	routerGET := routerMain.Methods(http.MethodGet).Subrouter()
 	routerGET.Path("/").HandlerFunc(homeHandler.ServeHTTP)
 	routerGET.Path("/docs").HandlerFunc(docsHandler.GetDocumentation)
-	routerGET.Path("/docs/swagger.yaml").HandlerFunc(docsHandler.GetSwagger)
+	routerGET.Path("/scripts/swagger.yaml").HandlerFunc(docsHandler.GetSwagger)
 	routerGET.Path("/events").HandlerFunc(eventsHandler.GetEvents)
 	routerGET.Path("/events/{id:[0-9]+}").HandlerFunc(eventsHandler.GetEvent)
 
