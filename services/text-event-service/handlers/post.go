@@ -13,6 +13,7 @@ import (
 // responses:
 //  200: responseEvent
 //  400: errorBadQuery
+//  422: errorValidation
 func (events *Events) AddEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling POST event")
 	event := request.Context().Value(KeyEvent{}).(*model.Event)

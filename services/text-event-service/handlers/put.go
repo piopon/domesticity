@@ -14,6 +14,7 @@ import (
 // responses:
 //  204: responseNoContent
 //  400: errorBadQuery
+//  422: errorValidation
 func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling PUT event")
 	id := readEventID(request)
