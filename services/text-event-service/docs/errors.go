@@ -25,3 +25,11 @@ type errorInternal struct {
 	// in: body
 	Body model.GenericError
 }
+
+// Error message returned as a string when validation error occurs (422)
+// swagger:response errorValidation
+type errorValidation struct {
+	// Error related to bad query parameters (bad filter or value)
+	// in: body
+	Body model.ValidationError
+}
