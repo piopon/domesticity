@@ -18,14 +18,16 @@ import (
 func (events *Events) GetEvents(response http.ResponseWriter, request *http.Request) {
 	allEvents, error := model.GetEvents(request.URL.Query())
 	if error != nil {
-		http.Error(response, "Bad query parameters: "+error.Error(), http.StatusBadRequest)
 		events.logger.Println("Bad query parameters:", request.URL.Query().Encode())
+		response.WriteHeader(http.StatusBadRequest)
+		utils.ToJSON(&model.GenericError{"Bad query parameters: " + error.Error()}, response)
 		return
 	}
 	jsonError := utils.ToJSON(allEvents, response)
 	if jsonError != nil {
-		http.Error(response, "Cannot send JSON response in GET request", http.StatusInternalServerError)
-		events.logger.Println("Unable to marshal events data")
+		events.logger.Println("Unable to marshal events data in GetEvents handler")
+		response.WriteHeader(http.StatusInternalServerError)
+		utils.ToJSON(&model.GenericError{"Cannot send JSON response in GET request"}, response)
 		return
 	}
 }
@@ -43,13 +45,16 @@ func (events *Events) GetEvent(response http.ResponseWriter, request *http.Reque
 	id := readEventID(request)
 	event, error := model.GetEventByID(id)
 	if error != nil {
-		http.Error(response, "Cannot find event with specified ID in GET request", http.StatusNotFound)
 		events.logger.Println("Unable to find event with specified id:", id)
+		response.WriteHeader(http.StatusNotFound)
+		utils.ToJSON(&model.GenericError{"Cannot find event with specified ID in GET request"}, response)
+		return
 	}
 	jsonError := utils.ToJSON(event, response)
 	if jsonError != nil {
-		http.Error(response, "Cannot send JSON response in GET request", http.StatusInternalServerError)
-		events.logger.Println("Unable to marshal events data")
+		events.logger.Println("Unable to marshal events data in GetEvent handler")
+		response.WriteHeader(http.StatusInternalServerError)
+		utils.ToJSON(&model.GenericError{"Cannot send JSON response in GET request"}, response)
 		return
 	}
 }

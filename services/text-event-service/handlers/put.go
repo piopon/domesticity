@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/piopon/domesticity/services/text-event-service/model"
+	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
 
 // UpdateEvent is used to update event with specified ID stored in DB
@@ -19,8 +20,9 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	event := request.Context().Value(KeyEvent{}).(model.Event)
 	updateError := model.UpdateEvent(id, &event)
 	if updateError != nil {
-		http.Error(response, "Invalid ID in PUT request", http.StatusBadRequest)
-		events.logger.Println("Invalid event ID")
+		events.logger.Println("Invalid ID in PUT request")
+		response.WriteHeader(http.StatusBadRequest)
+		utils.ToJSON(&model.GenericError{"Invalid ID in PUT request"}, response)
 		return
 	}
 }

@@ -30,7 +30,8 @@ func (events *Events) ValidationMiddleware(next http.Handler) http.Handler {
 		error := utils.FromJSON(event, request.Body)
 		if error != nil {
 			events.logger.Println("Unable to unmarshal events data")
-			http.Error(response, "Error reading event", http.StatusBadRequest)
+			response.WriteHeader(http.StatusBadRequest)
+			utils.ToJSON(&model.GenericError{"Cannot deserialize inputted Event json"}, response)
 			return
 		}
 		validationErrors := events.validator.Validate(event)
