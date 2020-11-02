@@ -37,7 +37,8 @@ func (events *Events) ValidationMiddleware(next http.Handler) http.Handler {
 		validationErrors := events.validator.Validate(event)
 		if validationErrors != nil {
 			events.logger.Println("Unable to validate events data")
-			http.Error(response, "Error validating event", http.StatusBadRequest)
+			response.WriteHeader(http.StatusUnprocessableEntity)
+			utils.ToJSON(&model.ValidationError{validationErrors.Errors()}, response)
 			return
 		}
 		// add event to the context and call next handler (other middleware or final handler)
