@@ -27,4 +27,11 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 		utils.ToJSON(&model.GenericError{"Invalid ID in PUT request"}, response)
 		return
 	}
+	jsonError := utils.ToJSON(event, response)
+	if jsonError != nil {
+		events.logger.Println("Unable to marshal events data in UpdateEvent handler")
+		response.WriteHeader(http.StatusInternalServerError)
+		utils.ToJSON(&model.GenericError{"Cannot send JSON response in PUT request"}, response)
+		return
+	}
 }
