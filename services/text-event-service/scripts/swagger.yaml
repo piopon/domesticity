@@ -31,6 +31,14 @@ definitions:
       $ref: '#/definitions/Event'
     type: array
     x-go-package: github.com/piopon/domesticity/services/text-event-service/model
+  GenericError:
+    description: GenericError is a generic error message returned by a server
+    properties:
+      message:
+        type: string
+        x-go-name: Message
+    type: object
+    x-go-package: github.com/piopon/domesticity/services/text-event-service/model
   TimeSpan:
     description: TimeSpan is an struct representing event start and end time
     properties:
@@ -42,6 +50,16 @@ definitions:
         format: date-time
         type: string
         x-go-name: Stop
+    type: object
+    x-go-package: github.com/piopon/domesticity/services/text-event-service/model
+  ValidationError:
+    description: ValidationError is a collection of validation error messages
+    properties:
+      messages:
+        items:
+          type: string
+        type: array
+        x-go-name: Messages
     type: object
     x-go-package: github.com/piopon/domesticity/services/text-event-service/model
 info:
@@ -91,6 +109,53 @@ paths:
     get:
       description: Returns a list of currently stored events (all or filtered)
       operationId: getEvents
+      parameters:
+      - description: The number of items to return.
+        format: int64
+        in: query
+        minimum: 0
+        name: limit
+        type: integer
+        x-go-name: Limit
+      - description: The number of items to skip before starting to collect the result set.
+        format: int64
+        in: query
+        minimum: 0
+        name: offset
+        type: integer
+        x-go-name: Offset
+      - description: The string which has to be included (not exact match) in searched event title
+        in: query
+        name: title
+        type: string
+        x-go-name: Title
+      - description: The string which has to match exact searched event owner
+        in: query
+        name: owner
+        type: string
+        x-go-name: Owner
+      - description: The start date of seached event in format YYYY-MM-DD
+        format: date-time
+        in: query
+        name: dayStart
+        type: string
+        x-go-name: DayStart
+      - description: The end date of seached event in format YYYY-MM-DD
+        format: date-time
+        in: query
+        name: dayStop
+        type: string
+        x-go-name: DayStop
+      - description: The string which has to match exact searched event category
+        in: query
+        name: category
+        type: string
+        x-go-name: Category
+      - description: The string which has to be included (not exact match) in searched event content
+        in: query
+        name: content
+        type: string
+        x-go-name: Content
       responses:
         "200":
           $ref: '#/responses/responseEvents'
@@ -117,6 +182,8 @@ paths:
           $ref: '#/responses/responseEvent'
         "400":
           $ref: '#/responses/errorBadQuery'
+        "422":
+          $ref: '#/responses/errorValidation'
       tags:
       - events
   /events/{id}:
@@ -162,6 +229,8 @@ paths:
           $ref: '#/responses/responseNoContent'
         "400":
           $ref: '#/responses/errorBadQuery'
+        "422":
+          $ref: '#/responses/errorValidation'
       tags:
       - events
   /scripts/swagger.yaml:
@@ -180,10 +249,20 @@ produces:
 responses:
   errorBadQuery:
     description: Error message returned as a string when bad request was invoked (400)
+    schema:
+      $ref: '#/definitions/GenericError'
   errorInternal:
     description: Error message returned as a string when internal server error occurs (500)
+    schema:
+      $ref: '#/definitions/GenericError'
   errorNotFound:
     description: Error message returned as a string when desired item is not found (404)
+    schema:
+      $ref: '#/definitions/GenericError'
+  errorValidation:
+    description: Error message returned as a string when validation error occurs (422)
+    schema:
+      $ref: '#/definitions/ValidationError'
   responseEvent:
     description: ResponseEvent with single event from DB (depends on ID parameter)
     schema:
