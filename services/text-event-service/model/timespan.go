@@ -7,8 +7,8 @@ import (
 
 // TimeSpan is an struct representing event start and end time
 type TimeSpan struct {
-	Start time.Time `json:"start" validate:"required,datetime"`
-	Stop  time.Time `json:"stop" validate:"required,datetime"`
+	Start time.Time `json:"start" validate:"required,datetime=2006-01-02"`
+	Stop  time.Time `json:"stop" validate:"required,datetime=2006-01-02"`
 }
 
 // Duration calulates event time duration
