@@ -16,6 +16,7 @@ import (
 //  400: errorBadQuery
 func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling DELETE event")
+	response.Header().Add("Content-Type", "application/json")
 	id := readEventID(request)
 	deleteError := model.DeleteEvent(id)
 	if deleteError != nil {

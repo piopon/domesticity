@@ -16,6 +16,7 @@ import (
 //  422: errorValidation
 func (events *Events) AddEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling POST event")
+	response.Header().Add("Content-Type", "application/json")
 	event := request.Context().Value(KeyEvent{}).(*model.Event)
 	model.AddEvent(event)
 }

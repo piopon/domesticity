@@ -16,6 +16,8 @@ import (
 //  400: errorBadQuery
 //  500: errorInternal
 func (events *Events) GetEvents(response http.ResponseWriter, request *http.Request) {
+	events.logger.Println("Handling GET all/filtered events")
+	response.Header().Add("Content-Type", "application/json")
 	allEvents, error := model.GetEvents(request.URL.Query())
 	if error != nil {
 		events.logger.Println("Bad query parameters:", request.URL.Query().Encode())
@@ -42,6 +44,7 @@ func (events *Events) GetEvents(response http.ResponseWriter, request *http.Requ
 //  500: errorInternal
 func (events *Events) GetEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling GET single event")
+	response.Header().Add("Content-Type", "application/json")
 	id := readEventID(request)
 	event, error := model.GetEventByID(id)
 	if error != nil {
