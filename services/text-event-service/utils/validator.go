@@ -2,8 +2,9 @@ package utils
 
 import (
 	"fmt"
+	"regexp"
 
-	"github.com/go-playground/validator"
+	"github.com/go-playground/validator/v10"
 )
 
 // Validator contains validate rules
@@ -54,4 +55,20 @@ func (vError ValidationError) Error() string {
 		vError.Field(),
 		vError.Tag(),
 	)
+}
+
+// validateDateTime is added because go-validator and JSON decoded format cannot be matched
+// problem:
+//	format "2006-01-02T15:04:05+07:00" = not accepted by validator, decoded by JSON.Decode()
+//	format "2006-01-02T15:04:05Z07:00" = accepted by validator, JSON.Decode() fails
+func validateDateTime(field validator.FieldLevel) bool {
+	dateRegex := `(\d+)-(0[1-9]|1[012])-(0[1-9]|[12]\d|3[01])`
+	timeRegex := `([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?`
+	zoneRegex := `(([Zz])|([\+|\-]([01]\d|2[0-3])))`
+	regex := regexp.MustCompile(dateRegex + `\s` + timeRegex + `\s` + zoneRegex)
+	datetime := regex.FindAllString(fmt.Sprintln(field.Field().Interface()), -1)
+	if len(datetime) == 1 {
+		return true
+	}
+	return false
 }
