@@ -15,6 +15,7 @@ import (
 //  204: responseNoContent
 //  400: errorBadQuery
 //  422: errorValidation
+//  500: errorInternal
 func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling PUT event")
 	response.Header().Add("Content-Type", "application/json")
