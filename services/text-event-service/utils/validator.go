@@ -14,7 +14,9 @@ type Validator struct {
 
 // NewValidator is a factory method to create a new Validator type
 func NewValidator() *Validator {
-	return &Validator{validator.New()}
+	validate := validator.New()
+	validate.RegisterValidation("date-time", validateDateTime)
+	return &Validator{validate}
 }
 
 // Validate is a Validator method used to inspect inputted interface
