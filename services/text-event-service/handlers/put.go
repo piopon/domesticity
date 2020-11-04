@@ -20,8 +20,8 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	events.logger.Println("Handling PUT event")
 	response.Header().Add("Content-Type", "application/json")
 	id := readEventID(request)
-	event := request.Context().Value(KeyEvent{}).(model.Event)
-	updateError := model.UpdateEvent(id, &event)
+	event := request.Context().Value(KeyEvent{}).(*model.Event)
+	updateError := model.UpdateEvent(id, event)
 	if updateError != nil {
 		events.logger.Println("Invalid ID in PUT request")
 		response.WriteHeader(http.StatusBadRequest)
