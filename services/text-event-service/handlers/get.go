@@ -10,9 +10,9 @@ import (
 // GetEvents is used to retrieve currently stored events
 //
 // swagger:route GET /events events getEvents
-// Returns a list of currently stored events (all or filtered)
+// Returns a list of currently stored events (all if no query params is used or filtered otherwise)
 // responses:
-//  200: responseEvents
+//  200: responseGetEvents
 //  400: errorBadQuery
 //  500: errorInternal
 func (events *Events) GetEvents(response http.ResponseWriter, request *http.Request) {
@@ -39,7 +39,7 @@ func (events *Events) GetEvents(response http.ResponseWriter, request *http.Requ
 // swagger:route GET /event/{id} events getEvent
 // Returns a event with provided id
 // responses:
-//  200: responseEvent
+//  200: responseGetEvent
 //  404: errorNotFound
 //  500: errorInternal
 func (events *Events) GetEvent(response http.ResponseWriter, request *http.Request) {

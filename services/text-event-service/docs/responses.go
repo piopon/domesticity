@@ -2,18 +2,18 @@ package docs
 
 import "github.com/piopon/domesticity/services/text-event-service/model"
 
-// ResponseEvents with all or filtered events from DB (depends on query params)
-// swagger:response responseEvents
-type responseEvents struct {
+// ResponseGetEvents returns all or filtered events from DB (depends on query params)
+// swagger:response responseGetEvents
+type responseGetEvents struct {
 	// All / filtered events from DB
 	// in: body
 	Body model.Events
 }
 
-// ResponseEvent with single event from DB (depends on ID parameter)
-// swagger:response responseEvent
-type responseEvent struct {
-	// Single event from DB
+// ResponseGetEvent return single event from DB (depends on ID parameter)
+// swagger:response responseGetEvent
+type responseGetEvent struct {
+	// Single event from DB (selected by ID parameter)
 	// in: body
 	Body model.Event
 }
