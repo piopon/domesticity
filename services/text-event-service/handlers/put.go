@@ -12,7 +12,7 @@ import (
 // swagger:route PUT /events/{id} events updateEvent
 // Updates an event in DB by specified ID parameter
 // responses:
-//  200: responseEvent
+//  200: responsePutEvent
 //  400: errorBadQuery
 //  422: errorValidation
 //  500: errorInternal

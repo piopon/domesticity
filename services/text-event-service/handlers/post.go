@@ -12,7 +12,7 @@ import (
 // swagger:route POST /events events addEvent
 // Creates a new event and adds it to DB
 // responses:
-//  200: responseEvent
+//  200: responsePostEvent
 //  400: errorBadQuery
 //  422: errorValidation
 //  500: errorInternal
