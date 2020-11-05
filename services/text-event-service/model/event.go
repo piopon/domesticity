@@ -77,7 +77,7 @@ func DeleteEvent(id int) error {
 	if error != nil {
 		return error
 	}
-	eventList = append(eventList[:index], eventList[index+1])
+	eventList = append(eventList[:index], eventList[index+1:]...)
 	return nil
 }
 
