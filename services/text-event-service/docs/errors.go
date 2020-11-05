@@ -33,3 +33,8 @@ type errorValidation struct {
 	// in: body
 	Body model.ValidationError
 }
+
+// Error returned when no swagger.yaml is found (404)
+// swagger:response errorSwagger
+type errorSwagger struct {
+}

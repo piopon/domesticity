@@ -38,3 +38,19 @@ type responsePutEvent struct {
 // swagger:response responseNoContent
 type responseNoContent struct {
 }
+
+// ResponseDocumentation returns a HTML file with documentation
+// swagger:response responseDocumentation
+type responseDocumentation struct {
+	// A text/html content with documentation
+	// in: body
+	HTML string
+}
+
+// ResponseSwagger returns a YAML file with swagger configuration
+// swagger:response responseSwagger
+type responseSwagger struct {
+	// A text/ content with swagger.yaml configuration file
+	// in: body
+	YAML byte
+}
