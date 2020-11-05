@@ -2,7 +2,7 @@ package docs
 
 import "github.com/piopon/domesticity/services/text-event-service/model"
 
-// Error message returned as a string when bad request was invoked (400)
+// Error with JSON message returned in body when bad request was invoked
 // swagger:response errorBadQuery
 type errorBadQuery struct {
 	// Error related to bad query parameters (bad filter or value)
@@ -10,7 +10,7 @@ type errorBadQuery struct {
 	Body model.GenericError
 }
 
-// Error message returned as a string when desired item is not found (404)
+// Error with JSON message returned in body when desired item is not found
 // swagger:response errorNotFound
 type errorNotFound struct {
 	// Error related to non-existent data to fetch
@@ -18,7 +18,7 @@ type errorNotFound struct {
 	Body model.GenericError
 }
 
-// Error message returned as a string when internal server error occurs (500)
+// Error with JSON message returned in body when internal server error occurs
 // swagger:response errorInternal
 type errorInternal struct {
 	// Error related to bad query parameters (bad filter or value)
@@ -26,7 +26,7 @@ type errorInternal struct {
 	Body model.GenericError
 }
 
-// Error message returned as a string when validation error occurs (422)
+// Error with JSON messages returned in body when validation error occurs
 // swagger:response errorValidation
 type errorValidation struct {
 	// Error related to bad query parameters (bad filter or value)
@@ -34,7 +34,7 @@ type errorValidation struct {
 	Body model.ValidationError
 }
 
-// Error returned when no swagger.yaml is found (404)
+// Error with no specific content returned when no swagger.yaml is found
 // swagger:response errorSwagger
 type errorSwagger struct {
 }
