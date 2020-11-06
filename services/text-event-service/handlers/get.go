@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/piopon/domesticity/services/text-event-service/dataservice"
 	"github.com/piopon/domesticity/services/text-event-service/model"
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
@@ -18,7 +19,7 @@ import (
 func (events *Events) GetEvents(response http.ResponseWriter, request *http.Request) {
 	events.logger.Println("Handling GET all/filtered events")
 	response.Header().Add("Content-Type", "application/json")
-	allEvents, error := model.GetEvents(request.URL.Query())
+	allEvents, error := dataservice.GetEvents(request.URL.Query())
 	if error != nil {
 		events.logger.Println("Bad query parameters:", request.URL.Query().Encode())
 		response.WriteHeader(http.StatusBadRequest)
@@ -46,7 +47,7 @@ func (events *Events) GetEvent(response http.ResponseWriter, request *http.Reque
 	events.logger.Println("Handling GET single event")
 	response.Header().Add("Content-Type", "application/json")
 	id := readEventID(request)
-	event, error := model.GetEventByID(id)
+	event, error := dataservice.GetEvent(id)
 	if error != nil {
 		events.logger.Println("Unable to find event with specified id:", id)
 		response.WriteHeader(http.StatusNotFound)
