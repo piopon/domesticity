@@ -33,7 +33,7 @@ func NewInMemory() *InMemory {
 
 // GetEvents returns all events stored in DB
 func (memory *InMemory) GetEvents(queryParams url.Values) (*model.Events, error) {
-	return eventList.Filter(queryParams)
+	return memory.eventsList.Filter(queryParams)
 }
 
 // GetEvent returns event with specified ID (or error if not found)
@@ -42,13 +42,13 @@ func (memory *InMemory) GetEvent(id int) (*model.Event, error) {
 	if error != nil {
 		return nil, error
 	}
-	return eventList[index], nil
+	return memory.eventsList[index], nil
 }
 
 // AddEvent adds passed event item to DB
 func (memory *InMemory) AddEvent(event *model.Event) {
 	event.ID = memory.getNextID()
-	eventList = append(eventList, event)
+	memory.eventsList = append(memory.eventsList, event)
 }
 
 // UpdateEvent updates an event with specified ID
@@ -58,7 +58,7 @@ func (memory *InMemory) UpdateEvent(id int, event *model.Event) error {
 		return error
 	}
 	event.ID = id
-	eventList[index] = event
+	memory.eventsList[index] = event
 	return nil
 }
 
@@ -68,12 +68,12 @@ func (memory *InMemory) DeleteEvent(id int) error {
 	if error != nil {
 		return error
 	}
-	eventList = append(eventList[:index], eventList[index+1:]...)
+	memory.eventsList = append(memory.eventsList[:index], memory.eventsList[index+1:]...)
 	return nil
 }
 
 func (memory *InMemory) findEvent(id int) (int, error) {
-	for i, event := range eventList {
+	for i, event := range memory.eventsList {
 		if event.ID == id {
 			return i, nil
 		}
