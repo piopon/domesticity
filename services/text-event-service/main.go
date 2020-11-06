@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/piopon/domesticity/services/text-event-service/dataservice"
 	"github.com/piopon/domesticity/services/text-event-service/handlers"
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
@@ -22,7 +23,7 @@ func main() {
 
 	homeHandler := handlers.NewHome(logger)
 	docsHandler := handlers.NewDocs("scripts/swagger.yaml")
-	eventsHandler := handlers.NewEvents(logger, utils.NewValidator())
+	eventsHandler := handlers.NewEvents(logger, utils.NewValidator(), dataservice.NewInMemory())
 
 	routerMain := mux.NewRouter()
 
