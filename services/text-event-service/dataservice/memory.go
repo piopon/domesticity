@@ -8,14 +8,22 @@ import (
 	"github.com/piopon/domesticity/services/text-event-service/model"
 )
 
+// InMemory is a test data base service with elements stored in RAM
+type InMemory struct{}
+
+// NewInMemory is a factory method to create an in memory data base service
+func NewInMemory() *InMemory {
+	return &InMemory{}
+}
+
 // GetEvents returns all events stored in DB
-func GetEvents(queryParams url.Values) (*model.Events, error) {
+func (memory InMemory) GetEvents(queryParams url.Values) (*model.Events, error) {
 	return eventList.Filter(queryParams)
 }
 
 // GetEvent returns event with specified ID (or error if not found)
-func GetEvent(id int) (*model.Event, error) {
-	index, error := findEvent(id)
+func (memory InMemory) GetEvent(id int) (*model.Event, error) {
+	index, error := memory.findEvent(id)
 	if error != nil {
 		return nil, error
 	}
@@ -23,14 +31,14 @@ func GetEvent(id int) (*model.Event, error) {
 }
 
 // AddEvent adds passed event item to DB
-func AddEvent(event *model.Event) {
-	event.ID = getNextID()
+func (memory InMemory) AddEvent(event *model.Event) {
+	event.ID = memory.getNextID()
 	eventList = append(eventList, event)
 }
 
 // UpdateEvent updates an event with specified ID
-func UpdateEvent(id int, event *model.Event) error {
-	index, error := findEvent(id)
+func (memory InMemory) UpdateEvent(id int, event *model.Event) error {
+	index, error := memory.findEvent(id)
 	if error != nil {
 		return error
 	}
@@ -40,8 +48,8 @@ func UpdateEvent(id int, event *model.Event) error {
 }
 
 // DeleteEvent deletes a event with specified ID from the database
-func DeleteEvent(id int) error {
-	index, error := findEvent(id)
+func (memory InMemory) DeleteEvent(id int) error {
+	index, error := memory.findEvent(id)
 	if error != nil {
 		return error
 	}
@@ -49,7 +57,7 @@ func DeleteEvent(id int) error {
 	return nil
 }
 
-func findEvent(id int) (int, error) {
+func (memory InMemory) findEvent(id int) (int, error) {
 	for i, event := range eventList {
 		if event.ID == id {
 			return i, nil
@@ -58,7 +66,7 @@ func findEvent(id int) (int, error) {
 	return -1, fmt.Errorf("Event not found")
 }
 
-func getNextID() int {
+func (memory InMemory) getNextID() int {
 	return eventList[len(eventList)-1].ID + 1
 }
 
