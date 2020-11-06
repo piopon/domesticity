@@ -9,11 +9,26 @@ import (
 )
 
 // InMemory is a test data base service with elements stored in RAM
-type InMemory struct{}
+type InMemory struct {
+	eventsList model.Events
+}
 
 // NewInMemory is a factory method to create an in memory data base service
 func NewInMemory() *InMemory {
-	return &InMemory{}
+	return &InMemory{
+		eventsList: model.Events{
+			&model.Event{
+				ID:    1,
+				Title: "This is my first event",
+				Owner: "Admin",
+				Occurence: model.TimeSpan{
+					Start: time.Date(2020, 05, 26, 14, 15, 00, 00, time.Local),
+					Stop:  time.Date(2020, 05, 27, 10, 30, 00, 00, time.Local)},
+				Category: "Notes",
+				Content:  "Test event number 1",
+			},
+		},
+	}
 }
 
 // GetEvents returns all events stored in DB
@@ -67,28 +82,5 @@ func (memory *InMemory) findEvent(id int) (int, error) {
 }
 
 func (memory *InMemory) getNextID() int {
-	return eventList[len(eventList)-1].ID + 1
-}
-
-var eventList = model.Events{
-	&model.Event{
-		ID:    1,
-		Title: "This is my first event",
-		Owner: "Admin",
-		Occurence: model.TimeSpan{
-			Start: time.Date(2020, 01, 02, 12, 12, 00, 00, time.Local),
-			Stop:  time.Date(2020, 01, 02, 12, 32, 00, 00, time.Local)},
-		Category: "Notes",
-		Content:  "Test event number 1",
-	},
-	&model.Event{
-		ID:    2,
-		Title: "2nd event",
-		Owner: "Admin",
-		Occurence: model.TimeSpan{
-			Start: time.Date(2020, 07, 13, 12, 12, 00, 00, time.Local),
-			Stop:  time.Date(2020, 07, 13, 12, 32, 00, 00, time.Local)},
-		Category: "Stuff",
-		Content:  "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-	},
+	return memory.eventsList[len(memory.eventsList)-1].ID + 1
 }
