@@ -17,12 +17,12 @@ func NewInMemory() *InMemory {
 }
 
 // GetEvents returns all events stored in DB
-func (memory InMemory) GetEvents(queryParams url.Values) (*model.Events, error) {
+func (memory *InMemory) GetEvents(queryParams url.Values) (*model.Events, error) {
 	return eventList.Filter(queryParams)
 }
 
 // GetEvent returns event with specified ID (or error if not found)
-func (memory InMemory) GetEvent(id int) (*model.Event, error) {
+func (memory *InMemory) GetEvent(id int) (*model.Event, error) {
 	index, error := memory.findEvent(id)
 	if error != nil {
 		return nil, error
@@ -31,13 +31,13 @@ func (memory InMemory) GetEvent(id int) (*model.Event, error) {
 }
 
 // AddEvent adds passed event item to DB
-func (memory InMemory) AddEvent(event *model.Event) {
+func (memory *InMemory) AddEvent(event *model.Event) {
 	event.ID = memory.getNextID()
 	eventList = append(eventList, event)
 }
 
 // UpdateEvent updates an event with specified ID
-func (memory InMemory) UpdateEvent(id int, event *model.Event) error {
+func (memory *InMemory) UpdateEvent(id int, event *model.Event) error {
 	index, error := memory.findEvent(id)
 	if error != nil {
 		return error
@@ -48,7 +48,7 @@ func (memory InMemory) UpdateEvent(id int, event *model.Event) error {
 }
 
 // DeleteEvent deletes a event with specified ID from the database
-func (memory InMemory) DeleteEvent(id int) error {
+func (memory *InMemory) DeleteEvent(id int) error {
 	index, error := memory.findEvent(id)
 	if error != nil {
 		return error
@@ -57,7 +57,7 @@ func (memory InMemory) DeleteEvent(id int) error {
 	return nil
 }
 
-func (memory InMemory) findEvent(id int) (int, error) {
+func (memory *InMemory) findEvent(id int) (int, error) {
 	for i, event := range eventList {
 		if event.ID == id {
 			return i, nil
@@ -66,7 +66,7 @@ func (memory InMemory) findEvent(id int) (int, error) {
 	return -1, fmt.Errorf("Event not found")
 }
 
-func (memory InMemory) getNextID() int {
+func (memory *InMemory) getNextID() int {
 	return eventList[len(eventList)-1].ID + 1
 }
 
