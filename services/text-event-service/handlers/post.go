@@ -3,7 +3,6 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/piopon/domesticity/services/text-event-service/dataservice"
 	"github.com/piopon/domesticity/services/text-event-service/model"
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
@@ -21,7 +20,7 @@ func (events *Events) AddEvent(response http.ResponseWriter, request *http.Reque
 	events.logger.Println("Handling POST event")
 	response.Header().Add("Content-Type", "application/json")
 	event := request.Context().Value(KeyEvent{}).(*model.Event)
-	dataservice.AddEvent(event)
+	events.database.AddEvent(event)
 	jsonError := utils.ToJSON(event, response)
 	if jsonError != nil {
 		events.logger.Println("Unable to marshal events data in AddEvent handler")

@@ -3,7 +3,6 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/piopon/domesticity/services/text-event-service/dataservice"
 	"github.com/piopon/domesticity/services/text-event-service/model"
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
@@ -22,7 +21,7 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	response.Header().Add("Content-Type", "application/json")
 	id := readEventID(request)
 	event := request.Context().Value(KeyEvent{}).(*model.Event)
-	updateError := dataservice.UpdateEvent(id, event)
+	updateError := events.database.UpdateEvent(id, event)
 	if updateError != nil {
 		events.logger.Println("Invalid ID in PUT request")
 		response.WriteHeader(http.StatusBadRequest)

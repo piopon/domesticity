@@ -3,7 +3,6 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/piopon/domesticity/services/text-event-service/dataservice"
 	"github.com/piopon/domesticity/services/text-event-service/model"
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
@@ -19,7 +18,7 @@ func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Re
 	events.logger.Println("Handling DELETE event")
 	response.Header().Add("Content-Type", "application/json")
 	id := readEventID(request)
-	deleteError := dataservice.DeleteEvent(id)
+	deleteError := events.database.DeleteEvent(id)
 	if deleteError != nil {
 		events.logger.Println("Invalid ID in DELETE request")
 		response.WriteHeader(http.StatusBadRequest)
