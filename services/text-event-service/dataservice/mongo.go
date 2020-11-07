@@ -4,10 +4,13 @@ import (
 	"net/url"
 
 	"github.com/piopon/domesticity/services/text-event-service/model"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // MongoDB is a data base service with elements are stored with use of MongoDB
-type MongoDB struct{}
+type MongoDB struct {
+	client *mongo.Client
+}
 
 // NewMongoDB is a factory method to create a Mongo DB service
 func NewMongoDB() *MongoDB {
