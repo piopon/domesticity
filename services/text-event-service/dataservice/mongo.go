@@ -19,7 +19,11 @@ type MongoDB struct {
 
 // NewMongoDB is a factory method to create a Mongo DB service
 func NewMongoDB() *MongoDB {
-	return &MongoDB{}
+	mongoClient, error := initMongoClient("mongodb://192.168.21.209:27017")
+	if error != nil {
+		panic("Cannot initialize MongoDB client: " + error.Error())
+	}
+	return &MongoDB{mongoClient}
 }
 
 func initMongoClient(URI string) (*mongo.Client, error) {
