@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/model"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 // InMemory is a test data base service with elements stored in RAM
@@ -19,7 +20,7 @@ func NewInMemory() *InMemory {
 	return &InMemory{
 		eventsList: model.Events{
 			&model.Event{
-				ID:    1,
+				ID:    primitive.NewObjectID(),
 				Title: "This is my first event",
 				Owner: "Admin",
 				Occurence: model.TimeSpan{
@@ -43,7 +44,7 @@ func (memory *InMemory) GetEvents(queryParams url.Values) (*model.Events, error)
 }
 
 // GetEvent returns event with specified ID (or error if not found)
-func (memory *InMemory) GetEvent(id int) (*model.Event, error) {
+func (memory *InMemory) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 	index, error := memory.findEvent(id)
 	if error != nil {
 		return nil, error
@@ -53,12 +54,12 @@ func (memory *InMemory) GetEvent(id int) (*model.Event, error) {
 
 // AddEvent adds passed event item to DB
 func (memory *InMemory) AddEvent(event *model.Event) {
-	event.ID = memory.getNextID()
+	event.ID = primitive.NewObjectID()
 	memory.eventsList = append(memory.eventsList, event)
 }
 
 // UpdateEvent updates an event with specified ID
-func (memory *InMemory) UpdateEvent(id int, event *model.Event) error {
+func (memory *InMemory) UpdateEvent(id primitive.ObjectID, event *model.Event) error {
 	index, error := memory.findEvent(id)
 	if error != nil {
 		return error
@@ -69,7 +70,7 @@ func (memory *InMemory) UpdateEvent(id int, event *model.Event) error {
 }
 
 // DeleteEvent deletes a event with specified ID from the database
-func (memory *InMemory) DeleteEvent(id int) error {
+func (memory *InMemory) DeleteEvent(id primitive.ObjectID) error {
 	index, error := memory.findEvent(id)
 	if error != nil {
 		return error
@@ -78,15 +79,11 @@ func (memory *InMemory) DeleteEvent(id int) error {
 	return nil
 }
 
-func (memory *InMemory) findEvent(id int) (int, error) {
+func (memory *InMemory) findEvent(id primitive.ObjectID) (int, error) {
 	for i, event := range memory.eventsList {
 		if event.ID == id {
 			return i, nil
 		}
 	}
 	return -1, fmt.Errorf("Event not found")
-}
-
-func (memory *InMemory) getNextID() int {
-	return memory.eventsList[len(memory.eventsList)-1].ID + 1
 }

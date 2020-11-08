@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/model"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -52,7 +53,7 @@ func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 }
 
 // GetEvent returns event with specified ID (or error if not found)
-func (mongo MongoDB) GetEvent(id int) (*model.Event, error) {
+func (mongo MongoDB) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 	return nil, nil
 }
 
@@ -62,11 +63,11 @@ func (mongo MongoDB) AddEvent(event *model.Event) {
 }
 
 // UpdateEvent updates an event with specified ID
-func (mongo MongoDB) UpdateEvent(id int, event *model.Event) error {
+func (mongo MongoDB) UpdateEvent(id primitive.ObjectID, event *model.Event) error {
 	return nil
 }
 
 // DeleteEvent deletes a event with specified ID from the database
-func (mongo MongoDB) DeleteEvent(id int) error {
+func (mongo MongoDB) DeleteEvent(id primitive.ObjectID) error {
 	return nil
 }
