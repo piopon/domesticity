@@ -1,13 +1,14 @@
 package model
 
+import "go.mongodb.org/mongo-driver/bson/primitive"
+
 // Event defines the structure for an API event
 // swagger:model
 type Event struct {
 	// The id for the event
 	//
 	// required: false
-	// min: 1
-	ID int `json:"id"`
+	ID primitive.ObjectID `json:"id"`
 	// The title of event
 	//
 	// required: true
