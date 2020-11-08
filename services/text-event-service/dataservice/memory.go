@@ -53,9 +53,10 @@ func (memory *InMemory) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 }
 
 // AddEvent adds passed event item to DB
-func (memory *InMemory) AddEvent(event *model.Event) {
+func (memory *InMemory) AddEvent(event *model.Event) error {
 	event.ID = primitive.NewObjectID()
 	memory.eventsList = append(memory.eventsList, event)
+	return nil
 }
 
 // UpdateEvent updates an event with specified ID

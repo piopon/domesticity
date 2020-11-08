@@ -13,7 +13,7 @@ type Database interface {
 	Shutdown(context.Context)
 	GetEvents(queryParams url.Values) (*model.Events, error)
 	GetEvent(id primitive.ObjectID) (*model.Event, error)
-	AddEvent(event *model.Event)
+	AddEvent(event *model.Event) error
 	UpdateEvent(id primitive.ObjectID, event *model.Event) error
 	DeleteEvent(id primitive.ObjectID) error
 }

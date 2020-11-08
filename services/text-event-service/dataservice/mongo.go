@@ -58,8 +58,8 @@ func (mongo MongoDB) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 }
 
 // AddEvent adds passed event item to DB
-func (mongo MongoDB) AddEvent(event *model.Event) {
-	return
+func (mongo MongoDB) AddEvent(event *model.Event) error {
+	return nil
 }
 
 // UpdateEvent updates an event with specified ID
