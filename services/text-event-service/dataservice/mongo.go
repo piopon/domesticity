@@ -33,15 +33,17 @@ func initMongoClient(URI string) (*mongo.Client, error) {
 	if error != nil {
 		return nil, fmt.Errorf("error while creating a MongoDB client [" + URI + "]")
 	}
-	defer func() {
-		if error := client.Disconnect(context); error != nil {
-			panic(error)
-		}
-	}()
 	if error := client.Ping(context, readpref.Primary()); error != nil {
 		return nil, fmt.Errorf("error while connecting to MongoDB server [" + URI + "]")
 	}
 	return client, nil
+}
+
+// Shutdown closes active database connection
+func (mongo MongoDB) Shutdown(ctx context.Context) {
+	if error := mongo.client.Disconnect(ctx); error != nil {
+		panic("Cannot disconnect from MongoDB client: " + error.Error())
+	}
 }
 
 // GetEvents returns all events stored in DB
