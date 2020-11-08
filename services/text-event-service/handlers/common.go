@@ -2,13 +2,14 @@ package handlers
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func readEventID(request *http.Request) int {
-	id, error := strconv.Atoi(mux.Vars(request)["id"])
+func readEventID(request *http.Request) primitive.ObjectID {
+	params := mux.Vars(request)
+	id, error := primitive.ObjectIDFromHex(params["id"])
 	if error != nil {
 		panic(error)
 	}

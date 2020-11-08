@@ -33,7 +33,7 @@ func main() {
 	routerGET.Path("/docs").HandlerFunc(docsHandler.GetDocumentation)
 	routerGET.Path("/scripts/swagger.yaml").HandlerFunc(docsHandler.GetSwagger)
 	routerGET.Path("/events").HandlerFunc(eventsHandler.GetEvents)
-	routerGET.Path("/events/{id:[0-9]+}").HandlerFunc(eventsHandler.GetEvent)
+	routerGET.Path("/events/{id}").HandlerFunc(eventsHandler.GetEvent)
 
 	routerPOST := routerMain.Methods(http.MethodPost).Subrouter()
 	routerPOST.Use(eventsHandler.ValidationMiddleware)
@@ -41,10 +41,10 @@ func main() {
 
 	routerPUT := routerMain.Methods(http.MethodPut).Subrouter()
 	routerPUT.Use(eventsHandler.ValidationMiddleware)
-	routerPUT.Path("/events/{id:[0-9]+}").HandlerFunc(eventsHandler.UpdateEvent)
+	routerPUT.Path("/events/{id}").HandlerFunc(eventsHandler.UpdateEvent)
 
 	routerDELETE := routerMain.Methods(http.MethodDelete).Subrouter()
-	routerDELETE.Path("/events/{id:[0-9]+}").HandlerFunc(eventsHandler.DeleteEvent)
+	routerDELETE.Path("/events/{id}").HandlerFunc(eventsHandler.DeleteEvent)
 
 	server := &http.Server{
 		Addr:         addressIP + ":" + addressPort,
