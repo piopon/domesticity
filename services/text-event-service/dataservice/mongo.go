@@ -87,12 +87,20 @@ func (mongo MongoDB) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 
 // AddEvent adds passed event item to DB
 func (mongo MongoDB) AddEvent(event *model.Event) error {
-	return nil
+	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
+	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	_, error := collection.InsertOne(context, event)
+	return error
 }
 
 // UpdateEvent updates an event with specified ID
 func (mongo MongoDB) UpdateEvent(id primitive.ObjectID, event *model.Event) error {
-	return nil
+	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
+	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	_, error := collection.UpdateOne(context, bson.M{"id": id}, event)
+	return error
 }
 
 // DeleteEvent deletes a event with specified ID from the database
