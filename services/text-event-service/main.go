@@ -20,10 +20,11 @@ var addressPort = "9999"
 
 func main() {
 	logger := log.New(os.Stdout, "text-event-service > ", log.LstdFlags|log.Lmsgprefix)
+	dataservice := dataservice.NewInMemory()
 
 	homeHandler := handlers.NewHome(logger)
 	docsHandler := handlers.NewDocs("scripts/swagger.yaml")
-	eventsHandler := handlers.NewEvents(logger, utils.NewValidator(), dataservice.NewInMemory())
+	eventsHandler := handlers.NewEvents(logger, utils.NewValidator(), dataservice)
 
 	routerMain := mux.NewRouter()
 
@@ -69,6 +70,6 @@ func main() {
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-
+	dataservice.Shutdown(shutdownCtx)
 	server.Shutdown(shutdownCtx)
 }
