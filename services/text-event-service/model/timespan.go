@@ -11,11 +11,11 @@ type TimeSpan struct {
 	// The event start time in RFC3339 standard ("2006-01-02T15:04:05Z07:00")
 	//
 	// required: true
-	Start time.Time `json:"start" validate:"required,date-time"`
+	Start time.Time `json:"start" bson:"start" validate:"required,date-time"`
 	// The event stop time in RFC3339 standard ("2006-01-02T15:04:05Z07:00")
 	//
 	// required: true
-	Stop time.Time `json:"stop" validate:"required,date-time,gtfield=Start"`
+	Stop time.Time `json:"stop" bson:"stop" validate:"required,date-time,gtfield=Start"`
 }
 
 // Duration calulates event time duration
