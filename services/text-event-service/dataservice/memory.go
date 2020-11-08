@@ -1,6 +1,7 @@
 package dataservice
 
 import (
+	"context"
 	"fmt"
 	"net/url"
 	"time"
@@ -29,6 +30,11 @@ func NewInMemory() *InMemory {
 			},
 		},
 	}
+}
+
+// Shutdown clears internal events list
+func (memory *InMemory) Shutdown(ctx context.Context) {
+	memory.eventsList = nil
 }
 
 // GetEvents returns all events stored in DB
