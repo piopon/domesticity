@@ -105,5 +105,9 @@ func (mongo MongoDB) UpdateEvent(id primitive.ObjectID, event *model.Event) erro
 
 // DeleteEvent deletes a event with specified ID from the database
 func (mongo MongoDB) DeleteEvent(id primitive.ObjectID) error {
-	return nil
+	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
+	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	_, error := collection.DeleteOne(context, bson.M{"id": id})
+	return error
 }
