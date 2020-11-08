@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/model"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -51,12 +52,37 @@ func (mongo MongoDB) Shutdown(ctx context.Context) {
 
 // GetEvents returns all events stored in DB
 func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
-	return nil, nil
+	var events model.Events
+	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
+	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	cursor, error := collection.Find(context, bson.M{})
+	if error != nil {
+		return nil, error
+	}
+	defer cursor.Close(context)
+	for cursor.Next(context) {
+		var event model.Event
+		cursor.Decode(event)
+		events = append(events, &event)
+	}
+	if error := cursor.Err(); error != nil {
+		return nil, error
+	}
+	return &events, nil
 }
 
 // GetEvent returns event with specified ID (or error if not found)
 func (mongo MongoDB) GetEvent(id primitive.ObjectID) (*model.Event, error) {
-	return nil, nil
+	var event model.Event
+	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
+	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	error := collection.FindOne(context, model.Event{ID: id}).Decode(&event)
+	if error != nil {
+		return nil, error
+	}
+	return &event, nil
 }
 
 // AddEvent adds passed event item to DB
