@@ -62,10 +62,11 @@ for the delete event operation typically these are written to a http.Request
 type DeleteEventParams struct {
 
 	/*ID
-	  The id of the event for which the operation relates
+	  The id of the event for which the operation relates<br>
+	NOTE: The type is primitive.ObjectID which is the BSON ObjectID type
 
 	*/
-	ID int64
+	ID []int64
 
 	timeout    time.Duration
 	Context    context.Context
@@ -106,13 +107,13 @@ func (o *DeleteEventParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithID adds the id to the delete event params
-func (o *DeleteEventParams) WithID(id int64) *DeleteEventParams {
+func (o *DeleteEventParams) WithID(id []int64) *DeleteEventParams {
 	o.SetID(id)
 	return o
 }
 
 // SetID adds the id to the delete event params
-func (o *DeleteEventParams) SetID(id int64) {
+func (o *DeleteEventParams) SetID(id []int64) {
 	o.ID = id
 }
 
@@ -124,9 +125,20 @@ func (o *DeleteEventParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	}
 	var res []error
 
-	// path param id
-	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
-		return err
+	var valuesID []string
+	for _, v := range o.ID {
+		valuesID = append(valuesID, swag.FormatInt64(v))
+	}
+
+	joinedID := swag.JoinByFormat(valuesID, "")
+	// path array param id
+	// SetPathParam does not support variadric arguments, since we used JoinByFormat
+	// we can send the first item in the array as it's all the items of the previous
+	// array joined together
+	if len(joinedID) > 0 {
+		if err := r.SetPathParam("id", joinedID[0]); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

@@ -26,10 +26,6 @@ type Event struct {
 	// Max Length: 10000
 	Content string `json:"content,omitempty"`
 
-	// The id for the event
-	// Minimum: 1
-	ID int64 `json:"id,omitempty"`
-
 	// The title of event
 	// Required: true
 	// Max Length: 255
@@ -39,6 +35,9 @@ type Event struct {
 	// Required: true
 	// Max Length: 255
 	Title *string `json:"title"`
+
+	// id
+	ID ObjectID `json:"_id,omitempty"`
 
 	// date
 	// Required: true
@@ -57,15 +56,15 @@ func (m *Event) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateID(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateOwner(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateTitle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -105,19 +104,6 @@ func (m *Event) validateContent(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Event) validateID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ID) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("id", "body", int64(m.ID), 1, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *Event) validateOwner(formats strfmt.Registry) error {
 
 	if err := validate.Required("owner", "body", m.Owner); err != nil {
@@ -138,6 +124,22 @@ func (m *Event) validateTitle(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("title", "body", string(*m.Title), 255); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Event) validateID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ID) { // not required
+		return nil
+	}
+
+	if err := m.ID.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("_id")
+		}
 		return err
 	}
 

@@ -5,6 +5,8 @@ definitions:
   Event:
     description: Event defines the structure for an API event
     properties:
+      _id:
+        $ref: '#/definitions/ObjectID'
       category:
         description: The category of event
         maxLength: 255
@@ -17,12 +19,6 @@ definitions:
         x-go-name: Content
       date:
         $ref: '#/definitions/TimeSpan'
-      id:
-        description: The id for the event
-        format: int64
-        minimum: 1
-        type: integer
-        x-go-name: ID
       owner:
         description: The title of event
         maxLength: 255
@@ -54,6 +50,13 @@ definitions:
         x-go-name: Message
     type: object
     x-go-package: github.com/piopon/domesticity/services/text-event-service/model
+  ObjectID:
+    items:
+      format: uint8
+      type: integer
+    title: ObjectID is the BSON ObjectID type.
+    type: array
+    x-go-package: go.mongodb.org/mongo-driver/bson/primitive
   TimeSpan:
     description: TimeSpan is an struct representing event start and end time
     properties:
@@ -109,12 +112,16 @@ paths:
       description: Returns a event with provided id
       operationId: getEvent
       parameters:
-      - description: The id of the event for which the operation relates
-        format: int64
+      - description: |-
+          The id of the event for which the operation relates<br>
+          NOTE: The type is primitive.ObjectID which is the BSON ObjectID type
         in: path
+        items:
+          format: int64
+          type: integer
         name: id
         required: true
-        type: integer
+        type: array
         x-go-name: ID
       responses:
         "200":
@@ -213,12 +220,16 @@ paths:
       description: Deletes an event from DB by specified ID parameter
       operationId: deleteEvent
       parameters:
-      - description: The id of the event for which the operation relates
-        format: int64
+      - description: |-
+          The id of the event for which the operation relates<br>
+          NOTE: The type is primitive.ObjectID which is the BSON ObjectID type
         in: path
+        items:
+          format: int64
+          type: integer
         name: id
         required: true
-        type: integer
+        type: array
         x-go-name: ID
       responses:
         "204":
@@ -231,12 +242,16 @@ paths:
       description: Updates an event in DB by specified ID parameter
       operationId: updateEvent
       parameters:
-      - description: The id of the event for which the operation relates
-        format: int64
+      - description: |-
+          The id of the event for which the operation relates<br>
+          NOTE: The type is primitive.ObjectID which is the BSON ObjectID type
         in: path
+        items:
+          format: int64
+          type: integer
         name: id
         required: true
-        type: integer
+        type: array
         x-go-name: ID
       - description: |-
           Event data structure to update or create.
