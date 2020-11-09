@@ -22,9 +22,9 @@ func (events *Events) AddEvent(response http.ResponseWriter, request *http.Reque
 	event := request.Context().Value(KeyEvent{}).(*model.Event)
 	error := events.database.AddEvent(event)
 	if error != nil {
-		events.logger.Println("Unable to add event to database")
+		events.logger.Println("Cannot add new event to database:", error.Error())
 		response.WriteHeader(http.StatusInternalServerError)
-		utils.ToJSON(&model.GenericError{"Cannot add event in POST request"}, response)
+		utils.ToJSON(&model.GenericError{"Cannot add new event to database: " + error.Error()}, response)
 		return
 	}
 	jsonError := utils.ToJSON(event, response)

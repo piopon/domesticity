@@ -90,6 +90,7 @@ func (mongo MongoDB) AddEvent(event *model.Event) error {
 	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
 	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+	event.ID = primitive.NewObjectID()
 	_, error := collection.InsertOne(context, event)
 	return error
 }
