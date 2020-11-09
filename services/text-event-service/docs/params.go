@@ -8,10 +8,11 @@ import (
 
 // swagger:parameters getEvent updateEvent deleteEvent
 type paramID struct {
-	// The id of the event for which the operation relates
+	// The id of the event for which the operation relates<br>
+	// NOTE: The type is primitive.ObjectID which is the BSON ObjectID type
 	// in: path
 	// required: true
-	ID int `json:"id"`
+	ID []int `json:"id"`
 }
 
 // swagger:parameters getEvents
