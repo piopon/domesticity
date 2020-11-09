@@ -90,8 +90,10 @@ func (mongo MongoDB) AddEvent(event *model.Event) error {
 	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
 	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	event.ID = primitive.NewObjectID()
-	_, error := collection.InsertOne(context, event)
+	newID, error := collection.InsertOne(context, event)
+	if error == nil {
+		event.ID = newID.InsertedID.(primitive.ObjectID)
+	}
 	return error
 }
 
@@ -100,7 +102,10 @@ func (mongo MongoDB) UpdateEvent(id primitive.ObjectID, event *model.Event) erro
 	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
 	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	_, error := collection.UpdateOne(context, bson.M{"_id": id}, event)
+	_, error := collection.UpdateOne(context, bson.M{"_id": id}, bson.M{"$set": event})
+	if error == nil {
+		event.ID = id
+	}
 	return error
 }
 
