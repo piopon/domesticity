@@ -20,9 +20,9 @@ func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Re
 	id := readEventID(request)
 	deleteError := events.database.DeleteEvent(id)
 	if deleteError != nil {
-		events.logger.Println("Invalid ID in DELETE request")
+		events.logger.Println("Cannot delete event with specified id:", deleteError.Error())
 		response.WriteHeader(http.StatusBadRequest)
-		utils.ToJSON(&model.GenericError{"Invalid ID in DELETE request"}, response)
+		utils.ToJSON(&model.GenericError{"Cannot delete event with specified id: " + deleteError.Error()}, response)
 		return
 	}
 	response.WriteHeader(http.StatusNoContent)

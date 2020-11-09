@@ -20,9 +20,9 @@ func (events *Events) GetEvents(response http.ResponseWriter, request *http.Requ
 	response.Header().Add("Content-Type", "application/json")
 	allEvents, error := events.database.GetEvents(request.URL.Query())
 	if error != nil {
-		events.logger.Println("Bad query parameters:", request.URL.Query().Encode())
+		events.logger.Println("Unable to receive all events from database:", error.Error())
 		response.WriteHeader(http.StatusBadRequest)
-		utils.ToJSON(&model.GenericError{"Bad query parameters: " + error.Error()}, response)
+		utils.ToJSON(&model.GenericError{"Unable to receive all events from database: " + error.Error()}, response)
 		return
 	}
 	jsonError := utils.ToJSON(allEvents, response)
@@ -48,9 +48,9 @@ func (events *Events) GetEvent(response http.ResponseWriter, request *http.Reque
 	id := readEventID(request)
 	event, error := events.database.GetEvent(id)
 	if error != nil {
-		events.logger.Println("Unable to find single event:", error.Error())
+		events.logger.Println("Unable to receive a single event from database:", error.Error())
 		response.WriteHeader(http.StatusNotFound)
-		utils.ToJSON(&model.GenericError{"Unable to find single event: " + error.Error()}, response)
+		utils.ToJSON(&model.GenericError{"Unable to receive a single event from database: " + error.Error()}, response)
 		return
 	}
 	jsonError := utils.ToJSON(event, response)

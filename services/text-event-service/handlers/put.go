@@ -23,9 +23,9 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	event := request.Context().Value(KeyEvent{}).(*model.Event)
 	updateError := events.database.UpdateEvent(id, event)
 	if updateError != nil {
-		events.logger.Println("Invalid ID in PUT request")
+		events.logger.Println("Cannot update event with specified id:", updateError.Error())
 		response.WriteHeader(http.StatusBadRequest)
-		utils.ToJSON(&model.GenericError{"Invalid ID in PUT request"}, response)
+		utils.ToJSON(&model.GenericError{"Cannot update event with specified id: " + updateError.Error()}, response)
 		return
 	}
 	jsonError := utils.ToJSON(event, response)
