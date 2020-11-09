@@ -78,7 +78,7 @@ func (mongo MongoDB) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
 	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	error := collection.FindOne(context, model.Event{ID: id}).Decode(&event)
+	error := collection.FindOne(context, bson.M{"_id": id}).Decode(&event)
 	if error != nil {
 		return nil, error
 	}
@@ -99,7 +99,7 @@ func (mongo MongoDB) UpdateEvent(id primitive.ObjectID, event *model.Event) erro
 	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
 	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	_, error := collection.UpdateOne(context, bson.M{"id": id}, event)
+	_, error := collection.UpdateOne(context, bson.M{"_id": id}, event)
 	return error
 }
 
@@ -108,6 +108,6 @@ func (mongo MongoDB) DeleteEvent(id primitive.ObjectID) error {
 	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
 	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	_, error := collection.DeleteOne(context, bson.M{"id": id})
+	_, error := collection.DeleteOne(context, bson.M{"_id": id})
 	return error
 }
