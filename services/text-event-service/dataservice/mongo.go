@@ -63,7 +63,7 @@ func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 	defer cursor.Close(context)
 	for cursor.Next(context) {
 		var event model.Event
-		cursor.Decode(event)
+		cursor.Decode(&event)
 		events = append(events, &event)
 	}
 	if error := cursor.Err(); error != nil {

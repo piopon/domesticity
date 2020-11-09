@@ -48,9 +48,9 @@ func (events *Events) GetEvent(response http.ResponseWriter, request *http.Reque
 	id := readEventID(request)
 	event, error := events.database.GetEvent(id)
 	if error != nil {
-		events.logger.Println("Unable to find event with specified id:", id)
+		events.logger.Println("Unable to find single event:", error.Error())
 		response.WriteHeader(http.StatusNotFound)
-		utils.ToJSON(&model.GenericError{"Cannot find event with specified ID in GET request"}, response)
+		utils.ToJSON(&model.GenericError{"Unable to find single event: " + error.Error()}, response)
 		return
 	}
 	jsonError := utils.ToJSON(event, response)
