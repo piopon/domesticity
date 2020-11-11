@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/model"
+	"github.com/piopon/domesticity/services/text-event-service/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -22,8 +23,8 @@ type MongoDB struct {
 }
 
 // NewMongoDB is a factory method to create a Mongo DB service
-func NewMongoDB() *MongoDB {
-	mongoClient, error := initMongoClient("mongodb://192.168.21.209:27017")
+func NewMongoDB(config *utils.ConfigMongo) *MongoDB {
+	mongoClient, error := initMongoClient("mongodb://172.18.12.1:27017")
 	if error != nil {
 		panic("Cannot initialize MongoDB client: " + error.Error())
 	}

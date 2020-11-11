@@ -45,7 +45,7 @@ func main() {
 	routerDELETE.Path("/events/{id}").HandlerFunc(eventsHandler.DeleteEvent)
 
 	server := &http.Server{
-		Addr:         config.ServerIP + ":" + config.ServerPort,
+		Addr:         config.Service.IP + ":" + config.Service.Port,
 		Handler:      routerMain,
 		ErrorLog:     logger,
 		IdleTimeout:  300 * time.Second,
@@ -54,7 +54,7 @@ func main() {
 	}
 
 	go func() {
-		logger.Println("Starting server on port", config.ServerPort)
+		logger.Println("Starting server on port", config.Service.Port)
 		workError := server.ListenAndServe()
 		if workError != nil {
 			logger.Fatal("Error starting server:", workError)
