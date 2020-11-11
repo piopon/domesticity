@@ -11,12 +11,19 @@ type Config struct {
 
 //NewConfig is a factory method to create configuration objects
 func NewConfig() *Config {
+	configDefaults()
 	configInitialize()
 	return &Config{
 		ServerIP:     viper.GetString("service.ip"),
 		ServerPort:   viper.GetString("service.port"),
 		DataBaseType: viper.GetString("service.db-type"),
 	}
+}
+
+func configDefaults() {
+	viper.SetDefault("service.ip", "")
+	viper.SetDefault("service.port", "9999")
+	viper.SetDefault("service.db-type", "mongo")
 }
 
 func configInitialize() {
