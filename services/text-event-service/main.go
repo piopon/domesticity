@@ -18,7 +18,7 @@ import (
 func main() {
 	config := utils.NewConfig()
 	logger := log.New(os.Stdout, "text-event-service > ", log.LstdFlags|log.Lmsgprefix)
-	dataservice := dataservice.NewInMemory()
+	dataservice := dataservice.NewDatabase(config)
 
 	homeHandler := handlers.NewHome(logger)
 	docsHandler := handlers.NewDocs("scripts/swagger.yaml")

@@ -5,6 +5,7 @@ import (
 	"net/url"
 
 	"github.com/piopon/domesticity/services/text-event-service/model"
+	"github.com/piopon/domesticity/services/text-event-service/utils"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -16,4 +17,12 @@ type Database interface {
 	AddEvent(event *model.Event) error
 	UpdateEvent(id primitive.ObjectID, event *model.Event) error
 	DeleteEvent(id primitive.ObjectID) error
+}
+
+// NewDatabase is a factory method for creating database service according to configuration
+func NewDatabase(config *utils.Config) Database {
+	if config.DataBaseType == "mongo" {
+		return NewMongoDB()
+	}
+	return NewInMemory()
 }
