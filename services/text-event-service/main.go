@@ -15,10 +15,8 @@ import (
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
 
-var addressIP = ""
-var addressPort = "9999"
-
 func main() {
+	config := utils.NewConfig()
 	logger := log.New(os.Stdout, "text-event-service > ", log.LstdFlags|log.Lmsgprefix)
 	dataservice := dataservice.NewInMemory()
 
@@ -47,7 +45,7 @@ func main() {
 	routerDELETE.Path("/events/{id}").HandlerFunc(eventsHandler.DeleteEvent)
 
 	server := &http.Server{
-		Addr:         addressIP + ":" + addressPort,
+		Addr:         config.ServerIP + ":" + config.ServerPort,
 		Handler:      routerMain,
 		ErrorLog:     logger,
 		IdleTimeout:  300 * time.Second,
@@ -56,7 +54,7 @@ func main() {
 	}
 
 	go func() {
-		logger.Println("Starting server on port", addressPort)
+		logger.Println("Starting server on port", config.ServerPort)
 		workError := server.ListenAndServe()
 		if workError != nil {
 			logger.Fatal("Error starting server:", workError)
