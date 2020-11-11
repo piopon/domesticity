@@ -4,16 +4,18 @@ import "github.com/spf13/viper"
 
 //Config is a structure holding all configuration data
 type Config struct {
-	ServerIP   string
-	ServerPort string
+	ServerIP     string
+	ServerPort   string
+	DataBaseType string
 }
 
 //NewConfig is a factory method to create configuration objects
 func NewConfig() *Config {
 	configInitialize()
 	return &Config{
-		ServerIP:   viper.GetString("service.ip"),
-		ServerPort: viper.GetString("service.port"),
+		ServerIP:     viper.GetString("service.ip"),
+		ServerPort:   viper.GetString("service.port"),
+		DataBaseType: viper.GetString("service.db-type"),
 	}
 }
 

@@ -1,3 +1,10 @@
 service:
     ip: ""
     port: "9999"
+    db-type: "mongo"
+mongo:
+    scheme: "mongodb://"
+    ip: "172.18.12.1"
+    port: "27017"
+    conn-time: 10
+    oper-time: 8
