@@ -44,6 +44,11 @@ func configDefaults() {
 	viper.SetDefault("service.ip", "")
 	viper.SetDefault("service.port", "9999")
 	viper.SetDefault("service.db-type", "mongo")
+	viper.SetDefault("mongo.scheme", "mongodb://")
+	viper.SetDefault("mongo.ip", "127.0.0.1")
+	viper.SetDefault("mongo.port", "27017")
+	viper.SetDefault("mongo.conn-time", 10)
+	viper.SetDefault("mongo.oper-time", 5)
 }
 
 func configInitialize() {
