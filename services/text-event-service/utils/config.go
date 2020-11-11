@@ -2,21 +2,41 @@ package utils
 
 import "github.com/spf13/viper"
 
-//Config is a structure holding all configuration data
+// Config is a structure holding all configuration data
 type Config struct {
-	ServerIP     string
-	ServerPort   string
-	DataBaseType string
+	Service ConfigService
+	MongoDB ConfigMongo
 }
 
-//NewConfig is a factory method to create configuration objects
+// ConfigService is a structure holding configuration for service
+type ConfigService struct {
+	IP     string
+	Port   string
+	TypeDB string
+}
+
+// ConfigMongo is a structure holding configuration for MongoDB
+type ConfigMongo struct {
+	Scheme string
+	IP     string
+	Port   string
+}
+
+// NewConfig is a factory method to create configuration objects
 func NewConfig() *Config {
 	configDefaults()
 	configInitialize()
 	return &Config{
-		ServerIP:     viper.GetString("service.ip"),
-		ServerPort:   viper.GetString("service.port"),
-		DataBaseType: viper.GetString("service.db-type"),
+		Service: ConfigService{
+			IP:     viper.GetString("service.ip"),
+			Port:   viper.GetString("service.port"),
+			TypeDB: viper.GetString("service.db-type"),
+		},
+		MongoDB: ConfigMongo{
+			Scheme: viper.GetString("mongo.scheme"),
+			IP:     viper.GetString("mongo.ip"),
+			Port:   viper.GetString("mongo.port"),
+		},
 	}
 }
 
