@@ -24,9 +24,9 @@ type MongoDB struct {
 
 // NewMongoDB is a factory method to create a Mongo DB service
 func NewMongoDB(config *utils.ConfigMongo) *MongoDB {
-	mongoClient, error := initMongoClient("mongodb://172.18.12.1:27017")
+	mongoClient, error := initMongoClient(config.Scheme + config.IP + ":" + config.Port)
 	if error != nil {
-		panic("Cannot initialize MongoDB client: " + error.Error())
+		panic("Cannot initialize MongoDB client. " + error.Error())
 	}
 	return &MongoDB{mongoClient, "event-service", "events"}
 }
@@ -36,10 +36,10 @@ func initMongoClient(URI string) (*mongo.Client, error) {
 	defer cancel()
 	client, error := mongo.Connect(context, options.Client().ApplyURI(URI))
 	if error != nil {
-		return nil, fmt.Errorf("error while creating a MongoDB client [" + URI + "]")
+		return nil, fmt.Errorf("Error while creating a MongoDB client: "+URI, error.Error())
 	}
 	if error := client.Ping(context, readpref.Primary()); error != nil {
-		return nil, fmt.Errorf("error while connecting to MongoDB server [" + URI + "]")
+		return nil, fmt.Errorf("Error while connecting to MongoDB server: "+URI, error.Error())
 	}
 	return client, nil
 }
