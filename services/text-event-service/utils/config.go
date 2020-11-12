@@ -101,3 +101,36 @@ func configMongoDefaults() {
 	viper.SetDefault("mongo.timeout.delete", 3)
 }
 
+// getConfigServer is used to read current sever settings from config file
+func getConfigServer() ConfigServer {
+	return ConfigServer{
+		IP:     viper.GetString("server.ip"),
+		Port:   viper.GetString("server.port"),
+		TypeDB: viper.GetString("server.db-type"),
+		Timeout: ConfigServerTimeout{
+			Idle:  viper.GetInt("server.timeout.idle"),
+			Read:  viper.GetInt("server.timeout.write"),
+			Write: viper.GetInt("server.timeout.read"),
+		},
+	}
+}
+
+// getConfigServer is used to read current MongoDB settings from config file
+func getConfigMongo() ConfigMongo {
+	return ConfigMongo{
+		Scheme: viper.GetString("mongo.scheme"),
+		IP:     viper.GetString("mongo.ip"),
+		Port:   viper.GetString("mongo.port"),
+		Database: ConfigMongoData{
+			Name:       viper.GetString("mongo.db.name"),
+			Collection: viper.GetString("mongo.db.collection"),
+		},
+		Timeout: ConfigMongoTimeout{
+			Connection: viper.GetInt("mongo.timeout.connection"),
+			Get:        viper.GetInt("mongo.timeout.get"),
+			Post:       viper.GetInt("mongo.timeout.post"),
+			Put:        viper.GetInt("mongo.timeout.put"),
+			Delete:     viper.GetInt("mongo.timeout.delete"),
+		},
+	}
+}
