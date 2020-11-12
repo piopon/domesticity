@@ -21,7 +21,7 @@ type Database interface {
 
 // NewDatabase is a factory method for creating database service according to configuration
 func NewDatabase(config *utils.Config) Database {
-	if config.Service.TypeDB == "mongo" {
+	if config.Server.TypeDB == "mongo" {
 		return NewMongoDB(&config.MongoDB)
 	}
 	return NewInMemory()
