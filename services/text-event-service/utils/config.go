@@ -25,9 +25,26 @@ type ConfigServerTimeout struct {
 
 // ConfigMongo is a structure holding configuration for MongoDB
 type ConfigMongo struct {
-	Scheme string
-	IP     string
-	Port   string
+	Scheme   string
+	IP       string
+	Port     string
+	Database ConfigMongoData
+	Timeout  ConfigMongoTimeout
+}
+
+// ConfigMongoData is a structure holding configuration for MongoDB database
+type ConfigMongoData struct {
+	Name       string
+	Collection string
+}
+
+// ConfigMongoTimeout is a structure holding configuration for MongoDB timeouts
+type ConfigMongoTimeout struct {
+	Connection int
+	Get        int
+	Post       int
+	Put        int
+	Delete     int
 }
 
 // NewConfig is a factory method to create configuration objects
