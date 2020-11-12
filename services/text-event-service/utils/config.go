@@ -4,15 +4,23 @@ import "github.com/spf13/viper"
 
 // Config is a structure holding all configuration data
 type Config struct {
-	Service ConfigService
+	Server  ConfigServer
 	MongoDB ConfigMongo
 }
 
-// ConfigService is a structure holding configuration for service
-type ConfigService struct {
-	IP     string
-	Port   string
-	TypeDB string
+// ConfigServer is a structure holding configuration for server
+type ConfigServer struct {
+	IP      string
+	Port    string
+	TypeDB  string
+	Timeout ConfigServerTimeout
+}
+
+// ConfigServerTimeout is a structure holding configuration for server timeouts
+type ConfigServerTimeout struct {
+	Idle  int
+	Read  int
+	Write int
 }
 
 // ConfigMongo is a structure holding configuration for MongoDB
