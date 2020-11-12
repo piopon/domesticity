@@ -49,8 +49,9 @@ type ConfigMongoTimeout struct {
 
 // NewConfig is a factory method to create configuration objects
 func NewConfig() *Config {
-	configDefaults()
 	configInitialize()
+	configServerDefaults()
+	configMongoDefaults()
 	return &Config{
 		Service: ConfigService{
 			IP:     viper.GetString("service.ip"),
@@ -65,17 +66,7 @@ func NewConfig() *Config {
 	}
 }
 
-func configDefaults() {
-	viper.SetDefault("service.ip", "")
-	viper.SetDefault("service.port", "9999")
-	viper.SetDefault("service.db-type", "mongo")
-	viper.SetDefault("mongo.scheme", "mongodb://")
-	viper.SetDefault("mongo.ip", "127.0.0.1")
-	viper.SetDefault("mongo.port", "27017")
-	viper.SetDefault("mongo.conn-time", 10)
-	viper.SetDefault("mongo.oper-time", 5)
-}
-
+// configInitialize is used to initialize Viper configs framework
 func configInitialize() {
 	viper.SetConfigType("yaml")
 	viper.SetConfigName("settings")
@@ -85,3 +76,28 @@ func configInitialize() {
 		panic("Cannot read configuration file: " + readError.Error())
 	}
 }
+
+// configServerDefaults is used to setup defaults for server configuration
+func configServerDefaults() {
+	viper.SetDefault("server.ip", "")
+	viper.SetDefault("server.port", "9999")
+	viper.SetDefault("server.db-type", "mongo")
+	viper.SetDefault("server.timeout.idle", 600)
+	viper.SetDefault("server.timeout.write", 10)
+	viper.SetDefault("server.timeout.read", 10)
+}
+
+// configMongoDefaults is used to setup defaults for MongoDB configuration
+func configMongoDefaults() {
+	viper.SetDefault("mongo.scheme", "mongodb://")
+	viper.SetDefault("mongo.ip", "127.0.0.1")
+	viper.SetDefault("mongo.port", "27017")
+	viper.SetDefault("mongo.db.name", "event-service")
+	viper.SetDefault("mongo.db.collection", "events")
+	viper.SetDefault("mongo.timeout.connection", 10)
+	viper.SetDefault("mongo.timeout.get", 10)
+	viper.SetDefault("mongo.timeout.post", 5)
+	viper.SetDefault("mongo.timeout.put", 5)
+	viper.SetDefault("mongo.timeout.delete", 3)
+}
+
