@@ -1,10 +1,25 @@
-service:
+# Main events service settings / configuration file
+---
+name: "text-event-service"
+verbose: false
+server:
     ip: ""
     port: "9999"
-    db-type: "mongo"
+    db-type: "mongo"        # valid: "mongo" or "memory"
+    timeout:
+        idle: 600
+        read: 10
+        write: 10
 mongo:
-    scheme: "mongodb://"
+    scheme: "mongodb://"    # valid: "mongodb://" or "mongodb+srv://"
     ip: "172.18.12.1"
     port: "27017"
-    conn-time: 10
-    oper-time: 8
+    db:
+        name: "event-service"
+        collection: "events"
+    timeout:
+        connection: 10
+        get: 10
+        post: 5
+        put: 5
+        delete: 3
