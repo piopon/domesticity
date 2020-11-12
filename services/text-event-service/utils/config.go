@@ -53,16 +53,8 @@ func NewConfig() *Config {
 	configServerDefaults()
 	configMongoDefaults()
 	return &Config{
-		Service: ConfigService{
-			IP:     viper.GetString("service.ip"),
-			Port:   viper.GetString("service.port"),
-			TypeDB: viper.GetString("service.db-type"),
-		},
-		MongoDB: ConfigMongo{
-			Scheme: viper.GetString("mongo.scheme"),
-			IP:     viper.GetString("mongo.ip"),
-			Port:   viper.GetString("mongo.port"),
-		},
+		Server:  getConfigServer(),
+		MongoDB: getConfigMongo(),
 	}
 }
 
