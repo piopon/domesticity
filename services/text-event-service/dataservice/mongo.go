@@ -59,10 +59,9 @@ func (mongo MongoDB) Shutdown(ctx context.Context) {
 // GetEvents returns all events stored in DB
 func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 	var events model.Events
-	collection := mongo.client.Database(mongo.config.Database.Name).Collection(mongo.config.Database.Collection)
-	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.config.Timeout.Get)*time.Second)
+	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.timeouts.Get)*time.Second)
 	defer cancel()
-	cursor, error := collection.Find(context, bson.M{})
+	cursor, error := mongo.document.Find(context, bson.M{})
 	if error != nil {
 		return nil, error
 	}
@@ -81,10 +80,9 @@ func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 // GetEvent returns event with specified ID (or error if not found)
 func (mongo MongoDB) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 	var event model.Event
-	collection := mongo.client.Database(mongo.config.Database.Name).Collection(mongo.config.Database.Collection)
-	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.config.Timeout.Get)*time.Second)
+	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.timeouts.Get)*time.Second)
 	defer cancel()
-	error := collection.FindOne(context, bson.M{"_id": id}).Decode(&event)
+	error := mongo.document.FindOne(context, bson.M{"_id": id}).Decode(&event)
 	if error != nil {
 		return nil, error
 	}
@@ -93,10 +91,9 @@ func (mongo MongoDB) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 
 // AddEvent adds passed event item to DB
 func (mongo MongoDB) AddEvent(event *model.Event) error {
-	collection := mongo.client.Database(mongo.config.Database.Name).Collection(mongo.config.Database.Collection)
-	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.config.Timeout.Post)*time.Second)
+	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.timeouts.Post)*time.Second)
 	defer cancel()
-	newID, error := collection.InsertOne(context, event)
+	newID, error := mongo.document.InsertOne(context, event)
 	if error == nil {
 		event.ID = newID.InsertedID.(primitive.ObjectID)
 	}
@@ -105,10 +102,9 @@ func (mongo MongoDB) AddEvent(event *model.Event) error {
 
 // UpdateEvent updates an event with specified ID
 func (mongo MongoDB) UpdateEvent(id primitive.ObjectID, event *model.Event) error {
-	collection := mongo.client.Database(mongo.config.Database.Name).Collection(mongo.config.Database.Collection)
-	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.config.Timeout.Put)*time.Second)
+	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.timeouts.Put)*time.Second)
 	defer cancel()
-	_, error := collection.UpdateOne(context, bson.M{"_id": id}, bson.M{"$set": event})
+	_, error := mongo.document.UpdateOne(context, bson.M{"_id": id}, bson.M{"$set": event})
 	if error == nil {
 		event.ID = id
 	}
@@ -117,9 +113,8 @@ func (mongo MongoDB) UpdateEvent(id primitive.ObjectID, event *model.Event) erro
 
 // DeleteEvent deletes a event with specified ID from the database
 func (mongo MongoDB) DeleteEvent(id primitive.ObjectID) error {
-	collection := mongo.client.Database(mongo.config.Database.Name).Collection(mongo.config.Database.Collection)
-	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.config.Timeout.Delete)*time.Second)
+	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.timeouts.Delete)*time.Second)
 	defer cancel()
-	_, error := collection.DeleteOne(context, bson.M{"_id": id})
+	_, error := mongo.document.DeleteOne(context, bson.M{"_id": id})
 	return error
 }
