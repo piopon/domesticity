@@ -4,6 +4,8 @@ import "github.com/spf13/viper"
 
 // Config is a structure holding all configuration data
 type Config struct {
+	Name    string
+	Verbose bool
 	Server  ConfigServer
 	MongoDB ConfigMongo
 }
@@ -50,9 +52,12 @@ type ConfigMongoTimeout struct {
 // NewConfig is a factory method to create configuration objects
 func NewConfig() *Config {
 	configInitialize()
+	configServiceDefaults()
 	configServerDefaults()
 	configMongoDefaults()
 	return &Config{
+		Name:    viper.GetString("name"),
+		Verbose: viper.GetBool("verbose"),
 		Server:  getConfigServer(),
 		MongoDB: getConfigMongo(),
 	}
@@ -67,6 +72,12 @@ func configInitialize() {
 	if readError != nil {
 		panic("Cannot read configuration file: " + readError.Error())
 	}
+}
+
+// configServerDefaults is used to setup defaults for server configuration
+func configServiceDefaults() {
+	viper.SetDefault("name", "text-event-service")
+	viper.SetDefault("verbose", false)
 }
 
 // configServerDefaults is used to setup defaults for server configuration
