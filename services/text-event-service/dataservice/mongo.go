@@ -17,21 +17,21 @@ import (
 
 // MongoDB is a data base service with elements are stored with use of MongoDB
 type MongoDB struct {
-	client         *mongo.Client
-	nameDatabase   string
-	nameCollection string
+	client *mongo.Client
+	config *utils.ConfigMongo
 }
 
 // NewMongoDB is a factory method to create a Mongo DB service
 func NewMongoDB(config *utils.ConfigMongo) *MongoDB {
-	mongoClient, error := initMongoClient(config.Scheme + config.IP + ":" + config.Port)
+	mongoClient, error := initMongoClient(config)
 	if error != nil {
 		panic("Cannot initialize MongoDB client. " + error.Error())
 	}
-	return &MongoDB{mongoClient, "event-service", "events"}
+	return &MongoDB{mongoClient, config}
 }
 
-func initMongoClient(URI string) (*mongo.Client, error) {
+func initMongoClient(config *utils.ConfigMongo) (*mongo.Client, error) {
+	URI := config.Scheme + config.IP + ":" + config.Port
 	context, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	client, error := mongo.Connect(context, options.Client().ApplyURI(URI))
