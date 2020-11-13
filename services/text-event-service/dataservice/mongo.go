@@ -32,7 +32,7 @@ func NewMongoDB(config *utils.ConfigMongo) *MongoDB {
 
 func initMongoClient(config *utils.ConfigMongo) (*mongo.Client, error) {
 	URI := config.Scheme + config.IP + ":" + config.Port
-	context, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	context, cancel := context.WithTimeout(context.Background(), time.Duration(config.Timeout.Connection)*time.Second)
 	defer cancel()
 	client, error := mongo.Connect(context, options.Client().ApplyURI(URI))
 	if error != nil {
@@ -54,8 +54,8 @@ func (mongo MongoDB) Shutdown(ctx context.Context) {
 // GetEvents returns all events stored in DB
 func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 	var events model.Events
-	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
-	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	collection := mongo.client.Database(mongo.config.Database.Name).Collection(mongo.config.Database.Collection)
+	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.config.Timeout.Get)*time.Second)
 	defer cancel()
 	cursor, error := collection.Find(context, bson.M{})
 	if error != nil {
@@ -76,8 +76,8 @@ func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 // GetEvent returns event with specified ID (or error if not found)
 func (mongo MongoDB) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 	var event model.Event
-	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
-	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	collection := mongo.client.Database(mongo.config.Database.Name).Collection(mongo.config.Database.Collection)
+	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.config.Timeout.Get)*time.Second)
 	defer cancel()
 	error := collection.FindOne(context, bson.M{"_id": id}).Decode(&event)
 	if error != nil {
@@ -88,8 +88,8 @@ func (mongo MongoDB) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 
 // AddEvent adds passed event item to DB
 func (mongo MongoDB) AddEvent(event *model.Event) error {
-	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
-	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	collection := mongo.client.Database(mongo.config.Database.Name).Collection(mongo.config.Database.Collection)
+	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.config.Timeout.Post)*time.Second)
 	defer cancel()
 	newID, error := collection.InsertOne(context, event)
 	if error == nil {
@@ -100,8 +100,8 @@ func (mongo MongoDB) AddEvent(event *model.Event) error {
 
 // UpdateEvent updates an event with specified ID
 func (mongo MongoDB) UpdateEvent(id primitive.ObjectID, event *model.Event) error {
-	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
-	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	collection := mongo.client.Database(mongo.config.Database.Name).Collection(mongo.config.Database.Collection)
+	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.config.Timeout.Put)*time.Second)
 	defer cancel()
 	_, error := collection.UpdateOne(context, bson.M{"_id": id}, bson.M{"$set": event})
 	if error == nil {
@@ -112,8 +112,8 @@ func (mongo MongoDB) UpdateEvent(id primitive.ObjectID, event *model.Event) erro
 
 // DeleteEvent deletes a event with specified ID from the database
 func (mongo MongoDB) DeleteEvent(id primitive.ObjectID) error {
-	collection := mongo.client.Database(mongo.nameDatabase).Collection(mongo.nameCollection)
-	context, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	collection := mongo.client.Database(mongo.config.Database.Name).Collection(mongo.config.Database.Collection)
+	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.config.Timeout.Delete)*time.Second)
 	defer cancel()
 	_, error := collection.DeleteOne(context, bson.M{"_id": id})
 	return error
