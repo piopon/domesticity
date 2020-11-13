@@ -48,9 +48,9 @@ func main() {
 		Addr:         config.Server.IP + ":" + config.Server.Port,
 		Handler:      routerMain,
 		ErrorLog:     logger,
-		IdleTimeout:  300 * time.Second,
-		ReadTimeout:  1 * time.Second,
-		WriteTimeout: 1 * time.Second,
+		IdleTimeout:  time.Duration(config.Server.Timeout.Idle) * time.Second,
+		ReadTimeout:  time.Duration(config.Server.Timeout.Read) * time.Second,
+		WriteTimeout: time.Duration(config.Server.Timeout.Write) * time.Second,
 	}
 
 	go func() {
