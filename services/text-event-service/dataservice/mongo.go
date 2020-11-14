@@ -126,7 +126,12 @@ func (mongo MongoDB) filter(queryParams url.Values) interface{} {
 	}
 	filterQuery := []bson.M{}
 	for key, value := range queryParams {
-		if mongo.shouldMatchExact(key) {
+		if date, field := mongo.shouldSearchDate(key); date {
+			day, _ := time.Parse("2006-02-01", value[0])
+			minDayTime := time.Date(day.Year(), day.Month(), day.Day(), 0, 0, 0, 0, time.UTC)
+			maxDayTime := time.Date(day.Year(), day.Month(), day.Day(), 23, 59, 59, 9999999, time.UTC)
+			filterQuery = append(filterQuery, bson.M{field: bson.M{"$gte": minDayTime, "$lte": maxDayTime}})
+		} else if mongo.shouldMatchExact(key) {
 			filterQuery = append(filterQuery, bson.M{key: value[0]})
 		} else {
 			filterQuery = append(filterQuery, bson.M{key: primitive.Regex{Pattern: value[0], Options: ""}})
@@ -138,4 +143,14 @@ func (mongo MongoDB) filter(queryParams url.Values) interface{} {
 // shouldMatchExact is used to check if query should match exact result or if it contains value
 func (mongo MongoDB) shouldMatchExact(key string) bool {
 	return !(key == "title" || key == "content")
+}
+
+// shouldMatchExact is used to check if query should filter elements by date
+func (mongo MongoDB) shouldSearchDate(key string) (bool, string) {
+	if key == "dayStart" {
+		return true, "date.start"
+	} else if key == "dayStop" {
+		return true, "date.stop"
+	}
+	return false, ""
 }
