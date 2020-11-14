@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/url"
+	"strconv"
 	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/model"
@@ -61,7 +62,11 @@ func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 	var events model.Events
 	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.timeouts.Get)*time.Second)
 	defer cancel()
-	cursor, error := mongo.document.Find(context, mongo.filter(queryParams))
+	findOptions, error := mongo.getOptions(queryParams)
+	if error != nil {
+		return nil, error
+	}
+	cursor, error := mongo.document.Find(context, mongo.filter(queryParams), findOptions)
 	if error != nil {
 		return nil, error
 	}
@@ -117,6 +122,29 @@ func (mongo MongoDB) DeleteEvent(id primitive.ObjectID) error {
 	defer cancel()
 	_, error := mongo.document.DeleteOne(context, bson.M{"_id": id})
 	return error
+}
+
+// getOptions is used to specify find request MongoDB options
+func (mongo MongoDB) getOptions(queryParams url.Values) (*options.FindOptions, error) {
+	if len(queryParams) == 0 {
+		return nil, nil
+	}
+	options := options.FindOptions{}
+	if limit, hasLimit := queryParams["limit"]; hasLimit {
+		limitParsed, error := strconv.ParseInt(limit[0], 10, 64)
+		if error != nil {
+			return nil, fmt.Errorf("Filter limit: cannot parse limit value %s", limit)
+		}
+		options.Limit = &limitParsed
+	}
+	if offset, hasOffset := queryParams["offset"]; hasOffset {
+		offsetParsed, error := strconv.ParseInt(offset[0], 10, 64)
+		if error != nil {
+			return nil, fmt.Errorf("Filter offset: cannot parse offset value %s", offset)
+		}
+		options.Limit = &offsetParsed
+	}
+	return &options, nil
 }
 
 // filter is used to updte bson interface to filter MongoDB results
