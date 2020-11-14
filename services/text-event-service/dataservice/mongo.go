@@ -61,7 +61,7 @@ func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 	var events model.Events
 	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.timeouts.Get)*time.Second)
 	defer cancel()
-	cursor, error := mongo.document.Find(context, bson.M{})
+	cursor, error := mongo.document.Find(context, mongo.filter(queryParams))
 	if error != nil {
 		return nil, error
 	}
@@ -117,4 +117,16 @@ func (mongo MongoDB) DeleteEvent(id primitive.ObjectID) error {
 	defer cancel()
 	_, error := mongo.document.DeleteOne(context, bson.M{"_id": id})
 	return error
+}
+
+// filter is used to updte bson interface to filter MongoDB results
+func (mongo MongoDB) filter(queryParams url.Values) interface{} {
+	if len(queryParams) == 0 {
+		return bson.M{}
+	}
+	filterQuery := []bson.M{}
+	for key, value := range queryParams {
+		filterQuery = append(filterQuery, bson.M{key: value[0]})
+	}
+	return bson.M{"$and": filterQuery}
 }
