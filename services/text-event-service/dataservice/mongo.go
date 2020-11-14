@@ -126,7 +126,16 @@ func (mongo MongoDB) filter(queryParams url.Values) interface{} {
 	}
 	filterQuery := []bson.M{}
 	for key, value := range queryParams {
-		filterQuery = append(filterQuery, bson.M{key: value[0]})
+		if mongo.shouldMatchExact(key) {
+			filterQuery = append(filterQuery, bson.M{key: value[0]})
+		} else {
+			filterQuery = append(filterQuery, bson.M{key: primitive.Regex{Pattern: value[0], Options: ""}})
+		}
 	}
 	return bson.M{"$and": filterQuery}
+}
+
+// shouldMatchExact is used to check if query should match exact result or if it contains value
+func (mongo MongoDB) shouldMatchExact(key string) bool {
+	return !(key == "title" || key == "content")
 }
