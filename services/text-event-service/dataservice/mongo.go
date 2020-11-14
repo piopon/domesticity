@@ -66,7 +66,7 @@ func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 	if error != nil {
 		return nil, error
 	}
-	cursor, error := mongo.document.Find(context, mongo.filter(queryParams), findOptions)
+	cursor, error := mongo.document.Find(context, mongo.getFilter(queryParams), findOptions)
 	if error != nil {
 		return nil, error
 	}
@@ -147,13 +147,16 @@ func (mongo MongoDB) getOptions(queryParams url.Values) (*options.FindOptions, e
 	return &options, nil
 }
 
-// filter is used to updte bson interface to filter MongoDB results
-func (mongo MongoDB) filter(queryParams url.Values) interface{} {
+// getFilter is used to update bson interface to filter MongoDB results
+func (mongo MongoDB) getFilter(queryParams url.Values) interface{} {
 	if len(queryParams) == 0 {
 		return bson.M{}
 	}
 	filterQuery := []bson.M{}
 	for key, value := range queryParams {
+		if key == "limit" || key == "offset" {
+			continue
+		}
 		if date, field := mongo.shouldSearchDate(key); date {
 			day, _ := time.Parse("2006-02-01", value[0])
 			minDayTime := time.Date(day.Year(), day.Month(), day.Day(), 0, 0, 0, 0, time.UTC)
