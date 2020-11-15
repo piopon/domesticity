@@ -157,7 +157,7 @@ func (mongo MongoDB) getOptions(queryParams url.Values) (*options.FindOptions, e
 		if error != nil {
 			return nil, fmt.Errorf("Filter offset: cannot parse offset value %s", offset)
 		}
-		options.Limit = &offsetParsed
+		options.Skip = &offsetParsed
 	}
 	return &options, nil
 }
