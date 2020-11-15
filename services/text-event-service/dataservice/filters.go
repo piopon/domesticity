@@ -1,7 +1,11 @@
 package dataservice
 
 import (
+	"time"
+
 	"github.com/piopon/domesticity/services/text-event-service/utils"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -52,15 +56,18 @@ func NewFilters(config *utils.ConfigServer) *Filters {
 }
 
 func dateQuery(dbField string, value []string) interface{} {
-	return nil
+	day, _ := time.Parse("2006-02-01", value[0])
+	minDayTime := time.Date(day.Year(), day.Month(), day.Day(), 0, 0, 0, 0, time.UTC)
+	maxDayTime := time.Date(day.Year(), day.Month(), day.Day(), 23, 59, 59, 9999999, time.UTC)
+	return bson.M{dbField: bson.M{"$gte": minDayTime, "$lte": maxDayTime}}
 }
 
 func exactQuery(dbField string, value []string) interface{} {
-	return nil
+	return bson.M{dbField: value[0]}
 }
 
 func regexQuery(dbField string, value []string) interface{} {
-	return nil
+	return bson.M{dbField: primitive.Regex{Pattern: value[0], Options: ""}}
 }
 
 func limitQuery(dest *options.FindOptions, src int64) {
