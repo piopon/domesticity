@@ -3,6 +3,7 @@ package dataservice
 import (
 	"fmt"
 	"net/url"
+	"strconv"
 	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/utils"
@@ -57,6 +58,29 @@ func NewFilters(config *utils.ConfigServer) *Filters {
 	return &Filters{memoryFilters}
 }
 
+// GetOptions is used to specify find request MongoDB options
+func (filters Filters) GetOptions(queryParams url.Values) (*options.FindOptions, error) {
+	if len(queryParams) == 0 {
+		return nil, nil
+	}
+	queryOptions := options.FindOptions{}
+	for key, value := range queryParams {
+		if filter, ok := filters.available[key]; ok {
+			if filter.Type != typeOption {
+				continue
+			}
+			valueParsed, error := strconv.ParseInt(value[0], 10, 64)
+			if error != nil {
+				return nil, fmt.Errorf("Filter '"+key+"': cannot parse input value %s", value[0])
+			}
+			filter.Query.(func(*options.FindOptions, int64))(&queryOptions, valueParsed)
+		} else {
+			return nil, fmt.Errorf("Filter named '" + key + "' is not available")
+		}
+	}
+	return &queryOptions, nil
+}
+
 // GetFilters is used to update bson interface to filter MongoDB results
 func (filters Filters) GetFilters(queryParams url.Values) (interface{}, error) {
 	if len(queryParams) == 0 {
@@ -96,9 +120,9 @@ func regexQuery(dbField string, value []string) interface{} {
 }
 
 func limitQuery(dest *options.FindOptions, src int64) {
-	return
+	dest.Limit = &src
 }
 
 func offsetQuery(dest *options.FindOptions, src int64) {
-	return
+	dest.Skip = &src
 }
