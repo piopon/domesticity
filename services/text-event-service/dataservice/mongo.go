@@ -62,11 +62,12 @@ func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 	var events model.Events
 	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.timeouts.Get)*time.Second)
 	defer cancel()
-	findOptions, error := mongo.getOptions(queryParams)
+	filterParams, optionParams := mongo.splitQueryParams(queryParams)
+	findOptions, error := mongo.getOptions(optionParams)
 	if error != nil {
 		return nil, error
 	}
-	cursor, error := mongo.document.Find(context, mongo.getFilter(queryParams), findOptions)
+	cursor, error := mongo.document.Find(context, mongo.getFilter(filterParams), findOptions)
 	if error != nil {
 		return nil, error
 	}
@@ -168,9 +169,6 @@ func (mongo MongoDB) getFilter(queryParams url.Values) interface{} {
 	}
 	filterQuery := []bson.M{}
 	for key, value := range queryParams {
-		if key == "limit" || key == "offset" {
-			continue
-		}
 		if date, field := mongo.shouldSearchDate(key); date {
 			day, _ := time.Parse("2006-02-01", value[0])
 			minDayTime := time.Date(day.Year(), day.Month(), day.Day(), 0, 0, 0, 0, time.UTC)
