@@ -124,6 +124,20 @@ func (mongo MongoDB) DeleteEvent(id primitive.ObjectID) error {
 	return error
 }
 
+// splitQueryParams is a method dividing input query paramters to option and filter ones
+func (mongo MongoDB) splitQueryParams(queryParams url.Values) (map[string][]string, map[string][]string) {
+	optionsMap := make(map[string][]string)
+	filtersMap := make(map[string][]string)
+	for key, value := range queryParams {
+		if key == "limit" || key == "offset" {
+			optionsMap[key] = value
+		} else {
+			filtersMap[key] = value
+		}
+	}
+	return filtersMap, optionsMap
+}
+
 // getOptions is used to specify find request MongoDB options
 func (mongo MongoDB) getOptions(queryParams url.Values) (*options.FindOptions, error) {
 	if len(queryParams) == 0 {
