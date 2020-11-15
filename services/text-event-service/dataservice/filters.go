@@ -2,6 +2,7 @@ package dataservice
 
 import (
 	"github.com/piopon/domesticity/services/text-event-service/utils"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 // Filters is a struct containing all settings for filtering DB data
@@ -29,14 +30,14 @@ const (
 
 // mongoFilters is a map for defining available MongoDB filters
 var mongoFilters = availableFilters{
-	"limit":    {typeOption, "limit", nil},
-	"offset":   {typeOption, "offset", nil},
-	"title":    {typeFilter, "title", nil},
-	"owner":    {typeFilter, "owner", nil},
-	"dayStart": {typeFilter, "date.start", nil},
-	"dayStop":  {typeFilter, "date.stop", nil},
-	"category": {typeFilter, "category", nil},
-	"content":  {typeFilter, "content", nil},
+	"limit":    {typeOption, "limit", limitQuery},
+	"offset":   {typeOption, "offset", offsetQuery},
+	"title":    {typeFilter, "title", regexQuery},
+	"owner":    {typeFilter, "owner", exactQuery},
+	"dayStart": {typeFilter, "date.start", dateQuery},
+	"dayStop":  {typeFilter, "date.stop", dateQuery},
+	"category": {typeFilter, "category", exactQuery},
+	"content":  {typeFilter, "content", regexQuery},
 }
 
 // memoryFilters is a map for defining available in memory DB filters
@@ -48,4 +49,24 @@ func NewFilters(config *utils.ConfigServer) *Filters {
 		return &Filters{mongoFilters}
 	}
 	return &Filters{memoryFilters}
+}
+
+func dateQuery(dbField string, value []string) interface{} {
+	return nil
+}
+
+func exactQuery(dbField string, value []string) interface{} {
+	return nil
+}
+
+func regexQuery(dbField string, value []string) interface{} {
+	return nil
+}
+
+func limitQuery(dest *options.FindOptions, src int64) {
+	return
+}
+
+func offsetQuery(dest *options.FindOptions, src int64) {
+	return
 }
