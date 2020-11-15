@@ -1,6 +1,8 @@
 package dataservice
 
 import (
+	"fmt"
+	"net/url"
 	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/utils"
@@ -53,6 +55,29 @@ func NewFilters(config *utils.ConfigServer) *Filters {
 		return &Filters{mongoFilters}
 	}
 	return &Filters{memoryFilters}
+}
+
+// GetFilters is used to update bson interface to filter MongoDB results
+func (filters Filters) GetFilters(queryParams url.Values) (interface{}, error) {
+	if len(queryParams) == 0 {
+		return bson.M{}, nil
+	}
+	queryFilter := []bson.M{}
+	for key, value := range queryParams {
+		if filter, ok := filters.available[key]; ok {
+			if filter.Type != typeFilter {
+				continue
+			}
+			query := filter.Query.(func(string, []string) interface{})(filter.FieldDB, value)
+			queryFilter = append(queryFilter, query.(bson.M))
+		} else {
+			return nil, fmt.Errorf("Filter named '" + key + "' is not available")
+		}
+	}
+	if len(queryFilter) > 0 {
+		return bson.M{"$and": queryFilter}, nil
+	}
+	return bson.M{}, nil
 }
 
 func dateQuery(dbField string, value []string) interface{} {
