@@ -162,10 +162,10 @@ func (mongo MongoDB) getOptions(queryParams url.Values) (*options.FindOptions, e
 	return &options, nil
 }
 
-// getFilter is used to update bson interface to filter MongoDB results
-func (mongo MongoDB) getFilter(queryParams url.Values) interface{} {
+// getFilters is used to update bson interface to filter MongoDB results
+func (mongo MongoDB) getFilters(queryParams url.Values) (interface{}, error) {
 	if len(queryParams) == 0 {
-		return bson.M{}
+		return bson.M{}, nil
 	}
 	filterQuery := []bson.M{}
 	for key, value := range queryParams {
@@ -180,7 +180,7 @@ func (mongo MongoDB) getFilter(queryParams url.Values) interface{} {
 			filterQuery = append(filterQuery, bson.M{key: primitive.Regex{Pattern: value[0], Options: ""}})
 		}
 	}
-	return bson.M{"$and": filterQuery}
+	return bson.M{"$and": filterQuery}, nil
 }
 
 // shouldMatchExact is used to check if query should match exact result or if it contains value
