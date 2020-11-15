@@ -65,11 +65,15 @@ func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 	filterParams, optionParams := mongo.splitQueryParams(queryParams)
 	findOptions, error := mongo.getOptions(optionParams)
 	if error != nil {
-		return nil, error
+		return nil, fmt.Errorf("Cannot get options params: " + error.Error())
 	}
-	cursor, error := mongo.document.Find(context, mongo.getFilter(filterParams), findOptions)
+	findFilters, error := mongo.getFilters(filterParams)
 	if error != nil {
-		return nil, error
+		return nil, fmt.Errorf("Cannot get filter params: " + error.Error())
+	}
+	cursor, error := mongo.document.Find(context, findFilters, findOptions)
+	if error != nil {
+		return nil, fmt.Errorf("Cannot find elements: " + error.Error())
 	}
 	defer cursor.Close(context)
 	for cursor.Next(context) {
