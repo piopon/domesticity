@@ -19,18 +19,20 @@ import (
 // MongoDB is a data base service with elements are stored with use of MongoDB
 type MongoDB struct {
 	client   *mongo.Client
+	filters  *Filters
 	document *mongo.Collection
 	timeouts *utils.ConfigMongoTimeout
 }
 
 // NewMongoDB is a factory method to create a Mongo DB service
-func NewMongoDB(config *utils.ConfigMongo) *MongoDB {
+func NewMongoDB(config *utils.ConfigMongo, filters *Filters) *MongoDB {
 	mongoClient, error := initMongoClient(config)
 	if error != nil {
 		panic("Cannot initialize MongoDB client. " + error.Error())
 	}
 	return &MongoDB{
 		client:   mongoClient,
+		filters:  filters,
 		document: mongoClient.Database(config.Database.Name).Collection(config.Database.Collection),
 		timeouts: &config.Timeout,
 	}
