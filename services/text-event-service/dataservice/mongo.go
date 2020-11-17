@@ -64,14 +64,13 @@ func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 	var events model.Events
 	context, cancel := context.WithTimeout(context.Background(), time.Duration(mongo.timeouts.Get)*time.Second)
 	defer cancel()
-	filterParams, optionParams := mongo.splitQueryParams(queryParams)
-	findOptions, error := mongo.getOptions(optionParams)
+	findOptions, error := mongo.filters.GetOptions(queryParams)
 	if error != nil {
-		return nil, fmt.Errorf("Cannot get options params: " + error.Error())
+		return nil, fmt.Errorf("Cannot get query params: " + error.Error())
 	}
-	findFilters, error := mongo.getFilters(filterParams)
+	findFilters, error := mongo.filters.GetFilters(queryParams)
 	if error != nil {
-		return nil, fmt.Errorf("Cannot get filter params: " + error.Error())
+		return nil, fmt.Errorf("Cannot get query params: " + error.Error())
 	}
 	cursor, error := mongo.document.Find(context, findFilters, findOptions)
 	if error != nil {
