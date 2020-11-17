@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net/url"
-	"strconv"
 	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/model"
@@ -128,77 +127,4 @@ func (mongo MongoDB) DeleteEvent(id primitive.ObjectID) error {
 	defer cancel()
 	_, error := mongo.document.DeleteOne(context, bson.M{"_id": id})
 	return error
-}
-
-// splitQueryParams is a method dividing input query paramters to option and filter ones
-func (mongo MongoDB) splitQueryParams(queryParams url.Values) (map[string][]string, map[string][]string) {
-	optionsMap := make(map[string][]string)
-	filtersMap := make(map[string][]string)
-	for key, value := range queryParams {
-		if key == "limit" || key == "offset" {
-			optionsMap[key] = value
-		} else {
-			filtersMap[key] = value
-		}
-	}
-	return filtersMap, optionsMap
-}
-
-// getOptions is used to specify find request MongoDB options
-func (mongo MongoDB) getOptions(queryParams url.Values) (*options.FindOptions, error) {
-	if len(queryParams) == 0 {
-		return nil, nil
-	}
-	options := options.FindOptions{}
-	if limit, hasLimit := queryParams["limit"]; hasLimit {
-		limitParsed, error := strconv.ParseInt(limit[0], 10, 64)
-		if error != nil {
-			return nil, fmt.Errorf("Filter limit: cannot parse limit value %s", limit)
-		}
-		options.Limit = &limitParsed
-	}
-	if offset, hasOffset := queryParams["offset"]; hasOffset {
-		offsetParsed, error := strconv.ParseInt(offset[0], 10, 64)
-		if error != nil {
-			return nil, fmt.Errorf("Filter offset: cannot parse offset value %s", offset)
-		}
-		options.Skip = &offsetParsed
-	}
-	return &options, nil
-}
-
-// getFilters is used to update bson interface to filter MongoDB results
-func (mongo MongoDB) getFilters(queryParams url.Values) (interface{}, error) {
-	if len(queryParams) == 0 {
-		return bson.M{}, nil
-	}
-	filterQuery := []bson.M{}
-	for key, value := range queryParams {
-		if date, field := mongo.shouldSearchDate(key); date {
-			day, _ := time.Parse("2006-02-01", value[0])
-			minDayTime := time.Date(day.Year(), day.Month(), day.Day(), 0, 0, 0, 0, time.UTC)
-			maxDayTime := time.Date(day.Year(), day.Month(), day.Day(), 23, 59, 59, 9999999, time.UTC)
-			filterQuery = append(filterQuery, bson.M{field: bson.M{"$gte": minDayTime, "$lte": maxDayTime}})
-		} else if mongo.shouldMatchExact(key) {
-			filterQuery = append(filterQuery, bson.M{key: value[0]})
-		} else {
-			filterQuery = append(filterQuery, bson.M{key: primitive.Regex{Pattern: value[0], Options: ""}})
-		}
-	}
-	return bson.M{"$and": filterQuery}, nil
-}
-
-// shouldMatchExact is used to check if query should match exact result or if it contains value
-func (mongo MongoDB) shouldMatchExact(key string) bool {
-	return !(key == "title" || key == "content")
-}
-
-// shouldMatchExact is used to check if query should filter elements by date
-func (mongo MongoDB) shouldSearchDate(key string) (bool, string) {
-	if key == "dayStart" {
-		return true, "date.start"
-	} else if key == "dayStop" {
-		return true, "date.stop"
-	}
-	return false, ""
 }
