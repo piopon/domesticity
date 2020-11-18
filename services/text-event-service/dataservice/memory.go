@@ -12,12 +12,14 @@ import (
 
 // InMemory is a test data base service with elements stored in RAM
 type InMemory struct {
+	filters    *Filters
 	eventsList model.Events
 }
 
 // NewInMemory is a factory method to create an in memory data base service
-func NewInMemory() *InMemory {
+func NewInMemory(filters *Filters) *InMemory {
 	return &InMemory{
+		filters: filters,
 		eventsList: model.Events{
 			&model.Event{
 				ID:    primitive.NewObjectID(),

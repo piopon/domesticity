@@ -25,5 +25,5 @@ func NewDatabase(config *utils.Config) Database {
 	if config.Server.TypeDB == "mongo" {
 		return NewMongoDB(&config.MongoDB, filters)
 	}
-	return NewInMemory()
+	return NewInMemory(filters)
 }
