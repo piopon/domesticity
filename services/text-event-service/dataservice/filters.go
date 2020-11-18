@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/piopon/domesticity/services/text-event-service/model"
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -31,8 +32,9 @@ type filterData struct {
 type filterType int
 
 const (
-	typeOption filterType = 0
-	typeFilter filterType = 1
+	typeInternal filterType = 0
+	typeOption   filterType = 1
+	typeFilter   filterType = 2
 )
 
 // mongoFilters is a map for defining available MongoDB filters
@@ -48,7 +50,9 @@ var mongoFilters = availableFilters{
 }
 
 // memoryFilters is a map for defining available in memory DB filters
-var memoryFilters = availableFilters{}
+var memoryFilters = availableFilters{
+	"internal": {typeInternal, "internal", internalQuery},
+}
 
 // NewFilters is a factory method for creating Filters structure
 func NewFilters(config *utils.ConfigServer) *Filters {
@@ -125,4 +129,8 @@ func limitQuery(dest *options.FindOptions, src int64) {
 
 func offsetQuery(dest *options.FindOptions, src int64) {
 	dest.Skip = &src
+}
+
+func internalQuery(events model.Events, queryParams url.Values) (*model.Events, error) {
+	return events.Filter(queryParams)
 }
