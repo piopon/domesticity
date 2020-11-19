@@ -42,7 +42,11 @@ func (memory *InMemory) Shutdown(ctx context.Context) {
 
 // GetEvents returns all events stored in DB
 func (memory *InMemory) GetEvents(queryParams url.Values) (*model.Events, error) {
-	return memory.eventsList.Filter(queryParams)
+	filter, err := memory.filters.GetFilters(queryParams)
+	if err != nil {
+		return nil, err
+	}
+	return filter.(func(model.Events, url.Values) (*model.Events, error))(memory.eventsList, queryParams)
 }
 
 // GetEvent returns event with specified ID (or error if not found)
