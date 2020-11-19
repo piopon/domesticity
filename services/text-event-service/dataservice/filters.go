@@ -96,6 +96,9 @@ func (filters Filters) GetFilters(queryParams url.Values) (interface{}, error) {
 	queryFilter := []bson.M{}
 	for key, value := range queryParams {
 		if filter, ok := filters.available[key]; ok {
+			if filter.Type != typeInternal {
+				return filters.available[key].Query, nil
+			}
 			if filter.Type != typeFilter {
 				continue
 			}
