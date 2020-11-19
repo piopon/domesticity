@@ -70,6 +70,9 @@ func (filters Filters) GetOptions(queryParams url.Values) (*options.FindOptions,
 	queryOptions := options.FindOptions{}
 	for key, value := range queryParams {
 		if filter, ok := filters.available[key]; ok {
+			if filter.Type != typeInternal {
+				return nil, fmt.Errorf("Internal filters does not provide additional options")
+			}
 			if filter.Type != typeOption {
 				continue
 			}
