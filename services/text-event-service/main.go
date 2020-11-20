@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	config := utils.NewConfig()
+	config := utils.NewConfig("")
 	logger := log.New(os.Stdout, config.Name+" > ", log.LstdFlags|log.Lmsgprefix)
 	dataservice := dataservice.NewDatabase(config)
 
