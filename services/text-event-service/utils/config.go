@@ -1,6 +1,10 @@
 package utils
 
-import "github.com/spf13/viper"
+import (
+	"fmt"
+
+	"github.com/spf13/viper"
+)
 
 // Config is a structure holding all configuration data
 type Config struct {
@@ -51,10 +55,14 @@ type ConfigMongoTimeout struct {
 
 // NewConfig is a factory method to create configuration objects
 func NewConfig(initConfigPath string) *Config {
-	configInitialize(initConfigPath)
 	configServiceDefaults()
 	configServerDefaults()
 	configMongoDefaults()
+	error := configInitialize(initConfigPath)
+	if error != nil {
+		viper.WriteConfigAs(initConfigPath + "settings.yaml")
+		fmt.Println("No config file found. Created new one.")
+	}
 	return &Config{
 		Name:    viper.GetString("name"),
 		Verbose: viper.GetBool("verbose"),
@@ -64,16 +72,13 @@ func NewConfig(initConfigPath string) *Config {
 }
 
 // configInitialize is used to initialize Viper configs framework
-func configInitialize(initConfigPath string) {
+func configInitialize(initConfigPath string) error {
 	viper.SetConfigType("yaml")
 	viper.SetConfigName("settings")
 	viper.AddConfigPath(initConfigPath)
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("scripts")
-	readError := viper.ReadInConfig()
-	if readError != nil {
-		panic("Cannot read configuration file: " + readError.Error())
-	}
+	return viper.ReadInConfig()
 }
 
 // configServerDefaults is used to setup defaults for server configuration
