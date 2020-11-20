@@ -68,6 +68,7 @@ func configInitialize(initConfigPath string) {
 	viper.SetConfigType("yaml")
 	viper.SetConfigName("settings")
 	viper.AddConfigPath(initConfigPath)
+	viper.AddConfigPath(".")
 	viper.AddConfigPath("scripts")
 	readError := viper.ReadInConfig()
 	if readError != nil {
