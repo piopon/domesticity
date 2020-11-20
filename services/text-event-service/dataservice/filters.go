@@ -70,7 +70,7 @@ func (filters Filters) GetOptions(queryParams url.Values) (*options.FindOptions,
 	queryOptions := options.FindOptions{}
 	for key, value := range queryParams {
 		if filter, ok := filters.available[key]; ok {
-			if filter.Type != typeInternal {
+			if filter.Type == typeInternal {
 				return nil, fmt.Errorf("Internal filters does not provide additional options")
 			}
 			if filter.Type != typeOption {
@@ -96,7 +96,7 @@ func (filters Filters) GetFilters(queryParams url.Values) (interface{}, error) {
 	queryFilter := []bson.M{}
 	for key, value := range queryParams {
 		if filter, ok := filters.available[key]; ok {
-			if filter.Type != typeInternal {
+			if filter.Type == typeInternal {
 				return filters.available[key].Query, nil
 			}
 			if filter.Type != typeFilter {
