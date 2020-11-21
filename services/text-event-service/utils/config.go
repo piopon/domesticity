@@ -55,6 +55,7 @@ type ConfigMongoTimeout struct {
 
 // NewConfig is a factory method to create configuration objects
 func NewConfig(initConfigPath string) *Config {
+	configClean()
 	configServiceDefaults()
 	configServerDefaults()
 	configMongoDefaults()
@@ -71,13 +72,21 @@ func NewConfig(initConfigPath string) *Config {
 	}
 }
 
+// configClean is used to clear Viper configs settings
+func configClean() {
+	viper.Reset()
+}
+
 // configInitialize is used to initialize Viper configs framework
 func configInitialize(initConfigPath string) error {
 	viper.SetConfigType("yaml")
 	viper.SetConfigName("settings")
-	viper.AddConfigPath(initConfigPath)
-	viper.AddConfigPath(".")
-	viper.AddConfigPath("scripts")
+	if initConfigPath != "" {
+		viper.AddConfigPath(initConfigPath)
+	} else {
+		viper.AddConfigPath(".")
+		viper.AddConfigPath("scripts")
+	}
 	return viper.ReadInConfig()
 }
 
