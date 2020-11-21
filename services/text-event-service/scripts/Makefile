@@ -1,3 +1,11 @@
+run:
+	$(info running text-event-service)
+	@go run ../main.go
+
+test:
+	$(info running text-event-service unit tests)
+	@go test ../...
+
 build:
 	$(info running build text-event-service)
 	@go build -o ../bin/ ..
