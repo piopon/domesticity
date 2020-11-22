@@ -34,3 +34,8 @@ type Event struct {
 	// max length: 10000
 	Content string `json:"content" bson:"content"`
 }
+
+// ToString is a method used to convert Event to human readable form
+func (event *Event) ToString() string {
+	return "Event: \"" + event.Title + "\" created by: " + event.Owner + " [category: " + event.Category + "]"
+}

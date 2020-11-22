@@ -43,9 +43,11 @@ All endpoint documentation in more detailed manner is present after hitting `/do
 ### **Roadmap**
 - [x] add swagger documentation
 - [x] host swagger documentation as an service endpoint
-- [ ] add filtering to MongoDB dataservice
-- [ ] add configuration script support
+- [x] add filtering to MongoDB dataservice
+- [x] add configuration script support
+- [ ] add missing unit tests
 - [ ] add docker containers and docker compose features
+- [ ] configurare CI process
 
 ---
 Developed with :heartpulse: by PNK @ 2020 :vulcan_salute:
