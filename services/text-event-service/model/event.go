@@ -37,5 +37,14 @@ type Event struct {
 
 // ToString is a method used to convert Event to human readable form
 func (event *Event) ToString() string {
+	if event.Title == "" {
+		event.Title = "NIL"
+	}
+	if event.Owner == "" {
+		event.Owner = "NIL"
+	}
+	if event.Category == "" {
+		event.Category = "NIL"
+	}
 	return "Event: \"" + event.Title + "\" created by: " + event.Owner + " [category: " + event.Category + "]"
 }
