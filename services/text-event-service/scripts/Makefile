@@ -4,7 +4,7 @@ run:
 
 test:
 	$(info running text-event-service unit tests)
-	@go test ../...
+	@go test -timeout 30s ../...
 
 build:
 	$(info running build text-event-service)
