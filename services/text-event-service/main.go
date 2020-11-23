@@ -18,8 +18,11 @@ import (
 func main() {
 	config := utils.NewConfig("")
 	logger := log.New(os.Stdout, config.Name+" > ", log.LstdFlags|log.Lmsgprefix)
-	dataservice := dataservice.NewDatabase(config)
-
+	dataservice, dbError := dataservice.NewDatabase(config)
+	if dbError != nil {
+		logger.Println(dbError.Error())
+		return
+	}
 	homeHandler := handlers.NewHome(logger)
 	docsHandler := handlers.NewDocs("scripts/swagger.yaml")
 	eventsHandler := handlers.NewEvents(logger, utils.NewValidator(), dataservice)

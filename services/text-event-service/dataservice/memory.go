@@ -17,7 +17,7 @@ type InMemory struct {
 }
 
 // NewInMemory is a factory method to create an in memory data base service
-func NewInMemory(filters *Filters) *InMemory {
+func NewInMemory(filters *Filters) (*InMemory, error) {
 	return &InMemory{
 		filters: filters,
 		eventsList: model.Events{
@@ -32,7 +32,7 @@ func NewInMemory(filters *Filters) *InMemory {
 				Content:  "Test event number 1",
 			},
 		},
-	}
+	}, nil
 }
 
 // Shutdown clears internal events list

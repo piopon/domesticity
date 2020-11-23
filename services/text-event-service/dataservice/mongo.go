@@ -24,17 +24,14 @@ type MongoDB struct {
 }
 
 // NewMongoDB is a factory method to create a Mongo DB service
-func NewMongoDB(config *utils.ConfigMongo, filters *Filters) *MongoDB {
-	mongoClient, error := initMongoClient(config)
-	if error != nil {
-		panic("Cannot initialize MongoDB client. " + error.Error())
-	}
+func NewMongoDB(config *utils.ConfigMongo, filters *Filters) (*MongoDB, error) {
+	mongoClient, mongoError := initMongoClient(config)
 	return &MongoDB{
 		client:   mongoClient,
 		filters:  filters,
 		document: mongoClient.Database(config.Database.Name).Collection(config.Database.Collection),
 		timeouts: &config.Timeout,
-	}
+	}, mongoError
 }
 
 func initMongoClient(config *utils.ConfigMongo) (*mongo.Client, error) {
