@@ -16,7 +16,6 @@ import (
 // Filters is a struct containing all settings for filtering DB data
 type Filters struct {
 	available availableFilters
-	internal  url.Values
 }
 
 // availableFilters is an alias for string and filterData map
@@ -58,10 +57,9 @@ var memoryFilters = availableFilters{
 // NewFilters is a factory method for creating Filters structure
 func NewFilters(config *utils.ConfigServer) *Filters {
 	if config.TypeDB == "mongo" {
-		return &Filters{mongoFilters, nil}
+		return &Filters{mongoFilters}
 	}
-	var internalFilers = url.Values{"internal": {""}}
-	return &Filters{memoryFilters, internalFilers}
+	return &Filters{memoryFilters}
 }
 
 // GetOptions is used to specify find request MongoDB options
