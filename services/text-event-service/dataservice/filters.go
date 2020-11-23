@@ -114,6 +114,15 @@ func (filters Filters) GetFilters(queryParams url.Values) (interface{}, error) {
 	return bson.M{}, nil
 }
 
+// GetAvailable returns list of available filter names
+func (filters Filters) GetAvailable() []string {
+	keys := make([]string, 0, len(filters.available))
+	for k := range filters.available {
+		keys = append(keys, k)
+	}
+	return keys
+}
+
 func dateQuery(dbField string, value []string) interface{} {
 	day, _ := time.Parse("2006-02-01", value[0])
 	minDayTime := time.Date(day.Year(), day.Month(), day.Day(), 0, 0, 0, 0, time.UTC)
