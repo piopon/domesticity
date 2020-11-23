@@ -29,7 +29,7 @@ func NewMongoDB(config *utils.ConfigMongo, filters *Filters) (*MongoDB, error) {
 	return &MongoDB{
 		client:   mongoClient,
 		filters:  filters,
-		document: mongoClient.Database(config.Database.Name).Collection(config.Database.Collection),
+		document: initCollection(mongoClient, config.Database),
 		timeouts: &config.Timeout,
 	}, mongoError
 }
@@ -46,6 +46,13 @@ func initMongoClient(config *utils.ConfigMongo) (*mongo.Client, error) {
 		return nil, fmt.Errorf("Error while connecting to MongoDB server: "+URI, error.Error())
 	}
 	return client, nil
+}
+
+func initCollection(mongoClient *mongo.Client, mongoConfig utils.ConfigMongoData) *mongo.Collection {
+	if mongoClient != nil {
+		return mongoClient.Database(mongoConfig.Name).Collection(mongoConfig.Collection)
+	}
+	return nil
 }
 
 // Shutdown closes active database connection
