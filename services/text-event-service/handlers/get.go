@@ -22,14 +22,14 @@ func (events *Events) GetEvents(response http.ResponseWriter, request *http.Requ
 	if error != nil {
 		events.logger.Println("Unable to receive all events from database:", error.Error())
 		response.WriteHeader(http.StatusBadRequest)
-		utils.ToJSON(&model.GenericError{"Unable to receive all events from database: " + error.Error()}, response)
+		utils.ToJSON(&model.GenericError{Message: "Unable to receive all events from database: " + error.Error()}, response)
 		return
 	}
 	jsonError := utils.ToJSON(allEvents, response)
 	if jsonError != nil {
 		events.logger.Println("Unable to marshal events data in GetEvents handler")
 		response.WriteHeader(http.StatusInternalServerError)
-		utils.ToJSON(&model.GenericError{"Cannot send JSON response in GET request"}, response)
+		utils.ToJSON(&model.GenericError{Message: "Cannot send JSON response in GET request"}, response)
 		return
 	}
 }
@@ -50,14 +50,14 @@ func (events *Events) GetEvent(response http.ResponseWriter, request *http.Reque
 	if error != nil {
 		events.logger.Println("Unable to receive a single event from database:", error.Error())
 		response.WriteHeader(http.StatusNotFound)
-		utils.ToJSON(&model.GenericError{"Unable to receive a single event from database: " + error.Error()}, response)
+		utils.ToJSON(&model.GenericError{Message: "Unable to receive a single event from database: " + error.Error()}, response)
 		return
 	}
 	jsonError := utils.ToJSON(event, response)
 	if jsonError != nil {
 		events.logger.Println("Unable to marshal events data in GetEvent handler")
 		response.WriteHeader(http.StatusInternalServerError)
-		utils.ToJSON(&model.GenericError{"Cannot send JSON response in GET request"}, response)
+		utils.ToJSON(&model.GenericError{Message: "Cannot send JSON response in GET request"}, response)
 		return
 	}
 }

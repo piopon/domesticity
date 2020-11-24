@@ -22,7 +22,7 @@ func (events *Events) DeleteEvent(response http.ResponseWriter, request *http.Re
 	if deleteError != nil {
 		events.logger.Println("Cannot delete event with specified id:", deleteError.Error())
 		response.WriteHeader(http.StatusBadRequest)
-		utils.ToJSON(&model.GenericError{"Cannot delete event with specified id: " + deleteError.Error()}, response)
+		utils.ToJSON(&model.GenericError{Message: "Cannot delete event with specified id: " + deleteError.Error()}, response)
 		return
 	}
 	response.WriteHeader(http.StatusNoContent)

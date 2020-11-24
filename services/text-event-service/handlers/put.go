@@ -25,14 +25,14 @@ func (events *Events) UpdateEvent(response http.ResponseWriter, request *http.Re
 	if updateError != nil {
 		events.logger.Println("Cannot update event with specified id:", updateError.Error())
 		response.WriteHeader(http.StatusBadRequest)
-		utils.ToJSON(&model.GenericError{"Cannot update event with specified id: " + updateError.Error()}, response)
+		utils.ToJSON(&model.GenericError{Message: "Cannot update event with specified id: " + updateError.Error()}, response)
 		return
 	}
 	jsonError := utils.ToJSON(event, response)
 	if jsonError != nil {
 		events.logger.Println("Unable to marshal events data in UpdateEvent handler")
 		response.WriteHeader(http.StatusInternalServerError)
-		utils.ToJSON(&model.GenericError{"Cannot send JSON response in PUT request"}, response)
+		utils.ToJSON(&model.GenericError{Message: "Cannot send JSON response in PUT request"}, response)
 		return
 	}
 }

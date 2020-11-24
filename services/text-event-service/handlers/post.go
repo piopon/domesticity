@@ -24,14 +24,14 @@ func (events *Events) AddEvent(response http.ResponseWriter, request *http.Reque
 	if error != nil {
 		events.logger.Println("Cannot add new event to database:", error.Error())
 		response.WriteHeader(http.StatusInternalServerError)
-		utils.ToJSON(&model.GenericError{"Cannot add new event to database: " + error.Error()}, response)
+		utils.ToJSON(&model.GenericError{Message: "Cannot add new event to database: " + error.Error()}, response)
 		return
 	}
 	jsonError := utils.ToJSON(event, response)
 	if jsonError != nil {
 		events.logger.Println("Unable to marshal events data in AddEvent handler")
 		response.WriteHeader(http.StatusInternalServerError)
-		utils.ToJSON(&model.GenericError{"Cannot send JSON response in POST request"}, response)
+		utils.ToJSON(&model.GenericError{Message: "Cannot send JSON response in POST request"}, response)
 		return
 	}
 }
