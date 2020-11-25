@@ -3,9 +3,11 @@ package handlers_test
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/dataservice"
 	"github.com/piopon/domesticity/services/text-event-service/handlers"
+	"github.com/piopon/domesticity/services/text-event-service/model"
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -41,4 +43,18 @@ func (common *commonMockup) GetDatabaseIds() []primitive.ObjectID {
 		result = append(result, event.ID)
 	}
 	return result
+}
+
+func (common *commonMockup) AddBadEventToDB() primitive.ObjectID {
+	newEvent := &model.Event{
+		Title: "This is my first event",
+		Owner: "Admin",
+		Occurence: model.TimeSpan{
+			Start: time.Date(-2020, 05, 26, 14, 15, 00, 00, time.Local),
+			Stop:  time.Date(-2020, 05, 27, 10, 30, 00, 00, time.Local)},
+		Category: "Notes",
+		Content:  "Test event number 1",
+	}
+	common.TestDataservice.AddEvent(newEvent)
+	return newEvent.ID
 }
