@@ -13,9 +13,9 @@ import (
 )
 
 type commonMockup struct {
-	TestLogger      *log.Logger
-	TestValidator   *utils.Validator
-	TestDataservice dataservice.Database
+	testLogger      *log.Logger
+	testValidator   *utils.Validator
+	testDataservice dataservice.Database
 }
 
 func NewCommonMockup() *commonMockup {
@@ -23,18 +23,18 @@ func NewCommonMockup() *commonMockup {
 	testFilters := dataservice.NewFilters(&testConfig)
 	testDatabase, _ := dataservice.NewInMemory(testFilters)
 	return &commonMockup{
-		TestLogger:      log.New(os.Stdout, "TEST > ", log.LstdFlags),
-		TestValidator:   utils.NewValidator(),
-		TestDataservice: testDatabase,
+		testLogger:      log.New(os.Stdout, "TEST > ", log.LstdFlags),
+		testValidator:   utils.NewValidator(),
+		testDataservice: testDatabase,
 	}
 }
 
 func (common *commonMockup) CreateEventsHandler() *handlers.Events {
-	return handlers.NewEvents(common.TestLogger, common.TestValidator, common.TestDataservice)
+	return handlers.NewEvents(common.testLogger, common.testValidator, common.testDataservice)
 }
 
 func (common *commonMockup) GetDatabaseIds() []primitive.ObjectID {
-	events, errors := common.TestDataservice.GetEvents(nil)
+	events, errors := common.testDataservice.GetEvents(nil)
 	if errors != nil {
 		return nil
 	}
@@ -55,6 +55,6 @@ func (common *commonMockup) AddBadEventToDB() primitive.ObjectID {
 		Category: "Notes",
 		Content:  "Test event number 1",
 	}
-	common.TestDataservice.AddEvent(newEvent)
+	common.testDataservice.AddEvent(newEvent)
 	return newEvent.ID
 }
