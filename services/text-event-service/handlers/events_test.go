@@ -3,15 +3,12 @@ package handlers_test
 import (
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"strings"
 	"testing"
 
 	"github.com/piopon/domesticity/services/text-event-service/handlers"
-	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
 
 func TestNewEventsReturnsEventsHandlerObject(t *testing.T) {
@@ -64,8 +61,7 @@ func TestValidationMiddlewareFailsWhenValidationError(t *testing.T) {
 }
 
 func createValidationHandler() (http.Handler, testHandler) {
-	testLogger := log.New(os.Stdout, "> ", log.LstdFlags)
-	events := handlers.NewEvents(testLogger, utils.NewValidator(), nil)
+	events := NewCommonMockup().CreateEventsHandler()
 	handler := testHandler{"title", "category", "owner", "content"}
 	validation := events.ValidationMiddleware(&handler)
 	return validation, handler
