@@ -33,6 +33,18 @@ func (common *commonMockup) CreateEventsHandler() *handlers.Events {
 	return handlers.NewEvents(common.testLogger, common.testValidator, common.testDataservice)
 }
 
+func (common *commonMockup) CreateEventBadJson() *model.Event {
+	return &model.Event{
+		Title: "This is my first event",
+		Owner: "Admin",
+		Occurence: model.TimeSpan{
+			Start: time.Date(-2020, 05, 26, 14, 15, 00, 00, time.Local),
+			Stop:  time.Date(-2020, 05, 27, 10, 30, 00, 00, time.Local)},
+		Category: "Notes",
+		Content:  "Test event number 1",
+	}
+}
+
 func (common *commonMockup) GetDatabaseIds() []primitive.ObjectID {
 	events, errors := common.testDataservice.GetEvents(nil)
 	if errors != nil {
@@ -46,15 +58,7 @@ func (common *commonMockup) GetDatabaseIds() []primitive.ObjectID {
 }
 
 func (common *commonMockup) AddBadEventToDB() primitive.ObjectID {
-	newEvent := &model.Event{
-		Title: "This is my first event",
-		Owner: "Admin",
-		Occurence: model.TimeSpan{
-			Start: time.Date(-2020, 05, 26, 14, 15, 00, 00, time.Local),
-			Stop:  time.Date(-2020, 05, 27, 10, 30, 00, 00, time.Local)},
-		Category: "Notes",
-		Content:  "Test event number 1",
-	}
+	newEvent := common.CreateEventBadJson()
 	common.testDataservice.AddEvent(newEvent)
 	return newEvent.ID
 }
