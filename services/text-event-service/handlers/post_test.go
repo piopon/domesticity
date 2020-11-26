@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/handlers"
 	"github.com/piopon/domesticity/services/text-event-service/model"
@@ -18,7 +17,8 @@ func TestAddEventCorrectlyAddEntryToDb(t *testing.T) {
 	if error != nil {
 		t.Errorf("Could not create a request: %s", error.Error())
 	}
-	ctx := context.WithValue(request.Context(), handlers.KeyEvent{}, &model.Event{})
+	eventToAdd := &model.Event{}
+	ctx := context.WithValue(request.Context(), handlers.KeyEvent{}, eventToAdd)
 	request = request.WithContext(ctx)
 	recorder := httptest.NewRecorder()
 	events.AddEvent(recorder, request)
@@ -36,8 +36,8 @@ func TestAddEventFailsIfEntryCannotBeAdded(t *testing.T) {
 	if error != nil {
 		t.Errorf("Could not create a request: %s", error.Error())
 	}
-	id := mockupHandler.GetDatabaseIds()[0]
-	ctx := context.WithValue(request.Context(), handlers.KeyEvent{}, &model.Event{ID: id})
+	eventToAdd := &model.Event{ID: mockupHandler.GetDatabaseIds()[0]}
+	ctx := context.WithValue(request.Context(), handlers.KeyEvent{}, eventToAdd)
 	request = request.WithContext(ctx)
 	recorder := httptest.NewRecorder()
 	events.AddEvent(recorder, request)
@@ -55,7 +55,8 @@ func TestAddEventFailsIfEntryCannotBeParsed(t *testing.T) {
 	if error != nil {
 		t.Errorf("Could not create a request: %s", error.Error())
 	}
-	ctx := context.WithValue(request.Context(), handlers.KeyEvent{}, createInvalidEvent())
+	eventToAdd := mockupHandler.CreateEventBadJson()
+	ctx := context.WithValue(request.Context(), handlers.KeyEvent{}, eventToAdd)
 	request = request.WithContext(ctx)
 	recorder := httptest.NewRecorder()
 	events.AddEvent(recorder, request)
@@ -63,17 +64,5 @@ func TestAddEventFailsIfEntryCannotBeParsed(t *testing.T) {
 	defer response.Body.Close()
 	if response.StatusCode != http.StatusInternalServerError {
 		t.Errorf("Expected status 500 but received %d", response.StatusCode)
-	}
-}
-
-func createInvalidEvent() *model.Event {
-	return &model.Event{
-		Title: "This is my first event",
-		Owner: "Admin",
-		Occurence: model.TimeSpan{
-			Start: time.Date(-2020, 05, 26, 14, 15, 00, 00, time.Local),
-			Stop:  time.Date(-2020, 05, 27, 10, 30, 00, 00, time.Local)},
-		Category: "Notes",
-		Content:  "Test event number 1",
 	}
 }
