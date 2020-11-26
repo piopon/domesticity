@@ -10,6 +10,58 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+func TestGetEventsCorrectlyReceivesEventsFromDb(t *testing.T) {
+	mockupHandler := NewCommonMockup()
+	events := mockupHandler.CreateEventsHandler()
+	request, error := http.NewRequest("GET", "/events", nil)
+	if error != nil {
+		t.Errorf("Could not create a request: %s", error.Error())
+	}
+	recorder := httptest.NewRecorder()
+	events.GetEvents(recorder, request)
+	response := recorder.Result()
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusOK {
+		t.Errorf("Expected status 200 but received %d", response.StatusCode)
+	}
+}
+
+func TestGetEventsFailsIfEventsCannotBeRead(t *testing.T) {
+	mockupHandler := NewCommonMockup()
+	events := mockupHandler.CreateEventsHandler()
+	request, error := http.NewRequest("GET", "/events", nil)
+	if error != nil {
+		t.Errorf("Could not create a request: %s", error.Error())
+	}
+	query := request.URL.Query()
+	query.Add("limit", "1.1")
+	request.URL.RawQuery = query.Encode()
+	recorder := httptest.NewRecorder()
+	events.GetEvents(recorder, request)
+	response := recorder.Result()
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusBadRequest {
+		t.Errorf("Expected status 404 but received %d", response.StatusCode)
+	}
+}
+
+func TestGetEventsFailsIfEventCannotBeParsed(t *testing.T) {
+	mockupHandler := NewCommonMockup()
+	events := mockupHandler.CreateEventsHandler()
+	mockupHandler.AddBadEventToDB()
+	request, error := http.NewRequest("GET", "/events", nil)
+	if error != nil {
+		t.Errorf("Could not create a request: %s", error.Error())
+	}
+	recorder := httptest.NewRecorder()
+	events.GetEvents(recorder, request)
+	response := recorder.Result()
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusInternalServerError {
+		t.Errorf("Expected status 500 but received %d", response.StatusCode)
+	}
+}
+
 func TestGetEventCorrectlyReceivesEventFromDb(t *testing.T) {
 	mockupHandler := NewCommonMockup()
 	events := mockupHandler.CreateEventsHandler()
