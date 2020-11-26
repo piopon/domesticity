@@ -61,6 +61,10 @@ func (memory *InMemory) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 
 // AddEvent adds passed event item to DB
 func (memory *InMemory) AddEvent(event *model.Event) error {
+	_, error := memory.findEvent(event.ID)
+	if error == nil {
+		return fmt.Errorf("Event with specified ID already exists")
+	}
 	event.ID = primitive.NewObjectID()
 	memory.eventsList = append(memory.eventsList, event)
 	return nil

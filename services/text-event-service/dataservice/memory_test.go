@@ -94,6 +94,16 @@ func TestAddEventShouldInsertNewItem(t *testing.T) {
 	closeTest(memory)
 }
 
+func TestAddEventShouldFailIfAddingEventWithNilID(t *testing.T) {
+	memory, _ := initializeTest()
+	existingID := getInitialObjectId(memory)
+	error := memory.AddEvent(&model.Event{ID: existingID})
+	if error == nil {
+		t.Error("Add event should return an error if ID = nil")
+	}
+	closeTest(memory)
+}
+
 func TestUpdateExistingEventShouldUpdateItem(t *testing.T) {
 	memory, id := initializeTest()
 	error := memory.UpdateEvent(id, &model.Event{})
