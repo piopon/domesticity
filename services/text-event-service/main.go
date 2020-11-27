@@ -30,7 +30,7 @@ func main() {
 	routerMain := mux.NewRouter()
 
 	routerGET := routerMain.Methods(http.MethodGet).Subrouter()
-	routerGET.Path("/").HandlerFunc(homeHandler.ServeHTTP)
+	routerGET.Path("/").HandlerFunc(homeHandler.GetIndex)
 	routerGET.Path("/docs").HandlerFunc(docsHandler.GetDocumentation)
 	routerGET.Path("/scripts/swagger.yaml").HandlerFunc(docsHandler.GetSwagger)
 	routerGET.Path("/events").HandlerFunc(eventsHandler.GetEvents)

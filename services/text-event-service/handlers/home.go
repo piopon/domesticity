@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"fmt"
-	"io/ioutil"
+	"html/template"
 	"log"
 	"net/http"
 )
@@ -12,17 +12,26 @@ type Home struct {
 	logger *log.Logger
 }
 
+// HomeContent is a struct containing a content for index/home page
+type HomeContent struct {
+	Name string
+}
+
 // NewHome is a factory method to create Home service handler
 func NewHome(logger *log.Logger) *Home {
 	return &Home{logger}
 }
 
-func (home *Home) ServeHTTP(response http.ResponseWriter, request *http.Request) {
-	body, error := ioutil.ReadAll(request.Body)
-	if error != nil {
-		http.Error(response, "Bad request...", http.StatusBadRequest)
+// GetIndex is used to serve main page of service
+func (home *Home) GetIndex(response http.ResponseWriter, request *http.Request) {
+	content := HomeContent{"test template htmla"}
+	template, parseError := template.ParseFiles("templates/index.html")
+	if parseError != nil {
+		fmt.Println("Got error while parsing template: " + parseError.Error())
 		return
 	}
-	home.logger.Printf("Request: %s\n", body)
-	fmt.Fprintf(response, "Response: %s", body)
+	executeError := template.Execute(response, content)
+	if executeError != nil {
+		fmt.Println("Got error while executing template: " + executeError.Error())
+	}
 }
