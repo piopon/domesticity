@@ -1,8 +1,13 @@
 <html>
     <head>
-        <title>Events service</title>
+        <title>{{ .Name }}</title>
     </head>
     <body>
         <h1>{{ .Name }}</h1>
+        <hr>
+        <h4>Database type:</h4>
+        <p>{{ .Server.TypeDB }}</p>
+        <h4>MongoDB:</h4>
+        <p>{{ .MongoDB.Scheme }}{{ .MongoDB.IP }}:{{ .MongoDB.Port }}</p>
     </body>
 </html>

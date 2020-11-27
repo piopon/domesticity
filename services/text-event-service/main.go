@@ -23,7 +23,7 @@ func main() {
 		logger.Println(dbError.Error())
 		return
 	}
-	homeHandler := handlers.NewHome(logger)
+	homeHandler := handlers.NewHome(logger, config)
 	docsHandler := handlers.NewDocs("scripts/swagger.yaml")
 	eventsHandler := handlers.NewEvents(logger, utils.NewValidator(), dataservice)
 
