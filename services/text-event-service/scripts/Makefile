@@ -8,7 +8,13 @@ test:
 
 build:
 	$(info running build text-event-service)
-	@go build -o ../bin/ ..
+	@go build \
+		-ldflags \
+			"-X github.com/piopon/domesticity/services/text-event-service/handlers.VersionAPI=v1.0 \
+			 -X github.com/piopon/domesticity/services/text-event-service/handlers.BuildTime=time \
+			 -X github.com/piopon/domesticity/services/text-event-service/handlers.CommitSHA=sha \
+			 -X github.com/piopon/domesticity/services/text-event-service/handlers.GoVersion=golang" \
+		-o ../bin/ ..
 
 swagger-doc:
 	$(info generating swagger OpenAPI2 documentation)

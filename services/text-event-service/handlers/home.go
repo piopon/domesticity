@@ -9,6 +9,17 @@ import (
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
 
+var (
+	//BuildTime holds binary build time information
+	BuildTime string
+	//VersionAPI holds binary version information
+	VersionAPI string
+	//CommitSHA holds last commit hash information
+	CommitSHA string
+	//GoVersion holds Golang version information
+	GoVersion string
+)
+
 // Home is a service handler used after visiting main service URL
 type Home struct {
 	logger *log.Logger
