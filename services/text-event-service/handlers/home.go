@@ -23,12 +23,32 @@ var (
 // Home is a service handler used after visiting main service URL
 type Home struct {
 	logger *log.Logger
-	config *utils.Config
+	data   *HomeData
+}
+
+// HomeData is a struct for storing data displayed in index.html
+type HomeData struct {
+	Build  *BuildData
+	Config *utils.Config
+}
+
+// BuildData is a struct holding all build information
+type BuildData struct {
+	API    string
+	Time   string
+	SHA    string
+	Golang string
 }
 
 // NewHome is a factory method to create Home service handler
 func NewHome(logger *log.Logger, config *utils.Config) *Home {
-	return &Home{logger, config}
+	buildData := &BuildData{
+		API:    VersionAPI,
+		Time:   BuildTime,
+		SHA:    CommitSHA,
+		Golang: GoVersion,
+	}
+	return &Home{logger, &HomeData{buildData, config}}
 }
 
 // GetIndex is used to serve main page of service
