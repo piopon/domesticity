@@ -5,6 +5,13 @@
     <body>
         <h1>{{ .Config.Name }}</h1>
         <hr>
+        <h4>Build information:</h4>
+        <ul>
+            <li>version: {{ .Build.API }}</li>
+            <li>time: {{ .Build.Time }}</li>
+            <li>Golang: {{ .Build.Golang }}</li>
+            <li>commit: {{ .Build.SHA }}</li>
+        </ul>
         <h4>Database type:</h4>
         <p>{{ .Config.Server.TypeDB }}</p>
         <h4>MongoDB:</h4>
