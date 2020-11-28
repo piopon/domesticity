@@ -1,13 +1,13 @@
 <html>
     <head>
-        <title>{{ .Name }}</title>
+        <title>{{ .Config.Name }}</title>
     </head>
     <body>
-        <h1>{{ .Name }}</h1>
+        <h1>{{ .Config.Name }}</h1>
         <hr>
         <h4>Database type:</h4>
-        <p>{{ .Server.TypeDB }}</p>
+        <p>{{ .Config.Server.TypeDB }}</p>
         <h4>MongoDB:</h4>
-        <p>{{ .MongoDB.Scheme }}{{ .MongoDB.IP }}:{{ .MongoDB.Port }}</p>
+        <p>{{ .Config.MongoDB.Scheme }}{{ .Config.MongoDB.IP }}:{{ .Config.MongoDB.Port }}</p>
     </body>
 </html>

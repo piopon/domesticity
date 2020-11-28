@@ -58,7 +58,7 @@ func (home *Home) GetIndex(response http.ResponseWriter, request *http.Request) 
 		fmt.Println("Got error while parsing template: " + parseError.Error())
 		return
 	}
-	executeError := template.Execute(response, home.config)
+	executeError := template.Execute(response, home.data)
 	if executeError != nil {
 		fmt.Println("Got error while executing template: " + executeError.Error())
 	}
