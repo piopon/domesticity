@@ -14,6 +14,7 @@ import (
 
 type commonMockup struct {
 	testLogger      *log.Logger
+	testConfig      *utils.Config
 	testValidator   *utils.Validator
 	testDataservice dataservice.Database
 }
@@ -24,6 +25,7 @@ func NewCommonMockup() *commonMockup {
 	testDatabase, _ := dataservice.NewInMemory(testFilters)
 	return &commonMockup{
 		testLogger:      log.New(os.Stdout, "TEST > ", log.LstdFlags),
+		testConfig:      utils.NewConfig("../scripts"),
 		testValidator:   utils.NewValidator(),
 		testDataservice: testDatabase,
 	}
@@ -31,6 +33,10 @@ func NewCommonMockup() *commonMockup {
 
 func (common *commonMockup) CreateEventsHandler() *handlers.Events {
 	return handlers.NewEvents(common.testLogger, common.testValidator, common.testDataservice)
+}
+
+func (common *commonMockup) CreateHomeHandler(template string) *handlers.Home {
+	return handlers.NewHome(template, common.testLogger, common.testConfig)
 }
 
 func (common *commonMockup) CreateEventBadJson() *model.Event {
