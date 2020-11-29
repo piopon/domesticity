@@ -1,5 +1,9 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Home page for {{ .Config.Name }}">
+        <meta name="author" content="piopon.github@gmail.com">
         <title>{{ .Config.Name }}</title>
     </head>
     <body>
@@ -7,14 +11,18 @@
         <hr>
         <h4>Build information:</h4>
         <ul>
-            <li>version: {{ .Build.API }}</li>
-            <li>time: {{ .Build.Time }}</li>
+            <li>Version: {{ .Build.API }}</li>
             <li>Golang: {{ .Build.Golang }}</li>
-            <li>commit: {{ .Build.SHA }}</li>
+            <li>Build Time: {{ .Build.Time }}</li>
+            <li>Commit SHA: {{ .Build.SHA }}</li>
         </ul>
         <h4>Database type:</h4>
-        <p>{{ .Config.Server.TypeDB }}</p>
+        <ul>
+            <li>{{ .Config.Server.TypeDB }}</li>
+        </ul>
         <h4>MongoDB:</h4>
-        <p>{{ .Config.MongoDB.Scheme }}{{ .Config.MongoDB.IP }}:{{ .Config.MongoDB.Port }}</p>
+        <ul>
+            <li>{{ .Config.MongoDB.Scheme }}{{ .Config.MongoDB.IP }}:{{ .Config.MongoDB.Port }}</li>
+        </ul>
     </body>
 </html>
