@@ -1,3 +1,23 @@
+REPO = github.com/piopon/domesticity/services/text-event-service
+PACKAGE = handlers
+LD_FLAGS = -ldflags '$(API_LD) $(DATE_LD) $(SHA_LD) $(GO_LD)'
+# EVENT SERVICE VERSION INFORMATION
+API_URL  := $(REPO)/$(PACKAGE).VersionAPI
+API_VAL  := v1.0
+API_LD   := -X "$(API_URL)=$(API_VAL)"
+# EVENT SERVICE LAST COMMIT HASH
+SHA_URL  := $(REPO)/$(PACKAGE).CommitSHA
+SHA_VAL  := $(shell git log -1 --pretty=format:"%H")
+SHA_LD   := -X "$(SHA_URL)=$(SHA_VAL)"
+# EVENT SERVICE GOLANG BUILD VERSION
+GO_URL   := $(REPO)/$(PACKAGE).GoVersion
+GO_VAL   := $(shell go version)
+GO_LD    := -X "$(GO_URL)=$(GO_VAL)"
+# EVENT SERVICE BUILD DATE TIME
+DATE_URL := $(REPO)/$(PACKAGE).BuildTime
+DATE_VAL := $(shell date "+%Y.%m.%d %H:%M:%S")
+DATE_LD  := -X "$(DATE_URL)=$(DATE_VAL)"
+
 run:
 	$(info running text-event-service)
 	@go run ../main.go
@@ -8,13 +28,7 @@ test:
 
 build:
 	$(info running build text-event-service)
-	@go build \
-		-ldflags \
-			"-X github.com/piopon/domesticity/services/text-event-service/handlers.VersionAPI=v1.0 \
-			 -X github.com/piopon/domesticity/services/text-event-service/handlers.BuildTime=time \
-			 -X github.com/piopon/domesticity/services/text-event-service/handlers.CommitSHA=sha \
-			 -X github.com/piopon/domesticity/services/text-event-service/handlers.GoVersion=golang" \
-		-o ../bin/ ..
+	@go build $(LD_FLAGS) -o ../bin/ ..
 
 swagger-doc:
 	$(info generating swagger OpenAPI2 documentation)
