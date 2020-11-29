@@ -1,11 +1,11 @@
 package handlers
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 
+	"github.com/piopon/domesticity/services/text-event-service/model"
 	"github.com/piopon/domesticity/services/text-event-service/utils"
 )
 
@@ -54,13 +54,20 @@ func NewHome(html string, logger *log.Logger, config *utils.Config) *Home {
 
 // GetIndex is used to serve main page of service
 func (home *Home) GetIndex(response http.ResponseWriter, request *http.Request) {
+	home.logger.Println("Handling GET INDEX")
+	response.Header().Add("Content-Type", "text/html; charset=utf-8")
 	template, parseError := template.ParseFiles(home.html)
 	if parseError != nil {
-		fmt.Println("Got error while parsing template: " + parseError.Error())
+		home.logger.Println("Got error while parsing template: " + parseError.Error())
+		response.WriteHeader(http.StatusInternalServerError)
+		utils.ToJSON(&model.GenericError{Message: "Cannot parse home template: " + parseError.Error()}, response)
 		return
 	}
 	executeError := template.Execute(response, home.data)
 	if executeError != nil {
-		fmt.Println("Got error while executing template: " + executeError.Error())
+		home.logger.Println("Got error while executing template: " + executeError.Error())
+		response.WriteHeader(http.StatusInternalServerError)
+		utils.ToJSON(&model.GenericError{Message: "Cannot run home template: " + executeError.Error()}, response)
+		return
 	}
 }
