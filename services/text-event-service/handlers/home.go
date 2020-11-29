@@ -22,6 +22,7 @@ var (
 
 // Home is a service handler used after visiting main service URL
 type Home struct {
+	html   string
 	logger *log.Logger
 	data   *HomeData
 }
@@ -41,19 +42,19 @@ type BuildData struct {
 }
 
 // NewHome is a factory method to create Home service handler
-func NewHome(logger *log.Logger, config *utils.Config) *Home {
+func NewHome(html string, logger *log.Logger, config *utils.Config) *Home {
 	buildData := &BuildData{
 		API:    VersionAPI,
 		Time:   BuildTime,
 		SHA:    CommitSHA,
 		Golang: GoVersion,
 	}
-	return &Home{logger, &HomeData{buildData, config}}
+	return &Home{html, logger, &HomeData{buildData, config}}
 }
 
 // GetIndex is used to serve main page of service
 func (home *Home) GetIndex(response http.ResponseWriter, request *http.Request) {
-	template, parseError := template.ParseFiles("templates/index.html")
+	template, parseError := template.ParseFiles(home.html)
 	if parseError != nil {
 		fmt.Println("Got error while parsing template: " + parseError.Error())
 		return
