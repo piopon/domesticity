@@ -16,7 +16,7 @@ func TestNewHomeCreatesCorrectHomeHandler(t *testing.T) {
 
 func TestGetIndexGeneratesCorrectResponse(t *testing.T) {
 	mockupHandler := NewCommonMockup()
-	home := mockupHandler.CreateHomeHandler("../templates/index.html")
+	home := mockupHandler.CreateHomeHandler("../resources/index.html")
 	request, error := http.NewRequest("GET", "/", nil)
 	if error != nil {
 		t.Errorf("Could not create a request: %s", error.Error())
