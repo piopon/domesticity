@@ -51,7 +51,7 @@ type GetSwaggerOK struct {
 }
 
 func (o *GetSwaggerOK) Error() string {
-	return fmt.Sprintf("[GET /scripts/swagger.yaml][%d] getSwaggerOK ", 200)
+	return fmt.Sprintf("[GET /resources/swagger.yaml][%d] getSwaggerOK ", 200)
 }
 
 func (o *GetSwaggerOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -72,7 +72,7 @@ type GetSwaggerNotFound struct {
 }
 
 func (o *GetSwaggerNotFound) Error() string {
-	return fmt.Sprintf("[GET /scripts/swagger.yaml][%d] getSwaggerNotFound ", 404)
+	return fmt.Sprintf("[GET /resources/swagger.yaml][%d] getSwaggerNotFound ", 404)
 }
 
 func (o *GetSwaggerNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -71,7 +71,7 @@ func (a *Client) GetDocumentation(params *GetDocumentationParams) (*GetDocumenta
 
 /*
   GetSwagger Returns swagger.yaml configuration file needed for generating this documentation<br>
-NOTE: This file should be located in scripts directory
+NOTE: This file should be located in resources directory
 */
 func (a *Client) GetSwagger(params *GetSwaggerParams) (*GetSwaggerOK, error) {
 	// TODO: Validate the params before sending
@@ -82,7 +82,7 @@ func (a *Client) GetSwagger(params *GetSwaggerParams) (*GetSwaggerOK, error) {
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSwagger",
 		Method:             "GET",
-		PathPattern:        "/scripts/swagger.yaml",
+		PathPattern:        "/resources/swagger.yaml",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
