@@ -12,7 +12,7 @@ server:
         write: 10
 mongo:
     scheme: "mongodb://"    # valid: "mongodb://" or "mongodb+srv://"
-    ip: "172.18.12.1"
+    ip: "192.168.221.177"
     port: "27017"
     db:
         name: "event-service"
