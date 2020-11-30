@@ -16,7 +16,7 @@ func TestNewDocsReturnsDocHandlerObject(t *testing.T) {
 }
 
 func TestGetDocumentationReturnsCorrectResult(t *testing.T) {
-	docHandler := handlers.NewDocs("../scripts/swagger.yaml")
+	docHandler := handlers.NewDocs("../resources/swagger.yaml")
 	recorder := httptest.NewRecorder()
 	request, error := http.NewRequest("GET", "/docs", nil)
 	if error != nil {
@@ -35,7 +35,7 @@ func TestGetDocumentationReturnsCorrectResult(t *testing.T) {
 }
 
 func TestGetSwaggerReturnsCorrectResult(t *testing.T) {
-	docHandler := handlers.NewDocs("../scripts/swagger.yaml")
+	docHandler := handlers.NewDocs("../resources/swagger.yaml")
 	recorder := httptest.NewRecorder()
 	request, error := http.NewRequest("GET", "/docs_test.go", nil)
 	if error != nil {

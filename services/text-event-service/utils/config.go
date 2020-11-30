@@ -85,7 +85,7 @@ func configInitialize(initConfigPath string) error {
 		viper.AddConfigPath(initConfigPath)
 	} else {
 		viper.AddConfigPath(".")
-		viper.AddConfigPath("scripts")
+		viper.AddConfigPath("resources")
 	}
 	return viper.ReadInConfig()
 }

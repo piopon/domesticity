@@ -24,7 +24,7 @@ func main() {
 		return
 	}
 	homeHandler := handlers.NewHome("templates/index.html", logger, config)
-	docsHandler := handlers.NewDocs("scripts/swagger.yaml")
+	docsHandler := handlers.NewDocs("resources/swagger.yaml")
 	eventsHandler := handlers.NewEvents(logger, utils.NewValidator(), dataservice)
 
 	routerMain := mux.NewRouter()
@@ -32,7 +32,7 @@ func main() {
 	routerGET := routerMain.Methods(http.MethodGet).Subrouter()
 	routerGET.Path("/").HandlerFunc(homeHandler.GetIndex)
 	routerGET.Path("/docs").HandlerFunc(docsHandler.GetDocumentation)
-	routerGET.Path("/scripts/swagger.yaml").HandlerFunc(docsHandler.GetSwagger)
+	routerGET.Path("/resources/swagger.yaml").HandlerFunc(docsHandler.GetSwagger)
 	routerGET.Path("/events").HandlerFunc(eventsHandler.GetEvents)
 	routerGET.Path("/events/{id}").HandlerFunc(eventsHandler.GetEvent)
 

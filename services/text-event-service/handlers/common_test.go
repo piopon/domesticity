@@ -25,7 +25,7 @@ func NewCommonMockup() *commonMockup {
 	testDatabase, _ := dataservice.NewInMemory(testFilters)
 	return &commonMockup{
 		testLogger:      log.New(os.Stdout, "TEST > ", log.LstdFlags),
-		testConfig:      utils.NewConfig("../scripts"),
+		testConfig:      utils.NewConfig("../resources"),
 		testValidator:   utils.NewValidator(),
 		testDataservice: testDatabase,
 	}
