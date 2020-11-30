@@ -35,9 +35,9 @@ func (docs *Docs) GetDocumentation(response http.ResponseWriter, request *http.R
 
 // GetSwagger is used to retrieve Swagger YAML file
 //
-// swagger:route GET /scripts/swagger.yaml utilities getSwagger
+// swagger:route GET /resources/swagger.yaml utilities getSwagger
 // Returns swagger.yaml configuration file needed for generating this documentation<br>
-// NOTE: This file should be located in scripts directory
+// NOTE: This file should be located in resources directory
 // responses:
 //  200: responseSwagger
 //  404: errorSwagger

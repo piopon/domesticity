@@ -272,11 +272,11 @@ paths:
           $ref: '#/responses/errorInternal'
       tags:
       - events
-  /scripts/swagger.yaml:
+  /resources/swagger.yaml:
     get:
       description: |-
         Returns swagger.yaml configuration file needed for generating this documentation<br>
-        NOTE: This file should be located in scripts directory
+        NOTE: This file should be located in resources directory
       operationId: getSwagger
       responses:
         "200":
