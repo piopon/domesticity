@@ -2,7 +2,7 @@
 TEST_DIRS := ../dataservice ../handlers ../model ../utils ..
 COVER_TMP := cover.out
 # HANDLING COMPILE-TIME VARIABLES
-REPO      = github.com/piopon/domesticity/services/text-event-service
+REPO      = github.com/piopon/domesticity/services/text-event-service/src
 PACKAGE   = handlers
 LD_FLAGS  = -ldflags '$(API_LD) $(DATE_LD) $(SHA_LD) $(GO_LD)'
 # EVENT SERVICE VERSION INFORMATION
