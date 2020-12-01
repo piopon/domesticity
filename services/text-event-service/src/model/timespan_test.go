@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/piopon/domesticity/services/text-event-service/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
 )
 
 func TestDurationReturnsCorrectTimesDifference(t *testing.T) {

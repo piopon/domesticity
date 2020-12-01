@@ -3,7 +3,7 @@ package model_test
 import (
 	"testing"
 
-	"github.com/piopon/domesticity/services/text-event-service/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
 )
 
 func TestValidationErrorsToStringRetursOkResult(t *testing.T) {
