@@ -4,8 +4,8 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/piopon/domesticity/services/text-event-service/dataservice"
-	"github.com/piopon/domesticity/services/text-event-service/utils"
+	"github.com/piopon/domesticity/services/text-event-service/src/dataservice"
+	"github.com/piopon/domesticity/services/text-event-service/src/utils"
 	"go.mongodb.org/mongo-driver/bson"
 )
 

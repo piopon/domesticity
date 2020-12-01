@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/piopon/domesticity/services/text-event-service/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
