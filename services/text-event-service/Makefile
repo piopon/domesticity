@@ -1,3 +1,5 @@
+# BUILD SERVICE
+SERVICE   := text-event-service
 # UNIT TESTS
 TEST_DIRS := ./src/dataservice ./src/handlers ./src/model ./src/utils ./src/.
 COVER_TMP := cover.out
@@ -22,24 +24,29 @@ DATE_URL  := $(REPO)/$(PACKAGE).BuildTime
 DATE_VAL  := $(shell date "+%Y.%m.%d %H:%M:%S")
 DATE_LD   := -X "$(DATE_URL)=$(DATE_VAL)"
 
+.PHONY: run
 run:
-	$(info running text-event-service)
+	$(info $(SERVICE): compiling and running ...)
 	@go run src/main.go
 
+.PHONY: test
 test:
-	$(info running text-event-service unit tests)
+	$(info $(SERVICE): running unit tests ...)
 	@go test -count 1 -coverprofile $(COVER_TMP) -timeout 30s $(TEST_DIRS)
 	@go tool cover -func $(COVER_TMP) | grep total:
 	@rm $(COVER_TMP)
 
+.PHONY: build
 build:
-	$(info running build text-event-service)
-	@go build $(LD_FLAGS) -o ./bin/ ./src
+	$(info $(SERVICE): building output file ...)
+	@go build $(LD_FLAGS) -o ./bin/$(SERVICE) ./src
 
+.PHONY: swagger-doc
 swagger-doc:
-	$(info generating swagger OpenAPI2 documentation)
+	$(info $(SERVICE): generating swagger documentation ...)
 	@swagger generate spec ./src -o ./resources/swagger.yaml --scan-models
 
+.PHONY: swagger-sdk
 swagger-sdk:
-	$(info generating Golang SDK)
-	@swagger -q generate client -f ./resources/swagger.yaml -t ./sdk/ -A text-event-service
+	$(info $(SERVICE): generating Golang SDK ...)
+	@swagger -q generate client -f ./resources/swagger.yaml -t ./sdk/ -A $(SERVICE)
