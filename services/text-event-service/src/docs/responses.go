@@ -1,6 +1,6 @@
 package docs
 
-import "github.com/piopon/domesticity/services/text-event-service/model"
+import "github.com/piopon/domesticity/services/text-event-service/src/model"
 
 // Response with all or filtered events from DB (filter depends on query params)
 // swagger:response responseGetEvents

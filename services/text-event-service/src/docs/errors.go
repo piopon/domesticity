@@ -1,6 +1,6 @@
 package docs
 
-import "github.com/piopon/domesticity/services/text-event-service/model"
+import "github.com/piopon/domesticity/services/text-event-service/src/model"
 
 // Error with JSON message returned in body when bad request was invoked
 // swagger:response errorBadQuery

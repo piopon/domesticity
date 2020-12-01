@@ -3,7 +3,7 @@ package docs
 import (
 	"time"
 
-	"github.com/piopon/domesticity/services/text-event-service/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
 )
 
 // swagger:parameters getEvent updateEvent deleteEvent
