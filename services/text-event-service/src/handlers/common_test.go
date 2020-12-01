@@ -5,10 +5,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/piopon/domesticity/services/text-event-service/dataservice"
-	"github.com/piopon/domesticity/services/text-event-service/handlers"
-	"github.com/piopon/domesticity/services/text-event-service/model"
-	"github.com/piopon/domesticity/services/text-event-service/utils"
+	"github.com/piopon/domesticity/services/text-event-service/src/dataservice"
+	"github.com/piopon/domesticity/services/text-event-service/src/handlers"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/utils"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

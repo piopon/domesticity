@@ -6,8 +6,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/piopon/domesticity/services/text-event-service/handlers"
-	"github.com/piopon/domesticity/services/text-event-service/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/handlers"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
 )
 
 func TestAddEventCorrectlyAddEntryToDb(t *testing.T) {

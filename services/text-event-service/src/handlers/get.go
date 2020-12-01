@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/piopon/domesticity/services/text-event-service/model"
-	"github.com/piopon/domesticity/services/text-event-service/utils"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/utils"
 )
 
 // GetEvents is used to retrieve currently stored events

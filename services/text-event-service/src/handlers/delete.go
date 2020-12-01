@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/piopon/domesticity/services/text-event-service/model"
-	"github.com/piopon/domesticity/services/text-event-service/utils"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/utils"
 )
 
 // DeleteEvent is used to delete event with specified ID stored in DB

@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/piopon/domesticity/services/text-event-service/handlers"
+	"github.com/piopon/domesticity/services/text-event-service/src/handlers"
 )
 
 func TestNewEventsReturnsEventsHandlerObject(t *testing.T) {

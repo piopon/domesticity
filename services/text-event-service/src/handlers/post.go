@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/piopon/domesticity/services/text-event-service/model"
-	"github.com/piopon/domesticity/services/text-event-service/utils"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/utils"
 )
 
 // AddEvent is used to add new event and store it in DB

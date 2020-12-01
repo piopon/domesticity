@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/piopon/domesticity/services/text-event-service/model"
-	"github.com/piopon/domesticity/services/text-event-service/utils"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/utils"
 )
 
 var (

@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/piopon/domesticity/services/text-event-service/handlers"
+	"github.com/piopon/domesticity/services/text-event-service/src/handlers"
 )
 
 func TestNewDocsReturnsDocHandlerObject(t *testing.T) {

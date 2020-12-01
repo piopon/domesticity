@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/piopon/domesticity/services/text-event-service/dataservice"
-	"github.com/piopon/domesticity/services/text-event-service/model"
-	"github.com/piopon/domesticity/services/text-event-service/utils"
+	"github.com/piopon/domesticity/services/text-event-service/src/dataservice"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/utils"
 )
 
 // Events is a service handler responsible for getting and updating events

@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/gorilla/mux"
-	"github.com/piopon/domesticity/services/text-event-service/handlers"
-	"github.com/piopon/domesticity/services/text-event-service/model"
+	"github.com/piopon/domesticity/services/text-event-service/src/handlers"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

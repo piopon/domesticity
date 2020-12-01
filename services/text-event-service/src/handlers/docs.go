@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-openapi/runtime/middleware"
 	// empty docs package import so documentation is correctly generated
-	_ "github.com/piopon/domesticity/services/text-event-service/docs"
+	_ "github.com/piopon/domesticity/services/text-event-service/src/docs"
 )
 
 // Docs is a handler struct used to handle documentation calls
