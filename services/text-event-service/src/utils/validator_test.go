@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/piopon/domesticity/services/text-event-service/utils"
+	"github.com/piopon/domesticity/services/text-event-service/src/utils"
 )
 
 func TestNewValidatorCreatesCorrectValidator(t *testing.T) {

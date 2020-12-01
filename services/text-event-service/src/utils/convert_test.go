@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/piopon/domesticity/services/text-event-service/utils"
+	"github.com/piopon/domesticity/services/text-event-service/src/utils"
 )
 
 func TestConvertsCorrectStructToJson(t *testing.T) {
