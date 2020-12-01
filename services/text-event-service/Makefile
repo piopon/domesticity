@@ -30,11 +30,24 @@ run:
 	@go run src/main.go
 
 .PHONY: test
-test:
+test: test-setup test-run test-clean
+
+.PHONY: test-setup
+test-setup:
+	$(info $(SERVICE): preparing workspace for unit tests ...)
+	@cp -r ./test/. ./src
+
+.PHONY: test-run
+test-run:
 	$(info $(SERVICE): running unit tests ...)
 	@go test -count 1 -coverprofile $(COVER_TMP) -timeout 30s $(TEST_DIRS)
 	@go tool cover -func $(COVER_TMP) | grep total:
-	@rm $(COVER_TMP)
+
+.PHONY: test-clean
+test-clean:
+	$(info $(SERVICE): cleaning workspace after unit tests ...)
+	@[ -f $(COVER_TMP) ] && rm $(COVER_TMP)
+	@find ./src/ -name "*_test.go" -type f -delete
 
 .PHONY: build
 build:
