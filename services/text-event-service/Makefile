@@ -1,5 +1,5 @@
 # UNIT TESTS
-TEST_DIRS := ../dataservice ../handlers ../model ../utils ..
+TEST_DIRS := ./src/dataservice ./src/handlers ./src/model ./src/utils ./src/.
 COVER_TMP := cover.out
 # HANDLING COMPILE-TIME VARIABLES
 REPO      = github.com/piopon/domesticity/services/text-event-service/src

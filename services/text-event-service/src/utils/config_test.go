@@ -99,7 +99,7 @@ func TestDefaultConfigShouldCreateCorrectMongoConfig(t *testing.T) {
 }
 
 func getProductionConfig() *utils.Config {
-	return utils.NewConfig("../resources")
+	return utils.NewConfig("../../resources")
 }
 
 func getDefaultConfig() *utils.Config {
