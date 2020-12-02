@@ -38,6 +38,7 @@ test-setup:
 	@cp -r ./test/. ./src
 
 .PHONY: test-run
+.IGNORE: test-run
 test-run:
 	$(info $(SERVICE): running unit tests ...)
 	@go test -count 1 -coverprofile $(COVER_TMP) -timeout 30s $(TEST_DIRS)
