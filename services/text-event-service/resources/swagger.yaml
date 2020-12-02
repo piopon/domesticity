@@ -35,13 +35,13 @@ definitions:
     - date
     - category
     type: object
-    x-go-package: github.com/piopon/domesticity/services/text-event-service/model
+    x-go-package: github.com/piopon/domesticity/services/text-event-service/src/model
   Events:
     description: Events is a type definition for slice of Event pointers
     items:
       $ref: '#/definitions/Event'
     type: array
-    x-go-package: github.com/piopon/domesticity/services/text-event-service/model
+    x-go-package: github.com/piopon/domesticity/services/text-event-service/src/model
   GenericError:
     description: GenericError is a generic error message returned by a server
     properties:
@@ -49,7 +49,7 @@ definitions:
         type: string
         x-go-name: Message
     type: object
-    x-go-package: github.com/piopon/domesticity/services/text-event-service/model
+    x-go-package: github.com/piopon/domesticity/services/text-event-service/src/model
   ObjectID:
     items:
       format: uint8
@@ -74,7 +74,7 @@ definitions:
     - start
     - stop
     type: object
-    x-go-package: github.com/piopon/domesticity/services/text-event-service/model
+    x-go-package: github.com/piopon/domesticity/services/text-event-service/src/model
   ValidationError:
     description: ValidationError is a collection of validation error messages
     properties:
@@ -84,7 +84,7 @@ definitions:
         type: array
         x-go-name: Messages
     type: object
-    x-go-package: github.com/piopon/domesticity/services/text-event-service/model
+    x-go-package: github.com/piopon/domesticity/services/text-event-service/src/model
 info:
   contact:
     email: piopon.github@gmail.com
