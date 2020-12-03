@@ -73,9 +73,10 @@ docker-build:
 .PHONY: docker-start
 docker-start:
 	$(info $(SERVICE): starting docker container ...)
-	@docker run -d $(SERVICE):$(API_VAL)
+	@docker run -d --name event-service $(SERVICE):$(API_VAL)
 
 .PHONY: docker-clean
 docker-clean:
 	$(info $(SERVICE): cleaning docker data ...)
+	@docker rm event-service
 	@docker rmi $(SERVICE):$(API_VAL)
