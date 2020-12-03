@@ -64,3 +64,18 @@ swagger-doc:
 swagger-sdk:
 	$(info $(SERVICE): generating Golang SDK ...)
 	@swagger -q generate client -f ./resources/swagger.yaml -t ./sdk/ -A $(SERVICE)
+
+.PHONY: docker-build
+docker-build:
+	$(info $(SERVICE): building docker image ...)
+	@docker build --rm -t $(SERVICE):$(API_VAL) --target bin .
+
+.PHONY: docker-start
+docker-start:
+	$(info $(SERVICE): starting docker container ...)
+	@docker run -d $(SERVICE):$(API_VAL)
+
+.PHONY: docker-clean
+docker-clean:
+	$(info $(SERVICE): cleaning docker data ...)
+	@docker rmi $(SERVICE):$(API_VAL)
