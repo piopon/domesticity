@@ -68,7 +68,7 @@ swagger-sdk:
 .PHONY: docker-build
 docker-build:
 	$(info $(SERVICE): building docker image ...)
-	@docker build --rm -t $(SERVICE):$(API_VAL) --target bin .
+	@docker build --rm -t $(SERVICE):$(API_VAL) --build-arg FLAGS='$(API_LD) $(DATE_LD) $(SHA_LD) $(GO_LD)' --target bin .
 
 .PHONY: docker-start
 docker-start:
