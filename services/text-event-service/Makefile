@@ -73,7 +73,7 @@ docker-build:
 .PHONY: docker-start
 docker-start:
 	$(info $(SERVICE): starting docker container ...)
-	@docker run -d --name event-service $(SERVICE):$(API_VAL)
+	@docker run -d --name event-service -p 9999:9999 $(SERVICE):$(API_VAL)
 
 .PHONY: docker-stop
 docker-stop:

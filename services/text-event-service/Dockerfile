@@ -8,4 +8,6 @@ RUN go build -o /app/bin/text-event-service ./src
 
 FROM scratch AS bin
 COPY --from=build /app/bin/text-event-service /
+COPY --from=build /app/resources /resources
+EXPOSE 9999
 ENTRYPOINT ["/text-event-service"]
