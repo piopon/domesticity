@@ -75,8 +75,13 @@ docker-start:
 	$(info $(SERVICE): starting docker container ...)
 	@docker run -d --name event-service $(SERVICE):$(API_VAL)
 
+.PHONY: docker-stop
+docker-stop:
+	$(info $(SERVICE): stopping docker container ...)
+	@docker stop event-service
+
 .PHONY: docker-clean
-docker-clean:
+docker-clean: docker-stop
 	$(info $(SERVICE): cleaning docker data ...)
 	@docker rm event-service
 	@docker rmi $(SERVICE):$(API_VAL)
