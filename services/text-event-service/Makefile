@@ -91,5 +91,4 @@ docker-stop:
 .PHONY: docker-clean
 docker-clean: docker-stop
 	$(info $(SERVICE): cleaning docker data ...)
-	@docker rm $(SERViCE)
-	@docker rmi $(SERVICE):$(API_VAL)
+	@docker rm $(SERVICE) ; docker rmi $(SERVICE):$(API_VAL)
