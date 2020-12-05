@@ -1,5 +1,9 @@
 # BUILD SERVICE
 SERVICE   := text-event-service
+# DOCKER
+CREATE    := echo container not found - creating ...
+RESTART   := echo container was found - restarting ...
+MISSING   := echo container not found ...
 # UNIT TESTS
 TEST_DIRS := ./src/dataservice ./src/handlers ./src/model ./src/utils ./src/.
 COVER_TMP := cover.out
@@ -73,14 +77,16 @@ docker-build:
 .PHONY: docker-start
 docker-start:
 	$(info $(SERVICE): starting docker container ...)
-	@docker ps -a --format "{{.Names}}" -f "name=$(SERVICE)" | grep $(SERVICE) > /dev/null \
-		&& docker start $(SERVICE) \
-		|| docker run -d --name $(SERVICE) -p 9999:9999 $(SERVICE):$(API_VAL)
+	@docker ps -a --format "{{.Names}}" -f "name=$(SERVICE)" | grep $(SERVICE) > /dev/null			\
+	    && { $(RESTART) ; docker start $(SERVICE) ; }                                      			\
+	    || { $(CREATE)  ; docker run -d --name $(SERVICE) -p 9999:9999 $(SERVICE):$(API_VAL) ; }
 
 .PHONY: docker-stop
 docker-stop:
 	$(info $(SERVICE): stopping docker container ...)
-	@docker stop $(SERVICE)
+	@docker ps -a --format "{{.Names}}" -f "name=$(SERVICE)" | grep $(SERVICE) > /dev/null			\
+	    && docker stop $(SERVICE)                                                       			\
+	    || $(MISSING)
 
 .PHONY: docker-clean
 docker-clean: docker-stop
