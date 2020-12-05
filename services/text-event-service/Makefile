@@ -6,7 +6,7 @@ COVER_TMP := cover.out
 # HANDLING COMPILE-TIME VARIABLES
 REPO      = github.com/piopon/domesticity/services/text-event-service/src
 PACKAGE   = handlers
-LD_FLAGS  = -ldflags '$(API_LD) $(DATE_LD) $(SHA_LD) $(GO_LD)'
+LD_FLAGS  = '$(API_LD) $(DATE_LD) $(SHA_LD) $(GO_LD)'
 # EVENT SERVICE VERSION INFORMATION
 API_URL   := $(REPO)/$(PACKAGE).VersionAPI
 API_VAL   := v1.0
@@ -53,7 +53,7 @@ test-clean:
 .PHONY: build
 build:
 	$(info $(SERVICE): building output file ...)
-	@go build $(LD_FLAGS) -o ./bin/$(SERVICE) ./src
+	@go build -ldflags $(LD_FLAGS) -o ./bin/$(SERVICE) ./src
 
 .PHONY: swagger-doc
 swagger-doc:
@@ -68,7 +68,7 @@ swagger-sdk:
 .PHONY: docker-build
 docker-build:
 	$(info $(SERVICE): building docker image ...)
-	@docker build --rm -t $(SERVICE):$(API_VAL) --build-arg FLAGS='$(API_LD) $(DATE_LD) $(SHA_LD) $(GO_LD)' --target bin .
+	@docker build --rm -t $(SERVICE):$(API_VAL) --build-arg LD_FLAGS=$(LD_FLAGS) --target bin .
 
 .PHONY: docker-start
 docker-start:
