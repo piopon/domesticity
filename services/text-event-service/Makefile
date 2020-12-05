@@ -73,7 +73,9 @@ docker-build:
 .PHONY: docker-start
 docker-start:
 	$(info $(SERVICE): starting docker container ...)
-	@docker run -d --name event-service -p 9999:9999 $(SERVICE):$(API_VAL)
+	@docker ps -a --format "{{.Names}}" -f "name=event-service" | grep event-service \
+		&& docker start event-service                                                \
+		|| docker run -d --name event-service -p 9999:9999 $(SERVICE):$(API_VAL)
 
 .PHONY: docker-stop
 docker-stop:
