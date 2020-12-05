@@ -73,17 +73,17 @@ docker-build:
 .PHONY: docker-start
 docker-start:
 	$(info $(SERVICE): starting docker container ...)
-	@docker ps -a --format "{{.Names}}" -f "name=event-service" | grep event-service \
-		&& docker start event-service                                                \
-		|| docker run -d --name event-service -p 9999:9999 $(SERVICE):$(API_VAL)
+	@docker ps -a --format "{{.Names}}" -f "name=$(SERVICE)" | grep $(SERVICE) > /dev/null \
+		&& docker start $(SERVICE) \
+		|| docker run -d --name $(SERVICE) -p 9999:9999 $(SERVICE):$(API_VAL)
 
 .PHONY: docker-stop
 docker-stop:
 	$(info $(SERVICE): stopping docker container ...)
-	@docker stop event-service
+	@docker stop $(SERVICE)
 
 .PHONY: docker-clean
 docker-clean: docker-stop
 	$(info $(SERVICE): cleaning docker data ...)
-	@docker rm event-service
+	@docker rm $(SERViCE)
 	@docker rmi $(SERVICE):$(API_VAL)
