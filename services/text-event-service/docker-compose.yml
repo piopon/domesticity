@@ -10,7 +10,8 @@ services:
       taget: bin
     ports:
       - 9999:9999
-    container_name: text-event-service
+    container_name: events
+    restart: always
 
   mongo:
     image: mongo:4.4.2-bionic
@@ -18,3 +19,5 @@ services:
       - mongodb_data:/data/db
     ports:
       - 27017:27017
+    container_name: mongo
+    restart: always
