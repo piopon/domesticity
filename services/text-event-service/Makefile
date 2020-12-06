@@ -1,9 +1,6 @@
 # BUILD SERVICE
 SERVICE   := text-event-service
-# DOCKER
-CREATE    := echo container not found - creating ...
-RESTART   := echo container was found - restarting ...
-MISSING   := echo container not found ...
+PORT      := 9999
 # UNIT TESTS
 TEST_DIRS := ./src/dataservice ./src/handlers ./src/model ./src/utils ./src/.
 COVER_TMP := cover.out
@@ -27,6 +24,10 @@ GO_LD     := -X "$(GO_URL)=$(GO_VAL)"
 DATE_URL  := $(REPO)/$(PACKAGE).BuildTime
 DATE_VAL  := $(shell date "+%Y.%m.%d %H:%M:%S")
 DATE_LD   := -X "$(DATE_URL)=$(DATE_VAL)"
+# DOCKER
+CREATE    := echo container not found - creating ...
+RESTART   := echo container was found - restarting ...
+MISSING   := echo container not found ...
 
 .PHONY: run
 run:
@@ -72,14 +73,14 @@ swagger-sdk:
 .PHONY: docker-build
 docker-build:
 	$(info $(SERVICE): building docker image ...)
-	@docker build --rm -t $(SERVICE):$(API_VAL) --build-arg LD_FLAGS=$(LD_FLAGS) --target bin .
+	@docker build --rm -t $(SERVICE):$(API_VAL) --build-arg LD_FLAGS=$(LD_FLAGS) --build-arg EXPOSED_PORTS=$(PORT) --target bin .
 
 .PHONY: docker-start
 docker-start:
 	$(info $(SERVICE): starting docker container ...)
-	@docker ps -a --format "{{.Names}}" -f "name=$(SERVICE)" | grep $(SERVICE) > /dev/null			\
-	    && { $(RESTART) ; docker start $(SERVICE) ; }                                      			\
-	    || { $(CREATE)  ; docker run -d --name $(SERVICE) -p 9999:9999 $(SERVICE):$(API_VAL) ; }
+	@docker ps -a --format "{{.Names}}" -f "name=$(SERVICE)" | grep $(SERVICE) > /dev/null            \
+	    && { $(RESTART) ; docker start $(SERVICE) ; }                                                 \
+	    || { $(CREATE)  ; docker run -d --name $(SERVICE) -p $(PORT):$(PORT) $(SERVICE):$(API_VAL) ; }
 
 .PHONY: docker-stop
 docker-stop:
