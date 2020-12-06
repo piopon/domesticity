@@ -11,3 +11,10 @@ services:
     ports:
       - 9999:9999
     container_name: text-event-service
+
+  mongo:
+    image: mongo:4.4.2-bionic
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - 27017:27017
