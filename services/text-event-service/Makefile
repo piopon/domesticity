@@ -28,6 +28,7 @@ DATE_LD   := -X "$(DATE_URL)=$(DATE_VAL)"
 CREATE    := echo container not found - creating ...
 RESTART   := echo container was found - restarting ...
 MISSING   := echo container not found ...
+BUILD_ARG := --build-arg LD_FLAGS=$(LD_FLAGS) --build-arg EXPOSED_PORTS=$(PORT)
 
 .PHONY: run
 run:
@@ -73,7 +74,7 @@ swagger-sdk:
 .PHONY: docker-build
 docker-build:
 	$(info $(SERVICE): building docker image ...)
-	@docker build --rm -t $(SERVICE):$(API_VAL) --build-arg LD_FLAGS=$(LD_FLAGS) --build-arg EXPOSED_PORTS=$(PORT) --target bin .
+	@docker build --rm -t $(SERVICE):$(API_VAL) $(BUILD_ARG) --target bin .
 
 .PHONY: docker-start
 docker-start:
@@ -85,8 +86,8 @@ docker-start:
 .PHONY: docker-stop
 docker-stop:
 	$(info $(SERVICE): stopping docker container ...)
-	@docker ps -a --format "{{.Names}}" -f "name=$(SERVICE)" | grep $(SERVICE) > /dev/null			\
-	    && docker stop $(SERVICE)                                                       			\
+	@docker ps -a --format "{{.Names}}" -f "name=$(SERVICE)" | grep $(SERVICE) > /dev/null            \
+	    && docker stop $(SERVICE)                                                                     \
 	    || $(MISSING)
 
 .PHONY: docker-clean
