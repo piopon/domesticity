@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  server:
+    build:
+      context: .
+      args:
+        - LD_FLAGS
+        - EXPOSED_PORTS=9999
+      taget: bin
+    ports:
+      - 9999:9999
+    container_name: text-event-service
