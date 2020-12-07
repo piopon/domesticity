@@ -29,6 +29,7 @@ CREATE    := echo container not found - creating ...
 RESTART   := echo container was found - restarting ...
 MISSING   := echo container not found ...
 BUILD_ARG := --build-arg LD_FLAGS=$(LD_FLAGS) --build-arg EXPOSED_PORTS=$(PORT)
+ENV_FILE  := .env
 
 .PHONY: run
 run:
@@ -98,9 +99,11 @@ docker-clean: docker-stop
 .PHONY: docker-up
 docker-up:
 	$(info $(SERVICE): starting docker compose network ...)
+	@[ ! -f $(ENV_FILE) ] && echo "LD_FLAGS=$(LD_FLAGS)" > $(ENV_FILE) || true
 	@docker-compose up -d
 
 .PHONY: docker-down
 docker-down:
 	$(info $(SERVICE): stopping docker compose network ...)
 	@docker-compose down
+	@[ -f $(ENV_FILE) ] && rm $(ENV_FILE)
