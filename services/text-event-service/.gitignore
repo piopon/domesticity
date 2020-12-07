@@ -2,3 +2,6 @@
 
 # output directory
 bin
+
+# temporary files
+.env
