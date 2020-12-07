@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
   server:
@@ -7,7 +7,8 @@ services:
       args:
         - LD_FLAGS
         - EXPOSED_PORTS=9999
-      taget: bin
+      dockerfile: Dockerfile
+      target: bin
     ports:
       - 9999:9999
     container_name: events
