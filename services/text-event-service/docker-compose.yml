@@ -24,3 +24,6 @@ services:
       - 27017:27017
     container_name: mongo
     restart: always
+
+volumes:
+  mongodb_data:
