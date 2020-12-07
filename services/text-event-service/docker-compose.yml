@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        - LD_FLAGS
+        - LD_FLAGS=$LD_FLAGS
         - EXPOSED_PORTS=9999
       dockerfile: Dockerfile
       target: bin
