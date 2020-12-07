@@ -94,3 +94,13 @@ docker-stop:
 docker-clean: docker-stop
 	$(info $(SERVICE): cleaning docker data ...)
 	@docker rm $(SERVICE) ; docker rmi $(SERVICE):$(API_VAL)
+
+.PHONY: docker-up
+docker-up:
+	$(info $(SERVICE): starting docker compose network ...)
+	@docker-compose up -d
+
+.PHONY: docker-down
+docker-down:
+	$(info $(SERVICE): stopping docker compose network ...)
+	@docker-compose down
