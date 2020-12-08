@@ -106,4 +106,4 @@ docker-up:
 docker-down:
 	$(info $(SERVICE): stopping docker compose network ...)
 	@docker-compose down
-	@[ -f $(ENV_FILE) ] && rm $(ENV_FILE)
+	@[ -f $(ENV_FILE) ] && rm $(ENV_FILE) || true
