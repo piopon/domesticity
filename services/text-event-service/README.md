@@ -47,7 +47,7 @@ All endpoint documentation in more detailed manner is present after hitting `/do
 - [x] add configuration script support
 - [x] add missing unit tests
 - [x] update home page with basic service information
-- [ ] add docker containers and docker compose features
+- [x] add docker containers and docker compose features
 - [ ] configure CI process
 
 ---
