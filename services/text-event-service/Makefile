@@ -99,7 +99,7 @@ docker-clean: docker-stop
 .PHONY: docker-up
 docker-up:
 	$(info $(SERVICE): starting docker compose network ...)
-	@[ ! -f $(ENV_FILE) ] && echo "LD_FLAGS=$(LD_FLAGS)" > $(ENV_FILE) || true
+	@[ ! -f $(ENV_FILE) ] && echo LD_FLAGS=\'$(LD_FLAGS)\' > $(ENV_FILE) || true
 	@docker-compose up -d
 
 .PHONY: docker-down
