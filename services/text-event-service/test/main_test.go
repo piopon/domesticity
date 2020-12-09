@@ -6,14 +6,18 @@ import (
 	"net/http/httptest"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/piopon/domesticity/services/text-event-service/src/dataservice"
 	"github.com/piopon/domesticity/services/text-event-service/src/handlers"
+	"github.com/piopon/domesticity/services/text-event-service/src/model"
 	"github.com/piopon/domesticity/services/text-event-service/src/utils"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func TestCreateRouterCreatesCorrectPathRouter(t *testing.T) {
 	helper := newHelper()
+	initID := helper.getDatabaseIds()[0]
 	router := createRouter(helper.createTestHandlers())
 	testServer := httptest.NewServer(router)
 	defer testServer.Close()
@@ -80,4 +84,28 @@ func (h *helper) createTestHandlers() (*handlers.Home, *handlers.Docs, *handlers
 	docs := handlers.NewDocs("../resources/swagger.yaml")
 	events := handlers.NewEvents(h.logger, utils.NewValidator(), h.db)
 	return home, docs, events
+}
+
+func (h *helper) getDatabaseIds() []primitive.ObjectID {
+	events, errors := h.db.GetEvents(nil)
+	if errors != nil {
+		return nil
+	}
+	result := []primitive.ObjectID{}
+	for _, event := range *events {
+		result = append(result, event.ID)
+	}
+	return result
+}
+
+func (h *helper) createEvent() *model.Event {
+	return &model.Event{
+		Title: "This is my first event",
+		Owner: "Admin",
+		Occurence: model.TimeSpan{
+			Start: time.Date(2020, 05, 26, 14, 15, 00, 00, time.Local),
+			Stop:  time.Date(2020, 05, 27, 10, 30, 00, 00, time.Local)},
+		Category: "Notes",
+		Content:  "Test event number 1",
+	}
 }
