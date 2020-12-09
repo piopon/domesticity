@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"log"
 	"net/http"
 	"net/http/httptest"
@@ -43,7 +44,14 @@ func TestCreateRouterCreatesCorrectPathRouter(t *testing.T) {
 
 	for _, testCase := range testTable {
 		t.Run(testCase.name, func(t *testing.T) {
-			requestBody := strings.NewReader("")
+			var buffer bytes.Buffer
+			if testCase.event != nil {
+				error := utils.ToJSON(testCase.event, &buffer)
+				if error != nil {
+					t.Errorf("Could not convert event to JSON")
+				}
+			}
+			requestBody := strings.NewReader(buffer.String())
 			request, err := http.NewRequest(testCase.method, testCase.server.URL+testCase.url, requestBody)
 			if err != nil {
 				t.Fatalf("Cannot create request for client: %v", err)
