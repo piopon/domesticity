@@ -13,7 +13,8 @@ import (
 )
 
 func TestCreateRouterCreatesCorrectPathRouter(t *testing.T) {
-	router := createRouter(createTestHandlers())
+	helper := newHelper()
+	router := createRouter(helper.createTestHandlers())
 	testServer := httptest.NewServer(router)
 	defer testServer.Close()
 
@@ -47,16 +48,20 @@ func TestCreateRouterCreatesCorrectPathRouter(t *testing.T) {
 	}
 }
 
-func createTestHandlers() (*handlers.Home, *handlers.Docs, *handlers.Events) {
+type helper struct {
+	db     dataservice.Database
+	config *utils.Config
+	logger *log.Logger
+}
+
+func newHelper() *helper {
 	config := createTestConfig()
-	logger := log.New(os.Stdout, config.Name+" > ", log.LstdFlags|log.Lmsgprefix)
 	dataservice, _ := dataservice.NewDatabase(config)
-
-	home := handlers.NewHome("../resources/index.html", logger, config)
-	docs := handlers.NewDocs("../resources/swagger.yaml")
-	events := handlers.NewEvents(logger, utils.NewValidator(), dataservice)
-
-	return home, docs, events
+	return &helper{
+		db:     dataservice,
+		config: config,
+		logger: log.New(os.Stdout, config.Name+" > ", log.LstdFlags|log.Lmsgprefix),
+	}
 }
 
 func createTestConfig() *utils.Config {
@@ -68,4 +73,11 @@ func createTestConfig() *utils.Config {
 		},
 		MongoDB: utils.ConfigMongo{},
 	}
+}
+
+func (h *helper) createTestHandlers() (*handlers.Home, *handlers.Docs, *handlers.Events) {
+	home := handlers.NewHome("../resources/index.html", h.logger, h.config)
+	docs := handlers.NewDocs("../resources/swagger.yaml")
+	events := handlers.NewEvents(h.logger, utils.NewValidator(), h.db)
+	return home, docs, events
 }
