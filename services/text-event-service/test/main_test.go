@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"strings"
 	"testing"
 	"time"
 
@@ -27,17 +28,23 @@ func TestCreateRouterCreatesCorrectPathRouter(t *testing.T) {
 		server   *httptest.Server
 		method   string
 		url      string
+		event    *model.Event
 		exitCode int
 	}{
-		{"home index path", testServer, "GET", "/", 200},
-		{"documentation handler", testServer, "GET", "/docs", 200},
-		{"get all events handler", testServer, "GET", "/events", 200},
-		{"not existing path", testServer, "GET", "/not-existing", 404},
+		{"path: get home", testServer, "GET", "/", nil, 200},
+		{"path: get docs", testServer, "GET", "/docs", nil, 200},
+		{"path: get all events ", testServer, "GET", "/events", nil, 200},
+		{"path: get single event", testServer, "GET", "/events/" + initID.Hex(), nil, 200},
+		{"path: post new event", testServer, "POST", "/events", helper.createEvent(), 200},
+		{"path: update event", testServer, "PUT", "/events/" + initID.Hex(), helper.createEvent(), 200},
+		{"path: delete event", testServer, "DELETE", "/events/" + initID.Hex(), nil, 204},
+		{"path: not existing", testServer, "GET", "/not-existing", nil, 404},
 	}
 
 	for _, testCase := range testTable {
 		t.Run(testCase.name, func(t *testing.T) {
-			request, err := http.NewRequest(testCase.method, testCase.server.URL+testCase.url, nil)
+			requestBody := strings.NewReader("")
+			request, err := http.NewRequest(testCase.method, testCase.server.URL+testCase.url, requestBody)
 			if err != nil {
 				t.Fatalf("Cannot create request for client: %v", err)
 			}
