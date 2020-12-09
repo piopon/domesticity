@@ -27,29 +27,9 @@ func main() {
 	docsHandler := handlers.NewDocs("resources/swagger.yaml")
 	eventsHandler := handlers.NewEvents(logger, utils.NewValidator(), dataservice)
 
-	routerMain := mux.NewRouter()
-
-	routerGET := routerMain.Methods(http.MethodGet).Subrouter()
-	routerGET.Path("/").HandlerFunc(homeHandler.GetIndex)
-	routerGET.Path("/docs").HandlerFunc(docsHandler.GetDocumentation)
-	routerGET.Path("/resources/swagger.yaml").HandlerFunc(docsHandler.GetSwagger)
-	routerGET.Path("/events").HandlerFunc(eventsHandler.GetEvents)
-	routerGET.Path("/events/{id}").HandlerFunc(eventsHandler.GetEvent)
-
-	routerPOST := routerMain.Methods(http.MethodPost).Subrouter()
-	routerPOST.Use(eventsHandler.ValidationMiddleware)
-	routerPOST.Path("/events").HandlerFunc(eventsHandler.AddEvent)
-
-	routerPUT := routerMain.Methods(http.MethodPut).Subrouter()
-	routerPUT.Use(eventsHandler.ValidationMiddleware)
-	routerPUT.Path("/events/{id}").HandlerFunc(eventsHandler.UpdateEvent)
-
-	routerDELETE := routerMain.Methods(http.MethodDelete).Subrouter()
-	routerDELETE.Path("/events/{id}").HandlerFunc(eventsHandler.DeleteEvent)
-
 	server := &http.Server{
 		Addr:         config.Server.IP + ":" + config.Server.Port,
-		Handler:      routerMain,
+		Handler:      createRouter(homeHandler, docsHandler, eventsHandler),
 		ErrorLog:     logger,
 		IdleTimeout:  time.Duration(config.Server.Timeout.Idle) * time.Second,
 		ReadTimeout:  time.Duration(config.Server.Timeout.Read) * time.Second,
@@ -73,4 +53,29 @@ func main() {
 	defer cancel()
 	dataservice.Shutdown(shutdownCtx)
 	server.Shutdown(shutdownCtx)
+}
+
+// createRouter is used to create a new endpoints routes and connect them with handlers
+func createRouter(home *handlers.Home, docs *handlers.Docs, events *handlers.Events) *mux.Router {
+	router := mux.NewRouter()
+
+	routerGET := router.Methods(http.MethodGet).Subrouter()
+	routerGET.Path("/").HandlerFunc(home.GetIndex)
+	routerGET.Path("/docs").HandlerFunc(docs.GetDocumentation)
+	routerGET.Path("/resources/swagger.yaml").HandlerFunc(docs.GetSwagger)
+	routerGET.Path("/events").HandlerFunc(events.GetEvents)
+	routerGET.Path("/events/{id}").HandlerFunc(events.GetEvent)
+
+	routerPOST := router.Methods(http.MethodPost).Subrouter()
+	routerPOST.Use(events.ValidationMiddleware)
+	routerPOST.Path("/events").HandlerFunc(events.AddEvent)
+
+	routerPUT := router.Methods(http.MethodPut).Subrouter()
+	routerPUT.Use(events.ValidationMiddleware)
+	routerPUT.Path("/events/{id}").HandlerFunc(events.UpdateEvent)
+
+	routerDELETE := router.Methods(http.MethodDelete).Subrouter()
+	routerDELETE.Path("/events/{id}").HandlerFunc(events.DeleteEvent)
+
+	return router
 }
