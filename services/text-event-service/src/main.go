@@ -16,12 +16,11 @@ import (
 )
 
 func main() {
-	config := utils.NewConfig("")
-	logger := log.New(os.Stdout, config.Name+" > ", log.LstdFlags|log.Lmsgprefix)
-	dataservice, dbError := dataservice.NewDatabase(config)
-	if dbError != nil {
-		logger.Println(dbError.Error())
-		return
+	app, error := initialize()
+	if error != nil {
+		app.logger.Println("Cannot initialize application:")
+		app.logger.Println(error.Error())
+		os.Exit(1)
 	}
 	homeHandler := handlers.NewHome("resources/index.html", logger, config)
 	docsHandler := handlers.NewDocs("resources/swagger.yaml")
@@ -60,6 +59,14 @@ type Application struct {
 	logger   *log.Logger
 	config   *utils.Config
 	database dataservice.Database
+}
+
+// initialize is used create top-level Application struct
+func initialize() (*Application, error) {
+	config := utils.NewConfig("")
+	logger := log.New(os.Stdout, config.Name+" > ", log.LstdFlags|log.Lmsgprefix)
+	dataservice, dbError := dataservice.NewDatabase(config)
+	return &Application{logger, config, dataservice}, dbError
 }
 
 // createRouter is used to create a new endpoints routes and connect them with handlers
