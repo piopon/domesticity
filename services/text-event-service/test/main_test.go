@@ -38,6 +38,14 @@ func TestCreateHandlersShouldCorrectlyCreateHandlers(t *testing.T) {
 	}
 }
 
+func TestCreateServerShouldCorrectlyCreateServerObject(t *testing.T) {
+	app, _ := initialize(createTestConfig())
+	server := createServer(app)
+	if server == nil {
+		t.Fatal("Create server should create server object but it failed")
+	}
+}
+
 func TestCreateRouterCreatesCorrectPathRouter(t *testing.T) {
 	helper := newHelper()
 	initID := helper.getDatabaseIds()[0]
