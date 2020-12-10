@@ -55,6 +55,13 @@ func main() {
 	server.Shutdown(shutdownCtx)
 }
 
+// Application is a struct containing all top-level settings
+type Application struct {
+	logger   *log.Logger
+	config   *utils.Config
+	database dataservice.Database
+}
+
 // createRouter is used to create a new endpoints routes and connect them with handlers
 func createRouter(home *handlers.Home, docs *handlers.Docs, events *handlers.Events) *mux.Router {
 	router := mux.NewRouter()
