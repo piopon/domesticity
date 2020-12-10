@@ -27,7 +27,7 @@ func main() {
 	go func() {
 		app.logger.Println("Starting server on port", app.config.Server.Port)
 		workError := server.ListenAndServe()
-		if workError != nil {
+		if workError != http.ErrServerClosed {
 			app.logger.Fatal("Error starting server:", workError)
 			os.Exit(1)
 		}
