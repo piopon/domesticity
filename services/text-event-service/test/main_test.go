@@ -18,14 +18,14 @@ import (
 )
 
 func TestInitializeShouldCorrectlyCreateTopLevelStruct(t *testing.T) {
-	app, err := initialize()
+	app, err := initialize(createTestConfig())
 	if app == nil {
 		t.Fatalf("Initialize should create an top-level struct but it failed: %v", err)
 	}
 }
 
 func TestCreateHandlersShouldCorrectlyCreateHandlers(t *testing.T) {
-	app, _ := initialize()
+	app, _ := initialize(createTestConfig())
 	home, docs, events := createHandlers(app)
 	if home == nil {
 		t.Fatalf("Create handler should create home handler but it failed")
