@@ -17,6 +17,27 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+func TestInitializeShouldCorrectlyCreateTopLevelStruct(t *testing.T) {
+	app, err := initialize()
+	if app == nil {
+		t.Fatalf("Initialize should create an top-level struct but it failed: %v", err)
+	}
+}
+
+func TestCreateHandlersShouldCorrectlyCreateHandlers(t *testing.T) {
+	app, _ := initialize()
+	home, docs, events := createHandlers(app)
+	if home == nil {
+		t.Fatalf("Create handler should create home handler but it failed")
+	}
+	if docs == nil {
+		t.Fatalf("Create handler should create docs handler but it failed")
+	}
+	if events == nil {
+		t.Fatalf("Create handler should create events handler but it failed")
+	}
+}
+
 func TestCreateRouterCreatesCorrectPathRouter(t *testing.T) {
 	helper := newHelper()
 	initID := helper.getDatabaseIds()[0]
