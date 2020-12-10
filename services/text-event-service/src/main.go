@@ -22,15 +22,7 @@ func main() {
 		app.logger.Println(error.Error())
 		os.Exit(1)
 	}
-
-	server := &http.Server{
-		Addr:         app.config.Server.IP + ":" + app.config.Server.Port,
-		Handler:      createRouter(createHandlers(app)),
-		ErrorLog:     app.logger,
-		IdleTimeout:  time.Duration(app.config.Server.Timeout.Idle) * time.Second,
-		ReadTimeout:  time.Duration(app.config.Server.Timeout.Read) * time.Second,
-		WriteTimeout: time.Duration(app.config.Server.Timeout.Write) * time.Second,
-	}
+	server := createServer(app)
 
 	go func() {
 		app.logger.Println("Starting server on port", app.config.Server.Port)
@@ -98,4 +90,15 @@ func createRouter(home *handlers.Home, docs *handlers.Docs, events *handlers.Eve
 	routerDELETE.Path("/events/{id}").HandlerFunc(events.DeleteEvent)
 
 	return router
+}
+
+func createServer(app *Application) *http.Server {
+	return &http.Server{
+		Addr:         app.config.Server.IP + ":" + app.config.Server.Port,
+		Handler:      createRouter(createHandlers(app)),
+		ErrorLog:     app.logger,
+		IdleTimeout:  time.Duration(app.config.Server.Timeout.Idle) * time.Second,
+		ReadTimeout:  time.Duration(app.config.Server.Timeout.Read) * time.Second,
+		WriteTimeout: time.Duration(app.config.Server.Timeout.Write) * time.Second,
+	}
 }
