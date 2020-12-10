@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	app, error := initialize()
+	app, error := initialize(utils.NewConfig(""))
 	if error != nil {
 		app.logger.Println("Cannot initialize application:")
 		app.logger.Println(error.Error())
@@ -52,8 +52,7 @@ type Application struct {
 }
 
 // initialize is used create top-level Application struct
-func initialize() (*Application, error) {
-	config := utils.NewConfig("")
+func initialize(config *utils.Config) (*Application, error) {
 	logger := log.New(os.Stdout, config.Name+" > ", log.LstdFlags|log.Lmsgprefix)
 	dataservice, dbError := dataservice.NewDatabase(config)
 	return &Application{logger, config, dataservice}, dbError
