@@ -22,36 +22,37 @@ func main() {
 		app.logger.Println(error.Error())
 		os.Exit(1)
 	}
-	homeHandler := handlers.NewHome("resources/index.html", logger, config)
+	homeHandler := handlers.NewHome("resources/index.html", app.logger, app.config)
 	docsHandler := handlers.NewDocs("resources/swagger.yaml")
-	eventsHandler := handlers.NewEvents(logger, utils.NewValidator(), dataservice)
+	eventsHandler := handlers.NewEvents(app.logger, utils.NewValidator(), app.database)
 
 	server := &http.Server{
-		Addr:         config.Server.IP + ":" + config.Server.Port,
+		Addr:         app.config.Server.IP + ":" + app.config.Server.Port,
 		Handler:      createRouter(homeHandler, docsHandler, eventsHandler),
-		ErrorLog:     logger,
-		IdleTimeout:  time.Duration(config.Server.Timeout.Idle) * time.Second,
-		ReadTimeout:  time.Duration(config.Server.Timeout.Read) * time.Second,
-		WriteTimeout: time.Duration(config.Server.Timeout.Write) * time.Second,
+		ErrorLog:     app.logger,
+		IdleTimeout:  time.Duration(app.config.Server.Timeout.Idle) * time.Second,
+		ReadTimeout:  time.Duration(app.config.Server.Timeout.Read) * time.Second,
+		WriteTimeout: time.Duration(app.config.Server.Timeout.Write) * time.Second,
 	}
 
 	go func() {
-		logger.Println("Starting server on port", config.Server.Port)
+		app.logger.Println("Starting server on port", app.config.Server.Port)
 		workError := server.ListenAndServe()
 		if workError != nil {
-			logger.Fatal("Error starting server:", workError)
+			app.logger.Fatal("Error starting server:", workError)
 			os.Exit(1)
 		}
 	}()
 
 	quitChannel := make(chan os.Signal, 1)
 	signal.Notify(quitChannel, os.Interrupt, os.Kill, syscall.SIGINT, syscall.SIGTERM)
-	logger.Println("Shutting down by", <-quitChannel)
+	app.logger.Println("Shutting down by", <-quitChannel)
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	dataservice.Shutdown(shutdownCtx)
+	app.database.Shutdown(shutdownCtx)
 	server.Shutdown(shutdownCtx)
+	app.logger.Println("Correctly shutdown database and server.")
 }
 
 // Application is a struct containing all top-level settings
