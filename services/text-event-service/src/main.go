@@ -22,13 +22,10 @@ func main() {
 		app.logger.Println(error.Error())
 		os.Exit(1)
 	}
-	homeHandler := handlers.NewHome("resources/index.html", app.logger, app.config)
-	docsHandler := handlers.NewDocs("resources/swagger.yaml")
-	eventsHandler := handlers.NewEvents(app.logger, utils.NewValidator(), app.database)
 
 	server := &http.Server{
 		Addr:         app.config.Server.IP + ":" + app.config.Server.Port,
-		Handler:      createRouter(homeHandler, docsHandler, eventsHandler),
+		Handler:      createRouter(createHandlers(app)),
 		ErrorLog:     app.logger,
 		IdleTimeout:  time.Duration(app.config.Server.Timeout.Idle) * time.Second,
 		ReadTimeout:  time.Duration(app.config.Server.Timeout.Read) * time.Second,
@@ -68,6 +65,14 @@ func initialize() (*Application, error) {
 	logger := log.New(os.Stdout, config.Name+" > ", log.LstdFlags|log.Lmsgprefix)
 	dataservice, dbError := dataservice.NewDatabase(config)
 	return &Application{logger, config, dataservice}, dbError
+}
+
+// createHandlers is used to create all neccessary handlers
+func createHandlers(app *Application) (*handlers.Home, *handlers.Docs, *handlers.Events) {
+	homeHandler := handlers.NewHome("resources/index.html", app.logger, app.config)
+	docsHandler := handlers.NewDocs("resources/swagger.yaml")
+	eventsHandler := handlers.NewEvents(app.logger, utils.NewValidator(), app.database)
+	return homeHandler, docsHandler, eventsHandler
 }
 
 // createRouter is used to create a new endpoints routes and connect them with handlers
