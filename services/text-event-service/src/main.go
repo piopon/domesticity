@@ -58,6 +58,18 @@ func initialize(config *utils.Config) (*Application, error) {
 	return &Application{logger, config, dataservice}, dbError
 }
 
+// createServer is used to create a server object instance
+func createServer(app *Application) *http.Server {
+	return &http.Server{
+		Addr:         app.config.Server.IP + ":" + app.config.Server.Port,
+		Handler:      createRouter(createHandlers(app)),
+		ErrorLog:     app.logger,
+		IdleTimeout:  time.Duration(app.config.Server.Timeout.Idle) * time.Second,
+		ReadTimeout:  time.Duration(app.config.Server.Timeout.Read) * time.Second,
+		WriteTimeout: time.Duration(app.config.Server.Timeout.Write) * time.Second,
+	}
+}
+
 // createHandlers is used to create all neccessary handlers
 func createHandlers(app *Application) (*handlers.Home, *handlers.Docs, *handlers.Events) {
 	homeHandler := handlers.NewHome("resources/index.html", app.logger, app.config)
@@ -89,15 +101,4 @@ func createRouter(home *handlers.Home, docs *handlers.Docs, events *handlers.Eve
 	routerDELETE.Path("/events/{id}").HandlerFunc(events.DeleteEvent)
 
 	return router
-}
-
-func createServer(app *Application) *http.Server {
-	return &http.Server{
-		Addr:         app.config.Server.IP + ":" + app.config.Server.Port,
-		Handler:      createRouter(createHandlers(app)),
-		ErrorLog:     app.logger,
-		IdleTimeout:  time.Duration(app.config.Server.Timeout.Idle) * time.Second,
-		ReadTimeout:  time.Duration(app.config.Server.Timeout.Read) * time.Second,
-		WriteTimeout: time.Duration(app.config.Server.Timeout.Write) * time.Second,
-	}
 }
