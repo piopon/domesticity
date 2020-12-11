@@ -5,27 +5,50 @@ This service is responsible for handling text events in Domesticity Smart Home O
 
 ### **Getting started**
 #### _Prerequisites_
-To build this project one have to install:
+To build this project locally one have to install:
 * Golang - min. version: 1.15.3
 * MongoDB - min. version: 4.2.0
+
+When using Docker containers then one should install:
 * Docker - min. version: 19.03.13
 
 #### _Running service_
 1. clone repository
 2. navigate to `services/text-event-service` directory
-3. run: 
-   - MongoDB:
+3. invoke:
+   - MongoDB (has to be installed first):
      ```
      mongod --bind_ip 0.0.0.0
      ```    
-   - service application: 
+   - build service application:
      ```
-     go run main.go
+     make build
      ```
-4. alternatively invoke docker container
+   - run service application
      ```
-     run docker
+     ./bin/text-event-service
      ```
+4. alternatively one can use Docker
+   - use standalone Docker image (MongoDB has to be manually installed)
+     ```
+     make docker-build && make docker-run
+     ```
+   - or invoke Docker compose
+     ```
+     make docker-up
+     ```
+
+#### _Stopping service_
+Service can be stopped by using Ctrl + C shortkey.
+
+When using docker one can use below command to stop and clean all downloaded data
+```
+make docker-stop && make docker-clean
+```
+Alternatively when using docker compose one can stop service with command
+```
+make docker-down
+```
 
 ### **Endpoints**
 All endpoint documentation in more detailed manner is present after hitting `/docs` endpoint in running service.
@@ -48,6 +71,7 @@ All endpoint documentation in more detailed manner is present after hitting `/do
 - [x] add missing unit tests
 - [x] update home page with basic service information
 - [x] add docker containers and docker compose features
+- [ ] think about adding event types to this service (instead of creating new one)
 - [ ] configure CI process
 
 ---
