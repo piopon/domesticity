@@ -22,6 +22,10 @@ const routes: Routes = [
         loadChildren: () => import('../user/user.module').then( m => m.UserPageModule)
       },
     ]
+  },
+  {
+    path: '',
+    redirectTo: '/menu/calendar'
   }
 ]
 
