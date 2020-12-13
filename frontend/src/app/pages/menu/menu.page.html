@@ -8,7 +8,7 @@
     <ion-content>
       <ion-list>
         <ion-menu-toggle auto-hide="false" *ngFor="let page of pages">
-          <ion-item [routerLink]="page.url" routerDirection="root">
+          <ion-item [routerLink]="page.url" routerDirection="root" [class.active-menu-item]="selectedPath === page.url">
             {{ page.title }}
           </ion-item>
         </ion-menu-toggle>
