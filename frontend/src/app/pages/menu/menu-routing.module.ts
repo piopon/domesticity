@@ -5,8 +5,22 @@ import { MenuPage } from './menu.page';
 
 const routes: Routes = [
   {
+    path: 'menu',
+    component: MenuPage,
+    children: [
+      {
+        path: 'calendar',
+        loadChildren: () => import('../calendar/calendar.module').then( m => m.CalendarPageModule)
+      },
+      {
+        path: 'user',
+        loadChildren: () => import('../user/user.module').then( m => m.UserPageModule)
+      },
+    ]
+  },
+  {
     path: '',
-    component: MenuPage
+    redirectTo: '/menu/calendar'
   }
 ];
 
