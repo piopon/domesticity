@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -9,16 +9,22 @@ import { Router } from '@angular/router';
 export class MenuPage implements OnInit {
   pages = [
     {
-      title: 'Calendar',
+      title: 'calendar',
       url: '/menu/calendar'
     },
     {
-      title: 'User',
+      title: 'user',
       url: '/menu/user'
     }
   ];
 
-  constructor() { }
+  selectedPath = '';
+
+  constructor(private router:Router) {
+    this.router.events.subscribe((event: RouterEvent) => {
+      this.selectedPath = event.url;
+    });
+  }
 
   ngOnInit() {
   }
