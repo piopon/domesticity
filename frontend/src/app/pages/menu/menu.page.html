@@ -9,7 +9,10 @@
       <ion-list>
         <ion-menu-toggle auto-hide="false" *ngFor="let page of pages">
           <ion-item [routerLink]="page.url" routerDirection="root" routerLinkActive="active-menu-item">
-            {{ page.title }}
+            <ion-icon slot="start" [name]="page.icon"></ion-icon>
+            <ion-label>
+              {{ page.title }}
+            </ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
