@@ -7,3 +7,13 @@ ion-item {
 ion-item.active-menu-item {
     --border-color: var(--ion-color-primary);
 }
+
+ion-item ion-icon {
+    color: var(--ion-text-color);
+    font-size: 32px;
+}
+
+ion-item.active-menu-item ion-icon {
+    color: var(--ion-color-primary);
+    font-size: 32px;
+}
