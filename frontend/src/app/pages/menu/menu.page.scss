@@ -26,3 +26,11 @@ ion-item.active-menu-item ion-icon {
     color: var(--ion-color-primary);
     font-size: 32px;
 }
+
+ion-item ion-label {
+    color: var(--ion-text-color);
+}
+
+ion-item.active-menu-item ion-label {
+    color: var(--ion-color-primary);
+}
