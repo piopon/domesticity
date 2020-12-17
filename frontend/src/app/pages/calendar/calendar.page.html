@@ -8,7 +8,10 @@
     </ion-menu-toggle>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+  <calendar
+    [eventSource]="eventSource"
+    [calendarMode]="calendar.mode"
+    [currentDate]="calendar.currentDate">
+  </calendar>
 </ion-content>
