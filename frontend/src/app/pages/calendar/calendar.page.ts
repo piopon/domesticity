@@ -22,4 +22,12 @@ export class CalendarPage implements OnInit {
   ngOnInit() {
   }
 
+  nextMonth() {
+    this.myCalendar.slideNext();
+  }
+
+  previousMonth() {
+    this.myCalendar.slidePrev();
+  }
+
 }
