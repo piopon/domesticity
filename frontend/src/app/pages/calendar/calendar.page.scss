@@ -1,0 +1,11 @@
+$fullViewHeight:100vh;
+$headerHeight:56px;
+
+:host ::ng-deep {
+
+    .table-bordered {
+        height: calc(#{$fullViewHeight} - #{$headerHeight}) !important;
+        max-height:100vh;
+    }
+
+}

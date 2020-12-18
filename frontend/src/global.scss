@@ -24,10 +24,3 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-
-$fullViewHeight:100vh;
-$headerHeight:56px;
-.table-bordered {
-    height: calc(#{$fullViewHeight} - #{$headerHeight});
-    max-height:100vh;
-}
