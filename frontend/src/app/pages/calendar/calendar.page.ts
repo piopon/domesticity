@@ -8,7 +8,7 @@ import { CalendarComponent } from 'ionic2-calendar';
 })
 export class CalendarPage implements OnInit {
   eventSource = [];
-  viewTitle: string;
+  titleMonth: string;
 
   calendar = {
     mode: 'month',
