@@ -30,4 +30,8 @@ export class CalendarPage implements OnInit {
     this.myCalendar.slidePrev();
   }
 
+  onMonthChanged(newTitle:string) {
+    this.titleMonth = newTitle;
+  }
+
 }
