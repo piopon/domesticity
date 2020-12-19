@@ -8,16 +8,17 @@
     </ion-menu-toggle>
     <ion-grid class="ion-no-padding">
       <ion-row>
+        <ion-col size="4"></ion-col>
         <ion-col size="1" class="ion-no-padding ion-no-margin">
-          <ion-button (click)="previousMonth()">
+          <ion-button class="ion-float-right" (click)="previousMonth()">
             <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-col>
-        <ion-col size="2" class="ion-no-padding">
+        <ion-col size="2" class="ion-no-padding ion-text-center ion-align-self-center">
           <ion-label>{{ titleMonth }}</ion-label>
         </ion-col>
         <ion-col size="1" class="ion-no-padding ion-no-margin">
-          <ion-button (click)="nextMonth()">
+          <ion-button class="ion-float-left" (click)="nextMonth()">
             <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-col>
