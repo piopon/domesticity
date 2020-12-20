@@ -5,7 +5,11 @@ $headerHeight:56px;
 
     .table-bordered {
         height: calc(#{$fullViewHeight} - #{$headerHeight}) !important;
-        max-height:100vh;
+        max-height: calc(#{$fullViewHeight} - #{$headerHeight});
+    }
+
+    .swiper-slide-active {
+        width: 100% !important;
     }
 
 }
