@@ -20,6 +20,11 @@
             <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-col>
+        <ion-col offset="3" size="1" class="ion-no-padding ion-no-margin ion-align-self-center">
+          <ion-button size="small" fill="outline" shape="round" class="ion-float-right ion-text-lowercase" (click)="changeView()">
+            {{ calendar.mode }}
+          </ion-button>
+        </ion-col>
       </ion-row>
     </ion-grid>
   </ion-toolbar>
