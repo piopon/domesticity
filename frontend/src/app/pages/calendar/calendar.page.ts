@@ -35,6 +35,11 @@ export class CalendarPage implements OnInit {
     this.titleMonth = newTitle;
   }
 
+  onTimeSelected(event: { selectedTime: Date, events: any[] }) {
+    let eventEmpty: boolean = (event.events !== undefined && event.events.length !== 0);
+    console.log('Selected time: ' + event.selectedTime + ', hasEvents: ' + eventEmpty);
+  }
+
   changeView() {
     let modeIndex:number = this.availableModes.indexOf(this.calendar.mode);
     modeIndex = (modeIndex + 1) % this.availableModes.length;

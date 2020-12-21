@@ -36,6 +36,7 @@
     [currentDate]="calendar.currentDate"
     [showEventDetail]="false"
     [sliderOptions]="{ allowTouchMove: false, speed: 10 }"
-    (onTitleChanged)="onMonthChanged($event)">
+    (onTitleChanged)="onMonthChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)">
   </calendar>
 </ion-content>
