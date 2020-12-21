@@ -7,11 +7,12 @@ import { CalendarComponent } from 'ionic2-calendar';
   styleUrls: ['./calendar.page.scss'],
 })
 export class CalendarPage implements OnInit {
+  availableModes:string[] = [ 'month', 'week', 'day' ];
   eventSource = [];
   titleMonth: string;
 
   calendar = {
-    mode: 'month',
+    mode: this.availableModes[0],
     currentDate: new Date()
   };
 
@@ -32,6 +33,12 @@ export class CalendarPage implements OnInit {
 
   onMonthChanged(newTitle:string) {
     this.titleMonth = newTitle;
+  }
+
+  changeView() {
+    let modeIndex:number = this.availableModes.indexOf(this.calendar.mode);
+    modeIndex = (modeIndex + 1) % this.availableModes.length;
+    this.calendar.mode = this.availableModes[modeIndex]
   }
 
 }
