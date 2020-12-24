@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-event',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./event.page.scss'],
 })
 export class EventPage implements OnInit {
+
+  @Input() dayTime: Date
+  @Input() dayEvents: any[]
 
   constructor() { }
 
