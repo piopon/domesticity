@@ -43,6 +43,10 @@ export class CalendarPage implements OnInit {
 
     const modal = await this.modalController.create({
       component: EventPage,
+      componentProps: {
+        'dayTime': event.selectedTime,
+        'dayEvents': event.events,
+      }
     });
     return await modal.present();
 
