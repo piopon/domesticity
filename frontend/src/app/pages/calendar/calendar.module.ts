@@ -17,7 +17,7 @@ import { EventPage } from 'src/app/dialogs/event/event.page';
     IonicModule,
     CalendarPageRoutingModule,
     NgCalendarModule,
-    EventPage
+    //EventPage
   ],
   declarations: [CalendarPage]
 })
