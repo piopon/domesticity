@@ -15,4 +15,7 @@ export class EventPage implements OnInit {
   ngOnInit() {
   }
 
+  close() {
+    console.log("modal off");
+  }
 }
