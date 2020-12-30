@@ -1,0 +1,21 @@
+ion-header {
+
+    ion-toolbar {
+        --background: var(--ion-color-primary) !important;
+    }
+
+    ion-button {
+        background-color: var(--ion-color-primary) !important;
+        color: var(--ion-color-primary-contrast) !important;
+    }
+
+    ion-icon {
+        background-color: var(--ion-color-primary) !important;
+        color: var(--ion-color-primary-contrast) !important;
+    }
+
+    ion-title {
+        color: var(--ion-color-primary-contrast) !important;
+    }
+
+}
