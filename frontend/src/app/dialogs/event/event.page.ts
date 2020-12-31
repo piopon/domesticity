@@ -19,4 +19,5 @@ export class EventPage implements OnInit {
   close() {
     this.modalController.dismiss();
   }
+
 }
