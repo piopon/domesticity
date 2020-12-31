@@ -1,5 +1,4 @@
 ion-header {
-
     ion-toolbar {
         --background: var(--ion-color-primary) !important;
     }
@@ -17,13 +16,10 @@ ion-header {
     ion-title {
         color: var(--ion-color-primary-contrast) !important;
     }
-
 }
 
 ion-content {
-
     ion-item ion-icon {
         padding-right: 10px;
     }
-
 }

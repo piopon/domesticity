@@ -27,4 +27,7 @@ export class EventPage implements OnInit {
     this.modalController.dismiss();
   }
 
+  clearEvents() {
+    this.dayEvents = [];
+  }
 }
