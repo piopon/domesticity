@@ -30,6 +30,10 @@ ion-content {
         padding-right: 10px;
     }
 
+    ion-item.event-item {
+        height: 55px;
+    }
+
     ion-item.empty-events-list {
         --color: gray;
     }

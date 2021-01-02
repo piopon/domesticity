@@ -13,7 +13,7 @@
       <ion-button fill="outline" size="small" color="danger" (click)="clearEvents()">Clear all</ion-button>
     </ion-list-header>
     <ion-list>
-      <ion-item *ngFor="let event of dayEvents">
+      <ion-item class="event-item" *ngFor="let event of dayEvents">
         <ion-icon name="{{ event.icon }}"></ion-icon>
         <ion-label>{{ event.title }}</ion-label>
       </ion-item>
