@@ -17,6 +17,9 @@
         <ion-icon name="{{ event.icon }}"></ion-icon>
         <ion-label>{{ event.title }}</ion-label>
       </ion-item>
+      <ion-item class="empty-events-list" lines="none" *ngIf="dayEvents.length <= 0 || !dayEvents">
+        <ion-label>NO EVENTS</ion-label>
+      </ion-item>
     </ion-list>
   </ion-card>
 </ion-content>

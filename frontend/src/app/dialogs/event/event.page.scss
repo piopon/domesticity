@@ -29,4 +29,8 @@ ion-content {
     ion-item ion-icon {
         padding-right: 10px;
     }
+
+    ion-item.empty-events-list {
+        --color: gray;
+    }
 }
