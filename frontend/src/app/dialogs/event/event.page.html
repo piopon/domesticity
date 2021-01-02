@@ -10,7 +10,9 @@
   <ion-card>
     <ion-list-header lines="inset">
       <ion-label>Todays events</ion-label>
-      <ion-button fill="outline" size="small" color="danger" (click)="clearEvents()">Clear all</ion-button>
+      <ion-button disabled="{{ dayEvents.length <= 0 }}" fill="outline" size="small" color="danger" (click)="clearEvents()">
+        Clear all
+      </ion-button>
     </ion-list-header>
     <ion-list>
       <ion-item class="event-item" *ngFor="let event of dayEvents">
