@@ -1,3 +1,5 @@
+$marginValue:10px;
+
 ion-header {
     ion-toolbar {
         --background: var(--ion-color-primary) !important;
@@ -19,6 +21,11 @@ ion-header {
 }
 
 ion-content {
+    ion-card {
+        margin: #{$marginValue};
+        height: calc(100% - 2*#{$marginValue});
+    }
+
     ion-item ion-icon {
         padding-right: 10px;
     }
