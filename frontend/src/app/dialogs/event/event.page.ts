@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Event } from 'src/app/model/event.model';
+import { EventsService } from 'src/app/services/events.service';
 
 @Component({
   selector: 'app-event',
@@ -9,18 +11,12 @@ import { ModalController } from '@ionic/angular';
 export class EventPage implements OnInit {
 
   @Input() dayTime: Date
-  @Input() dayEvents: any[]
+  @Input() dayEvents: Event[]
 
-  constructor(public modalController: ModalController) { }
+  constructor(public modalController: ModalController, private eventsService: EventsService) { }
 
   ngOnInit() {
-    this.dayEvents = [
-      {icon: 'american-football-outline', title: 'Test event 1 title'},
-      {icon: 'bicycle-outline', title: 'Test event 2 title'},
-      {icon: 'earth-outline', title: 'Test event 3 title'},
-      {icon: 'game-controller-outline', title: 'Test event 4 title'},
-      {icon: 'school-outline', title: 'Test event 5 title'},
-    ];
+    this.dayEvents = this.eventsService.getTestEvents();
   }
 
   close() {
