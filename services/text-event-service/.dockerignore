@@ -1,0 +1,7 @@
+# Docker ignore file used to skip unnecessary files copying
+
+# output directory
+bin/*
+
+# temporary files
+.env
