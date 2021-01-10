@@ -36,7 +36,8 @@ export class EventPage implements OnInit {
 
   toggleEventInfo(eventIndex:number):void {
     if (this.isEventOpened(eventIndex)) {
-      this.visibleInfoEvents.splice(eventIndex, 1);
+      const index:number = this.visibleInfoEvents.indexOf(eventIndex);
+      this.visibleInfoEvents.splice(index, 1);
     } else {
       this.visibleInfoEvents.push(eventIndex);
     }
