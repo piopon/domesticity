@@ -22,7 +22,7 @@ export class EventPage implements OnInit {
     this.visibleInfoEvents = [];
   }
 
-  close() {
+  closeDialog() {
     this.modalController.dismiss();
   }
 
