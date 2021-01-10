@@ -31,6 +31,12 @@ ion-content {
     }
 
     ion-item.event-item {
+        --background: var(--ion-color-primary-contrast);
+        height: 50px;
+    }
+
+    ion-item.event-detail {
+        --background: green;
         height: 50px;
     }
 
