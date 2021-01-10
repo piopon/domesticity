@@ -15,8 +15,8 @@
         Clear all
       </ion-button>
     </ion-list-header>
-    <ion-list>
-      <ion-item class="event-item" *ngFor="let event of dayEvents">
+    <ion-list *ngFor="let event of dayEvents; let i = index;">
+      <ion-item class="event-item" tappable (click)="toggleEventInfo(i)">
         <ion-icon name="{{ event.icon }}"></ion-icon>
         <ion-label class="ion-text-left">{{ event.title }}</ion-label>
         <ion-label class="ion-text-right event-info">
