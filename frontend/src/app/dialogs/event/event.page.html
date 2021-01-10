@@ -17,6 +17,8 @@
     </ion-list-header>
     <ion-list *ngFor="let event of dayEvents; let i = index;">
       <ion-item tappable (click)="toggleEventInfo(i)" [ngClass]="{'event-detail':isEventOpened(i), 'event-item':!isEventOpened(i)}">
+        <ion-icon slot="start" name="chevron-forward-outline" class="ion-no-margin" *ngIf="!isEventOpened(i)"></ion-icon>
+        <ion-icon slot="start" name="chevron-down-outline" class="ion-no-margin" *ngIf="isEventOpened(i)"></ion-icon>
         <ion-icon name="{{ event.icon }}"></ion-icon>
         <ion-label class="ion-text-left">{{ event.title }}</ion-label>
         <ion-label class="ion-text-right event-info">
