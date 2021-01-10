@@ -13,13 +13,13 @@ export class EventPage implements OnInit {
   @Input() dayTime: Date
   @Input() dayEvents: Event[]
 
-  private visibleInfoEvents: number[]
+  private visibleDetails: number[]
 
   constructor(public modalController: ModalController, private eventsService: EventsService) { }
 
   ngOnInit() {
     this.dayEvents = this.eventsService.getTestEvents();
-    this.visibleInfoEvents = [];
+    this.visibleDetails = [];
   }
 
   closeDialog() {
@@ -30,16 +30,16 @@ export class EventPage implements OnInit {
     this.dayEvents = [];
   }
 
-  isEventOpened(eventIndex:number):boolean {
-    return this.visibleInfoEvents.indexOf(eventIndex) !== -1;
+  isDetailed(eventIndex:number):boolean {
+    return this.visibleDetails.indexOf(eventIndex) !== -1;
   }
 
-  toggleEventInfo(eventIndex:number):void {
-    if (this.isEventOpened(eventIndex)) {
-      const index:number = this.visibleInfoEvents.indexOf(eventIndex);
-      this.visibleInfoEvents.splice(index, 1);
+  toggleDetails(eventIndex:number):void {
+    if (this.isDetailed(eventIndex)) {
+      const index:number = this.visibleDetails.indexOf(eventIndex);
+      this.visibleDetails.splice(index, 1);
     } else {
-      this.visibleInfoEvents.push(eventIndex);
+      this.visibleDetails.push(eventIndex);
     }
   }
 }
