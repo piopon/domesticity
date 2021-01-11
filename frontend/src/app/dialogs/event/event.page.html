@@ -9,13 +9,13 @@
 <ion-content>
   <add-event class="ion-hide-md-up"></add-event>
   <ion-card>
-    <ion-list-header lines="inset">
+    <ion-list-header lines="full">
       <ion-label>Todays events</ion-label>
       <ion-button disabled="{{ dayEvents.length <= 0 }}" fill="outline" size="small" color="danger" (click)="clearEvents()">
         Clear all
       </ion-button>
     </ion-list-header>
-    <ion-list *ngFor="let event of dayEvents; let i = index;">
+    <ion-list *ngFor="let event of dayEvents; let i = index;" lines="full">
       <ion-item tappable (click)="toggleDetails(i)" [ngClass]="{'event-detail':isDetailed(i), 'event-item':!isDetailed(i)}">
         <ion-icon slot="start" name="chevron-forward-outline" class="ion-no-margin" *ngIf="!isDetailed(i)"></ion-icon>
         <ion-icon slot="start" name="chevron-down-outline" class="ion-no-margin" *ngIf="isDetailed(i)"></ion-icon>
