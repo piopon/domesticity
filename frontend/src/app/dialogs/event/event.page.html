@@ -25,6 +25,22 @@
           {{ event.occurence.start | date:'hh:mm' }} - {{ event.occurence.stop | date:'hh:mm' }}
         </ion-label>
       </ion-item>
+      <ion-item *ngIf="isDetailed(i)" text-wrap>
+        <ion-grid>
+          <ion-row no-padding align-items-center>
+            <ion-col size="3" class="column-title">
+              <ion-label class="ion-text-left">category:</ion-label>
+              <ion-label class="ion-text-left">owner:</ion-label>
+              <ion-label class="ion-text-left">content:</ion-label>
+            </ion-col>
+            <ion-col size="9" class="column-content">
+              <ion-label class="ion-text-left">{{ event.category }}</ion-label>
+              <ion-label class="ion-text-left">{{ event.owner }}</ion-label>
+              <ion-label class="ion-text-left">{{ event.content }}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
     </ion-list>
     <ion-item class="empty-events-list" lines="none" *ngIf="dayEvents.length <= 0 || !dayEvents">
       <ion-label class="ion-text-center ">no events</ion-label>
