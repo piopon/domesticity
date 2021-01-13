@@ -27,16 +27,20 @@
       </ion-item>
       <ion-item *ngIf="isDetailed(i)" text-wrap detail="false">
         <ion-grid>
-          <ion-row no-padding align-items-center>
-            <ion-col size="3" class="column-title">
-              <ion-label class="ion-text-left">category:</ion-label>
-              <ion-label class="ion-text-left">owner:</ion-label>
-              <ion-label class="ion-text-left">content:</ion-label>
-            </ion-col>
-            <ion-col size="9" class="column-content">
-              <ion-label class="ion-text-left">{{ event.category }}</ion-label>
-              <ion-label class="ion-text-left">{{ event.owner }}</ion-label>
-              <ion-label class="ion-text-left">{{ event.content }}</ion-label>
+          <ion-row align-items-center>
+            <ion-col class="column-content">
+              <ion-item>
+                <ion-label position="stacked">category</ion-label>
+                <ion-input class="ion-text-left" value="{{ event.category }}"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">owner</ion-label>
+                <ion-input class="ion-text-left" value="{{ event.owner }}"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">content</ion-label>
+                <ion-input class="ion-text-left" value="{{ event.content }}"></ion-input>
+              </ion-item>
             </ion-col>
           </ion-row>
         </ion-grid>
