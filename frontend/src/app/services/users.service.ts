@@ -6,4 +6,12 @@ import { Injectable } from '@angular/core';
 export class UsersService {
 
   constructor() { }
+
+  getTestUsers():String[] {
+    return [
+      'Admin',
+      'User',
+      'Moderator',
+    ];
+  }
 }
