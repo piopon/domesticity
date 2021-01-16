@@ -26,6 +26,8 @@ export class EventPage implements OnInit {
 
   ngOnInit() {
     this.dayEvents = this.eventsService.getTestEvents();
+    this.availableUsers = this.usersService.getTestUsers();
+    this.availableCategories = this.categoriesService.getTestCategories();
     this.visibleDetails = [];
   }
 
