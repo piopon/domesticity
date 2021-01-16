@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Event } from 'src/app/model/event.model';
+import { CategoriesService } from 'src/app/services/categories.service';
 import { EventsService } from 'src/app/services/events.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-event',
@@ -10,12 +12,17 @@ import { EventsService } from 'src/app/services/events.service';
 })
 export class EventPage implements OnInit {
 
-  @Input() dayTime: Date
-  @Input() dayEvents: Event[]
+  @Input() dayTime: Date;
+  @Input() dayEvents: Event[];
 
-  private visibleDetails: number[]
+  protected availableUsers: String[];
+  protected availableCategories: String[];
+  private visibleDetails: number[];
 
-  constructor(public modalController: ModalController, private eventsService: EventsService) { }
+  constructor(public modalController: ModalController,
+    private eventsService: EventsService,
+    private categoriesService: CategoriesService,
+    private usersService: UsersService) { }
 
   ngOnInit() {
     this.dayEvents = this.eventsService.getTestEvents();
