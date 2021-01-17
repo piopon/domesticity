@@ -31,7 +31,11 @@
             <ion-col class="column-content">
               <ion-item>
                 <ion-label position="floating">category</ion-label>
-                <ion-input value="{{ event.category }}"></ion-input>
+                <ion-select value="{{ event.category }}">
+                  <ion-select-option *ngFor="let category of availableCategories;" value="{{ category }}">
+                    {{ category }}
+                  </ion-select-option>
+                </ion-select>
               </ion-item>
               <ion-item>
                 <ion-label position="floating">owner</ion-label>
