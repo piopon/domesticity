@@ -1,4 +1,4 @@
-export interface category {
+export interface Category {
     id: String;
     name: String;
     color: String;
