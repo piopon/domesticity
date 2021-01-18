@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Category } from 'src/app/model/category.model';
 import { Event } from 'src/app/model/event.model';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { EventsService } from 'src/app/services/events.service';
@@ -16,7 +17,7 @@ export class EventPage implements OnInit {
   @Input() dayEvents: Event[];
 
   protected availableUsers: String[];
-  protected availableCategories: String[];
+  protected availableCategories: Category[];
   private visibleDetails: number[];
 
   constructor(public modalController: ModalController,

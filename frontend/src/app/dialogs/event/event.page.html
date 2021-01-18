@@ -32,8 +32,8 @@
               <ion-item>
                 <ion-label position="floating">category</ion-label>
                 <ion-select value="{{ event.category }}">
-                  <ion-select-option *ngFor="let category of availableCategories;" value="{{ category }}">
-                    {{ category }}
+                  <ion-select-option *ngFor="let category of availableCategories;" value="{{ category.name }}">
+                    {{ category.name }}
                   </ion-select-option>
                 </ion-select>
               </ion-item>
