@@ -1,0 +1,36 @@
+ion-split-pane {
+    --side-max-width: 250px;
+    --side-min-width: 200px;
+}
+
+ion-split-pane ion-toolbar {
+    --border-style: none;
+}
+
+ion-item {
+    --border-style: none none none solid;
+    --border-width: 5px;
+    --border-color: var(--ion-color-primary-contrast)
+}
+
+ion-item.active-menu-item {
+    --border-color: var(--ion-color-primary);
+}
+
+ion-item ion-icon {
+    color: var(--ion-text-color);
+    font-size: 32px;
+}
+
+ion-item.active-menu-item ion-icon {
+    color: var(--ion-color-primary);
+    font-size: 32px;
+}
+
+ion-item ion-label {
+    color: var(--ion-text-color);
+}
+
+ion-item.active-menu-item ion-label {
+    color: var(--ion-color-primary);
+}
