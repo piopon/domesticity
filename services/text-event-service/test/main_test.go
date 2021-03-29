@@ -146,6 +146,7 @@ func (h *helper) createEvent() *model.Event {
 	return &model.Event{
 		Title: "This is my first event",
 		Owner: "Admin",
+		Icon:  "my-icon-1",
 		Occurence: model.TimeSpan{
 			Start: time.Date(2020, 05, 26, 14, 15, 00, 00, time.Local),
 			Stop:  time.Date(2020, 05, 27, 10, 30, 00, 00, time.Local)},

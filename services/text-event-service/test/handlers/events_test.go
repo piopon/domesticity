@@ -62,7 +62,7 @@ func TestValidationMiddlewareFailsWhenValidationError(t *testing.T) {
 
 func createValidationHandler() (http.Handler, testHandler) {
 	events := NewCommonMockup().CreateEventsHandler()
-	handler := testHandler{"title", "category", "owner", "content"}
+	handler := testHandler{"title", "category", "icon", "owner", "content"}
 	validation := events.ValidationMiddleware(&handler)
 	return validation, handler
 }
@@ -82,6 +82,7 @@ func verifyValidationHandler(handler http.Handler, bodyOption io.Reader) (int, e
 type testHandler struct {
 	Title    string
 	Category string
+	Icon     string
 	Owner    string
 	Content  string
 }
@@ -93,6 +94,7 @@ func (handler *testHandler) ServeHTTP(response http.ResponseWriter, request *htt
 func (handler *testHandler) GetCorrectBody() *strings.Reader {
 	return strings.NewReader("{\"title\": \"" + handler.Title + "\"," +
 		"\"category\": \"" + handler.Category + "\"," +
+		"\"icon\": \"" + handler.Icon + "\"," +
 		"\"owner\": \"" + handler.Owner + "\"," +
 		"\"content\": \"" + handler.Content + "\"," +
 		"\"date\": {\"start\": \"2020-11-11T00:00:00+00:00\", \"stop\": \"2021-11-11T00:00:01+00:00\"}}")
@@ -101,6 +103,7 @@ func (handler *testHandler) GetCorrectBody() *strings.Reader {
 func (handler *testHandler) GetParseNokBody() *strings.Reader {
 	return strings.NewReader("{\"title\": \"" + handler.Title + "\"," +
 		"\"category\": \"" + handler.Category + "\"," +
+		"\"icon\": \"" + handler.Icon + "\"," +
 		"\"owner\": \"" + handler.Owner + "\"," +
 		"\"content\": \"" + handler.Content + "\"," +
 		"\"date\": {\"start\": \"2020-11-1100:00:00+00:00\", \"stop\": \"2021-11-11T00:00:01+00:00\"}}")
@@ -109,6 +112,7 @@ func (handler *testHandler) GetParseNokBody() *strings.Reader {
 func (handler *testHandler) GetValidationNokBody() *strings.Reader {
 	return strings.NewReader("{\"summary\": \"" + handler.Title + "\"," +
 		"\"category\": \"" + handler.Category + "\"," +
+		"\"icon\": \"" + handler.Icon + "\"," +
 		"\"test\": \"" + handler.Owner + "\"," +
 		"\"content\": \"" + handler.Content + "\"," +
 		"\"date\": {\"start\": \"2020-11-11T00:00:00+00:00\", \"stop\": \"2021-11-11T00:00:01+00:00\"}}")
