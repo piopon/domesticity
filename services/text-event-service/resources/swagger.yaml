@@ -19,6 +19,11 @@ definitions:
         x-go-name: Content
       date:
         $ref: '#/definitions/TimeSpan'
+      icon:
+        description: The icon of event
+        maxLength: 255
+        type: string
+        x-go-name: Icon
       owner:
         description: The title of event
         maxLength: 255
@@ -31,6 +36,7 @@ definitions:
         x-go-name: Title
     required:
     - title
+    - icon
     - owner
     - date
     - category
