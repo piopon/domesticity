@@ -14,6 +14,11 @@ type Event struct {
 	// required: true
 	// max length: 255
 	Title string `json:"title" bson:"title" validate:"required"`
+	// The icon of event
+	//
+	// required: true
+	// max length: 255
+	Icon string `json:"icon" bson:"icon" validate:"required"`
 	// The title of event
 	//
 	// required: true
@@ -39,6 +44,9 @@ type Event struct {
 func (event *Event) ToString() string {
 	if event.Title == "" {
 		event.Title = "NIL"
+	}
+	if event.Icon == "" {
+		event.Icon = "NIL"
 	}
 	if event.Owner == "" {
 		event.Owner = "NIL"

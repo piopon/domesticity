@@ -42,6 +42,7 @@ func (common *commonMockup) CreateHomeHandler(template string) *handlers.Home {
 func (common *commonMockup) CreateEventBadJson() *model.Event {
 	return &model.Event{
 		Title: "This is my first event",
+		Icon:  "my-icon-1",
 		Owner: "Admin",
 		Occurence: model.TimeSpan{
 			Start: time.Date(-2020, 05, 26, 14, 15, 00, 00, time.Local),
