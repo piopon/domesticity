@@ -1,5 +1,6 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Event } from '../model/event.model';
 
 @Injectable({
@@ -8,7 +9,11 @@ import { Event } from '../model/event.model';
 export class EventsService {
   url = "http://127.0.0.1:9999"
 
-  constructor(private http: HttpClientModule) { }
+  constructor(private http: HttpClient) { }
+
+  getEventsByDay(day: String): Observable<any> {
+    return null;
+  }
 
   getTestEvents():Event[] {
     return [
