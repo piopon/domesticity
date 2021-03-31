@@ -7,12 +7,12 @@ import { Event } from '../model/event.model';
   providedIn: 'root'
 })
 export class EventsService {
-  url = "http://127.0.0.1:9999"
+  url = "http://127.0.0.1:9999/"
 
   constructor(private http: HttpClient) { }
 
-  getEventsByDay(day: String): Observable<any> {
-    return null;
+  getEventsByDay(day: string): Observable<any> {
+    return this.http.get(`${this.url}events?dayStart=${encodeURI(day)}`);
   }
 
   getTestEvents():Event[] {
