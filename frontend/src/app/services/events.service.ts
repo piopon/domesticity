@@ -5,6 +5,7 @@ import { Event } from '../model/event.model';
   providedIn: 'root'
 })
 export class EventsService {
+  url = "http://127.0.0.1:9999"
 
   constructor() { }
 
