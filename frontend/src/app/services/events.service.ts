@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Event } from '../model/event.model';
 
@@ -7,7 +8,7 @@ import { Event } from '../model/event.model';
 export class EventsService {
   url = "http://127.0.0.1:9999"
 
-  constructor() { }
+  constructor(private http: HttpClientModule) { }
 
   getTestEvents():Event[] {
     return [
