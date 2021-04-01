@@ -11,8 +11,8 @@ export class EventsService {
 
   constructor(private http: HttpClient) { }
 
-  getEventsByDay(day: string): Observable<any> {
-    return this.http.get(`${this.url}events?dayStart=${encodeURI(day)}`);
+  getEventsByOwner(owner: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.url}events?owner=${encodeURI(owner)}`);
   }
 
   getTestEvents():Event[] {
