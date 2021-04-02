@@ -26,7 +26,9 @@ export class EventPage implements OnInit {
     private usersService: UsersService) { }
 
   ngOnInit() {
-    this.eventsService.getEventsByOwner("ponio").subscribe(e => this.dayEvents = e);
+    this.eventsService.getEventsByOwner("ponio").subscribe(
+      e => this.dayEvents = e
+    );
     this.availableUsers = this.usersService.getTestUsers();
     this.availableCategories = this.categoriesService.getTestCategories();
     this.visibleDetails = [];
