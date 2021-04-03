@@ -5,7 +5,7 @@ export interface Event {
     title: string;
     icon: string;
     owner: string;
-    occurence: TimeSpan;
+    date: TimeSpan;
     category: string;
     content: string;
 }
