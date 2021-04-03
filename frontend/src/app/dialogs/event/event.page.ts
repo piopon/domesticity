@@ -26,9 +26,22 @@ export class EventPage implements OnInit {
     private usersService: UsersService) { }
 
   ngOnInit() {
-    this.eventsService.getEventsByOwner("ponio").subscribe(
-      e => this.dayEvents = e
-    );
+    this.eventsService.getEventsByOwner("ponio").subscribe(events => {
+      events.forEach(event => {
+        this.dayEvents.push({
+          id: event.id,
+          icon: event.icon,
+          category: event.category,
+          title: event.title,
+          owner: event.owner,
+          content: event.content,
+          date: {
+            start: new Date(event.date.start),
+            stop: new Date(event.date.stop)
+          },
+        });
+      });
+    });
     this.availableUsers = this.usersService.getTestUsers();
     this.availableCategories = this.categoriesService.getTestCategories();
     this.visibleDetails = [];
