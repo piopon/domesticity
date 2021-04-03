@@ -15,6 +15,10 @@ export class EventsService {
     return this.http.get<Event[]>(`${this.url}events?owner=${encodeURI(owner)}`);
   }
 
+  getEventsByDateStart(dateStart: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.url}events?dayStart=${encodeURI(dateStart)}`);
+  }
+
   getTestEvents():Event[] {
     return [
       {
