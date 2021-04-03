@@ -24,7 +24,7 @@ export class EventsService {
         category: 'Red',
         content: 'This is a content for event 1',
         owner: 'Admin',
-        occurence: {
+        date: {
           start: new Date(2021, 1, 1, 10, 0, 0, 0),
           stop: new Date(2021, 1, 1, 10, 1, 0, 0),
         }
@@ -36,7 +36,7 @@ export class EventsService {
         category: 'Blue',
         content: 'This is a content for event 2',
         owner: 'Admin',
-        occurence: {
+        date: {
           start: new Date(2021, 2, 2, 12, 0, 0, 0),
           stop: new Date(2021, 2, 2, 12, 1, 0, 0),
         }
@@ -48,7 +48,7 @@ export class EventsService {
         category: 'Green',
         content: 'This is a content for event 3',
         owner: 'User',
-        occurence: {
+        date: {
           start: new Date(2021, 3, 3, 13, 0, 0, 0),
           stop: new Date(2021, 3, 3, 13, 1, 0, 0),
         }
@@ -60,7 +60,7 @@ export class EventsService {
         category: 'Yellow',
         content: 'This is a content for event 4',
         owner: 'Moderator',
-        occurence: {
+        date: {
           start: new Date(2021, 4, 4, 14, 0, 0, 0),
           stop: new Date(2021, 4, 4, 14, 1, 0, 0),
         }
@@ -72,7 +72,7 @@ export class EventsService {
         category: 'Green',
         content: 'This is a content for event 5',
         owner: 'User',
-        occurence: {
+        date: {
           start: new Date(2021, 5, 5, 15, 0, 0, 0),
           stop: new Date(2021, 5, 5, 15, 1, 0, 0),
         }
