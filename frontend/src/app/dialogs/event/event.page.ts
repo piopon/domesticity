@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Category } from 'src/app/model/category.model';
@@ -19,6 +20,7 @@ export class EventPage implements OnInit {
   protected availableUsers: String[];
   protected availableCategories: Category[];
   private visibleDetails: number[];
+  private todayString: string;
 
   constructor(public modalController: ModalController,
     private eventsService: EventsService,
@@ -26,7 +28,8 @@ export class EventPage implements OnInit {
     private usersService: UsersService) { }
 
   ngOnInit() {
-    this.eventsService.getEventsByOwner("ponio").subscribe(events => {
+    this.todayString = formatDate(this.dayTime, "yyyy-MM-dd", "en");
+    this.eventsService.getEventsByDateStart(this.todayString).subscribe(events => {
       events?.forEach(event => {
         this.dayEvents.push({
           id: event.id,
