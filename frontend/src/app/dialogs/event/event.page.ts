@@ -27,7 +27,7 @@ export class EventPage implements OnInit {
 
   ngOnInit() {
     this.eventsService.getEventsByOwner("ponio").subscribe(events => {
-      events.forEach(event => {
+      events?.forEach(event => {
         this.dayEvents.push({
           id: event.id,
           icon: event.icon,
