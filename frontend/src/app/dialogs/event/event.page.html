@@ -22,7 +22,7 @@
         <ion-icon name="{{ event.icon }}"></ion-icon>
         <ion-label class="ion-text-left">{{ event.title }}</ion-label>
         <ion-label class="ion-text-right event-info">
-          {{ event.occurence.start | date:'hh:mm' }} - {{ event.occurence.stop | date:'hh:mm' }}
+          {{ event.date.start | date:'hh:mm' }} - {{ event.date.stop | date:'hh:mm' }}
         </ion-label>
       </ion-item>
       <ion-item *ngIf="isDetailed(i)" text-wrap detail="false">
