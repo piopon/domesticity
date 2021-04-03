@@ -82,7 +82,7 @@ func createHandlers(app *Application) (*handlers.Home, *handlers.Docs, *handlers
 // createRouter is used to create a new endpoints routes and connect them with handlers
 func createRouter(home *handlers.Home, docs *handlers.Docs, events *handlers.Events) *mux.Router {
 	router := mux.NewRouter()
-	router.Use(CORS)
+	router.Use(events.CorsMiddleware)
 	// bind GET method paths to concrete methods handlers
 	routerGET := router.Methods(http.MethodGet).Subrouter()
 	routerGET.Path("/").HandlerFunc(home.GetIndex)
@@ -102,21 +102,4 @@ func createRouter(home *handlers.Home, docs *handlers.Docs, events *handlers.Eve
 	routerDELETE := router.Methods(http.MethodDelete).Subrouter()
 	routerDELETE.Path("/events/{id}").HandlerFunc(events.DeleteEvent)
 	return router
-}
-
-func CORS(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Set headers
-		w.Header().Set("Access-Control-Allow-Headers:", "*")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "*")
-		// handle OPTIONS call
-		if r.Method == "OPTIONS" {
-			w.WriteHeader(http.StatusOK)
-			return
-		}
-		// serve next part
-		next.ServeHTTP(w, r)
-		return
-	})
 }
