@@ -28,6 +28,7 @@ export class EventPage implements OnInit {
     private usersService: UsersService) { }
 
   ngOnInit() {
+    this.dayEvents = [];
     this.todayString = formatDate(this.dayTime, "yyyy-MM-dd", "en");
     this.eventsService.getEventsByDateStart(this.todayString).subscribe(events => {
       events?.forEach(event => {
