@@ -27,4 +27,8 @@ export class EventsService {
     return this.http.get<Event[]>(`${this.url}events?dayStart=${encodeURI(dateStart)}`);
   }
 
+  private getEvents(key: string, value: string) : Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.url}events?${encodeURI(key)}=${encodeURI(value)}`);
+  }
+
 }
