@@ -11,6 +11,14 @@ export class EventsService {
 
   constructor(private http: HttpClient) { }
 
+  getEventsByTitle(title: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.url}events?owner=${encodeURI(title)}`);
+  }
+
+  getEventsByCategory(category: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.url}events?owner=${encodeURI(category)}`);
+  }
+
   getEventsByOwner(owner: string): Observable<Event[]> {
     return this.http.get<Event[]>(`${this.url}events?owner=${encodeURI(owner)}`);
   }
