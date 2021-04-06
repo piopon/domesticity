@@ -11,20 +11,20 @@ export class EventsService {
 
   constructor(private http: HttpClient) { }
 
-  getEventsByTitle(title: string): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.url}events?owner=${encodeURI(title)}`);
+  getEventsByTitle(titleValue: string): Observable<Event[]> {
+    return this.getEvents("owner", titleValue);
   }
 
-  getEventsByCategory(category: string): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.url}events?owner=${encodeURI(category)}`);
+  getEventsByCategory(categoryValue: string): Observable<Event[]> {
+    return this.getEvents("category", categoryValue);
   }
 
-  getEventsByOwner(owner: string): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.url}events?owner=${encodeURI(owner)}`);
+  getEventsByOwner(ownerValue: string): Observable<Event[]> {
+    return this.getEvents("dayStart", ownerValue);
   }
 
-  getEventsByDateStart(dateStart: string): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.url}events?dayStart=${encodeURI(dateStart)}`);
+  getEventsByDateStart(dateValue: string): Observable<Event[]> {
+    return this.getEvents("dayStart", dateValue);
   }
 
   private getEvents(key: string, value: string) : Observable<Event[]> {
