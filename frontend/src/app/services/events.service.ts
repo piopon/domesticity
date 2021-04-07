@@ -31,6 +31,10 @@ export class EventsService {
     return this.getEvents("dayStart", dateValue);
   }
 
+  getEventsByDateStop(dateValue: string): Observable<Event[]> {
+    return this.getEvents("dayStop", dateValue);
+  }
+
   private getEvents(key: string, value: string) : Observable<Event[]> {
     return this.http.get<Event[]>(`${this.url}events?${encodeURI(key)}=${encodeURI(value)}`);
   }
