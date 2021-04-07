@@ -23,6 +23,10 @@ export class EventsService {
     return this.getEvents("dayStart", ownerValue);
   }
 
+  getEventsByContent(contentValue: string): Observable<Event[]> {
+    return this.getEvents("content", contentValue);
+  }
+
   getEventsByDateStart(dateValue: string): Observable<Event[]> {
     return this.getEvents("dayStart", dateValue);
   }
