@@ -11,27 +11,27 @@ export class EventsService {
 
   constructor(private http: HttpClient) { }
 
-  getEventsByTitle(titleValue: string): Observable<Event[]> {
+  getEventsByTitle(titleValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.getEvents("owner", titleValue);
   }
 
-  getEventsByCategory(categoryValue: string): Observable<Event[]> {
+  getEventsByCategory(categoryValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.getEvents("category", categoryValue);
   }
 
-  getEventsByOwner(ownerValue: string): Observable<Event[]> {
+  getEventsByOwner(ownerValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.getEvents("dayStart", ownerValue);
   }
 
-  getEventsByContent(contentValue: string): Observable<Event[]> {
+  getEventsByContent(contentValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.getEvents("content", contentValue);
   }
 
-  getEventsByDateStart(dateValue: string): Observable<Event[]> {
+  getEventsByDateStart(dateValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.getEvents("dayStart", dateValue);
   }
 
-  getEventsByDateStop(dateValue: string): Observable<Event[]> {
+  getEventsByDateStop(dateValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.getEvents("dayStop", dateValue);
   }
 
