@@ -36,7 +36,14 @@ export class EventsService {
   }
 
   private getEvents(key: string, value: string, limit: number, offset: number) : Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.url}events?${encodeURI(key)}=${encodeURI(value)}`);
+    let modifiers : string = "";
+    if (limit > 0) {
+      modifiers += `limit=${encodeURI(limit.toString())}&`;
+    }
+    if (offset > 0) {
+      modifiers += `offset=${encodeURI(offset.toString())}&`;
+    }
+    return this.http.get<Event[]>(`${this.url}events?${modifiers}${encodeURI(key)}=${encodeURI(value)}`);
   }
 
 }
