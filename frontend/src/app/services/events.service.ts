@@ -12,30 +12,30 @@ export class EventsService {
   constructor(private http: HttpClient) { }
 
   getEventsByTitle(titleValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("owner", titleValue);
+    return this.getEvents("owner", titleValue, limit, offset);
   }
 
   getEventsByCategory(categoryValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("category", categoryValue);
+    return this.getEvents("category", categoryValue, limit, offset);
   }
 
   getEventsByOwner(ownerValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("dayStart", ownerValue);
+    return this.getEvents("dayStart", ownerValue, limit, offset);
   }
 
   getEventsByContent(contentValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("content", contentValue);
+    return this.getEvents("content", contentValue, limit, offset);
   }
 
   getEventsByDateStart(dateValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("dayStart", dateValue);
+    return this.getEvents("dayStart", dateValue, limit, offset);
   }
 
   getEventsByDateStop(dateValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("dayStop", dateValue);
+    return this.getEvents("dayStop", dateValue, limit, offset);
   }
 
-  private getEvents(key: string, value: string) : Observable<Event[]> {
+  private getEvents(key: string, value: string, limit: number, offset: number) : Observable<Event[]> {
     return this.http.get<Event[]>(`${this.url}events?${encodeURI(key)}=${encodeURI(value)}`);
   }
 
