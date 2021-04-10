@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Event } from '../model/event.model';
@@ -10,6 +10,16 @@ export class EventsService {
   url = "http://localhost:9999/"
 
   constructor(private http: HttpClient) { }
+
+  addEvent(event: Event) : Observable<any> {
+    let callOptions = {
+      headers: {
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json'
+      }
+    };
+    return this.http.post(`${this.url}events`, JSON.stringify(event), callOptions);
+  }
 
   getEventsByTitle(titleValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.getEvents("owner", titleValue, limit, offset);
