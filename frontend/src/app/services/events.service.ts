@@ -21,6 +21,16 @@ export class EventsService {
     return this.http.post(`${this.url}events`, JSON.stringify(event), callOptions);
   }
 
+  updateEvent(id: string, event: Event) : Observable<any> {
+    let callOptions = {
+      headers: {
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json'
+      }
+    };
+    return this.http.put(`${this.url}events/${id}`, JSON.stringify(event), callOptions);
+  }
+
   getEventsByTitle(titleValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.getEvents("owner", titleValue, limit, offset);
   }
