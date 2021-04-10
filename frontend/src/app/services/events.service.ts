@@ -31,6 +31,10 @@ export class EventsService {
     return this.http.put(`${this.url}events/${id}`, JSON.stringify(event), callOptions);
   }
 
+  getEvents() : Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.url}events`);
+  }
+
   getEventsByTitle(titleValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.filterEvents("owner", titleValue, limit, offset);
   }
