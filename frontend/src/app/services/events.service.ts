@@ -31,6 +31,10 @@ export class EventsService {
     return this.http.put(`${this.url}events/${id}`, JSON.stringify(event), callOptions);
   }
 
+  deleteEvent(id: string) : Observable<any> {
+    return this.http.delete(`${this.url}events/${id}`);
+  }
+
   getEvents() : Observable<Event[]> {
     return this.http.get<Event[]>(`${this.url}events`);
   }
