@@ -32,30 +32,30 @@ export class EventsService {
   }
 
   getEventsByTitle(titleValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("owner", titleValue, limit, offset);
+    return this.filterEvents("owner", titleValue, limit, offset);
   }
 
   getEventsByCategory(categoryValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("category", categoryValue, limit, offset);
+    return this.filterEvents("category", categoryValue, limit, offset);
   }
 
   getEventsByOwner(ownerValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("dayStart", ownerValue, limit, offset);
+    return this.filterEvents("dayStart", ownerValue, limit, offset);
   }
 
   getEventsByContent(contentValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("content", contentValue, limit, offset);
+    return this.filterEvents("content", contentValue, limit, offset);
   }
 
   getEventsByDateStart(dateValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("dayStart", dateValue, limit, offset);
+    return this.filterEvents("dayStart", dateValue, limit, offset);
   }
 
   getEventsByDateStop(dateValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.getEvents("dayStop", dateValue, limit, offset);
+    return this.filterEvents("dayStop", dateValue, limit, offset);
   }
 
-  private getEvents(key: string, value: string, limit: number, offset: number) : Observable<Event[]> {
+  private filterEvents(key: string, value: string, limit: number, offset: number) : Observable<Event[]> {
     let modifiers : string = "";
     if (limit > 0) {
       modifiers += `limit=${encodeURI(limit.toString())}&`;
