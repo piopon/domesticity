@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Event } from '../model/event.model';
@@ -11,19 +11,19 @@ export class EventsService {
 
   constructor(private http: HttpClient) { }
 
-  addEvent(event: Event) : Observable<any> {
+  addEvent(event: Event): Observable<any> {
     return this.http.post(`${this.url}events`, JSON.stringify(event), this.httpOptions());
   }
 
-  updateEvent(id: string, event: Event) : Observable<any> {
+  updateEvent(id: string, event: Event): Observable<any> {
     return this.http.put(`${this.url}events/${id}`, JSON.stringify(event), this.httpOptions());
   }
 
-  deleteEvent(id: string) : Observable<any> {
+  deleteEvent(id: string): Observable<any> {
     return this.http.delete(`${this.url}events/${id}`, this.httpOptions());
   }
 
-  getEvents() : Observable<Event[]> {
+  getEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(`${this.url}events`, this.httpOptions());
   }
 
@@ -51,7 +51,7 @@ export class EventsService {
     return this.filterEvents("dayStop", dateValue, limit, offset);
   }
 
-  private filterEvents(key: string, value: string, limit: number, offset: number) : Observable<Event[]> {
+  private filterEvents(key: string, value: string, limit: number, offset: number): Observable<Event[]> {
     let modifiers : string = "";
     if (limit > 0) {
       modifiers += `limit=${encodeURI(limit.toString())}&`;
@@ -70,5 +70,4 @@ export class EventsService {
       }
     };
   }
-
 }
