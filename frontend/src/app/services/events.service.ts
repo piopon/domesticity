@@ -20,11 +20,11 @@ export class EventsService {
   }
 
   deleteEvent(id: string) : Observable<any> {
-    return this.http.delete(`${this.url}events/${id}`);
+    return this.http.delete(`${this.url}events/${id}`, this.httpOptions());
   }
 
   getEvents() : Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.url}events`);
+    return this.http.get<Event[]>(`${this.url}events`, this.httpOptions());
   }
 
   getEventsByTitle(titleValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
@@ -59,7 +59,7 @@ export class EventsService {
     if (offset > 0) {
       modifiers += `offset=${encodeURI(offset.toString())}&`;
     }
-    return this.http.get<Event[]>(`${this.url}events?${modifiers}${encodeURI(key)}=${encodeURI(value)}`);
+    return this.http.get<Event[]>(`${this.url}events?${modifiers}${encodeURI(key)}=${encodeURI(value)}`, this.httpOptions());
   }
 
   private httpOptions(): Object {
