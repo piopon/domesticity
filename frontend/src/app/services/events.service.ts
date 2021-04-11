@@ -74,4 +74,13 @@ export class EventsService {
     return this.http.get<Event[]>(`${this.url}events?${modifiers}${encodeURI(key)}=${encodeURI(value)}`);
   }
 
+  private httpOptions(): Object {
+    return {
+      headers: {
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json'
+      }
+    };
+  }
+
 }
