@@ -12,23 +12,11 @@ export class EventsService {
   constructor(private http: HttpClient) { }
 
   addEvent(event: Event) : Observable<any> {
-    let callOptions = {
-      headers: {
-        'Accept' : 'application/json',
-        'Content-Type': 'application/json'
-      }
-    };
-    return this.http.post(`${this.url}events`, JSON.stringify(event), callOptions);
+    return this.http.post(`${this.url}events`, JSON.stringify(event), this.httpOptions());
   }
 
   updateEvent(id: string, event: Event) : Observable<any> {
-    let callOptions = {
-      headers: {
-        'Accept' : 'application/json',
-        'Content-Type': 'application/json'
-      }
-    };
-    return this.http.put(`${this.url}events/${id}`, JSON.stringify(event), callOptions);
+    return this.http.put(`${this.url}events/${id}`, JSON.stringify(event), this.httpOptions());
   }
 
   deleteEvent(id: string) : Observable<any> {
