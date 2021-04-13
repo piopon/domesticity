@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CalendarComponent } from 'ionic2-calendar';
-import { EventPage } from 'src/app/dialogs/event/event.page';
+import { DayEventsPage } from 'src/app/dialogs/day-events/day-events.page';
 
 @Component({
   selector: 'app-calendar',
@@ -42,7 +42,7 @@ export class CalendarPage implements OnInit {
     console.log('Selected time: ' + event.selectedTime + ', hasEvents: ' + eventEmpty);
 
     const modal = await this.modalController.create({
-      component: EventPage,
+      component: DayEventsPage,
       componentProps: {
         'dayTime': event.selectedTime,
         'dayEvents': event.events,

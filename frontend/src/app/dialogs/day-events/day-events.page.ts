@@ -8,11 +8,11 @@ import { EventsService } from 'src/app/services/events.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
-  selector: 'app-event',
-  templateUrl: './event.page.html',
-  styleUrls: ['./event.page.scss'],
+  selector: 'app-day-events',
+  templateUrl: './day-events.page.html',
+  styleUrls: ['./day-events.page.scss'],
 })
-export class EventPage implements OnInit {
+export class DayEventsPage implements OnInit {
 
   @Input() dayTime: Date;
   @Input() dayEvents: Event[];
