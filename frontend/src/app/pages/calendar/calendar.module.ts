@@ -9,7 +9,7 @@ import { CalendarPageRoutingModule } from './calendar-routing.module';
 import { CalendarPage } from './calendar.page';
 import { NgCalendarModule } from 'ionic2-calendar';
 import { EventPage } from 'src/app/dialogs/event/event.page';
-import { AddEventComponent } from 'src/app/components/add-event/add-event.component';
+import { AddEventModule } from 'src/app/components/add-event/add-event.module';
 
 @NgModule({
   imports: [
@@ -17,12 +17,12 @@ import { AddEventComponent } from 'src/app/components/add-event/add-event.compon
     FormsModule,
     IonicModule,
     CalendarPageRoutingModule,
-    NgCalendarModule
+    NgCalendarModule,
+    AddEventModule
   ],
   declarations: [
     CalendarPage,
     EventPage,
-    AddEventComponent,
   ]
 })
 export class CalendarPageModule {}
