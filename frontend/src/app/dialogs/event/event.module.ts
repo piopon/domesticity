@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { EventPageRoutingModule } from './event-routing.module';
 
 import { EventPage } from './event.page';
-import { AddEventModule } from 'src/app/components/add-event/add-event.module';
+import { AddEventModule } from 'src/app/components/add-event/add-event.wrapper';
 
 @NgModule({
   imports: [
