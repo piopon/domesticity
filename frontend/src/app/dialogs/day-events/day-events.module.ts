@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { DayEventsPage } from './day-events.page';
 import { DayEventsPageRoutingModule } from './day-events-routing.module';
-import { AddEventModule } from 'src/app/components/add-event-btn/add-event.wrapper';
+import { AddEventModule } from 'src/app/components/add-event-btn/add-event-btn.wrapper';
 
 @NgModule({
   imports: [
