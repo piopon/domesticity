@@ -6,7 +6,7 @@ import { CalendarPageRoutingModule } from './calendar-routing.module';
 import { CalendarPage } from './calendar.page';
 import { NgCalendarModule } from 'ionic2-calendar';
 import { DayEventsPage } from 'src/app/dialogs/day-events/day-events.page';
-import { AddEventModule } from 'src/app/components/add-event-btn/add-event.wrapper';
+import { AddEventModule } from 'src/app/components/add-event-btn/add-event-btn.wrapper';
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import { AddEventModule } from 'src/app/components/add-event-btn/add-event.wrapp
     IonicModule,
     CalendarPageRoutingModule,
     NgCalendarModule,
-    AddEventModule
+    AddEventModule,
   ],
   declarations: [
     CalendarPage,
