@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'add-event',
-  templateUrl: './add-event.component.html',
-  styleUrls: ['./add-event.component.scss'],
+  selector: 'add-event-btn',
+  templateUrl: './add-event-btn.component.html',
+  styleUrls: ['./add-event-btn.component.scss'],
 })
 export class AddEventComponent implements OnInit {
 

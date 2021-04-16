@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AddEventComponent } from './add-event.component';
+import { AddEventComponent } from './add-event-btn.component';
 
 @NgModule({
   declarations: [
