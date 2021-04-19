@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { AddTextEventPage } from 'src/app/dialogs/add-text-event/add-text-event.page';
 
 @Component({
   selector: 'add-event-btn',
@@ -7,11 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddEventComponent implements OnInit {
 
-  constructor() { }
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {}
 
-  openNewTextEventDialog() {
-    console.log('open text-event dialog');
+  async openNewTextEventDialog() {
+    const modal = await this.modalController.create({
+      component: AddTextEventPage,
+    });
+    return await modal.present();
   }
 }
