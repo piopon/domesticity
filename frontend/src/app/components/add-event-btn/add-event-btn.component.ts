@@ -11,4 +11,7 @@ export class AddEventComponent implements OnInit {
 
   ngOnInit() {}
 
+  openNewTextEventDialog() {
+    console.log('open text-event dialog');
+  }
 }
