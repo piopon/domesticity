@@ -38,9 +38,6 @@ export class CalendarPage implements OnInit {
   }
 
   async onTimeSelected(event: { selectedTime: Date, events: any[] }) {
-    let eventEmpty: boolean = (event.events !== undefined && event.events.length !== 0);
-    console.log('Selected time: ' + event.selectedTime + ', hasEvents: ' + eventEmpty);
-
     const modal = await this.modalController.create({
       component: DayEventsPage,
       componentProps: {
@@ -49,7 +46,6 @@ export class CalendarPage implements OnInit {
       }
     });
     return await modal.present();
-
   }
 
   changeView() {
