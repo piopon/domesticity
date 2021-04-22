@@ -25,6 +25,10 @@ export class EventsService {
     });
   }
 
+  isOnline(): boolean {
+    return this.online;
+  }
+
   addEvent(event: Event): Observable<any> {
     return this.http.post(`${this.url}events`, JSON.stringify(event), this.httpOptions());
   }
