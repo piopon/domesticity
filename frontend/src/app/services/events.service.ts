@@ -1,15 +1,29 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { interval, Observable } from 'rxjs';
+import { first } from "rxjs/operators";
 import { Event } from '../model/event.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventsService {
-  private url = "http://localhost:9999/"
+  private url = "http://localhost:9999/";
+  private online = false;
+  private pingTimer = interval(1000);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.pingTimer.subscribe(() => {
+      this.http.get(this.url, {observe: "response"})
+        .pipe(first())
+        .subscribe(resp => {
+          this.online = (resp.status === 200);
+        }, err => {
+          this.online = false;
+          console.log(err);
+        });
+    });
+  }
 
   addEvent(event: Event): Observable<any> {
     return this.http.post(`${this.url}events`, JSON.stringify(event), this.httpOptions());
