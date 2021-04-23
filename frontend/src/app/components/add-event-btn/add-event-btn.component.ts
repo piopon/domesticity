@@ -20,9 +20,11 @@ export class AddEventComponent implements OnInit {
   }
 
   async openNewTextEventDialog() {
-    const modal = await this.modalController.create({
-      component: AddTextEventPage,
-    });
-    return await modal.present();
+    if (this.eventsService.isOnline()) {
+      const modal = await this.modalController.create({
+        component: AddTextEventPage,
+      });
+      return await modal.present();
+    }
   }
 }
