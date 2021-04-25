@@ -50,18 +50,3 @@ func (events *Events) ValidationMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-func (events *Events) CorsMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
-		// Set headers
-		response.Header().Set("Access-Control-Allow-Origin", "http://localhost:8100")
-		response.Header().Set("Access-Control-Allow-Headers:", "*")
-		response.Header().Set("Access-Control-Allow-Methods", "*")
-		// handle OPTIONS call
-		if request.Method == "OPTIONS" {
-			response.WriteHeader(http.StatusOK)
-			return
-		}
-		// serve next part
-		next.ServeHTTP(response, request)
-	})
-}
