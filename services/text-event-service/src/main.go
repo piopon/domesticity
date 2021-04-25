@@ -8,7 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-
+	"github.com/rs/cors"
 	"github.com/gorilla/mux"
 	"github.com/piopon/domesticity/services/text-event-service/src/dataservice"
 	"github.com/piopon/domesticity/services/text-event-service/src/handlers"
@@ -61,9 +61,14 @@ func initialize(config *utils.Config) (*Application, error) {
 
 // createServer is used to create a server object instance
 func createServer(app *Application) *http.Server {
+	corsHandler := cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:8100"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+	})
+
 	return &http.Server{
 		Addr:         app.config.Server.IP + ":" + app.config.Server.Port,
-		Handler:      createRouter(createHandlers(app)),
+		Handler:      corsHandler.Handler(createRouter(createHandlers(app))),
 		ErrorLog:     app.logger,
 		IdleTimeout:  time.Duration(app.config.Server.Timeout.Idle) * time.Second,
 		ReadTimeout:  time.Duration(app.config.Server.Timeout.Read) * time.Second,
