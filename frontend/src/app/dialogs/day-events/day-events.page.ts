@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { Category } from 'src/app/model/category.model';
 import { Event } from 'src/app/model/event.model';
 import { CategoriesService } from 'src/app/services/categories.service';
-import { EventsService } from 'src/app/services/events.service';
+import { TextEventsService } from 'src/app/services/text-events.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class DayEventsPage implements OnInit {
   private todayString: string;
 
   constructor(public modalController: ModalController,
-    private eventsService: EventsService,
+    private eventsService: TextEventsService,
     private categoriesService: CategoriesService,
     private usersService: UsersService) { }
 

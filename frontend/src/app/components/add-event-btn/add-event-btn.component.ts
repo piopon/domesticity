@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AddTextEventPage } from 'src/app/dialogs/add-text-event/add-text-event.page';
-import { EventsService } from 'src/app/services/events.service';
+import { TextEventsService } from 'src/app/services/text-events.service';
 
 @Component({
   selector: 'add-event-btn',
@@ -11,7 +11,7 @@ import { EventsService } from 'src/app/services/events.service';
 export class AddEventComponent implements OnInit {
 
   constructor(public modalController: ModalController,
-    private eventsService: EventsService) { }
+    private eventsService: TextEventsService) { }
 
   ngOnInit() {}
 
