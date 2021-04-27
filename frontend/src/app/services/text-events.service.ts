@@ -7,7 +7,7 @@ import { Event } from '../model/event.model';
 @Injectable({
   providedIn: 'root'
 })
-export class EventsService {
+export class TextEventsService {
   private url = "http://localhost:9999/";
   private online = false;
   private pingTimer = interval(3000);
