@@ -25,7 +25,7 @@ export class DayEventsPage implements OnInit {
   constructor(public modalController: ModalController,
     private eventsService: TextEventsService,
     private categoriesService: CategoriesService,
-    private usersService: UsersService) { }
+    private usersService: UsersService) {}
 
   ngOnInit() {
     this.dayEvents = [];

@@ -11,7 +11,7 @@ import { TextEventsService } from 'src/app/services/text-events.service';
 export class AddEventComponent implements OnInit {
 
   constructor(public modalController: ModalController,
-    private eventsService: TextEventsService) { }
+    private eventsService: TextEventsService) {}
 
   ngOnInit() {}
 
