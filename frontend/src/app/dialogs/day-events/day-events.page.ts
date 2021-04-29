@@ -23,32 +23,17 @@ export class DayEventsPage implements OnInit {
   private todayString: string;
 
   constructor(public modalController: ModalController,
-    private eventsService: TextEventsService,
+    private textEventsService: TextEventsService,
     private categoriesService: CategoriesService,
     private usersService: UsersService) {}
 
   ngOnInit() {
     this.dayEvents = [];
+    this.visibleDetails = [];
     this.todayString = formatDate(this.dayTime, "yyyy-MM-dd", "en");
-    this.eventsService.getEventsByDateStart(this.todayString).subscribe(events => {
-      events?.forEach(event => {
-        this.dayEvents.push({
-          id: event.id,
-          icon: event.icon,
-          category: event.category,
-          title: event.title,
-          owner: event.owner,
-          content: event.content,
-          date: {
-            start: new Date(event.date.start),
-            stop: new Date(event.date.stop)
-          },
-        });
-      });
-    });
+    this.updateTextEvents(this.todayString);
     this.availableUsers = this.usersService.getTestUsers();
     this.availableCategories = this.categoriesService.getTestCategories();
-    this.visibleDetails = [];
   }
 
   closeDialog() {
@@ -70,5 +55,24 @@ export class DayEventsPage implements OnInit {
     } else {
       this.visibleDetails.push(eventIndex);
     }
+  }
+
+  private updateTextEvents(dayString:string): void {
+    this.textEventsService.getEventsByDateStart(dayString).subscribe(events => {
+      events?.forEach(event => {
+        this.dayEvents.push({
+          id: event.id,
+          icon: event.icon,
+          category: event.category,
+          title: event.title,
+          owner: event.owner,
+          content: event.content,
+          date: {
+            start: new Date(event.date.start),
+            stop: new Date(event.date.stop)
+          },
+        });
+      });
+    });
   }
 }
