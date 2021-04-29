@@ -32,8 +32,8 @@ export class DayEventsPage implements OnInit {
     this.visibleDetails = [];
     this.todayString = formatDate(this.dayTime, "yyyy-MM-dd", "en");
     this.updateTextEvents(this.todayString);
-    this.availableUsers = this.usersService.getTestUsers();
-    this.availableCategories = this.categoriesService.getTestCategories();
+    this.updateUsers();
+    this.updateCategories();
   }
 
   closeDialog() {
@@ -74,5 +74,13 @@ export class DayEventsPage implements OnInit {
         });
       });
     });
+  }
+
+  private updateUsers(): void {
+    this.availableUsers = this.usersService.getTestUsers();
+  }
+
+  private updateCategories(): void {
+    this.availableCategories = this.categoriesService.getTestCategories();
   }
 }
