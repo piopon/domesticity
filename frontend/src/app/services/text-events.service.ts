@@ -10,7 +10,7 @@ import { Event } from '../model/event.model';
 export class TextEventsService {
   private url = "http://localhost:9999/";
   private online = false;
-  private pingTimer = interval(1000);
+  private pingTimer = interval(1500);
 
   constructor(private http: HttpClient) {
     this.pingTimer.subscribe(() => {
