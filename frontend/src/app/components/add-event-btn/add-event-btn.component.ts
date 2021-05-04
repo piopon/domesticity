@@ -11,12 +11,12 @@ import { TextEventsService } from 'src/app/services/text-events.service';
 export class AddEventComponent implements OnInit {
 
   constructor(public modalController: ModalController,
-    private eventsService: TextEventsService) {}
+    private textEventsService: TextEventsService) {}
 
   ngOnInit() {}
 
-  getTextEventState(): string {
-    return this.eventsService.isOnline() ? "tertiary" : "medium";
+  getTextEventState(): boolean {
+    return this.textEventsService.isOnline();
   }
 
   async openNewTextEventDialog() {
