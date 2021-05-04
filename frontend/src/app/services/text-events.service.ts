@@ -8,9 +8,10 @@ import { Event } from '../model/event.model';
   providedIn: 'root'
 })
 export class TextEventsService {
-  private url = "http://localhost:9999/";
-  private online = false;
-  private pingTimer = interval(1500);
+  private url:string = `http://localhost:9999`;
+  private online:boolean = false;
+  private pingInterval:number = 1000;
+  private pingTimer:Observable<number> = interval(this.pingInterval);
 
   constructor(private http: HttpClient) {
     this.pingTimer.subscribe(() => {
