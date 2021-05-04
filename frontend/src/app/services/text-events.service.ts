@@ -14,16 +14,12 @@ export class TextEventsService {
 
   constructor(private http: HttpClient) {
     this.pingTimer.subscribe(() => {
-      this.http.get(this.url, {observe: "response"})
+      this.http.get(this.url, {observe: 'response', responseType:'text'})
         .pipe(first())
-        .subscribe(resp => {
-          console.log("resp check...");
-          this.online = (resp.status === 200);
-          console.log(this.online);
-        }, err => {
-          console.log("err check...");
-          this.online = false;
-        });
+        .subscribe(
+          response => this.online = (200 == response.status),
+          _ => this.online = false
+        );
     });
   }
 
