@@ -27,4 +27,30 @@ export class AddEventComponent implements OnInit {
       return await modal.present();
     }
   }
+
+  getTodoEventState(): boolean {
+    return false;
+  }
+
+  async openNewTodoEventDialog() {
+    if (this.getTodoEventState()) {
+      const modal = await this.modalController.create({
+        component: AddTextEventPage,
+      });
+      return await modal.present();
+    }
+  }
+
+  getShopEventState(): boolean {
+    return false;
+  }
+
+  async openNewShopEventDialog() {
+    if (this.getShopEventState()) {
+      const modal = await this.modalController.create({
+        component: AddTextEventPage,
+      });
+      return await modal.present();
+    }
+  }
 }
