@@ -71,3 +71,9 @@ func (home *Home) GetIndex(response http.ResponseWriter, request *http.Request) 
 		return
 	}
 }
+
+// GetHealth is used to serve service health check
+func (home *Home) GetHealth(response http.ResponseWriter, request *http.Request) {
+	response.Header().Add("Content-Type", "application/json")
+	utils.ToJSON(&model.Health{Status: "OK"}, response)
+}

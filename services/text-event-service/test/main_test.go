@@ -63,6 +63,7 @@ func TestCreateRouterCreatesCorrectPathRouter(t *testing.T) {
 	}{
 		{"path: get home", testServer, "GET", "/", nil, 200},
 		{"path: get docs", testServer, "GET", "/docs", nil, 200},
+		{"path: health check", testServer, "GET", "/health", nil, 200},
 		{"path: get all events ", testServer, "GET", "/events", nil, 200},
 		{"path: get single event", testServer, "GET", "/events/" + initID.Hex(), nil, 200},
 		{"path: post new event", testServer, "POST", "/events", helper.createEvent(), 200},

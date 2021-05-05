@@ -90,6 +90,7 @@ func createRouter(home *handlers.Home, docs *handlers.Docs, events *handlers.Eve
 	// bind GET method paths to concrete methods handlers
 	routerGET := router.Methods(http.MethodGet).Subrouter()
 	routerGET.Path("/").HandlerFunc(home.GetIndex)
+	routerGET.Path("/health").HandlerFunc(home.GetHealth)
 	routerGET.Path("/docs").HandlerFunc(docs.GetDocumentation)
 	routerGET.Path("/resources/swagger.yaml").HandlerFunc(docs.GetSwagger)
 	routerGET.Path("/events").HandlerFunc(events.GetEvents)
