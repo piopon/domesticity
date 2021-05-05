@@ -15,7 +15,7 @@ export class TextEventsService {
 
   constructor(private http: HttpClient) {
     this.pingTimer.subscribe(() => {
-      this.http.get(this.url, {observe: 'response', responseType:'text'})
+      this.http.get(`${this.url}health`, {observe: 'response', responseType:'text'})
         .pipe(first())
         .subscribe(
           response => this.online = (200 == response.status),
