@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { interval, Observable } from 'rxjs';
 import { first } from "rxjs/operators";
 import { Event } from '../model/event.model';
@@ -13,13 +14,21 @@ export class TextEventsService {
   private pingInterval:number = 1_000;
   private pingTimer:Observable<number> = interval(this.pingInterval);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public alertController: AlertController) {
     this.pingTimer.subscribe(() => {
       this.http.get(`${this.url}health`, {observe: 'response', responseType:'text'})
         .pipe(first())
         .subscribe(
           response => this.online = (200 == response.status),
-          _ => this.online = false
+          async _ => {
+            this.online = false;
+            const alert = await alertController.create({
+              header: 'Connection error.',
+              message: 'Could not connect to Text Event service',
+              buttons: ['Retry']
+            });
+            alert.present();
+          }
         );
     });
   }
