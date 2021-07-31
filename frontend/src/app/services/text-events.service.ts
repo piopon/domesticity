@@ -73,9 +73,21 @@ export class TextEventsService {
           }
           this.online = false;
           const alert = await this.alertController.create({
-            header: 'Connection error.',
-            message: 'Could not connect to Text Event service',
-            buttons: ['Retry']
+            header: 'System error.',
+            message: 'Offline service: Text Event',
+            buttons: [
+              {
+                text: 'Cancel',
+                handler: () => {
+                    console.log('Confirm Cancel');
+                }
+              },
+              {
+                text: 'Retry',
+                handler: () => {
+                    console.log('Confirm Retry');
+                }
+              }]
           });
           alert.present();
           clearInterval(this.pingTimer);
