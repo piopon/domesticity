@@ -11,30 +11,11 @@ import { Event } from '../model/event.model';
 export class TextEventsService {
   private url:string = 'http://localhost:9999/';
   private online:boolean = true;
-  private pingInterval:number = 2_500;
   private pingTimer:any;
+  private pingInterval:number = 3_000;
 
   constructor(private http: HttpClient, public alertController: AlertController) {
-    this.pingTimer = setInterval(() => {
-      this.http.get(`${this.url}health`, {observe: 'response', responseType:'text'})
-      .pipe(first())
-      .subscribe(
-        response => this.online = (200 == response.status),
-        async _ => {
-          if (this.online === false) {
-            return;
-          }
-          this.online = false;
-          const alert = await alertController.create({
-            header: 'Connection error.',
-            message: 'Could not connect to Text Event service',
-            buttons: ['Retry']
-          });
-          alert.present();
-          clearInterval(this.pingTimer);
-        }
-      );
-  }, this.pingInterval);
+    this.pingTimer = setInterval(() => this.pingService(), this.pingInterval);
   }
 
   isOnline(): boolean {
@@ -79,6 +60,27 @@ export class TextEventsService {
 
   getEventsByDateStop(dateValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.filterEvents("dayStop", dateValue, limit, offset);
+  }
+
+  private pingService():void {
+    this.http.get(`${this.url}health`, {observe: 'response', responseType:'text'})
+      .pipe(first())
+      .subscribe(
+        response => this.online = (200 == response.status),
+        async _ => {
+          if (this.online === false) {
+            return;
+          }
+          this.online = false;
+          const alert = await this.alertController.create({
+            header: 'Connection error.',
+            message: 'Could not connect to Text Event service',
+            buttons: ['Retry']
+          });
+          alert.present();
+          clearInterval(this.pingTimer);
+        }
+      );
   }
 
   private filterEvents(key: string, value: string, limit: number, offset: number): Observable<Event[]> {
