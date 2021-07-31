@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { interval, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { first } from "rxjs/operators";
 import { Event } from '../model/event.model';
 
@@ -10,7 +10,7 @@ import { Event } from '../model/event.model';
 })
 export class TextEventsService {
   private url:string = 'http://localhost:9999/';
-  private online:boolean = false;
+  private online:boolean = true;
   private pingInterval:number = 2_500;
   private pingTimer:any;
 
@@ -21,6 +21,9 @@ export class TextEventsService {
       .subscribe(
         response => this.online = (200 == response.status),
         async _ => {
+          if (this.online === false) {
+            return;
+          }
           this.online = false;
           const alert = await alertController.create({
             header: 'Connection error.',
