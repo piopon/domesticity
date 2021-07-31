@@ -11,26 +11,27 @@ import { Event } from '../model/event.model';
 export class TextEventsService {
   private url:string = 'http://localhost:9999/';
   private online:boolean = false;
-  private pingInterval:number = 1_000;
-  private pingTimer:Observable<number> = interval(this.pingInterval);
+  private pingInterval:number = 2_500;
+  private pingTimer:any;
 
   constructor(private http: HttpClient, public alertController: AlertController) {
-    this.pingTimer.subscribe(() => {
+    this.pingTimer = setInterval(() => {
       this.http.get(`${this.url}health`, {observe: 'response', responseType:'text'})
-        .pipe(first())
-        .subscribe(
-          response => this.online = (200 == response.status),
-          async _ => {
-            this.online = false;
-            const alert = await alertController.create({
-              header: 'Connection error.',
-              message: 'Could not connect to Text Event service',
-              buttons: ['Retry']
-            });
-            alert.present();
-          }
-        );
-    });
+      .pipe(first())
+      .subscribe(
+        response => this.online = (200 == response.status),
+        async _ => {
+          this.online = false;
+          const alert = await alertController.create({
+            header: 'Connection error.',
+            message: 'Could not connect to Text Event service',
+            buttons: ['Retry']
+          });
+          alert.present();
+          clearInterval(this.pingTimer);
+        }
+      );
+  }, this.pingInterval);
   }
 
   isOnline(): boolean {
