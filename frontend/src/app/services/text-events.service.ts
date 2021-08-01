@@ -66,7 +66,12 @@ export class TextEventsService {
     this.http.get(`${this.url}health`, {observe: 'response', responseType:'text'})
       .pipe(first())
       .subscribe(
-        response => this.online = (200 == response.status),
+        response => {
+          this.online = (200 == response.status);
+          if (this.online && this.pingInterval !== 3_000) {
+            this.updatePingInterval(3_000);
+          }
+        },
         async _ => {
           if (this.online === false) {
             return;
@@ -90,9 +95,15 @@ export class TextEventsService {
               }]
           });
           alert.present();
-          clearInterval(this.pingTimer);
+          this.updatePingInterval(60_000);
         }
       );
+  }
+
+  private updatePingInterval(newInterval: number):void {
+    clearInterval(this.pingTimer);
+    this.pingInterval = newInterval;
+    this.pingTimer = setInterval(() => this.pingService(), this.pingInterval);
   }
 
   private filterEvents(key: string, value: string, limit: number, offset: number): Observable<Event[]> {
