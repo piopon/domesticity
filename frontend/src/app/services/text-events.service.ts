@@ -92,8 +92,11 @@ export class TextEventsService {
           if (this.online && this.pingInterval !== 3_000) {
             this.updatePingInterval(3_000);
           }
+          if (this.alertVisible) {
+            alert.dismiss();
+          }
         },
-        async _ => {
+        _ => {
           this.online = false;
           if (this.alertVisible) {
             return;
