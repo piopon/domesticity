@@ -68,13 +68,16 @@ export class TextEventsService {
     this.http.get(`${this.url}health`, {observe: 'response', responseType:'text'})
       .pipe(first())
       .subscribe(
-        response => {
+        async response => {
           this.online = (200 == response.status);
-          if (this.online && this.pingInterval !== 3_000) {
-            this.updatePingInterval(3_000);
-          }
-          if (this.alertVisible) {
-            alert.dismiss();
+          if (this.online) {
+            if (this.alertVisible) {
+              this.alertDialog.dismiss();
+              this.alertVisible = false;
+            }
+            if (this.pingInterval !== 3_000) {
+              this.updatePingInterval(3_000);
+            }
           }
         },
         async _ => {
