@@ -10,9 +10,10 @@ import { Event } from '../model/event.model';
 })
 export class TextEventsService {
   private url:string = 'http://localhost:9999/';
-  private online:boolean = true;
   private pingTimer:any;
   private pingInterval:number = 3_000;
+  private online:boolean = true;
+  private alertVisible:boolean = false;
 
   constructor(private http: HttpClient, public alertController: AlertController) {
     this.pingTimer = setInterval(() => this.pingService(), this.pingInterval);
@@ -73,10 +74,10 @@ export class TextEventsService {
           }
         },
         async _ => {
-          if (this.online === false) {
+          this.online = false;
+          if (this.alertVisible) {
             return;
           }
-          this.online = false;
           const alert = await this.alertController.create({
             header: 'System error.',
             message: 'Offline service: Text Event',
@@ -90,11 +91,13 @@ export class TextEventsService {
               {
                 text: 'Retry',
                 handler: () => {
-                    console.log('Confirm Retry');
+                  this.alertVisible = false;
+                  this.pingService();
                 }
               }]
           });
           alert.present();
+          this.alertVisible = true;
           this.updatePingInterval(60_000);
         }
       );
