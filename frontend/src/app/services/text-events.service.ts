@@ -83,9 +83,10 @@ export class TextEventsService {
             message: 'Offline service: Text Event',
             buttons: [
               {
-                text: 'Cancel',
+                text: 'Dismiss',
                 handler: () => {
-                    console.log('Confirm Cancel');
+                  this.alertVisible = false;
+                  console.log('Dismiss pressed. Current ping interval: ' + this.pingInterval);
                 }
               },
               {
