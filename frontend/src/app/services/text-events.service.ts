@@ -13,6 +13,7 @@ export class TextEventsService {
   private pingTimer:any;
   private pingInterval:number = 3_000;
   private online:boolean = true;
+  private alertDialog:any;
   private alertVisible:boolean = false;
 
   constructor(private http: HttpClient, public alertController: AlertController) {
@@ -64,26 +65,6 @@ export class TextEventsService {
   }
 
   private async pingService():Promise<void> {
-    const alert = await this.alertController.create({
-      header: 'System error.',
-      message: 'Offline service: Text Event',
-      backdropDismiss: false,
-      buttons: [
-        {
-          text: 'Dismiss',
-          handler: () => {
-            this.alertVisible = false;
-            console.log('Dismiss pressed. Current ping interval: ' + this.pingInterval);
-          }
-        },
-        {
-          text: 'Retry',
-          handler: () => {
-            this.alertVisible = false;
-            this.pingService();
-          }
-        }]
-    });
     this.http.get(`${this.url}health`, {observe: 'response', responseType:'text'})
       .pipe(first())
       .subscribe(
@@ -96,12 +77,32 @@ export class TextEventsService {
             alert.dismiss();
           }
         },
-        _ => {
+        async _ => {
           this.online = false;
           if (this.alertVisible) {
             return;
           }
-          alert.present();
+          this.alertDialog = await this.alertController.create({
+            header: 'System error.',
+            message: 'Offline service: Text Event',
+            backdropDismiss: false,
+            buttons: [
+              {
+                text: 'Dismiss',
+                handler: () => {
+                  this.alertVisible = false;
+                  console.log('Dismiss pressed. Current ping interval: ' + this.pingInterval);
+                }
+              },
+              {
+                text: 'Retry',
+                handler: () => {
+                  this.alertVisible = false;
+                  this.pingService();
+                }
+              }]
+          });
+          this.alertDialog.present();
           this.alertVisible = true;
           this.updatePingInterval(60_000);
         }
