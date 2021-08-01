@@ -63,7 +63,27 @@ export class TextEventsService {
     return this.filterEvents("dayStop", dateValue, limit, offset);
   }
 
-  private pingService():void {
+  private async pingService():Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'System error.',
+      message: 'Offline service: Text Event',
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Dismiss',
+          handler: () => {
+            this.alertVisible = false;
+            console.log('Dismiss pressed. Current ping interval: ' + this.pingInterval);
+          }
+        },
+        {
+          text: 'Retry',
+          handler: () => {
+            this.alertVisible = false;
+            this.pingService();
+          }
+        }]
+    });
     this.http.get(`${this.url}health`, {observe: 'response', responseType:'text'})
       .pipe(first())
       .subscribe(
@@ -78,25 +98,6 @@ export class TextEventsService {
           if (this.alertVisible) {
             return;
           }
-          const alert = await this.alertController.create({
-            header: 'System error.',
-            message: 'Offline service: Text Event',
-            buttons: [
-              {
-                text: 'Dismiss',
-                handler: () => {
-                  this.alertVisible = false;
-                  console.log('Dismiss pressed. Current ping interval: ' + this.pingInterval);
-                }
-              },
-              {
-                text: 'Retry',
-                handler: () => {
-                  this.alertVisible = false;
-                  this.pingService();
-                }
-              }]
-          });
           alert.present();
           this.alertVisible = true;
           this.updatePingInterval(60_000);
