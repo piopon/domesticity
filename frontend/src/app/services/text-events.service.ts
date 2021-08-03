@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { first } from "rxjs/operators";
 import { Event } from '../model/event.model';
@@ -16,7 +16,7 @@ export class TextEventsService {
   private alertDialog:any;
   private alertVisible:boolean = false;
 
-  constructor(private http: HttpClient, public alertController: AlertController) {
+  constructor(private http: HttpClient,public alertController: AlertController, public toastController: ToastController) {
     this.pingTimer = setInterval(() => this.pingService(), this.pingInterval);
   }
 
@@ -77,6 +77,11 @@ export class TextEventsService {
             }
             if (this.pingInterval !== 3_000) {
               this.updatePingInterval(3_000);
+              const toast = await this.toastController.create({
+                message: 'Reconnected to Text Event service.',
+                duration: 2000
+              });
+              toast.present();
             }
           }
         },
