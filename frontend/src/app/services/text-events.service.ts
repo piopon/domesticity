@@ -111,19 +111,20 @@ export class TextEventsService {
 
   private createAlertDialog(): Promise<HTMLIonAlertElement> {
     return this.alertController.create({
-      header: "System error.",
-      message: "Offline service: Text Event",
+      header: "system error",
+      subHeader: "service is offline",
+      message: "text event service went offline",
       backdropDismiss: false,
       buttons: [
         {
-          text: "Dismiss",
+          text: "dismiss",
           handler: () => {
             this.alertVisible = false;
             console.log("Dismiss pressed. Current ping interval: " + this.pingInterval);
           },
         },
         {
-          text: "Retry",
+          text: "retry",
           handler: () => {
             this.alertVisible = false;
             this.pingService();
