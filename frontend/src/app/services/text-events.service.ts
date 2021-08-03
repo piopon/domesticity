@@ -85,26 +85,7 @@ export class TextEventsService {
           if (this.alertVisible) {
             return;
           }
-          this.alertDialog = await this.alertController.create({
-            header: 'System error.',
-            message: 'Offline service: Text Event',
-            backdropDismiss: false,
-            buttons: [
-              {
-                text: 'Dismiss',
-                handler: () => {
-                  this.alertVisible = false;
-                  console.log('Dismiss pressed. Current ping interval: ' + this.pingInterval);
-                }
-              },
-              {
-                text: 'Retry',
-                handler: () => {
-                  this.alertVisible = false;
-                  this.pingService();
-                }
-              }]
-          });
+          this.alertDialog = await this.createAlertDialog();
           this.alertDialog.present();
           this.alertVisible = true;
           this.updatePingInterval(60_000);
@@ -116,6 +97,29 @@ export class TextEventsService {
     clearInterval(this.pingTimer);
     this.pingInterval = newInterval;
     this.pingTimer = setInterval(() => this.pingService(), this.pingInterval);
+  }
+
+  private createAlertDialog():Promise<HTMLIonAlertElement> {
+    return this.alertController.create({
+      header: 'System error.',
+      message: 'Offline service: Text Event',
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Dismiss',
+          handler: () => {
+            this.alertVisible = false;
+            console.log('Dismiss pressed. Current ping interval: ' + this.pingInterval);
+          }
+        },
+        {
+          text: 'Retry',
+          handler: () => {
+            this.alertVisible = false;
+            this.pingService();
+          }
+        }]
+    });
   }
 
   private filterEvents(key: string, value: string, limit: number, offset: number): Observable<Event[]> {
