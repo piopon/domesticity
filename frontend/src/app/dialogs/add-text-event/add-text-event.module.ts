@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { AddTextEventPageRoutingModule } from './add-text-event-routing.module';
 
 import { AddTextEventPage } from './add-text-event.page';
+import { IconSelectorModule } from 'src/app/components/icon-selector/icon-selector.wrapper';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AddTextEventPageRoutingModule
+    AddTextEventPageRoutingModule,
+    IconSelectorModule
   ],
   declarations: [AddTextEventPage]
 })
