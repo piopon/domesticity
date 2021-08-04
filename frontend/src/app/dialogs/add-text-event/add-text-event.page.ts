@@ -5,9 +5,9 @@ import { CategoriesService } from "src/app/services/categories.service";
 import { UsersService } from "src/app/services/users.service";
 
 @Component({
-  selector: 'app-add-text-event',
-  templateUrl: './add-text-event.page.html',
-  styleUrls: ['./add-text-event.page.scss'],
+  selector: "app-add-text-event",
+  templateUrl: "./add-text-event.page.html",
+  styleUrls: ["./add-text-event.page.scss"],
 })
 export class AddTextEventPage implements OnInit {
   protected availableUsers: String[];
