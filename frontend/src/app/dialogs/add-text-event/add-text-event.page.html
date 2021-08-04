@@ -11,6 +11,10 @@
     <ion-row align-items-center>
       <ion-col class="column-content">
         <ion-item>
+          <ion-label position="floating">title</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
           <ion-label position="floating">category</ion-label>
           <ion-select value="">
             <ion-select-option *ngFor="let category of availableCategories;" value="{{ category.name }}">
@@ -25,6 +29,10 @@
               {{ user }}
             </ion-select-option>
           </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">content</ion-label>
+          <ion-textarea rows="5" cols="20" value=""></ion-textarea>
         </ion-item>
       </ion-col>
     </ion-row>
