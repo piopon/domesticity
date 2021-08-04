@@ -25,9 +25,7 @@
         <ion-item>
           <ion-label position="floating">owner</ion-label>
           <ion-select value="">
-            <ion-select-option *ngFor="let user of availableUsers;" value="{{ user }}">
-              {{ user }}
-            </ion-select-option>
+            <ion-select-option *ngFor="let user of availableUsers;" value="{{ user }}"> {{ user }} </ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item lines="full">
