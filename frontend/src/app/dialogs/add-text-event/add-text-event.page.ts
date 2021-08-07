@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { Category } from "src/app/model/category.model";
 import { CategoriesService } from "src/app/services/categories.service";
+import { TextEventsService } from "src/app/services/text-events.service";
 import { UsersService } from "src/app/services/users.service";
 
 @Component({
@@ -16,7 +17,8 @@ export class AddTextEventPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private categoriesService: CategoriesService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private eventService: TextEventsService,
   ) {}
 
   ngOnInit() {
