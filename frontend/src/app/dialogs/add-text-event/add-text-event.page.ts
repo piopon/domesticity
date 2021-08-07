@@ -30,11 +30,9 @@ export class AddTextEventPage implements OnInit {
 
   private updateUsers(): void {
     this.availableUsers = this.usersService.getTestUsers();
-    console.log('got users: ' + this.availableUsers);
   }
 
   private updateCategories(): void {
     this.availableCategories = this.categoriesService.getTestCategories();
-    console.log('got categories: ' + this.availableCategories);
   }
 }
