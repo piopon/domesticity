@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { Category } from "src/app/model/category.model";
-import { Event } from "src/app/model/event.model";
+import { Event, emptyEvent } from "src/app/model/event.model";
 import { CategoriesService } from "src/app/services/categories.service";
 import { TextEventsService } from "src/app/services/text-events.service";
 import { UsersService } from "src/app/services/users.service";
@@ -24,6 +24,7 @@ export class AddTextEventPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.event = emptyEvent();
     this.updateUsers();
     this.updateCategories();
   }
