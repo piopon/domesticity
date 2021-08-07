@@ -24,7 +24,12 @@ export class AddTextEventPage implements OnInit {
     this.updateCategories();
   }
 
-  closeDialog() {
+  closeDialog():void {
+    this.modalController.dismiss();
+  }
+
+  addEvent():void {
+    console.log('todo: use eventService to add Event object');
     this.modalController.dismiss();
   }
 
