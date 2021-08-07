@@ -10,11 +10,11 @@
   <ion-grid>
     <ion-row align-items-center>
       <ion-col class="column-content">
-        <ion-item>
+        <ion-item class="bottom-space">
           <ion-label position="floating">title</ion-label>
           <ion-input></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item class="bottom-space">
           <ion-label position="floating">category</ion-label>
           <ion-select value="">
             <ion-select-option *ngFor="let category of availableCategories;" value="{{ category.name }}">
@@ -22,19 +22,33 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-item>
+        <ion-item class="bottom-space">
           <ion-label position="floating">owner</ion-label>
           <ion-select value="">
-            <ion-select-option *ngFor="let user of availableUsers;" value="{{ user }}"> {{ user }} </ion-select-option>
+            <ion-select-option *ngFor="let user of availableUsers;" value="{{ user }}">
+              {{ user }}
+            </ion-select-option>
           </ion-select>
         </ion-item>
-        <icon-selector></icon-selector>
-        <ion-item>
+        <icon-selector class="bottom-space"></icon-selector>
+        <ion-item class="bottom-space">
           <ion-label position="floating">content</ion-label>
           <ion-textarea rows="5" cols="20" value=""></ion-textarea>
         </ion-item>
-        <ion-button color="primary" class="ion-text-lowercase" (click)="addEvent()">add</ion-button>
-        <ion-button color="danger" class="ion-text-lowercase" (click)="closeDialog()">cancel</ion-button>
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col class="ion-no-padding">
+              <ion-button color="primary" class="ion-text-lowercase" expand="full" (click)="addEvent()">
+                add
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-no-padding">
+              <ion-button color="danger" class="ion-text-lowercase" expand="full" (click)="closeDialog()">
+                cancel
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-col>
     </ion-row>
   </ion-grid>
