@@ -13,6 +13,12 @@ import { UsersService } from "src/app/services/users.service";
 export class AddTextEventPage implements OnInit {
   protected availableUsers: String[];
   protected availableCategories: Category[];
+  private owner:String;
+  private title:String;
+  private content:String;
+  private category:Category;
+  private startTime:Date;
+  private stopTime:Date;
 
   constructor(
     public modalController: ModalController,
@@ -32,6 +38,12 @@ export class AddTextEventPage implements OnInit {
 
   addEvent():void {
     console.log('todo: use eventService to add Event object');
+    console.log(this.title);
+    console.log(this.owner);
+    console.log(this.category);
+    console.log(this.content);
+    console.log(this.startTime);
+    console.log(this.stopTime);
     this.modalController.dismiss();
   }
 
