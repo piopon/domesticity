@@ -12,11 +12,11 @@
       <ion-col class="column-content">
         <ion-item>
           <ion-label position="floating">title</ion-label>
-          <ion-input [(ngModel)]="title"></ion-input>
+          <ion-input [(ngModel)]="event.title"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">category</ion-label>
-          <ion-select value="" [(ngModel)]="category">
+          <ion-select value="" [(ngModel)]="event.category">
             <ion-select-option *ngFor="let category of availableCategories;" value="{{ category.name }}">
               {{ category.name }}
             </ion-select-option>
@@ -24,25 +24,35 @@
         </ion-item>
         <ion-item>
           <ion-label position="floating">owner</ion-label>
-          <ion-select value="" [(ngModel)]="owner">
-            <ion-select-option *ngFor="let user of availableUsers;" value="{{ user }}">
-              {{ user }}
-            </ion-select-option>
+          <ion-select value="" [(ngModel)]="event.owner">
+            <ion-select-option *ngFor="let user of availableUsers;" value="{{ user }}"> {{ user }} </ion-select-option>
           </ion-select>
         </ion-item>
         <icon-selector></icon-selector>
         <ion-item>
           <ion-label position="floating">content</ion-label>
-          <ion-textarea rows="4" cols="20" value="" [(ngModel)]="content"></ion-textarea>
+          <ion-textarea rows="4" cols="20" value="" [(ngModel)]="event.content"></ion-textarea>
         </ion-item>
         <ion-item>
           <ion-label>start date</ion-label>
-          <ion-datetime displayFormat="D MMM YYYY - H:mm" min="2020" max="2050" value="2021-08-07T19:00Z" [(ngModel)]="startTime">
+          <ion-datetime
+            displayFormat="D MMM YYYY - H:mm"
+            min="2020"
+            max="2050"
+            value="2021-08-07T19:00Z"
+            [(ngModel)]="event.date.start"
+          >
           </ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label>end date</ion-label>
-          <ion-datetime displayFormat="D MMM YYYY - H:mm" min="2020" max="2050" value="2021-08-07T19:30Z" [(ngModel)]="stopTime">
+          <ion-datetime
+            displayFormat="D MMM YYYY - H:mm"
+            min="2020"
+            max="2050"
+            value="2021-08-07T19:30Z"
+            [(ngModel)]="event.date.stop"
+          >
           </ion-datetime>
         </ion-item>
         <ion-grid>

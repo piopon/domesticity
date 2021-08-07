@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { Category } from "src/app/model/category.model";
+import { Event } from "src/app/model/event.model";
 import { CategoriesService } from "src/app/services/categories.service";
 import { TextEventsService } from "src/app/services/text-events.service";
 import { UsersService } from "src/app/services/users.service";
@@ -13,18 +14,13 @@ import { UsersService } from "src/app/services/users.service";
 export class AddTextEventPage implements OnInit {
   protected availableUsers: String[];
   protected availableCategories: Category[];
-  private owner:String;
-  private title:String;
-  private content:String;
-  private category:Category;
-  private startTime:Date;
-  private stopTime:Date;
+  private event: Event;
 
   constructor(
     public modalController: ModalController,
     private categoriesService: CategoriesService,
     private usersService: UsersService,
-    private eventService: TextEventsService,
+    private eventService: TextEventsService
   ) {}
 
   ngOnInit() {
@@ -32,18 +28,13 @@ export class AddTextEventPage implements OnInit {
     this.updateCategories();
   }
 
-  closeDialog():void {
+  closeDialog(): void {
     this.modalController.dismiss();
   }
 
-  addEvent():void {
-    console.log('todo: use eventService to add Event object');
-    console.log(this.title);
-    console.log(this.owner);
-    console.log(this.category);
-    console.log(this.content);
-    console.log(this.startTime);
-    console.log(this.stopTime);
+  addEvent(): void {
+    console.log("todo: use eventService to add Event object");
+    console.log(this.event);
     this.modalController.dismiss();
   }
 
