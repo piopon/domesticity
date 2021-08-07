@@ -10,11 +10,11 @@
   <ion-grid>
     <ion-row align-items-center>
       <ion-col class="column-content">
-        <ion-item class="bottom-space">
+        <ion-item>
           <ion-label position="floating">title</ion-label>
           <ion-input></ion-input>
         </ion-item>
-        <ion-item class="bottom-space">
+        <ion-item>
           <ion-label position="floating">category</ion-label>
           <ion-select value="">
             <ion-select-option *ngFor="let category of availableCategories;" value="{{ category.name }}">
@@ -22,7 +22,7 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-item class="bottom-space">
+        <ion-item>
           <ion-label position="floating">owner</ion-label>
           <ion-select value="">
             <ion-select-option *ngFor="let user of availableUsers;" value="{{ user }}">
@@ -30,8 +30,8 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <icon-selector class="bottom-space"></icon-selector>
-        <ion-item class="bottom-space">
+        <icon-selector></icon-selector>
+        <ion-item>
           <ion-label position="floating">content</ion-label>
           <ion-textarea rows="4" cols="20" value=""></ion-textarea>
         </ion-item>
