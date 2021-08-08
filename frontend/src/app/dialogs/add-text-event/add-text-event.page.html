@@ -35,24 +35,12 @@
         </ion-item>
         <ion-item>
           <ion-label>start date</ion-label>
-          <ion-datetime
-            displayFormat="D MMM YYYY - H:mm"
-            min="2020"
-            max="2050"
-            value="2021-08-07T19:00Z"
-            [(ngModel)]="event.date.start"
-          >
+          <ion-datetime displayFormat="D MMM YYYY - H:mm" min="2020" max="2050" [(ngModel)]="tempDateStart">
           </ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label>end date</ion-label>
-          <ion-datetime
-            displayFormat="D MMM YYYY - H:mm"
-            min="2020"
-            max="2050"
-            value="2021-08-07T19:30Z"
-            [(ngModel)]="event.date.stop"
-          >
+          <ion-datetime displayFormat="D MMM YYYY - H:mm" min="2020" max="2050" [(ngModel)]="tempDateStop">
           </ion-datetime>
         </ion-item>
         <ion-grid>
