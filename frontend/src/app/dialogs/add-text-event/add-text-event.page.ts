@@ -38,7 +38,8 @@ export class AddTextEventPage implements OnInit {
   }
 
   addEvent(): void {
-    console.log("todo: use eventService to add Event object");
+    this.event.date.start = new Date(this.tempDateStart);
+    this.event.date.stop = new Date(this.tempDateStop);
     console.log(this.event);
     this.modalController.dismiss();
   }
