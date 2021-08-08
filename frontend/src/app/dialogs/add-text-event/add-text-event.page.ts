@@ -15,6 +15,8 @@ export class AddTextEventPage implements OnInit {
   protected availableUsers: String[];
   protected availableCategories: Category[];
   private event: Event;
+  private tempDateStart: string;
+  private tempDateStop: string;
 
   constructor(
     public modalController: ModalController,
@@ -25,6 +27,8 @@ export class AddTextEventPage implements OnInit {
 
   ngOnInit() {
     this.event = emptyEvent();
+    this.tempDateStart = this.event.date.start.toISOString();
+    this.tempDateStop = this.event.date.stop.toISOString();
     this.updateUsers();
     this.updateCategories();
   }

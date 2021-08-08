@@ -17,8 +17,8 @@ export function emptyEvent(): Event {
     icon: "",
     owner: "",
     date: {
-      start: new Date(1900, 1, 1, 0, 0, 0, 0),
-      stop: new Date(1900, 1, 1, 0, 0, 0, 0),
+      start: new Date(1900, 1, 1, 1, 1, 1, 1),
+      stop: new Date(1900, 1, 1, 1, 1, 1, 1),
     },
     category: "",
     content: "",
