@@ -40,10 +40,12 @@ export class AddTextEventPage implements OnInit {
   addEvent(): void {
     this.event.date.start = new Date(this.tempDateStart);
     this.event.date.stop = new Date(this.tempDateStop);
-    if (this.event.validate()) {
-      console.log(this.event);
-      this.modalController.dismiss();
+    if (!this.event.validate()) {
+      console.error('Event has errors...')
+      return;
     }
+    console.log(this.event);
+    this.modalController.dismiss();
   }
 
   private updateUsers(): void {

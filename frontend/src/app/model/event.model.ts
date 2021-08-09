@@ -21,7 +21,7 @@ export class Event {
   }
 
   public validate(): boolean {
-    return true;
+    return this.title !== "";
   }
 
   public static empty(): Event {
