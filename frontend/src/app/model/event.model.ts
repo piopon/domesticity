@@ -20,6 +20,10 @@ export class Event {
     this.content = content;
   }
 
+  public validate(): boolean {
+    return true;
+  }
+
   public static empty(): Event {
     let emptyDate: TimeSpan = {
       start: new Date(1900, 1, 1, 1, 1, 1, 1),
