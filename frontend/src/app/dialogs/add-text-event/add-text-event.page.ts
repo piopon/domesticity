@@ -1,3 +1,4 @@
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { Category } from "src/app/model/category.model";
@@ -15,6 +16,7 @@ export class AddTextEventPage implements OnInit {
   protected availableUsers: String[];
   protected availableCategories: Category[];
   private event: Event;
+  private eventForm: FormGroup;
   private tempDateStart: string;
   private tempDateStop: string;
 
@@ -31,6 +33,14 @@ export class AddTextEventPage implements OnInit {
     this.tempDateStop = this.event.date.stop.toISOString();
     this.updateUsers();
     this.updateCategories();
+    this.eventForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      category: new FormControl('', Validators.required),
+      owner: new FormControl('', Validators.required),
+      content: new FormControl('', Validators.required),
+      start: new FormControl('', Validators.required),
+      stop: new FormControl('', Validators.required)
+    });
   }
 
   closeDialog(): void {
