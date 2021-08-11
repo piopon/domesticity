@@ -7,57 +7,61 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-grid>
-    <ion-row align-items-center>
-      <ion-col class="column-content">
-        <ion-item>
-          <ion-label position="floating">title</ion-label>
-          <ion-input [(ngModel)]="event.title"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">category</ion-label>
-          <ion-select value="" [(ngModel)]="event.category">
-            <ion-select-option *ngFor="let category of availableCategories;" value="{{ category.name }}">
-              {{ category.name }}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">owner</ion-label>
-          <ion-select value="" [(ngModel)]="event.owner">
-            <ion-select-option *ngFor="let user of availableUsers;" value="{{ user }}"> {{ user }} </ion-select-option>
-          </ion-select>
-        </ion-item>
-        <icon-selector></icon-selector>
-        <ion-item>
-          <ion-label position="floating">content</ion-label>
-          <ion-textarea rows="4" cols="20" value="" [(ngModel)]="event.content"></ion-textarea>
-        </ion-item>
-        <ion-item>
-          <ion-label>start date</ion-label>
-          <ion-datetime displayFormat="D MMM YYYY - H:mm" min="2020" max="2050" [(ngModel)]="tempDateStart">
-          </ion-datetime>
-        </ion-item>
-        <ion-item>
-          <ion-label>end date</ion-label>
-          <ion-datetime displayFormat="D MMM YYYY - H:mm" min="2020" max="2050" [(ngModel)]="tempDateStop">
-          </ion-datetime>
-        </ion-item>
-        <ion-grid>
-          <ion-row align-items-center>
-            <ion-col class="ion-no-padding">
-              <ion-button color="primary" class="ion-text-lowercase" expand="full" (click)="addEvent()">
-                add
-              </ion-button>
-            </ion-col>
-            <ion-col class="ion-no-padding">
-              <ion-button color="danger" class="ion-text-lowercase" expand="full" (click)="closeDialog()">
-                cancel
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <form [formGroup]="eventForm">
+    <ion-grid>
+      <ion-row align-items-center>
+        <ion-col class="column-content">
+          <ion-item>
+            <ion-label position="floating">title</ion-label>
+            <ion-input [(ngModel)]="event.title"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">category</ion-label>
+            <ion-select value="" [(ngModel)]="event.category">
+              <ion-select-option *ngFor="let category of availableCategories;" value="{{ category.name }}">
+                {{ category.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">owner</ion-label>
+            <ion-select value="" [(ngModel)]="event.owner">
+              <ion-select-option *ngFor="let user of availableUsers;" value="{{ user }}">
+                {{ user }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <icon-selector></icon-selector>
+          <ion-item>
+            <ion-label position="floating">content</ion-label>
+            <ion-textarea rows="4" cols="20" value="" [(ngModel)]="event.content"></ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-label>start date</ion-label>
+            <ion-datetime displayFormat="D MMM YYYY - H:mm" min="2020" max="2050" [(ngModel)]="tempDateStart">
+            </ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label>end date</ion-label>
+            <ion-datetime displayFormat="D MMM YYYY - H:mm" min="2020" max="2050" [(ngModel)]="tempDateStop">
+            </ion-datetime>
+          </ion-item>
+          <ion-grid>
+            <ion-row align-items-center>
+              <ion-col class="ion-no-padding">
+                <ion-button color="primary" class="ion-text-lowercase" expand="full" (click)="addEvent()">
+                  add
+                </ion-button>
+              </ion-col>
+              <ion-col class="ion-no-padding">
+                <ion-button color="danger" class="ion-text-lowercase" expand="full" (click)="closeDialog()">
+                  cancel
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>

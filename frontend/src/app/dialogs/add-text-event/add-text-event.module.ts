@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -15,7 +15,8 @@ import { IconSelectorModule } from 'src/app/components/icon-selector/icon-select
     FormsModule,
     IonicModule,
     AddTextEventPageRoutingModule,
-    IconSelectorModule
+    IconSelectorModule,
+    ReactiveFormsModule
   ],
   declarations: [AddTextEventPage]
 })
