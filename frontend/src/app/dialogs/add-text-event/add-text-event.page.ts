@@ -41,6 +41,7 @@ export class AddTextEventPage implements OnInit {
       start: new FormControl('', Validators.required),
       stop: new FormControl('', Validators.required)
     });
+    this.eventForm.enable();
   }
 
   closeDialog(): void {
