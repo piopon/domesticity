@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import { AlertController, ModalController } from "@ionic/angular";
 import { Category } from "src/app/model/category.model";
 import { Event } from "src/app/model/event.model";
 import { CategoriesService } from "src/app/services/categories.service";
@@ -22,6 +22,7 @@ export class AddTextEventPage implements OnInit {
 
   constructor(
     public modalController: ModalController,
+    private alertController: AlertController,
     private categoriesService: CategoriesService,
     private usersService: UsersService,
     private eventService: TextEventsService
@@ -48,11 +49,17 @@ export class AddTextEventPage implements OnInit {
     this.modalController.dismiss();
   }
 
-  addEvent(): void {
+  async addEvent(): Promise<void> {
     this.event.date.start = new Date(this.tempDateStart);
     this.event.date.stop = new Date(this.tempDateStop);
     if (!this.event.validate()) {
-      console.error('Event has errors...')
+      const alert = await this.alertController.create({
+        header: 'error',
+        subHeader: 'cannot create event',
+        message: 'event has errors',
+        buttons: ['OK']
+      });
+      alert.present();
       return;
     }
     console.log(this.event);
