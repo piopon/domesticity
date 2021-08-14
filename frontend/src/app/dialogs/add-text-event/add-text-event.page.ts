@@ -35,12 +35,12 @@ export class AddTextEventPage implements OnInit {
     this.updateUsers();
     this.updateCategories();
     this.eventForm = new FormGroup({
-      title: new FormControl('', Validators.required),
-      category: new FormControl('', Validators.required),
-      owner: new FormControl('', Validators.required),
-      content: new FormControl('', Validators.required),
-      start: new FormControl('', Validators.required),
-      stop: new FormControl('', Validators.required)
+      title: new FormControl("", Validators.required),
+      category: new FormControl("", Validators.required),
+      owner: new FormControl("", Validators.required),
+      content: new FormControl("", Validators.required),
+      start: new FormControl("", Validators.required),
+      stop: new FormControl("", Validators.required),
     });
     this.eventForm.enable();
   }
@@ -54,10 +54,10 @@ export class AddTextEventPage implements OnInit {
     this.event.date.stop = new Date(this.tempDateStop);
     if (!this.event.validate()) {
       const alert = await this.alertController.create({
-        header: 'error',
-        subHeader: 'cannot create event',
-        message: 'event has errors',
-        buttons: ['OK']
+        header: "error",
+        subHeader: "cannot create event",
+        message: "event has errors",
+        buttons: ["OK"],
       });
       alert.present();
       return;
