@@ -66,6 +66,10 @@ export class AddTextEventPage implements OnInit {
     this.modalController.dismiss();
   }
 
+  private hasError(widget: string): boolean {
+    return this.eventForm.get(widget).hasError("required") && this.eventForm.get(widget).touched;
+  }
+
   private updateUsers(): void {
     this.availableUsers = this.usersService.getTestUsers();
   }

@@ -14,6 +14,7 @@
           <ion-item>
             <ion-label position="floating">title</ion-label>
             <ion-input formControlName="title" [(ngModel)]="event.title"></ion-input>
+            <div class="error-message" *ngIf="hasError('title')">Title should not be empty</div>
           </ion-item>
           <ion-item>
             <ion-label position="floating">category</ion-label>
