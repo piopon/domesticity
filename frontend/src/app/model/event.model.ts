@@ -21,7 +21,7 @@ export class Event {
   }
 
   public validate(): boolean {
-    return this.title !== "";
+    return this.title !== "" && this.owner !== "" && this.category !== "" && this.content !== "";
   }
 
   public static empty(): Event {
