@@ -7,6 +7,10 @@ export class TimeSpan {
     this.stop = stop;
   }
 
+  public verify(): boolean {
+      return this.start.getFullYear() > 2020 && this.stop.getFullYear() > 2020;
+  }
+
   public static empty(): TimeSpan {
     return new TimeSpan(new Date(1900, 1, 1, 0, 0, 0, 0), new Date(1900, 1, 1, 0, 0, 0, 0));
   }

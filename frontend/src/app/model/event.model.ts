@@ -20,8 +20,10 @@ export class Event {
     this.content = content;
   }
 
-  public validate(): boolean {
-    return this.title !== "" && this.owner !== "" && this.category !== "" && this.content !== "";
+  public verify(): boolean {
+    return (
+      this.title !== "" && this.owner !== "" && this.category !== "" && this.content !== "" && this.date.verify()
+    );
   }
 
   public static empty(): Event {
