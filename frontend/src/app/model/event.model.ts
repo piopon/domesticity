@@ -25,9 +25,12 @@ export class Event {
   }
 
   public static empty(): Event {
+    let startDate: Date = new Date();
+    let stopDate: Date = new Date(startDate);
+    stopDate.setHours(stopDate.getHours() + 1);
     let emptyDate: TimeSpan = {
-      start: new Date(1900, 1, 1, 1, 1, 1, 1),
-      stop: new Date(1900, 1, 1, 1, 1, 1, 1),
+      start: startDate,
+      stop: stopDate,
     }
     return new Event('', '', '', '', emptyDate, '', '');
   }
