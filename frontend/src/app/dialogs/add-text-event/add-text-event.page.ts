@@ -66,7 +66,7 @@ export class AddTextEventPage implements OnInit {
     this.modalController.dismiss();
   }
 
-  private hasError(widget: string): boolean {
+  hasError(widget: string): boolean {
     return this.eventForm.get(widget).hasError("required") && this.eventForm.get(widget).touched;
   }
 
