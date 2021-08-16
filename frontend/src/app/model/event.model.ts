@@ -25,6 +25,6 @@ export class Event {
   }
 
   public static empty(): Event {
-    return new Event('', '', '', '', TimeSpan.now(), '', '');
+    return new Event("", "", "", "", TimeSpan.now(), "", "");
   }
 }
