@@ -28,10 +28,7 @@ export class Event {
     let startDate: Date = new Date();
     let stopDate: Date = new Date(startDate);
     stopDate.setHours(stopDate.getHours() + 1);
-    let emptyDate: TimeSpan = {
-      start: startDate,
-      stop: stopDate,
-    }
+    let emptyDate = new TimeSpan(startDate, startDate);
     return new Event('', '', '', '', emptyDate, '', '');
   }
 }
