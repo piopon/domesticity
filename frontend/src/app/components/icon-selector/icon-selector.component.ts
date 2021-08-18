@@ -14,9 +14,13 @@ export class IconSelectorComponent implements OnInit {
   ];
 
   constructor() {
-    let randomIndex = Math.floor(Math.random() * this.availableIcons.length);
-    this.currentIcon = this.availableIcons[randomIndex] + "-" + this.iconStyle;
+    this.currentIcon = this.randomIcon();
   }
 
   ngOnInit() {}
+
+  private randomIcon(): String {
+    let randomIndex = Math.floor(Math.random() * this.availableIcons.length);
+    return this.availableIcons[randomIndex] + "-" + this.iconStyle;
+  }
 }
