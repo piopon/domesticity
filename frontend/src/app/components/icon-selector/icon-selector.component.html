@@ -1,10 +1,10 @@
 <ion-item lines="full">
   <ion-thumbnail slot="start">
-    <ion-icon class="icon-thumb" name="beer"></ion-icon>
+    <ion-icon class="icon-thumb" name="{{ currentIcon }}"></ion-icon>
   </ion-thumbnail>
   <ion-label>
     <h5>selected:</h5>
-    <p>accessibility-outline</p>
+    <p>{{ currentIcon }}</p>
   </ion-label>
   <ion-button fill="outline" slot="end">change</ion-button>
 </ion-item>
