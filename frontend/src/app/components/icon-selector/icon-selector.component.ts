@@ -6,10 +6,16 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./icon-selector.component.scss"],
 })
 export class IconSelectorComponent implements OnInit {
-  currentIcon: String;
+  private currentIcon: String;
+  private iconStyle: String = "outline";
+  private availableIcons: String[] = [
+    "airplane", "balloon", "basketball", "beer", "bicycle", "book", "bonfire", "bowling-ball", "bus",
+    "cafe", "car", "cart", "construct", "dice", "fast-food", "football", "game-controller", "school",
+  ];
 
   constructor() {
-    this.currentIcon = "accessibility-outline";
+    let randomIndex = Math.floor(Math.random() * this.availableIcons.length);
+    this.currentIcon = this.availableIcons[randomIndex] + "-" + this.iconStyle;
   }
 
   ngOnInit() {}
