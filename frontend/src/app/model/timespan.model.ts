@@ -19,6 +19,6 @@ export class TimeSpan {
     let startDate: Date = new Date();
     let stopDate: Date = new Date(startDate);
     stopDate.setHours(stopDate.getHours() + 1);
-    return new TimeSpan(startDate, startDate);
+    return new TimeSpan(startDate, stopDate);
   }
 }
