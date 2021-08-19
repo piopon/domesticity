@@ -70,6 +70,10 @@ export class AddTextEventPage implements OnInit {
     return this.eventForm.get(widget).hasError("required") && this.eventForm.get(widget).touched;
   }
 
+  iconUpdated(newIcon: string) {
+    this.event.icon = newIcon;
+  }
+
   private updateUsers(): void {
     this.availableUsers = this.usersService.getTestUsers();
   }
