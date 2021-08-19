@@ -7,9 +7,9 @@ import { ActionSheetController } from "@ionic/angular";
   styleUrls: ["./icon-selector.component.scss"],
 })
 export class IconSelectorComponent implements OnInit {
-  private currentIcon: String;
-  private iconStyle: String = "outline";
-  private availableIcons: String[] = [
+  private currentIcon: string;
+  private iconStyle: string = "outline";
+  private availableIcons: string[] = [
     "airplane", "basketball", "beer", "bicycle", "book", "bonfire", "bus", "cafe",
     "car", "cart", "construct", "dice", "fast-food", "football", "game-controller", "school",
   ];
@@ -24,7 +24,7 @@ export class IconSelectorComponent implements OnInit {
     this.currentIcon = this.randomIcon();
   }
 
-  private randomIcon(): String {
+  private randomIcon(): string {
     let randomIndex = Math.floor(Math.random() * this.availableIcons.length);
     return this.availableIcons[randomIndex] + "-" + this.iconStyle;
   }
