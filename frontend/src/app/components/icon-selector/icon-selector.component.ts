@@ -41,6 +41,7 @@ export class IconSelectorComponent implements OnInit {
           icon: iconName,
           handler: () => {
             this.currentIcon = iconName + "-" + this.iconStyle;
+            this.selectedIcon.emit(this.currentIcon);
           }
         };
       }),
