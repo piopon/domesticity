@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ActionSheetController } from "@ionic/angular";
 
 @Component({
   selector: "icon-selector",
@@ -13,7 +14,7 @@ export class IconSelectorComponent implements OnInit {
     "car", "cart", "construct", "dice", "fast-food", "football", "game-controller", "school",
   ];
 
-  constructor() {
+  constructor(public actionSheetController: ActionSheetController) {
     this.currentIcon = this.randomIcon();
   }
 
