@@ -21,11 +21,27 @@ export class IconSelectorComponent implements OnInit {
   ngOnInit() {}
 
   selectIcon(): void {
-    this.currentIcon = this.randomIcon();
+    this.presentIcons();
   }
 
   private randomIcon(): string {
     let randomIndex = Math.floor(Math.random() * this.availableIcons.length);
     return this.availableIcons[randomIndex] + "-" + this.iconStyle;
+  }
+
+  private async presentIcons() {
+    const actionSheet = await this.actionSheetController.create({
+      header: "Icons",
+      buttons: this.availableIcons.map((iconName) => {
+        return {
+          text: iconName,
+          icon: iconName,
+          handler: () => {
+            this.currentIcon = iconName + "-" + this.iconStyle;
+          }
+        };
+      }),
+    });
+    await actionSheet.present();
   }
 }
