@@ -20,10 +20,22 @@ export class Event {
     this.content = content;
   }
 
-  public verify(): boolean {
-    return (
-      this.title !== "" && this.owner !== "" && this.category !== "" && this.content !== "" && this.date.verify()
-    );
+  public verify(): string[] {
+    let result: string[];
+    if (this.title === "") {
+      result.push("title cannot be empty");
+    }
+    if (this.owner === "") {
+      result.push("select owner");
+    }
+    if (this.category === "") {
+      result.push("select category");
+    }
+    if (this.content === "") {
+      result.push("content cannot be empty");
+    }
+    this.date.verify().forEach(error => result.push(error));
+    return result;
   }
 
   public static empty(): Event {
