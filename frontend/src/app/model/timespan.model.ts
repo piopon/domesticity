@@ -7,8 +7,15 @@ export class TimeSpan {
     this.stop = stop;
   }
 
-  public verify(): boolean {
-      return this.start.getFullYear() > 2020 && this.stop.getFullYear() > 2020;
+  public verify(): string[] {
+    let result: string[];
+    if (this.start.getFullYear() <= 2020) {
+      result.push("start date in the past");
+    }
+    if (this.stop.getFullYear() <= 2020) {
+      result.push("stop date in the past");
+    }
+    return result;
   }
 
   public static empty(): TimeSpan {
