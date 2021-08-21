@@ -52,7 +52,7 @@ export class AddTextEventPage implements OnInit {
   async addEvent(): Promise<void> {
     this.event.date.start = new Date(this.tempDateStart);
     this.event.date.stop = new Date(this.tempDateStop);
-    if (!this.event.verify()) {
+    if (this.event.verify().length > 0) {
       const alert = await this.alertController.create({
         header: "error",
         subHeader: "cannot create event",
