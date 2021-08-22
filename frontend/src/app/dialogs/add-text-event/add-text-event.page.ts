@@ -52,7 +52,7 @@ export class AddTextEventPage implements OnInit {
   async addEvent(): Promise<void> {
     this.event.date.start = new Date(this.tempDateStart);
     this.event.date.stop = new Date(this.tempDateStop);
-    if (this.checkEventErrors()) {
+    if (await this.checkEventErrors()) {
       return;
     }
     console.log(this.event);
