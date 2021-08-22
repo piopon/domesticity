@@ -57,6 +57,14 @@ export class AddTextEventPage implements OnInit {
       return;
     }
     console.log(this.event);
+    this.eventService.addEvent(this.event).subscribe(async (responseEvent) => {
+      const toast = await this.toastController.create({
+        color: responseEvent.id !== "" ? "success" : "danger",
+        message: responseEvent.id !== "" ? "Event successfully added." : "Error while adding event.",
+        duration: 2000,
+      });
+      toast.present();
+    });
     this.modalController.dismiss();
   }
 
