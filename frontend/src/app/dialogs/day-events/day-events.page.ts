@@ -32,7 +32,7 @@ export class DayEventsPage implements OnInit {
   ngOnInit() {
     this.dayEvents = [];
     this.visibleDetails = [];
-    this.todayString = formatDate(this.dayTime, "yyyy-MM-dd", "en");
+    this.todayString = formatDate(this.dayTime, "yyyy-dd-MM", "en");
     this.updateTextEvents(this.todayString);
     this.updateUsers();
     this.updateCategories();
