@@ -52,14 +52,7 @@ export class AddTextEventPage implements OnInit {
   async addEvent(): Promise<void> {
     this.event.date.start = new Date(this.tempDateStart);
     this.event.date.stop = new Date(this.tempDateStop);
-    if (this.event.verify().length > 0) {
-      const alert = await this.alertController.create({
-        header: "error",
-        subHeader: "cannot create event",
-        message: "event has errors",
-        buttons: ["OK"],
-      });
-      alert.present();
+    if (this.checkEventErrors()) {
       return;
     }
     console.log(this.event);
@@ -72,6 +65,21 @@ export class AddTextEventPage implements OnInit {
 
   iconUpdated(newIcon: string) {
     this.event.icon = newIcon;
+  }
+
+  private async checkEventErrors(): Promise<boolean> {
+    let errors: string[] = this.event.verify();
+    if (errors.length > 0) {
+      const alert = await this.alertController.create({
+        header: "error",
+        subHeader: "cannot create event",
+        message: "event has errors:<br>- " + errors.join("<br>- "),
+        buttons: ["OK"],
+      });
+      alert.present();
+      return true;
+    }
+    return false;
   }
 
   private updateUsers(): void {
