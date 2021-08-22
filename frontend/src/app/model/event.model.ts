@@ -21,7 +21,7 @@ export class Event {
   }
 
   public verify(): string[] {
-    let result: string[];
+    let result: string[] = [];
     if (this.title === "") {
       result.push("title cannot be empty");
     }

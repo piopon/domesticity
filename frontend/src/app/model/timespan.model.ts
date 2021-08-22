@@ -8,7 +8,7 @@ export class TimeSpan {
   }
 
   public verify(): string[] {
-    let result: string[];
+    let result: string[] = [];
     if (this.start.getFullYear() <= 2020) {
       result.push("start date in the past");
     }
