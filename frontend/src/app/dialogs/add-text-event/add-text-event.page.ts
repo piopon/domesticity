@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
-import { AlertController, ModalController } from "@ionic/angular";
+import { AlertController, ModalController, ToastController } from "@ionic/angular";
 import { Category } from "src/app/model/category.model";
 import { Event } from "src/app/model/event.model";
 import { CategoriesService } from "src/app/services/categories.service";
@@ -23,6 +23,7 @@ export class AddTextEventPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private alertController: AlertController,
+    private toastController: ToastController,
     private categoriesService: CategoriesService,
     private usersService: UsersService,
     private eventService: TextEventsService
