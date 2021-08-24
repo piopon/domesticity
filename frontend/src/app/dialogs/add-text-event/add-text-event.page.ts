@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { AlertController, ModalController, ToastController } from "@ionic/angular";
 import { Category } from "src/app/model/category.model";
 import { Event } from "src/app/model/event.model";
@@ -15,7 +15,8 @@ import { UsersService } from "src/app/services/users.service";
 export class AddTextEventPage implements OnInit {
   protected availableUsers: String[];
   protected availableCategories: Category[];
-  private event: Event;
+  @Input() event: Event;
+
   private eventForm: FormGroup;
   private tempDateStart: string;
   private tempDateStop: string;
@@ -30,7 +31,6 @@ export class AddTextEventPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.event = Event.empty();
     this.tempDateStart = this.event.date.start.toISOString();
     this.tempDateStop = this.event.date.stop.toISOString();
     this.updateUsers();
