@@ -56,7 +56,6 @@ export class AddTextEventPage implements OnInit {
     if (await this.checkEventErrors()) {
       return;
     }
-    console.log(this.event);
     this.eventService.addEvent(this.event).subscribe(async (responseEvent) => {
       const toast = await this.toastController.create({
         color: responseEvent.id !== "" ? "success" : "danger",
