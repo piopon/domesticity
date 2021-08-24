@@ -13,13 +13,13 @@ import { UsersService } from "src/app/services/users.service";
   styleUrls: ["./add-text-event.page.scss"],
 })
 export class AddTextEventPage implements OnInit {
-  protected availableUsers: String[];
-  protected availableCategories: Category[];
   @Input() event: Event;
 
   private eventForm: FormGroup;
   private tempDateStart: string;
   private tempDateStop: string;
+  private availableUsers: String[];
+  private availableCategories: Category[];
 
   constructor(
     public modalController: ModalController,
