@@ -30,10 +30,9 @@ export class DayEventsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dayEvents = [];
     this.visibleDetails = [];
     this.todayString = formatDate(this.dayTime, "yyyy-dd-MM", "en");
-    this.updateTextEvents(this.todayString);
+    this.getAllTextEvents(this.todayString);
     this.updateUsers();
     this.updateCategories();
   }
@@ -59,7 +58,8 @@ export class DayEventsPage implements OnInit {
     }
   }
 
-  private updateTextEvents(dayString: string): void {
+  private getAllTextEvents(dayString: string): void {
+    this.clearEvents();
     this.textEventsService.getEventsByDateStart(dayString).subscribe((events) => {
       events?.forEach((event) => {
         let eventDate = new TimeSpan(new Date(event.date.start), new Date(event.date.stop));
