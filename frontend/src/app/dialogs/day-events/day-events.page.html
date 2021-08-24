@@ -17,13 +17,12 @@
     </ion-list-header>
     <ion-list *ngFor="let event of dayEvents; let i = index;" lines="full" detail="false">
       <ion-item tappable (click)="toggleDetails(i)" [ngClass]="{'event-detail':isDetailed(i), 'event-item':!isDetailed(i)}">
-        <ion-icon slot="start" name="chevron-forward-outline" class="ion-no-margin" *ngIf="!isDetailed(i)"></ion-icon>
-        <ion-icon slot="start" name="chevron-down-outline" class="ion-no-margin" *ngIf="isDetailed(i)"></ion-icon>
         <ion-icon name="{{ event.icon }}"></ion-icon>
         <ion-label class="ion-text-left">{{ event.title }}</ion-label>
         <ion-label class="ion-text-right event-info">
           {{ event.date.start | date:'hh:mm' }} - {{ event.date.stop | date:'hh:mm' }}
         </ion-label>
+        <ion-icon slot="end" name="chevron-forward-outline" class="ion-no-padding"></ion-icon>
       </ion-item>
     </ion-list>
     <ion-item class="empty-events-list" lines="none" *ngIf="dayEvents.length <= 0 || !dayEvents">
