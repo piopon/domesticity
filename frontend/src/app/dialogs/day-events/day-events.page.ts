@@ -7,6 +7,7 @@ import { TimeSpan } from "src/app/model/timespan.model";
 import { CategoriesService } from "src/app/services/categories.service";
 import { TextEventsService } from "src/app/services/text-events.service";
 import { UsersService } from "src/app/services/users.service";
+import { AddTextEventPage } from "../add-text-event/add-text-event.page";
 
 @Component({
   selector: "app-day-events",
@@ -42,8 +43,16 @@ export class DayEventsPage implements OnInit {
     this.dayEvents = [];
   }
 
-  eventDetails(eventIndex: number): void {
-    return;
+  async eventDetails(eventIndex: number): Promise<void> {
+    if (this.textEventsService.isOnline()) {
+      const modal = await this.modalController.create({
+        component: AddTextEventPage,
+        componentProps: {
+          'event': this.dayEvents[eventIndex],
+        }
+      });
+      return await modal.present();
+    }
   }
 
   private getAllTextEvents(dayString: string): void {
