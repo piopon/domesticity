@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AddTextEventPage } from 'src/app/dialogs/add-text-event/add-text-event.page';
+import { Event } from 'src/app/model/event.model';
 import { TextEventsService } from 'src/app/services/text-events.service';
 
 @Component({
@@ -23,6 +24,9 @@ export class AddEventComponent implements OnInit {
     if (this.getTextEventState()) {
       const modal = await this.modalController.create({
         component: AddTextEventPage,
+        componentProps: {
+          'event': Event.empty(),
+        }
       });
       return await modal.present();
     }
