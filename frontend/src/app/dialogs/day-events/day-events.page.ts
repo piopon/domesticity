@@ -32,8 +32,6 @@ export class DayEventsPage implements OnInit {
   ngOnInit() {
     this.todayString = formatDate(this.dayTime, "yyyy-dd-MM", "en");
     this.getAllTextEvents(this.todayString);
-    this.updateUsers();
-    this.updateCategories();
   }
 
   closeDialog() {
@@ -58,13 +56,5 @@ export class DayEventsPage implements OnInit {
         );
       });
     });
-  }
-
-  private updateUsers(): void {
-    this.availableUsers = this.usersService.getTestUsers();
-  }
-
-  private updateCategories(): void {
-    this.availableCategories = this.categoriesService.getTestCategories();
   }
 }
