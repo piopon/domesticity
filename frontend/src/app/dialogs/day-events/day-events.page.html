@@ -25,34 +25,6 @@
           {{ event.date.start | date:'hh:mm' }} - {{ event.date.stop | date:'hh:mm' }}
         </ion-label>
       </ion-item>
-      <ion-item *ngIf="isDetailed(i)" text-wrap detail="false">
-        <ion-grid>
-          <ion-row align-items-center>
-            <ion-col class="column-content">
-              <ion-item>
-                <ion-label position="floating">category</ion-label>
-                <ion-select value="{{ event.category }}">
-                  <ion-select-option *ngFor="let category of availableCategories;" value="{{ category.name }}">
-                    {{ category.name }}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
-              <ion-item>
-                <ion-label position="floating">owner</ion-label>
-                <ion-select value="{{ event.owner }}">
-                  <ion-select-option *ngFor="let user of availableUsers;" value="{{ user }}">
-                    {{ user }}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
-              <ion-item>
-                <ion-label position="floating">content</ion-label>
-                <ion-textarea rows="4" cols="20" value="{{ event.content }}"></ion-textarea>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
     </ion-list>
     <ion-item class="empty-events-list" lines="none" *ngIf="dayEvents.length <= 0 || !dayEvents">
       <ion-label class="ion-text-center">no events</ion-label>
