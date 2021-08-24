@@ -30,7 +30,6 @@ export class DayEventsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.visibleDetails = [];
     this.todayString = formatDate(this.dayTime, "yyyy-dd-MM", "en");
     this.getAllTextEvents(this.todayString);
     this.updateUsers();
@@ -45,17 +44,8 @@ export class DayEventsPage implements OnInit {
     this.dayEvents = [];
   }
 
-  isDetailed(eventIndex: number): boolean {
-    return this.visibleDetails.indexOf(eventIndex) !== -1;
-  }
-
-  toggleDetails(eventIndex: number): void {
-    if (this.isDetailed(eventIndex)) {
-      const index: number = this.visibleDetails.indexOf(eventIndex);
-      this.visibleDetails.splice(index, 1);
-    } else {
-      this.visibleDetails.push(eventIndex);
-    }
+  eventDetails(eventIndex: number): void {
+    return;
   }
 
   private getAllTextEvents(dayString: string): void {
