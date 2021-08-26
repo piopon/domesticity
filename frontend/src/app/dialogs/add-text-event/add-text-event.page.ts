@@ -15,11 +15,13 @@ import { UsersService } from "src/app/services/users.service";
 export class AddTextEventPage implements OnInit {
   @Input() event: Event;
 
+  availableIcons: string[];
+  availableUsers: String[];
+  availableCategories: Category[];
+
   private eventForm: FormGroup;
   private tempDateStart: string;
   private tempDateStop: string;
-  private availableUsers: String[];
-  private availableCategories: Category[];
 
   constructor(
     public modalController: ModalController,
@@ -31,6 +33,7 @@ export class AddTextEventPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.availableIcons = Event.getAvailableIcons();
     this.tempDateStart = this.event.date.start.toISOString();
     this.tempDateStop = this.event.date.stop.toISOString();
     this.updateUsers();
