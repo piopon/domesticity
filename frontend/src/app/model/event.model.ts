@@ -9,6 +9,11 @@ export class Event {
   category: string;
   content: string;
 
+  private static availableIcons: string[] = [
+    "airplane", "basketball", "beer", "bicycle", "book", "bonfire", "bus", "cafe",
+    "car", "cart", "construct", "dice", "fast-food", "football", "game-controller", "school",
+  ];
+
   public constructor(id: string, title: string, icon: string,
                      owner: string, date: TimeSpan, category: string, content: string) {
     this.id = id;
@@ -36,6 +41,10 @@ export class Event {
     }
     this.date.verify().forEach(error => result.push(error));
     return result;
+  }
+
+  public static getAvailableIcons(): string[] {
+    return Event.availableIcons;
   }
 
   public static empty(): Event {
