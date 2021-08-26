@@ -8,30 +8,16 @@ import { ActionSheetController } from "@ionic/angular";
 })
 export class IconSelectorComponent implements OnInit {
   @Input() currentIcon: string = "";
+  @Input() availableIcons: string[] = [];
   @Output() selectedIcon = new EventEmitter<string>();
 
   private iconStyle: string = "outline";
-  private availableIcons: string[] = [
-    "airplane", "basketball", "beer", "bicycle", "book", "bonfire", "bus", "cafe",
-    "car", "cart", "construct", "dice", "fast-food", "football", "game-controller", "school",
-  ];
-
   constructor(public actionSheetController: ActionSheetController) {}
 
-  ngOnInit() {
-    if (this.currentIcon === "") {
-      this.currentIcon = this.randomIcon();
-      this.selectedIcon.emit(this.currentIcon);
-    }
-  }
+  ngOnInit() {}
 
   selectIcon(): void {
     this.presentIcons();
-  }
-
-  private randomIcon(): string {
-    let randomIndex = Math.floor(Math.random() * this.availableIcons.length);
-    return this.availableIcons[randomIndex] + "-" + this.iconStyle;
   }
 
   private async presentIcons() {
