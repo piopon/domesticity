@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { ActionSheetController } from "@ionic/angular";
 
 @Component({
@@ -7,9 +7,9 @@ import { ActionSheetController } from "@ionic/angular";
   styleUrls: ["./icon-selector.component.scss"],
 })
 export class IconSelectorComponent implements OnInit {
+  @Input() currentIcon: string = "";
   @Output() selectedIcon = new EventEmitter<string>();
 
-  private currentIcon: string;
   private iconStyle: string = "outline";
   private availableIcons: string[] = [
     "airplane", "basketball", "beer", "bicycle", "book", "bonfire", "bus", "cafe",
@@ -19,8 +19,10 @@ export class IconSelectorComponent implements OnInit {
   constructor(public actionSheetController: ActionSheetController) {}
 
   ngOnInit() {
-    this.currentIcon = this.randomIcon();
-    this.selectedIcon.emit(this.currentIcon);
+    if (this.currentIcon === "") {
+      this.currentIcon = this.randomIcon();
+      this.selectedIcon.emit(this.currentIcon);
+    }
   }
 
   selectIcon(): void {
