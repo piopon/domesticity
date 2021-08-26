@@ -11,7 +11,6 @@ export class IconSelectorComponent implements OnInit {
   @Input() availableIcons: string[] = [];
   @Output() selectedIcon = new EventEmitter<string>();
 
-  private iconStyle: string = "outline";
   constructor(public actionSheetController: ActionSheetController) {}
 
   ngOnInit() {}
@@ -28,9 +27,10 @@ export class IconSelectorComponent implements OnInit {
           text: iconName,
           icon: iconName,
           handler: () => {
-            this.currentIcon = iconName + "-" + this.iconStyle;
+            let iconStyle: string = "outline";
+            this.currentIcon = iconName + "-" + iconStyle;
             this.selectedIcon.emit(this.currentIcon);
-          }
+          },
         };
       }),
     });
