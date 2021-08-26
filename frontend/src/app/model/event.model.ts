@@ -48,6 +48,12 @@ export class Event {
   }
 
   public static empty(): Event {
-    return new Event("", "", "", "", TimeSpan.now(), "", "");
+    return new Event("", "", Event.randomIcon(), "", TimeSpan.now(), "", "");
+  }
+
+  private static randomIcon(): string {
+    let iconStyle: string = "outline";
+    let randomIndex = Math.floor(Math.random() * Event.availableIcons.length);
+    return Event.availableIcons[randomIndex] + "-" + iconStyle;
   }
 }
