@@ -34,7 +34,7 @@
             </ion-select>
             <div class="error-message" *ngIf="hasError('owner')">select owner</div>
           </ion-item>
-          <icon-selector (selectedIcon)="iconUpdated($event)"></icon-selector>
+          <icon-selector [currentIcon]="event.icon" (selectedIcon)="iconUpdated($event)"></icon-selector>
           <ion-item>
             <ion-label position="floating">content</ion-label>
             <ion-textarea rows="4" cols="20" value="" formControlName="content" [(ngModel)]="event.content"></ion-textarea>
