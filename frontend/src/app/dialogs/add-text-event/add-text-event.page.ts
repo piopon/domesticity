@@ -13,12 +13,11 @@ import { UsersService } from "src/app/services/users.service";
   styleUrls: ["./add-text-event.page.scss"],
 })
 export class AddTextEventPage implements OnInit {
-  @Input() event: Event;
-
   availableIcons: string[];
   availableUsers: String[];
   availableCategories: Category[];
 
+  private event: Event;
   private eventForm: FormGroup;
   private tempDateStart: string;
   private tempDateStop: string;
@@ -33,11 +32,12 @@ export class AddTextEventPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.availableIcons = Event.getAvailableIcons();
+    this.event = Event.empty();
     this.tempDateStart = this.event.date.start.toISOString();
     this.tempDateStop = this.event.date.stop.toISOString();
     this.updateUsers();
     this.updateCategories();
+    this.availableIcons = Event.getAvailableIcons();
     this.eventForm = new FormGroup({
       title: new FormControl("", Validators.required),
       category: new FormControl("", Validators.required),
