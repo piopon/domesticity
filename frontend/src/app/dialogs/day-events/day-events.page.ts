@@ -1,12 +1,9 @@
 import { formatDate } from "@angular/common";
 import { Component, Input, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { Category } from "src/app/model/category.model";
 import { Event } from "src/app/model/event.model";
 import { TimeSpan } from "src/app/model/timespan.model";
-import { CategoriesService } from "src/app/services/categories.service";
 import { TextEventsService } from "src/app/services/text-events.service";
-import { UsersService } from "src/app/services/users.service";
 import { UpdateTextEventPage } from "../update-text-event/update-text-event.page";
 
 @Component({
@@ -18,16 +15,11 @@ export class DayEventsPage implements OnInit {
   @Input() dayTime: Date;
   @Input() dayEvents: Event[];
 
-  protected availableUsers: String[];
-  protected availableCategories: Category[];
-  private visibleDetails: number[];
   private todayString: string;
 
   constructor(
     public modalController: ModalController,
     private textEventsService: TextEventsService,
-    private categoriesService: CategoriesService,
-    private usersService: UsersService
   ) {}
 
   ngOnInit() {
