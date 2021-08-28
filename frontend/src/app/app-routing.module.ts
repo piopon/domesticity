@@ -10,6 +10,10 @@ const routes: Routes = [
     path: 'add-text-event',
     loadChildren: () => import('./dialogs/add-text-event/add-text-event.module').then( m => m.AddTextEventPageModule)
   },
+  {
+    path: 'update-text-event',
+    loadChildren: () => import('./dialogs/update-text-event/update-text-event.module').then( m => m.UpdateTextEventPageModule)
+  },
 ];
 
 @NgModule({
