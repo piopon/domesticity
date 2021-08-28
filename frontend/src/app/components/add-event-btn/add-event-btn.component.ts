@@ -24,9 +24,6 @@ export class AddEventComponent implements OnInit {
     if (this.getTextEventState()) {
       const modal = await this.modalController.create({
         component: AddTextEventPage,
-        componentProps: {
-          'event': Event.empty(),
-        }
       });
       return await modal.present();
     }
