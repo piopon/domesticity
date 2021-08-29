@@ -54,7 +54,20 @@ export class UpdateTextEventPage implements OnInit {
   }
 
   async updateEvent(): Promise<void> {
-    return;
+    this.event.date.start = new Date(this.tempDateStart);
+    this.event.date.stop = new Date(this.tempDateStop);
+    if (await this.checkEventErrors()) {
+      return;
+    }
+    this.eventService.updateEvent(this.event.id, this.event).subscribe(async (responseEvent) => {
+      const toast = await this.toastController.create({
+        color: responseEvent.id !== "" ? "success" : "danger",
+        message: responseEvent.id !== "" ? "Event successfully updated." : "Error while updating event.",
+        duration: 2000,
+      });
+      toast.present();
+    });
+    this.modalController.dismiss();
   }
 
   hasError(widget: string): boolean {
@@ -63,6 +76,21 @@ export class UpdateTextEventPage implements OnInit {
 
   iconUpdated(newIcon: string) {
     this.event.icon = newIcon;
+  }
+
+  private async checkEventErrors(): Promise<boolean> {
+    let errors: string[] = this.event.verify();
+    if (errors.length > 0) {
+      const alert = await this.alertController.create({
+        header: "error",
+        subHeader: "cannot update event",
+        message: "event has errors:<br>- " + errors.join("<br>- "),
+        buttons: ["OK"],
+      });
+      alert.present();
+      return true;
+    }
+    return false;
   }
 
   private updateUsers(): void {
