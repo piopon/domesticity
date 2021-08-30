@@ -53,7 +53,7 @@ export class DayEventsPage implements OnInit {
       events?.forEach((event) => {
         let eventDate = new TimeSpan(new Date(event.date.start), new Date(event.date.stop));
         this.dayEvents.push(
-          new Event(event.id, event.title, event.icon, event.owner, eventDate, event.category, event.content)
+          new Event(event._id, event.title, event.icon, event.owner, eventDate, event.category, event.content)
         );
       });
     });

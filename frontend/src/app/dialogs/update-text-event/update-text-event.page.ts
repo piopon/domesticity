@@ -59,7 +59,7 @@ export class UpdateTextEventPage implements OnInit {
     if (await this.checkEventErrors()) {
       return;
     }
-    this.eventService.updateEvent(this.event.id, this.event).subscribe(async (responseEvent) => {
+    this.eventService.updateEvent(this.event._id, this.event).subscribe(async (responseEvent) => {
       const toast = await this.toastController.create({
         color: responseEvent.id !== "" ? "success" : "danger",
         message: responseEvent.id !== "" ? "Event successfully updated." : "Error while updating event.",
