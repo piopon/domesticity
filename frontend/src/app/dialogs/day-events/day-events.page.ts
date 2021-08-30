@@ -32,6 +32,12 @@ export class DayEventsPage implements OnInit {
   }
 
   clearEvents() {
+    this.dayEvents.forEach((event) => {
+      this.textEventsService.deleteEvent(event._id).subscribe(() => {
+        console.log("Removed events!");
+      })
+    })
+
     this.dayEvents = [];
   }
 
