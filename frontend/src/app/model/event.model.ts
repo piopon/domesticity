@@ -1,7 +1,7 @@
 import { TimeSpan } from "./timespan.model";
 
 export class Event {
-  id: string;
+  _id: string;
   title: string;
   icon: string;
   owner: string;
@@ -14,9 +14,9 @@ export class Event {
     "car", "cart", "construct", "dice", "fast-food", "football", "game-controller", "school",
   ];
 
-  public constructor(id: string, title: string, icon: string,
+  public constructor(_id: string, title: string, icon: string,
                      owner: string, date: TimeSpan, category: string, content: string) {
-    this.id = id;
+    this._id = _id;
     this.title = title;
     this.icon = icon;
     this.owner = owner;
