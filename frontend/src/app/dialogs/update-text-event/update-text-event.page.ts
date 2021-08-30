@@ -63,7 +63,7 @@ export class UpdateTextEventPage implements OnInit {
       const toast = await this.toastController.create({
         color: responseEvent.id !== "" ? "success" : "danger",
         message: responseEvent.id !== "" ? "Event successfully updated." : "Error while updating event.",
-        duration: 2000,
+        duration: 1000,
       });
       toast.present();
     });
