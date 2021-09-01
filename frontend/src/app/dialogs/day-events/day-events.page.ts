@@ -30,7 +30,7 @@ export class DayEventsPage implements OnInit {
     this.modalController.dismiss();
   }
 
-  clearEvents() {
+  deleteAllEvents() {
     this.dayEvents.forEach((event) => {
       this.textEventsService.deleteEvent(event._id).subscribe(() => {
         console.log("Removed events!");
@@ -69,7 +69,7 @@ export class DayEventsPage implements OnInit {
   }
 
   private getAllTextEvents(dayString: string): void {
-    this.clearEvents();
+    this.deleteAllEvents();
     this.textEventsService.getEventsByDateStart(dayString).subscribe((events) => {
       events?.forEach((event) => {
         let eventDate = new TimeSpan(new Date(event.date.start), new Date(event.date.stop));

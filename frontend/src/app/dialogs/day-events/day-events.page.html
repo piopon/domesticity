@@ -11,7 +11,7 @@
   <ion-card>
     <ion-list-header lines="full">
       <ion-label>Todays events</ion-label>
-      <ion-button disabled="{{ dayEvents.length <= 0 }}" fill="outline" size="small" color="danger" (click)="clearEvents()">
+      <ion-button disabled="{{ dayEvents.length <= 0 }}" fill="outline" size="small" color="danger" (click)="deleteAllEvents()">
         delete all
       </ion-button>
     </ion-list-header>
