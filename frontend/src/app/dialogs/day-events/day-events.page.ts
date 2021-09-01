@@ -16,6 +16,7 @@ export class DayEventsPage implements OnInit {
   @Input() dayEvents: Event[];
 
   private todayString: string;
+  private visibleDetail: number;
 
   constructor(
     public modalController: ModalController,
@@ -23,6 +24,7 @@ export class DayEventsPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.visibleDetail = -1;
     this.todayString = formatDate(this.dayTime, "yyyy-dd-MM", "en");
     this.getAllTextEvents(this.todayString);
   }
@@ -46,11 +48,19 @@ export class DayEventsPage implements OnInit {
       const modal = await this.modalController.create({
         component: UpdateTextEventPage,
         componentProps: {
-          'event': this.dayEvents[eventIndex],
-        }
+          event: this.dayEvents[eventIndex],
+        },
       });
       return await modal.present();
     }
+  }
+
+  isDetailed(eventIndex: number): boolean {
+    return this.visibleDetail === eventIndex;
+  }
+
+  toggleDetails(eventIndex: number): void {
+    this.visibleDetail = (this.isDetailed(eventIndex)) ? -1 : eventIndex;
   }
 
   private getAllTextEvents(dayString: string): void {
