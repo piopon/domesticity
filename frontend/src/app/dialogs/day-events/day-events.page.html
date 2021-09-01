@@ -16,13 +16,25 @@
       </ion-button>
     </ion-list-header>
     <ion-list *ngFor="let event of dayEvents; let i = index;" lines="full" detail="false">
-      <ion-item tappable (click)="eventDetails(i)" class="event-item">
+      <ion-item tappable (click)="toggleDetails(i)" class="event-item">
         <ion-icon name="{{ event.icon }}"></ion-icon>
         <ion-label class="ion-text-left">{{ event.title }}</ion-label>
         <ion-label class="ion-text-right event-info">
           {{ event.date.start | date:'HH:mm' }} - {{ event.date.stop | date:'HH:mm' }}
         </ion-label>
         <ion-icon slot="end" name="chevron-forward-outline" class="ion-no-padding"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="isDetailed(i)" text-wrap detail="false">
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col align-items-center>
+              <ion-button color="danger">delete</ion-button>
+            </ion-col>
+            <ion-col align-items-center>
+              <ion-button (click)="eventDetails(i)">update</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-item>
     </ion-list>
     <ion-item class="empty-events-list" lines="none" *ngIf="dayEvents.length <= 0 || !dayEvents">
