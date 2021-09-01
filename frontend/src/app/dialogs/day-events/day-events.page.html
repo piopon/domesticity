@@ -20,7 +20,7 @@
         <ion-icon name="{{ event.icon }}"></ion-icon>
         <ion-label class="ion-text-left">{{ event.title }}</ion-label>
         <ion-label class="ion-text-right event-info">
-          {{ event.date.start | date:'hh:mm' }} - {{ event.date.stop | date:'hh:mm' }}
+          {{ event.date.start | date:'HH:mm' }} - {{ event.date.stop | date:'HH:mm' }}
         </ion-label>
         <ion-icon slot="end" name="chevron-forward-outline" class="ion-no-padding"></ion-icon>
       </ion-item>
