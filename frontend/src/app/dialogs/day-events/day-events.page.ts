@@ -16,12 +16,13 @@ export class DayEventsPage implements OnInit {
   @Input() dayEvents: Event[];
 
   private todayString: string;
-  private visibleDetail: number;
+  private selectedEventIndex: number;
+  private static readonly NO_EVENT_SELECTED: number = -1;
 
   constructor(public modalController: ModalController, private textEventsService: TextEventsService) {}
 
   ngOnInit() {
-    this.visibleDetail = -1;
+    this.selectedEventIndex = DayEventsPage.NO_EVENT_SELECTED;
     this.todayString = formatDate(this.dayTime, "yyyy-dd-MM", "en");
     this.getAllTextEvents(this.todayString);
   }
@@ -45,7 +46,7 @@ export class DayEventsPage implements OnInit {
       console.log("Removed event!");
     });
     this.dayEvents.splice(eventIndex, 1);
-    this.visibleDetail = -1;
+    this.selectedEventIndex = DayEventsPage.NO_EVENT_SELECTED;
   }
 
   async eventDetails(eventIndex: number): Promise<void> {
@@ -61,11 +62,11 @@ export class DayEventsPage implements OnInit {
   }
 
   isDetailed(eventIndex: number): boolean {
-    return this.visibleDetail === eventIndex;
+    return this.selectedEventIndex === eventIndex;
   }
 
   toggleDetails(eventIndex: number): void {
-    this.visibleDetail = (this.isDetailed(eventIndex)) ? -1 : eventIndex;
+    this.selectedEventIndex = this.isDetailed(eventIndex) ? DayEventsPage.NO_EVENT_SELECTED : eventIndex;
   }
 
   private getAllTextEvents(dayString: string): void {
