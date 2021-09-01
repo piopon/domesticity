@@ -18,10 +18,7 @@ export class DayEventsPage implements OnInit {
   private todayString: string;
   private visibleDetail: number;
 
-  constructor(
-    public modalController: ModalController,
-    private textEventsService: TextEventsService,
-  ) {}
+  constructor(public modalController: ModalController, private textEventsService: TextEventsService) {}
 
   ngOnInit() {
     this.visibleDetail = -1;
@@ -37,9 +34,8 @@ export class DayEventsPage implements OnInit {
     this.dayEvents.forEach((event) => {
       this.textEventsService.deleteEvent(event._id).subscribe(() => {
         console.log("Removed events!");
-      })
-    })
-
+      });
+    });
     this.dayEvents = [];
   }
 

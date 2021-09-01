@@ -12,7 +12,7 @@
     <ion-list-header lines="full">
       <ion-label>Todays events</ion-label>
       <ion-button disabled="{{ dayEvents.length <= 0 }}" fill="outline" size="small" color="danger" (click)="clearEvents()">
-        Clear all
+        delete all
       </ion-button>
     </ion-list-header>
     <ion-list *ngFor="let event of dayEvents; let i = index;" lines="full" detail="false">
