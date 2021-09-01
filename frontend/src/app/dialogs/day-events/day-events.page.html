@@ -29,7 +29,7 @@
         <ion-grid>
           <ion-row align-items-center>
             <ion-col align-items-center>
-              <ion-button color="danger">delete</ion-button>
+              <ion-button (click)="deleteEvent(i)" color="danger">delete</ion-button>
             </ion-col>
             <ion-col align-items-center>
               <ion-button (click)="eventDetails(i)">update</ion-button>

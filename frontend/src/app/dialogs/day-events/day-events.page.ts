@@ -39,6 +39,15 @@ export class DayEventsPage implements OnInit {
     this.dayEvents = [];
   }
 
+  deleteEvent(eventIndex: number) {
+    let selectedEvent = this.dayEvents[eventIndex];
+    this.textEventsService.deleteEvent(selectedEvent._id).subscribe(() => {
+      console.log("Removed event!");
+    });
+    this.dayEvents.splice(eventIndex, 1);
+    this.visibleDetail = -1;
+  }
+
   async eventDetails(eventIndex: number): Promise<void> {
     if (this.textEventsService.isOnline()) {
       const modal = await this.modalController.create({
