@@ -61,12 +61,12 @@ export class DayEventsPage implements OnInit {
     }
   }
 
-  isDetailed(eventIndex: number): boolean {
+  isEventSelected(eventIndex: number): boolean {
     return this.selectedEventIndex === eventIndex;
   }
 
-  toggleDetails(eventIndex: number): void {
-    this.selectedEventIndex = this.isDetailed(eventIndex) ? DayEventsPage.NO_EVENT_SELECTED : eventIndex;
+  toggleEventSelection(eventIndex: number): void {
+    this.selectedEventIndex = this.isEventSelected(eventIndex) ? DayEventsPage.NO_EVENT_SELECTED : eventIndex;
   }
 
   private getAllTextEvents(dayString: string): void {
