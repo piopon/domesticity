@@ -36,21 +36,29 @@ ion-content {
         padding-right: 10px;
     }
 
-    ion-item ion-icon {
-        padding-right: 10px;
-    }
-
-    ion-item.event-item {
-        --background: var(--ion-color-primary-contrast);
-        height: 50px;
-    }
-
     ion-item.empty-events-list {
         --color: gray;
     }
 
-    ion-label.event-info {
-        --color: gray;
-        font-size: 13px;
+    ion-list{
+        ion-item.event-item-simple {
+            --background: var(--ion-color-primary-contrast);
+            height: 50px;
+        }
+
+        ion-item.event-item-detailed {
+            --background: var(--ion-color-primary-contrast);
+            height: 50px;
+        }
+
+        ion-item ion-icon {
+            padding-right: 10px;
+        }
+
+        ion-label.event-info {
+            --color: gray;
+            font-size: 13px;
+        }
+
     }
 }
