@@ -41,7 +41,7 @@ ion-content {
     }
 
     ion-list{
-        ion-item.event-item-simple {
+        ion-item.event-item {
             --background: var(--ion-color-primary-contrast);
             border-color: rgb(222,222,222);
             border-style: solid;
@@ -49,7 +49,7 @@ ion-content {
             height: 50px;
         }
 
-        ion-item.event-item-detailed {
+        ion-item.event-selected {
             --background: var(--ion-color-primary-contrast);
             border-width: 0px 0px 0px 0px;
             height: 50px;
