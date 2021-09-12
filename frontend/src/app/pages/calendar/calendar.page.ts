@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CalendarComponent } from 'ionic2-calendar';
 import { DayEventsPage } from 'src/app/dialogs/day-events/day-events.page';
+import { Event } from 'src/app/model/event.model';
+import { TimeSpan } from 'src/app/model/timespan.model';
 
 @Component({
   selector: 'app-calendar',
@@ -23,6 +25,12 @@ export class CalendarPage implements OnInit {
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
+    this.eventSource.push({
+      allDay: false,
+      endTime: TimeSpan.now().stop,
+      startTime: TimeSpan.now().start,
+      title: "test",
+  });
   }
 
   nextMonth() {
