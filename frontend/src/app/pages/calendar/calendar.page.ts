@@ -11,26 +11,22 @@ import { TimeSpan } from 'src/app/model/timespan.model';
   styleUrls: ['./calendar.page.scss'],
 })
 export class CalendarPage implements OnInit {
-  availableModes:string[] = [ 'month', 'week', 'day' ];
-  eventSource = [];
-  titleMonth: string;
-
-  calendar = {
-    mode: this.availableModes[0],
-    currentDate: new Date()
-  };
+  private calendarData: any;
+  private eventSource: IEvent[] = [];
+  private availableModes: string[] = [ 'month', 'week', 'day' ];
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
 
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
-    this.eventSource.push({
-      allDay: false,
-      endTime: TimeSpan.now().stop,
-      startTime: TimeSpan.now().start,
-      title: "test",
-  });
+    this.calendarData = {
+      titleMonth: '',
+      currentDate: new Date(),
+      mode: this.availableModes[0],
+    };
+    let currentMonth = this.calendarData.currentDate.getMonth();
+    this.eventSource = this.getEventSourceForMonth(currentMonth);
   }
 
   nextMonth() {
@@ -42,7 +38,7 @@ export class CalendarPage implements OnInit {
   }
 
   onMonthChanged(newTitle:string) {
-    this.titleMonth = newTitle;
+    this.calendarData.titleMonth = newTitle;
   }
 
   async onTimeSelected(event: { selectedTime: Date, events: any[] }) {
@@ -57,9 +53,19 @@ export class CalendarPage implements OnInit {
   }
 
   changeView() {
-    let modeIndex:number = this.availableModes.indexOf(this.calendar.mode);
+    let modeIndex:number = this.availableModes.indexOf(this.calendarData.mode);
     modeIndex = (modeIndex + 1) % this.availableModes.length;
-    this.calendar.mode = this.availableModes[modeIndex]
+    this.calendarData.mode = this.availableModes[modeIndex]
+  }
+
+  private getEventSourceForMonth(monthNo: number): IEvent[] {
+    this.eventSource.push({
+      allDay: false,
+      endTime: TimeSpan.now().stop,
+      startTime: TimeSpan.now().start,
+      title: "test",
+    });
+    return [];
   }
 
 }
