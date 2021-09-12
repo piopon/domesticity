@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CalendarComponent } from 'ionic2-calendar';
+import { IEvent } from 'ionic2-calendar/calendar';
 import { DayEventsPage } from 'src/app/dialogs/day-events/day-events.page';
-import { Event } from 'src/app/model/event.model';
 import { TimeSpan } from 'src/app/model/timespan.model';
 
 @Component({
