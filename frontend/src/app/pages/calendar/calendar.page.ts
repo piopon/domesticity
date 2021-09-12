@@ -3,7 +3,7 @@ import { ModalController } from "@ionic/angular";
 import { CalendarComponent } from "ionic2-calendar";
 import { IEvent } from "ionic2-calendar/calendar";
 import { DayEventsPage } from "src/app/dialogs/day-events/day-events.page";
-import { TimeSpan } from "src/app/model/timespan.model";
+import { TextEventsService } from "src/app/services/text-events.service";
 
 @Component({
   selector: "app-calendar",
@@ -17,7 +17,7 @@ export class CalendarPage implements OnInit {
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
 
-  constructor(public modalController: ModalController) {}
+  constructor(public modalController: ModalController, private textEventsService: TextEventsService) {}
 
   ngOnInit() {
     this.calendarData = {
@@ -59,12 +59,17 @@ export class CalendarPage implements OnInit {
   }
 
   private getEventSourceForMonth(monthNo: number): IEvent[] {
-    this.eventSource.push({
-      allDay: false,
-      endTime: TimeSpan.now().stop,
-      startTime: TimeSpan.now().start,
-      title: "test",
+    let currEventSource: IEvent[] = [];
+    this.textEventsService.getEventsInMonth(monthNo).subscribe((events) => {
+      events?.forEach((event) => {
+        currEventSource.push({
+          allDay: false,
+          endTime: new Date(event.date.stop),
+          startTime: new Date(event.date.start),
+          title: event.title,
+        });
+      });
     });
-    return [];
+    return currEventSource;
   }
 }
