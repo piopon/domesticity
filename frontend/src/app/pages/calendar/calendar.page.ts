@@ -27,6 +27,17 @@ export class CalendarPage implements OnInit {
     };
     let currentMonth = this.calendarData.currentDate.getMonth();
     this.eventSource = this.getEventSourceForMonth(currentMonth);
+
+    let start = new Date();
+    start.setDate(11);
+    let stop = new Date();
+    stop.setDate(11);
+    this.eventSource.push({
+      allDay: false,
+      endTime: stop,
+      startTime: start,
+      title: "test",
+    });
   }
 
   nextMonth() {
