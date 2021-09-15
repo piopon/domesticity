@@ -69,18 +69,16 @@ export class CalendarPage implements OnInit {
     this.calendarData.mode = this.availableModes[modeIndex];
   }
 
-  private getEventSourceForMonth(monthNo: number): IEvent[] {
-    let currEventSource: IEvent[] = [];
-    this.textEventsService.getEventsInMonth(monthNo).subscribe((events) => {
-      events?.forEach((event) => {
-        currEventSource.push({
-          allDay: false,
-          endTime: new Date(event.date.stop),
-          startTime: new Date(event.date.start),
-          title: event.title,
-        });
+  private async getEventSourceForMonth(monthNo: number): Promise<IEvent[]> {
+    let currEvents: IEvent[] = [];
+    (await this.textEventsService.getEventsInMonth(monthNo).toPromise())?.forEach(event => {
+      currEvents.push({
+        title: event.title,
+        startTime: new Date(event.date.start),
+        endTime: new Date(event.date.stop),
+        allDay: false,
       });
     });
-    return currEventSource;
+    return currEvents;
   }
 }
