@@ -29,19 +29,19 @@ export class CalendarPage implements OnInit {
     this.updateEventSource(currentMonth);
   }
 
-  nextMonth() {
+  protected nextMonth() {
     this.myCalendar.slideNext();
   }
 
-  previousMonth() {
+  protected previousMonth() {
     this.myCalendar.slidePrev();
   }
 
-  onMonthChanged(newTitle: string) {
+  protected onMonthChanged(newTitle: string) {
     this.calendarData.titleMonth = newTitle;
   }
 
-  async onTimeSelected(event: { selectedTime: Date; events: any[] }) {
+  protected async onTimeSelected(event: { selectedTime: Date; events: any[] }) {
     if ("month" === this.calendarData.mode) {
       const modal = await this.modalController.create({
         component: DayEventsPage,
@@ -54,7 +54,7 @@ export class CalendarPage implements OnInit {
     }
   }
 
-  changeView() {
+  protected changeView() {
     let modeIndex: number = this.availableModes.indexOf(this.calendarData.mode);
     modeIndex = (modeIndex + 1) % this.availableModes.length;
     this.calendarData.mode = this.availableModes[modeIndex];
