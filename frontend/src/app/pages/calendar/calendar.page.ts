@@ -19,14 +19,14 @@ export class CalendarPage implements OnInit {
 
   constructor(public modalController: ModalController, private textEventsService: TextEventsService) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     this.calendarData = {
       titleMonth: "",
       currentDate: new Date(),
       mode: this.availableModes[0],
     };
     let currentMonth = this.calendarData.currentDate.getMonth();
-    this.eventSource = await this.getEventSourceForMonth(currentMonth);
+    this.getEventSourceForMonth(currentMonth).then(events => this.eventSource = events);
   }
 
   nextMonth() {
