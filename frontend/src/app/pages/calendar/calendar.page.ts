@@ -26,7 +26,7 @@ export class CalendarPage implements OnInit {
       mode: this.availableModes[0],
     };
     let currentMonth = this.calendarData.currentDate.getMonth();
-    this.getEventSourceForMonth(currentMonth).then(events => this.eventSource = events);
+    this.getEventSourceForMonth(currentMonth);
   }
 
   nextMonth() {
@@ -58,16 +58,17 @@ export class CalendarPage implements OnInit {
     this.calendarData.mode = this.availableModes[modeIndex];
   }
 
-  private async getEventSourceForMonth(monthNo: number): Promise<IEvent[]> {
-    let currEvents: IEvent[] = [];
-    (await this.textEventsService.getEventsInMonth(monthNo).toPromise())?.forEach(event => {
-      currEvents.push({
-        title: event.title,
-        startTime: new Date(event.date.start),
-        endTime: new Date(event.date.stop),
-        allDay: false,
+  private getEventSourceForMonth(monthNo: number): void {
+    var currentEvents: IEvent[] = [];
+    this.textEventsService.getEventsInMonth(monthNo).toPromise().then((events) => {
+      events?.forEach((event) => {
+        currentEvents.push({
+          title: event.title,
+          startTime: new Date(event.date.start),
+          endTime: new Date(event.date.stop),
+          allDay: false,
+        });
       });
-    });
-    return currEvents;
+    }).then((_) => this.eventSource = currentEvents);
   }
 }
