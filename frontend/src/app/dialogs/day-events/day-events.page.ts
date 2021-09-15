@@ -13,8 +13,8 @@ import { UpdateTextEventPage } from "../update-text-event/update-text-event.page
 })
 export class DayEventsPage implements OnInit {
   @Input() dayTime: Date;
-  @Input() dayEvents: Event[];
 
+  private dayEvents: Event[] = [];
   private todayString: string;
   private selectedEventIndex: number;
   private static readonly NO_EVENT_SELECTED: number = -1;

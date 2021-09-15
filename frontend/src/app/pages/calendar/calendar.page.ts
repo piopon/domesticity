@@ -47,7 +47,6 @@ export class CalendarPage implements OnInit {
         component: DayEventsPage,
         componentProps: {
           dayTime: event.selectedTime,
-          dayEvents: event.events,
         },
       });
       return await modal.present();
