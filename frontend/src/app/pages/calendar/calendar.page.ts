@@ -13,20 +13,18 @@ import { TextEventsService } from "src/app/services/text-events.service";
 export class CalendarPage implements OnInit {
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
 
-  private calendarData: any;
-  private eventSource: IEvent[] = [];
   private calendarModes: CalendarMode[] = ["month", "week", "day"];
+  private pageData = {
+    title: "" as string,
+    today: new Date() as Date,
+    events: [] as IEvent[],
+    viewMode: this.calendarModes[0] as CalendarMode,
+  };
 
   constructor(public modalController: ModalController, private textEventsService: TextEventsService) {}
 
   ngOnInit() {
-    this.calendarData = {
-      titleMonth: "" as string,
-      currentDate: new Date() as Date,
-      mode: this.calendarModes[0] as CalendarMode,
-    };
-    let currentMonth = this.calendarData.currentDate.getMonth();
-    this.updateEventSource(currentMonth);
+    this.updateEventSource(this.pageData.today.getMonth());
   }
 
   protected nextMonth() {
@@ -38,11 +36,11 @@ export class CalendarPage implements OnInit {
   }
 
   protected onMonthChanged(newTitle: string) {
-    this.calendarData.titleMonth = newTitle;
+    this.pageData.title = newTitle;
   }
 
   protected async onTimeSelected(event: { selectedTime: Date; events: any[] }) {
-    if ("month" === this.calendarData.mode) {
+    if ("month" === this.pageData.viewMode) {
       const modal = await this.modalController.create({
         component: DayEventsPage,
         componentProps: {
@@ -54,9 +52,9 @@ export class CalendarPage implements OnInit {
   }
 
   protected changeView() {
-    let modeIndex: number = this.calendarModes.indexOf(this.calendarData.mode);
+    let modeIndex: number = this.calendarModes.indexOf(this.pageData.viewMode);
     modeIndex = (modeIndex + 1) % this.calendarModes.length;
-    this.calendarData.mode = this.calendarModes[modeIndex];
+    this.pageData.viewMode = this.calendarModes[modeIndex];
   }
 
   private updateEventSource(monthNo: number): void {
@@ -74,6 +72,6 @@ export class CalendarPage implements OnInit {
           });
         });
       })
-      .then((_) => (this.eventSource = currentEvents));
+      .then((_) => (this.pageData.events = currentEvents));
   }
 }

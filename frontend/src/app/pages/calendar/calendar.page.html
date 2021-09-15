@@ -13,7 +13,7 @@
           </ion-button>
         </ion-col>
         <ion-col size="4" size-md="2" class="ion-no-padding ion-text-center ion-align-self-center">
-          <ion-label>{{ calendarData.titleMonth }}</ion-label>
+          <ion-label>{{ pageData.title }}</ion-label>
         </ion-col>
         <ion-col size="1" class="ion-no-padding ion-no-margin">
           <ion-button fill="clear" class="ion-float-left" (click)="nextMonth()">
@@ -22,7 +22,7 @@
         </ion-col>
         <ion-col offset="3" size="1" class="ion-no-padding ion-no-margin ion-align-self-center">
           <ion-button size="small" fill="outline" shape="round" class="ion-float-right ion-text-lowercase" (click)="changeView()">
-            {{ calendarData.mode }}
+            {{ pageData.viewMode }}
           </ion-button>
         </ion-col>
       </ion-row>
@@ -31,11 +31,11 @@
 </ion-header>
 <ion-content>
   <calendar
-    [eventSource]="eventSource"
-    [calendarMode]="calendarData.mode"
-    [currentDate]="calendarData.currentDate"
-    [showEventDetail]="false"
     [autoSelect]="false"
+    [showEventDetail]="false"
+    [currentDate]="pageData.today"
+    [eventSource]="pageData.events"
+    [calendarMode]="pageData.viewMode"
     [sliderOptions]="{ allowTouchMove: false, speed: 10 }"
     (onTitleChanged)="onMonthChanged($event)"
     (onTimeSelected)="onTimeSelected($event)">
