@@ -8,7 +8,7 @@ import (
 
 func TestValidationErrorsToStringRetursOkResult(t *testing.T) {
 	testErrors := model.ValidationError{
-		[]string{
+		Messages: []string{
 			"error 1",
 			"error 2",
 			"error 3",

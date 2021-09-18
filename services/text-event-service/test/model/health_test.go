@@ -7,7 +7,7 @@ import (
 )
 
 func TestHealthToStringRetursOkResult(t *testing.T) {
-	testErrors := model.Health{"ALL RIGHTY!!!"}
+	testErrors := model.Health{Status: "ALL RIGHTY!!!"}
 	healthStr := testErrors.ToString()
 	expectedString := "ALL RIGHTY!!!"
 	if expectedString != healthStr {
