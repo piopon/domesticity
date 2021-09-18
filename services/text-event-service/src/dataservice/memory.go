@@ -64,7 +64,7 @@ func (memory *InMemory) GetEvent(id primitive.ObjectID) (*model.Event, error) {
 func (memory *InMemory) AddEvent(event *model.Event) error {
 	_, error := memory.findEvent(event.ID)
 	if error == nil {
-		return fmt.Errorf("Event with specified ID already exists")
+		return fmt.Errorf("event with specified ID already exists")
 	}
 	event.ID = primitive.NewObjectID()
 	memory.eventsList = append(memory.eventsList, event)
@@ -98,5 +98,5 @@ func (memory *InMemory) findEvent(id primitive.ObjectID) (int, error) {
 			return i, nil
 		}
 	}
-	return -1, fmt.Errorf("Event not found")
+	return -1, fmt.Errorf("event not found")
 }

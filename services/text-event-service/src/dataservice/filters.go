@@ -72,18 +72,18 @@ func (filters Filters) GetOptions(queryParams url.Values) (*options.FindOptions,
 	for key, value := range queryParams {
 		if filter, ok := filters.available[key]; ok {
 			if filter.Type == typeInternal {
-				return nil, fmt.Errorf("Internal filters does not provide additional options")
+				return nil, fmt.Errorf("internal filters does not provide additional options")
 			}
 			if filter.Type != typeOption {
 				continue
 			}
 			valueParsed, error := strconv.ParseInt(value[0], 10, 64)
 			if error != nil {
-				return nil, fmt.Errorf("Filter '"+key+"': cannot parse input value %s", value[0])
+				return nil, fmt.Errorf("cannot parse input value '%s' for filter '"+key+"'", value[0])
 			}
 			filter.Query.(func(*options.FindOptions, int64))(&queryOptions, valueParsed)
 		} else {
-			return nil, fmt.Errorf("Filter named '" + key + "' is not available")
+			return nil, fmt.Errorf("filter named '" + key + "' is not available")
 		}
 	}
 	return &queryOptions, nil
@@ -106,7 +106,7 @@ func (filters Filters) GetFilters(queryParams url.Values) (interface{}, error) {
 			query := filter.Query.(func(string, []string) interface{})(filter.FieldDB, value)
 			queryFilter = append(queryFilter, query.(bson.M))
 		} else {
-			return nil, fmt.Errorf("Filter named '" + key + "' is not available")
+			return nil, fmt.Errorf("filter named '" + key + "' is not available")
 		}
 	}
 	if len(queryFilter) > 0 {

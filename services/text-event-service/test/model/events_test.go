@@ -121,12 +121,12 @@ func checkResultEvents(expectEvents model.Events, resultEvents model.Events) err
 	resultNo := len(resultEvents)
 	expectNo := len(expectEvents)
 	if resultNo != expectNo {
-		return fmt.Errorf("Incorrect result data size: %d", resultNo)
+		return fmt.Errorf("incorrect result data size '%d'", resultNo)
 	}
 	for i, resultEvent := range resultEvents {
 		expectedEvent := expectEvents[i]
 		if resultEvent.ToString() != expectedEvent.ToString() {
-			return fmt.Errorf("Incorrect result: %v", resultEvent)
+			return fmt.Errorf("incorrect result '%v'", resultEvent)
 		}
 	}
 	return nil
