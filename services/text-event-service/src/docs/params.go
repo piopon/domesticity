@@ -37,6 +37,9 @@ type paramGetEventsFilter struct {
 	// The end date of seached event in format YYYY-MM-DD
 	// in: query
 	DayStop time.Time `json:"dayStop"`
+	// The month date for which to search events in format YYYY-MM-DD (day component is not used)
+	// in: query
+	InMonth time.Time `json:"inMonth"`
 	// The string which has to match exact searched event category
 	// in: query
 	Category string `json:"category"`
