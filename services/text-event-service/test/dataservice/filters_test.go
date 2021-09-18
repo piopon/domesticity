@@ -17,10 +17,10 @@ func TestNewFiltersShouldCreateMongoFilters(t *testing.T) {
 	}
 	filterNames := filters.GetAvailable()
 	filtersNo := len(filterNames)
-	if filtersNo != 8 {
+	if filtersNo != 9 {
 		t.Errorf("Received incorrect filters number. Available filters %d", filtersNo)
 	}
-	expected := []string{"limit", "offset", "title", "owner", "dayStart", "dayStop", "category", "content"}
+	expected := []string{"limit", "offset", "title", "owner", "dayStart", "dayStop", "inMonth", "category", "content"}
 	for i := range filterNames {
 		exists := isPresent(expected, filterNames[i])
 		if !exists {

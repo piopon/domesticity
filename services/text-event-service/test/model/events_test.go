@@ -140,6 +140,7 @@ func getTestEvent1() *model.Event {
 	return &model.Event{
 		ID:    primitive.NewObjectID(),
 		Title: "This is my first event",
+		Icon: "test-icon",
 		Owner: "Admin",
 		Occurence: model.TimeSpan{
 			Start: time.Date(2020, 01, 01, 00, 00, 00, 00, time.Local),
@@ -153,6 +154,7 @@ func getTestEvent2() *model.Event {
 	return &model.Event{
 		ID:    primitive.NewObjectID(),
 		Title: "Event no. 2",
+		Icon: "test-icon",
 		Owner: "User",
 		Occurence: model.TimeSpan{
 			Start: time.Date(2020, 02, 02, 00, 00, 00, 00, time.Local),
@@ -166,6 +168,7 @@ func getTestEvent3() *model.Event {
 	return &model.Event{
 		ID:    primitive.NewObjectID(),
 		Title: "3 EVENT",
+		Icon: "test-icon",
 		Owner: "Admin",
 		Occurence: model.TimeSpan{
 			Start: time.Date(2020, 03, 03, 00, 00, 00, 00, time.Local),
