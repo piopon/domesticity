@@ -125,14 +125,14 @@ func (filters Filters) GetAvailable() []string {
 }
 
 func dateQuery(dbField string, value []string) interface{} {
-	day, _ := time.Parse("2006-02-01", value[0])
+	day, _ := time.Parse("2006-01-02", value[0])
 	minDayTime := time.Date(day.Year(), day.Month(), day.Day(), 0, 0, 0, 0, time.UTC)
 	maxDayTime := time.Date(day.Year(), day.Month(), day.Day(), 23, 59, 59, 9999999, time.UTC)
 	return bson.M{dbField: bson.M{"$gte": minDayTime, "$lte": maxDayTime}}
 }
 
 func monthQuery(dbField string, value []string) interface{} {
-	day, _ := time.Parse("2006-02-01", value[0])
+	day, _ := time.Parse("2006-01-02", value[0])
 	daysInMonth := time.Date(day.Year(), day.Month() + 1, 0, 0, 0, 0, 0, time.UTC).Day()
 	minDayTime := time.Date(day.Year(), day.Month(), 1, 0, 0, 0, 0, time.UTC)
 	maxDayTime := time.Date(day.Year(), day.Month(), daysInMonth, 23, 59, 59, 9999999, time.UTC)
