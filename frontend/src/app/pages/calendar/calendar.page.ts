@@ -30,10 +30,14 @@ export class CalendarPage implements OnInit {
   }
 
   protected nextMonth() {
+    this.pageData.viewDate.setMonth(this.pageData.viewDate.getMonth() + 1);
+    this.updateEventSource(this.getDateString(this.pageData.viewDate));
     this.myCalendar.slideNext();
   }
 
   protected previousMonth() {
+    this.pageData.viewDate.setMonth(this.pageData.viewDate.getMonth() - 1);
+    this.updateEventSource(this.getDateString(this.pageData.viewDate));
     this.myCalendar.slidePrev();
   }
 
