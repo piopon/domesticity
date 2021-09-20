@@ -19,13 +19,15 @@ export class CalendarPage implements OnInit {
     title: "" as string,
     today: new Date() as Date,
     events: [] as IEvent[],
+    viewDate: new Date() as Date,
     viewMode: this.calendarModes[0] as CalendarMode,
   };
 
   constructor(public modalController: ModalController, private textEventsService: TextEventsService) {}
 
   ngOnInit() {
-    this.updateEventSource(this.pageData.today.getMonth());
+    var dateString = this.getDateString(this.pageData.viewDate);
+    this.updateEventSource(dateString);
   }
 
   protected nextMonth() {
@@ -58,10 +60,10 @@ export class CalendarPage implements OnInit {
     this.pageData.viewMode = this.calendarModes[modeIndex];
   }
 
-  private updateEventSource(monthNo: number): void {
+  private updateEventSource(monthDate: string): void {
     var currentEvents: IEvent[] = [];
     this.textEventsService
-      .getEventsInMonth(monthNo)
+      .getEventsInMonth(monthDate)
       .toPromise()
       .then((events) => {
         events?.forEach((event) => {
