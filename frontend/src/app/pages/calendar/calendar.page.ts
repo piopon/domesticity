@@ -1,3 +1,4 @@
+import { formatDate } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { CalendarComponent } from "ionic2-calendar";
@@ -73,5 +74,9 @@ export class CalendarPage implements OnInit {
         });
       })
       .then((_) => (this.pageData.events = currentEvents));
+  }
+
+  private getDateString(date: Date): string {
+    return formatDate(date, "yyyy-MM-dd", "en");
   }
 }
