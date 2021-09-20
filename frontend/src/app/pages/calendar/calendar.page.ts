@@ -26,8 +26,7 @@ export class CalendarPage implements OnInit {
   constructor(public modalController: ModalController, private textEventsService: TextEventsService) {}
 
   ngOnInit() {
-    var dateString = this.getDateString(this.pageData.viewDate);
-    this.updateEventSource(dateString);
+    this.updateEventSource(this.getDateString(this.pageData.viewDate));
   }
 
   protected nextMonth() {
