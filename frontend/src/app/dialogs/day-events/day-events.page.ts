@@ -23,7 +23,7 @@ export class DayEventsPage implements OnInit {
 
   ngOnInit() {
     this.selectedEventIndex = DayEventsPage.NO_EVENT_SELECTED;
-    this.todayString = formatDate(this.dayTime, "yyyy-dd-MM", "en");
+    this.todayString = formatDate(this.dayTime, "yyyy-MM-dd", "en");
     this.getAllTextEvents(this.todayString);
   }
 
