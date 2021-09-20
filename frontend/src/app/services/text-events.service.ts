@@ -69,8 +69,8 @@ export class TextEventsService {
     return this.filterEvents("dayStop", dateValue, limit, offset);
   }
 
-  getEventsInMonth(monthNo: number, limit: number = 0, offset: number = 0): Observable<Event[]> {
-    return this.filterEvents("inMonth", String(monthNo), limit, offset);
+  getEventsInMonth(monthDate: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
+    return this.filterEvents("inMonth", monthDate, limit, offset);
   }
 
   private async pingService(): Promise<void> {
