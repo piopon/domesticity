@@ -19,6 +19,7 @@ export class CalendarPage implements OnInit {
     title: "" as string,
     today: new Date() as Date,
     events: [] as IEvent[],
+    slider: { allowTouchMove: false, speed: 10 } as any,
     viewDate: new Date() as Date,
     viewMode: this.calendarModes[0] as CalendarMode,
   };

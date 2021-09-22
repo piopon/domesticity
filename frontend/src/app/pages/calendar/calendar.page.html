@@ -41,7 +41,7 @@
     [currentDate]="pageData.today"
     [eventSource]="pageData.events"
     [calendarMode]="pageData.viewMode"
-    [sliderOptions]="{ allowTouchMove: false, speed: 10 }"
+    [sliderOptions]="pageData.slider"
     (onTitleChanged)="onMonthChanged($event)"
     (onTimeSelected)="onTimeSelected($event)">
   </calendar>
