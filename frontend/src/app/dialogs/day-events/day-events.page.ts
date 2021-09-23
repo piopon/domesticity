@@ -78,7 +78,7 @@ export class DayEventsPage implements OnInit {
   }
 
   private getAllTextEvents(dayString: string): void {
-    this.deleteAllEvents();
+    this.dayEvents = [];
     this.textEventsService.getEventsByDateStart(dayString).subscribe((events) => {
       events?.forEach((event) => {
         let eventDate = new TimeSpan(new Date(event.date.start), new Date(event.date.stop));
