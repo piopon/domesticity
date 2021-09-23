@@ -57,7 +57,7 @@ export class DayEventsPage implements OnInit {
     this.selectedEventIndex = DayEventsPage.NO_EVENT_SELECTED;
   }
 
-  async eventDetails(eventIndex: number): Promise<void> {
+  async updateEvent(eventIndex: number): Promise<void> {
     if (this.textEventsService.isOnline()) {
       const modal = await this.modalController.create({
         component: UpdateTextEventPage,
