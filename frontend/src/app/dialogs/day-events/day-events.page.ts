@@ -1,6 +1,7 @@
 import { formatDate } from "@angular/common";
 import { Component, Input, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
+import { Subscription } from "rxjs";
 import { Event } from "src/app/model/event.model";
 import { TimeSpan } from "src/app/model/timespan.model";
 import { TextEventsService } from "src/app/services/text-events.service";
@@ -17,14 +18,21 @@ export class DayEventsPage implements OnInit {
   private dayEvents: Event[] = [];
   private todayString: string;
   private selectedEventIndex: number;
+  private subscription: Subscription;
   private static readonly NO_EVENT_SELECTED: number = -1;
 
-  constructor(public modalController: ModalController, private textEventsService: TextEventsService) {}
+  constructor(public modalController: ModalController, private textEventsService: TextEventsService) {
+    this.subscription = this.textEventsService.watch().subscribe(_ => this.getAllTextEvents(this.todayString));
+  }
 
   ngOnInit() {
     this.selectedEventIndex = DayEventsPage.NO_EVENT_SELECTED;
     this.todayString = formatDate(this.dayTime, "yyyy-MM-dd", "en");
     this.getAllTextEvents(this.todayString);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   closeDialog() {
