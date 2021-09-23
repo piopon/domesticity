@@ -24,51 +24,51 @@ export class TextEventsService {
     this.pingTimer = setInterval(() => this.pingService(), this.pingInterval);
   }
 
-  isOnline(): boolean {
+  public isOnline(): boolean {
     return this.online;
   }
 
-  addEvent(event: Event): Observable<any> {
+  public addEvent(event: Event): Observable<any> {
     return this.http.post(`${this.url}events`, JSON.stringify(event), this.httpOptions());
   }
 
-  updateEvent(id: string, event: Event): Observable<any> {
+  public updateEvent(id: string, event: Event): Observable<any> {
     return this.http.put(`${this.url}events/${id}`, JSON.stringify(event), this.httpOptions());
   }
 
-  deleteEvent(id: string): Observable<any> {
+  public deleteEvent(id: string): Observable<any> {
     return this.http.delete(`${this.url}events/${id}`, this.httpOptions());
   }
 
-  getEvents(): Observable<Event[]> {
+  public getEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(`${this.url}events`, this.httpOptions());
   }
 
-  getEventsByTitle(titleValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
+  public getEventsByTitle(titleValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.filterEvents("owner", titleValue, limit, offset);
   }
 
-  getEventsByCategory(categoryValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
+  public getEventsByCategory(categoryValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.filterEvents("category", categoryValue, limit, offset);
   }
 
-  getEventsByOwner(ownerValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
+  public getEventsByOwner(ownerValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.filterEvents("dayStart", ownerValue, limit, offset);
   }
 
-  getEventsByContent(contentValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
+  public getEventsByContent(contentValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.filterEvents("content", contentValue, limit, offset);
   }
 
-  getEventsByDateStart(dateValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
+  public getEventsByDateStart(dateValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.filterEvents("dayStart", dateValue, limit, offset);
   }
 
-  getEventsByDateStop(dateValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
+  public getEventsByDateStop(dateValue: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.filterEvents("dayStop", dateValue, limit, offset);
   }
 
-  getEventsInMonth(monthDate: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
+  public getEventsInMonth(monthDate: string, limit: number = 0, offset: number = 0): Observable<Event[]> {
     return this.filterEvents("inMonth", monthDate, limit, offset);
   }
 
