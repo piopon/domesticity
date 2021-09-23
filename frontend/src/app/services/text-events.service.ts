@@ -72,6 +72,33 @@ export class TextEventsService {
     return this.filterEvents("inMonth", monthDate, limit, offset);
   }
 
+  private filterEvents(key: string, value: string, limit: number, offset: number): Observable<Event[]> {
+    let modifiers: string = "";
+    if (limit > 0) {
+      modifiers += `limit=${encodeURI(limit.toString())}&`;
+    }
+    if (offset > 0) {
+      modifiers += `offset=${encodeURI(offset.toString())}&`;
+    }
+    return this.http.get<Event[]>(
+      `${this.url}events?${modifiers}${encodeURI(key)}=${encodeURI(value)}`,
+      this.httpOptions()
+    );
+  }
+
+  private httpOptions(): Object {
+    return {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    };
+  }
+
+  //********************************************************************************
+  //*** ping and health check logic
+  //********************************************************************************
+
   private async pingService(): Promise<void> {
     this.http
       .get(`${this.url}health`, { observe: "response", responseType: "text" })
@@ -136,28 +163,5 @@ export class TextEventsService {
         },
       ],
     });
-  }
-
-  private filterEvents(key: string, value: string, limit: number, offset: number): Observable<Event[]> {
-    let modifiers: string = "";
-    if (limit > 0) {
-      modifiers += `limit=${encodeURI(limit.toString())}&`;
-    }
-    if (offset > 0) {
-      modifiers += `offset=${encodeURI(offset.toString())}&`;
-    }
-    return this.http.get<Event[]>(
-      `${this.url}events?${modifiers}${encodeURI(key)}=${encodeURI(value)}`,
-      this.httpOptions()
-    );
-  }
-
-  private httpOptions(): Object {
-    return {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    };
   }
 }
