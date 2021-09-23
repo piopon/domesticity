@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AlertController, ToastController } from "@ionic/angular";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { first } from "rxjs/operators";
 import { Event } from "../model/event.model";
 
@@ -9,6 +9,7 @@ import { Event } from "../model/event.model";
   providedIn: "root",
 })
 export class TextEventsService {
+  private subject = new Subject<string>();
   private url: string = "http://localhost:9999/";
   private pingTimer: any;
   private pingInterval: number = 3_000;
@@ -28,7 +29,12 @@ export class TextEventsService {
     return this.online;
   }
 
+  public watch(): Observable<string> {
+    return this.subject.asObservable();
+  }
+
   public addEvent(event: Event): Observable<any> {
+    this.subject.next("add");
     return this.http.post(`${this.url}events`, JSON.stringify(event), this.httpOptions());
   }
 
