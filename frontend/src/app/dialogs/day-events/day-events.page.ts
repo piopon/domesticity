@@ -4,6 +4,7 @@ import { ModalController } from "@ionic/angular";
 import { Subscription } from "rxjs";
 import { Event } from "src/app/model/event.model";
 import { TimeSpan } from "src/app/model/timespan.model";
+import { IpcMessagesService } from "src/app/services/ipc-messages.service";
 import { TextEventsService } from "src/app/services/text-events.service";
 import { UpdateTextEventPage } from "../update-text-event/update-text-event.page";
 
@@ -21,8 +22,12 @@ export class DayEventsPage implements OnInit {
   private subscription: Subscription;
   private static readonly NO_EVENT_SELECTED: number = -1;
 
-  constructor(public modalController: ModalController, private textEventsService: TextEventsService) {
-    this.subscription = this.textEventsService.watch().subscribe(_ => this.getAllTextEvents(this.todayString));
+  constructor(
+    public modalController: ModalController,
+    private textEventsService: TextEventsService,
+    private ipcMessagesService: IpcMessagesService
+  ) {
+    this.subscription = this.ipcMessagesService.watch().subscribe((_) => this.getAllTextEvents(this.todayString));
   }
 
   ngOnInit() {
