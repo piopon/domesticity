@@ -6,6 +6,7 @@ import { Event } from "src/app/model/event.model";
 import { CategoriesService } from "src/app/services/categories.service";
 import { TextEventsService } from "src/app/services/text-events.service";
 import { UsersService } from "src/app/services/users.service";
+import { IpcMessagesService } from "src/app/services/ipc-messages.service";
 
 @Component({
   selector: "app-add-text-event",
@@ -28,7 +29,8 @@ export class AddTextEventPage implements OnInit {
     private toastController: ToastController,
     private categoriesService: CategoriesService,
     private usersService: UsersService,
-    private eventService: TextEventsService
+    private eventService: TextEventsService,
+    private ipcMessagesService: IpcMessagesService
   ) {}
 
   ngOnInit() {
@@ -66,6 +68,7 @@ export class AddTextEventPage implements OnInit {
         duration: 2000,
       });
       toast.present();
+      this.ipcMessagesService.sendMessage("added message");
     });
     this.modalController.dismiss();
   }
