@@ -1,6 +1,6 @@
 export enum IpcType {
   AddEvent,
-  DelEvent,
+  DeleteEvent,
 }
 
 export class IpcMessage {
@@ -12,7 +12,11 @@ export class IpcMessage {
     this.message = message;
   }
 
-  public static newEvent(message: string): IpcMessage {
-    return new IpcMessage(IpcType.AddEvent, message);
+  public static newEvent(newEventDate: string): IpcMessage {
+    return new IpcMessage(IpcType.AddEvent, newEventDate);
+  }
+
+  public static deleteEvent(deletedEventDate: string): IpcMessage {
+    return new IpcMessage(IpcType.DeleteEvent, deletedEventDate);
   }
 }
