@@ -7,6 +7,7 @@ import { CategoriesService } from "src/app/services/categories.service";
 import { TextEventsService } from "src/app/services/text-events.service";
 import { UsersService } from "src/app/services/users.service";
 import { IpcMessagesService } from "src/app/services/ipc-messages.service";
+import { IpcMessage } from "src/app/model/ipc-message";
 
 @Component({
   selector: "app-add-text-event",
@@ -68,7 +69,7 @@ export class AddTextEventPage implements OnInit {
         duration: 2000,
       });
       toast.present();
-      this.ipcMessagesService.sendMessage("added message");
+      this.ipcMessagesService.sendMessage(IpcMessage.newEvent(this.tempDateStart));
     });
     this.modalController.dismiss();
   }
