@@ -27,7 +27,11 @@ export class DayEventsPage implements OnInit {
     private textEventsService: TextEventsService,
     private ipcMessagesService: IpcMessagesService
   ) {
-    this.subscription = this.ipcMessagesService.watch().subscribe((_) => this.getAllTextEvents(this.todayString));
+    this.subscription = this.ipcMessagesService.watch().subscribe((ipcMessage) => {
+      if (ipcMessage.message === this.todayString) {
+        this.getAllTextEvents(this.todayString);
+      }
+    });
   }
 
   ngOnInit() {
