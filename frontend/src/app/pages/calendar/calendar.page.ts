@@ -15,6 +15,7 @@ import { TextEventsService } from "src/app/services/text-events.service";
 export class CalendarPage implements OnInit {
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
 
+  private subscription: Subscription;
   private calendarModes: CalendarMode[] = ["month", "week", "day"];
   private pageData = {
     title: "" as string,
@@ -29,7 +30,11 @@ export class CalendarPage implements OnInit {
     public modalController: ModalController,
     private textEventsService: TextEventsService,
     private ipcMessagesService: IpcMessagesService
-  ) {}
+  ) {
+    this.subscription = this.ipcMessagesService.watch().subscribe((ipcMessage) => {
+      var newEventDate: Date = new Date(ipcMessage.message)
+    });
+  }
 
   ngOnInit() {
     this.updateEventSource(this.getDateString(this.pageData.viewDate));
