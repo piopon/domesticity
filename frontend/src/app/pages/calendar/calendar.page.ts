@@ -4,6 +4,7 @@ import { ModalController } from "@ionic/angular";
 import { CalendarComponent } from "ionic2-calendar";
 import { CalendarMode, IEvent } from "ionic2-calendar/calendar";
 import { DayEventsPage } from "src/app/dialogs/day-events/day-events.page";
+import { IpcMessagesService } from "src/app/services/ipc-messages.service";
 import { TextEventsService } from "src/app/services/text-events.service";
 
 @Component({
@@ -24,7 +25,11 @@ export class CalendarPage implements OnInit {
     viewMode: this.calendarModes[0] as CalendarMode,
   };
 
-  constructor(public modalController: ModalController, private textEventsService: TextEventsService) {}
+  constructor(
+    public modalController: ModalController,
+    private textEventsService: TextEventsService,
+    private ipcMessagesService: IpcMessagesService
+  ) {}
 
   ngOnInit() {
     this.updateEventSource(this.getDateString(this.pageData.viewDate));
