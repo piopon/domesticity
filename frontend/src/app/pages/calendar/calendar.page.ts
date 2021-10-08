@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { CalendarComponent } from "ionic2-calendar";
 import { CalendarMode, IEvent } from "ionic2-calendar/calendar";
+import { Subscription } from "rxjs";
 import { DayEventsPage } from "src/app/dialogs/day-events/day-events.page";
 import { IpcMessagesService } from "src/app/services/ipc-messages.service";
 import { TextEventsService } from "src/app/services/text-events.service";
