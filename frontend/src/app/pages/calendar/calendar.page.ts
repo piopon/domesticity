@@ -41,6 +41,10 @@ export class CalendarPage implements OnInit {
     this.updateEventSource(this.getDateString(this.pageData.viewDate));
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   protected nextMonth() {
     this.pageData.viewDate.setMonth(this.pageData.viewDate.getMonth() + 1);
     this.updateEventSource(this.getDateString(this.pageData.viewDate));
