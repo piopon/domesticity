@@ -116,7 +116,7 @@ export class CalendarPage implements OnInit {
           });
         });
       })
-      .then((_) => (this.pageData.events = currentEvents));
+      .then((_) => this.pageData.events = currentEvents);
   }
 
   private getDateString(date: Date): string {
