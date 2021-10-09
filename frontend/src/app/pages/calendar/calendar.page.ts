@@ -39,6 +39,23 @@ export class CalendarPage implements OnInit {
       var monthDataHasEvent = this.pageData.events.map(event => {
         return event.startTime.toISOString().split('T')[0];
       }).includes(ipcMessageDate);
+
+      if (IpcType.AddEvent === ipcMessage.type && monthDataHasEvent === false) {
+        this.textEventsService
+          .getEventsByDateStart(ipcMessageDate)
+          .toPromise()
+          .then((events) => {
+            events?.forEach((event) => {
+              this.pageData.events.push({
+                title: event.title,
+                startTime: new Date(event.date.start),
+                endTime: new Date(event.date.stop),
+                allDay: false,
+              });
+            });
+          })
+          .then((_) => this.myCalendar.loadEvents());
+      }
     });
   }
 
