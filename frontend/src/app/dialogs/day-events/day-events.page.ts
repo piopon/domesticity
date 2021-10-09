@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { Subscription } from "rxjs";
 import { Event } from "src/app/model/event.model";
+import { IpcType } from "src/app/model/ipc-message";
 import { TimeSpan } from "src/app/model/timespan.model";
 import { IpcMessagesService } from "src/app/services/ipc-messages.service";
 import { TextEventsService } from "src/app/services/text-events.service";
@@ -28,7 +29,7 @@ export class DayEventsPage implements OnInit {
     private ipcMessagesService: IpcMessagesService
   ) {
     this.subscription = this.ipcMessagesService.watch().subscribe((ipcMessage) => {
-      if (ipcMessage.message === this.todayString) {
+      if (IpcType.AddEvent === ipcMessage.type && ipcMessage.message.includes(this.todayString)) {
         this.getAllTextEvents(this.todayString);
       }
     });
