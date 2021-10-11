@@ -55,6 +55,12 @@ export class CalendarPage implements OnInit {
             });
           })
           .then((_) => this.myCalendar.loadEvents());
+      } else if (IpcType.DeleteEvent === ipcMessage.type && 1 === countEventsMatchingDate) {
+        var index = this.pageData.events.findIndex(
+          (event) => event.startTime.toISOString().split("T")[0] === ipcMessageDate
+        );
+        this.pageData.events.splice(index, 1);
+        this.myCalendar.loadEvents();
       }
     });
   }
