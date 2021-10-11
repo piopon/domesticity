@@ -36,11 +36,11 @@ export class CalendarPage implements OnInit {
     this.subscription = this.ipcMessagesService.watch().subscribe((ipcMessage) => {
       var ipcMessageDate = new Date(ipcMessage.message).toISOString().split('T')[0];
 
-      var monthDataHasEvent = this.pageData.events.map(event => {
-        return event.startTime.toISOString().split('T')[0];
-      }).includes(ipcMessageDate);
+      var countEventsMatchingDate = this.pageData.events
+        .map((event) => event.startTime.toISOString().split("T")[0])
+        .filter((date) => date === ipcMessageDate).length;
 
-      if (IpcType.AddEvent === ipcMessage.type && monthDataHasEvent === false) {
+      if (IpcType.AddEvent === ipcMessage.type && 0 === countEventsMatchingDate) {
         this.textEventsService
           .getEventsByDateStart(ipcMessageDate)
           .toPromise()
