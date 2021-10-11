@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { Subscription } from "rxjs";
 import { Event } from "src/app/model/event.model";
-import { IpcType } from "src/app/model/ipc-message";
+import { IpcMessage, IpcType } from "src/app/model/ipc-message";
 import { TimeSpan } from "src/app/model/timespan.model";
 import { IpcMessagesService } from "src/app/services/ipc-messages.service";
 import { TextEventsService } from "src/app/services/text-events.service";
@@ -52,7 +52,7 @@ export class DayEventsPage implements OnInit {
   deleteAllEvents() {
     this.dayEvents.forEach((event) => {
       this.textEventsService.deleteEvent(event._id).subscribe(() => {
-        console.log("Removed events!");
+        this.ipcMessagesService.sendMessage(IpcMessage.deleteEvent(this.todayString));
       });
     });
     this.dayEvents = [];
@@ -61,7 +61,7 @@ export class DayEventsPage implements OnInit {
   deleteEvent(eventIndex: number) {
     let selectedEvent = this.dayEvents[eventIndex];
     this.textEventsService.deleteEvent(selectedEvent._id).subscribe(() => {
-      console.log("Removed event!");
+      this.ipcMessagesService.sendMessage(IpcMessage.deleteEvent(this.todayString));
     });
     this.dayEvents.splice(eventIndex, 1);
     this.selectedEventIndex = DayEventsPage.NO_EVENT_SELECTED;
