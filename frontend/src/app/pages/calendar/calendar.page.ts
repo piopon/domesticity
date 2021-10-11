@@ -34,8 +34,7 @@ export class CalendarPage implements OnInit {
     private ipcMessagesService: IpcMessagesService
   ) {
     this.subscription = this.ipcMessagesService.watch().subscribe((ipcMessage) => {
-      var ipcMessageDate = new Date(ipcMessage.message).toISOString().split('T')[0];
-
+      var ipcMessageDate = new Date(ipcMessage.message).toISOString().split("T")[0];
       var countEventsMatchingDate = this.pageData.events
         .map((event) => event.startTime.toISOString().split("T")[0])
         .filter((date) => date === ipcMessageDate).length;
@@ -122,7 +121,7 @@ export class CalendarPage implements OnInit {
           });
         });
       })
-      .then((_) => this.pageData.events = currentEvents);
+      .then((_) => (this.pageData.events = currentEvents));
   }
 
   private getDateString(date: Date): string {
