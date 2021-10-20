@@ -42,8 +42,12 @@
     [eventSource]="pageData.events"
     [calendarMode]="pageData.viewMode"
     [sliderOptions]="pageData.slider"
+    [monthviewDisplayEventTemplate]="month-view"
     (onTitleChanged)="onMonthChanged($event)"
     (onTimeSelected)="onTimeSelected($event)">
   </calendar>
+  <ng-template #month-view let-view="view" let-row="row" let-col="col">
+    {{view.dates[row*7+col].label}}
+  </ng-template>
   <add-event-btn></add-event-btn>
 </ion-content>
