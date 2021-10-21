@@ -48,8 +48,8 @@
   </calendar>
   <ng-template #month-view let-view="view" let-row="row" let-col="col">
     {{view.dates[row*7+col].label}}
-    <div>
-      <div *ngFor="let event of view.dates[row*7+col].events">E</div>
+    <div class="indicator-container">
+      <div class="event-indicator" *ngFor="let event of view.dates[row*7+col].events"></div>
     </div>
   </ng-template>
   <add-event-btn></add-event-btn>
