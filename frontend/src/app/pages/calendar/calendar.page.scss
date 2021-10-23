@@ -34,3 +34,8 @@ $headerHeight: 56px;
   border-radius: 5px;
   display: table-cell;
 }
+
+.with-event {
+  background-color: --var(--ion-color-primary);
+  border-radius: 10px;
+}

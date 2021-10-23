@@ -47,9 +47,11 @@
     (onTimeSelected)="onTimeSelected($event)">
   </calendar>
   <ng-template #month-view let-view="view" let-row="row" let-col="col">
-    {{view.dates[row*7+col].label}}
-    <div class="indicator-container">
-      <div class="event-indicator" *ngFor="let event of view.dates[row*7+col].events"></div>
+    <div [class.with-event]="view.dates[row*7+col].events.length">
+      {{view.dates[row*7+col].label}}
+      <div class="indicator-container">
+        <div class="event-indicator" *ngFor="let event of view.dates[row*7+col].events"></div>
+      </div>
     </div>
   </ng-template>
   <add-event-btn></add-event-btn>
