@@ -42,11 +42,11 @@
     [eventSource]="pageData.events"
     [calendarMode]="pageData.viewMode"
     [sliderOptions]="pageData.slider"
-    [monthviewDisplayEventTemplate]="month-view"
+    [monthviewDisplayEventTemplate]="monthView"
     (onTitleChanged)="onMonthChanged($event)"
     (onTimeSelected)="onTimeSelected($event)">
   </calendar>
-  <ng-template #month-view let-view="view" let-row="row" let-col="col">
+  <ng-template #monthView let-view="view" let-row="row" let-col="col">
     <div [class.with-event]="view.dates[row*7+col].events.length">
       {{view.dates[row*7+col].label}}
       <div class="indicator-container">
