@@ -29,9 +29,11 @@ $headerHeight: 56px;
 
 .indicator-container {
   padding: 0.2rem;
+  display: flex;
 }
 
 .event-indicator {
+  flex: 1;
   margin: 3px;
   background: red;
   width: 20px;
