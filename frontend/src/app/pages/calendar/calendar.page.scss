@@ -38,7 +38,8 @@ $headerHeight: 56px;
 }
 
 .event-indicator {
-  flex: 0 0 30%;
+  flex: 0 0 20px;
+  align-self: flex-start;
   margin: 3px;
   background: red;
   width: 20px;
