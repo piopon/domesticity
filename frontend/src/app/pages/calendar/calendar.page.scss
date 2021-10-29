@@ -28,9 +28,11 @@ $headerHeight: 56px;
 }
 
 .indicator-container {
+  gap: 1px;
   height: 0px;
   padding: 0.2rem;
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
   align-content: flex-start;
