@@ -28,24 +28,18 @@ $headerHeight: 56px;
 }
 
 .indicator-container {
-  gap: 1px;
   height: 0px;
-  padding: 0.2rem;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  align-content: flex-start;
-  justify-content: flex-start;
+  padding: 0.5rem;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20px, max-content));
+  grid-gap: 3px;
 }
 
 .event-indicator {
-  flex: 0 0 20px;
-  align-self: flex-start;
-  margin: 3px;
-  background: red;
   width: 20px;
   height: 20px;
+  background: red;
   border-radius: 10px;
   border: 1px solid darkred;
 }
