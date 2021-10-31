@@ -39,6 +39,7 @@ export class CalendarPage implements OnInit {
         .map((event) => event.startTime.toISOString().split("T")[0])
         .filter((date) => date === ipcMessageDate).length;
 
+      //EVENTS SHOULD NOT CHECK 0 === countEventsMatchingDate
       if (IpcType.AddEvent === ipcMessage.type && 0 === countEventsMatchingDate) {
         this.textEventsService
           .getEventsByDateStart(ipcMessageDate)
@@ -55,10 +56,13 @@ export class CalendarPage implements OnInit {
           })
           .then((_) => this.myCalendar.loadEvents());
       } else if (IpcType.DeleteEvent === ipcMessage.type && 1 === countEventsMatchingDate) {
+        console.log("remove event subscription");
         var index = this.pageData.events.findIndex(
           (event) => event.startTime.toISOString().split("T")[0] === ipcMessageDate
         );
+        console.log("found event to delete - index: " + index);
         this.pageData.events.splice(index, 1);
+        console.log("all events: " + this.pageData.events);
         this.myCalendar.loadEvents();
       }
     });
