@@ -43,6 +43,8 @@ export class CalendarPage implements OnInit {
           .getEventsByDateStart(ipcMessageDate)
           .toPromise()
           .then((events) => {
+            console.log("service events:   ", events);
+            console.log("page data events: ", this.pageData.events);
             events?.forEach((event) => {
               this.pageData.events.push({
                 title: event.title,
@@ -57,9 +59,7 @@ export class CalendarPage implements OnInit {
         var index = this.pageData.events.findIndex(
           (event) => event.startTime.toISOString().split("T")[0] === ipcMessageDate
         );
-        console.log("found event to delete - index: " + index);
         this.pageData.events.splice(index, 1);
-        console.log("all events: " + this.pageData.events);
         this.myCalendar.loadEvents();
       }
     });
