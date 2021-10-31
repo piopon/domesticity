@@ -35,12 +35,10 @@ export class CalendarPage implements OnInit {
   ) {
     this.subscription = this.ipcMessagesService.watch().subscribe((ipcMessage) => {
       var ipcMessageDate = new Date(ipcMessage.message).toISOString().split("T")[0];
-      var countEventsMatchingDate = this.pageData.events
-        .map((event) => event.startTime.toISOString().split("T")[0])
-        .filter((date) => date === ipcMessageDate).length;
+      var ipcMessageTime = new Date(ipcMessage.message).toISOString().split("T")[1];
+      console.log("new event date: " + ipcMessageDate + ", time: " + ipcMessageTime);
 
-      //EVENTS SHOULD NOT CHECK 0 === countEventsMatchingDate
-      if (IpcType.AddEvent === ipcMessage.type && 0 === countEventsMatchingDate) {
+      if (IpcType.AddEvent === ipcMessage.type) {
         this.textEventsService
           .getEventsByDateStart(ipcMessageDate)
           .toPromise()
@@ -55,8 +53,7 @@ export class CalendarPage implements OnInit {
             });
           })
           .then((_) => this.myCalendar.loadEvents());
-      } else if (IpcType.DeleteEvent === ipcMessage.type && 1 === countEventsMatchingDate) {
-        console.log("remove event subscription");
+      } else if (IpcType.DeleteEvent === ipcMessage.type) {
         var index = this.pageData.events.findIndex(
           (event) => event.startTime.toISOString().split("T")[0] === ipcMessageDate
         );
