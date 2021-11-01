@@ -44,10 +44,7 @@ export class CalendarPage implements OnInit {
           .toPromise()
           .then((events) => {
             events
-              ?.filter((event) => {
-                var isPresent = this.isEventPresent(event) as boolean;
-                return !isPresent;
-              })
+              ?.filter((event) => !this.isEventPresent(event))
               .forEach((event) => {
                 this.pageData.events.push({
                   title: event.title,
@@ -135,12 +132,8 @@ export class CalendarPage implements OnInit {
   private isEventPresent(event: Event): boolean {
     return (
       this.pageData.events
-        .filter((e) => {
-          return event.title === e.title;
-        })
-        .filter((e) => {
-          return new Date(e.startTime).toISOString() === new Date(event.date.start).toISOString();
-        }).length > 0
+        .filter((e) => event.title === e.title)
+        .filter((e) => new Date(e.startTime).toISOString() === new Date(event.date.start).toISOString()).length > 0
     );
   }
 }
