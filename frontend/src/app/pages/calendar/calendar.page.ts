@@ -5,6 +5,7 @@ import { CalendarComponent } from "ionic2-calendar";
 import { CalendarMode, IEvent } from "ionic2-calendar/calendar";
 import { Subscription } from "rxjs";
 import { DayEventsPage } from "src/app/dialogs/day-events/day-events.page";
+import { Event } from "src/app/model/event.model";
 import { IpcType } from "src/app/model/ipc-message";
 import { IpcMessagesService } from "src/app/services/ipc-messages.service";
 import { TextEventsService } from "src/app/services/text-events.service";
@@ -45,7 +46,9 @@ export class CalendarPage implements OnInit {
           .then((events) => {
             console.log("service events:   ", events);
             console.log("page data events: ", this.pageData.events);
-            events?.forEach((event) => {
+            events?.filter((event) => {
+              var isPresent = this.isEventPresent(event) as boolean;
+              return !isPresent}).forEach((event) => {
               this.pageData.events.push({
                 title: event.title,
                 startTime: new Date(event.date.start),
@@ -127,5 +130,13 @@ export class CalendarPage implements OnInit {
 
   private getDateString(date: Date): string {
     return formatDate(date, "yyyy-MM-dd", "en");
+  }
+
+  private isEventPresent(event: Event): boolean {
+    return this.pageData.events.filter(e => {
+      return event.title === e.title;
+    }).filter(e => {
+      return new Date(e.startTime).toISOString() === new Date(event.date.start).toISOString();
+    }).length > 0;
   }
 }
