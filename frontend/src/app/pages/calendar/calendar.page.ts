@@ -43,16 +43,19 @@ export class CalendarPage implements OnInit {
           .getEventsByDateStart(ipcMessageDate)
           .toPromise()
           .then((events) => {
-            events?.filter((event) => {
-              var isPresent = this.isEventPresent(event) as boolean;
-              return !isPresent}).forEach((event) => {
-              this.pageData.events.push({
-                title: event.title,
-                startTime: new Date(event.date.start),
-                endTime: new Date(event.date.stop),
-                allDay: false,
+            events
+              ?.filter((event) => {
+                var isPresent = this.isEventPresent(event) as boolean;
+                return !isPresent;
+              })
+              .forEach((event) => {
+                this.pageData.events.push({
+                  title: event.title,
+                  startTime: new Date(event.date.start),
+                  endTime: new Date(event.date.stop),
+                  allDay: false,
+                });
               });
-            });
           })
           .then((_) => this.myCalendar.loadEvents());
       } else if (IpcType.DeleteEvent === ipcMessage.type) {
@@ -130,10 +133,14 @@ export class CalendarPage implements OnInit {
   }
 
   private isEventPresent(event: Event): boolean {
-    return this.pageData.events.filter(e => {
-      return event.title === e.title;
-    }).filter(e => {
-      return new Date(e.startTime).toISOString() === new Date(event.date.start).toISOString();
-    }).length > 0;
+    return (
+      this.pageData.events
+        .filter((e) => {
+          return event.title === e.title;
+        })
+        .filter((e) => {
+          return new Date(e.startTime).toISOString() === new Date(event.date.start).toISOString();
+        }).length > 0
+    );
   }
 }
