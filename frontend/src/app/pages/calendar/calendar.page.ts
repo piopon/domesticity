@@ -37,15 +37,12 @@ export class CalendarPage implements OnInit {
     this.subscription = this.ipcMessagesService.watch().subscribe((ipcMessage) => {
       var ipcMessageDate = new Date(ipcMessage.message).toISOString().split("T")[0];
       var ipcMessageTime = new Date(ipcMessage.message).toISOString().split("T")[1];
-      console.log("new event date: " + ipcMessageDate + ", time: " + ipcMessageTime);
 
       if (IpcType.AddEvent === ipcMessage.type) {
         this.textEventsService
           .getEventsByDateStart(ipcMessageDate)
           .toPromise()
           .then((events) => {
-            console.log("service events:   ", events);
-            console.log("page data events: ", this.pageData.events);
             events?.filter((event) => {
               var isPresent = this.isEventPresent(event) as boolean;
               return !isPresent}).forEach((event) => {
