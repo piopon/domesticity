@@ -36,7 +36,6 @@ export class CalendarPage implements OnInit {
   ) {
     this.subscription = this.ipcMessagesService.watch().subscribe((ipcMessage) => {
       var ipcMessageDate = new Date(ipcMessage.message).toISOString().split("T")[0];
-      var ipcMessageTime = new Date(ipcMessage.message).toISOString().split("T")[1];
 
       if (IpcType.AddEvent === ipcMessage.type) {
         this.textEventsService
