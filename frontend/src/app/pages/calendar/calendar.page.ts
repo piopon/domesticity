@@ -38,22 +38,7 @@ export class CalendarPage implements OnInit {
       var ipcMessageDate = new Date(ipcMessage.message).toISOString().split("T")[0];
 
       if (IpcType.AddEvent === ipcMessage.type) {
-        this.textEventsService
-          .getEventsByDateStart(ipcMessageDate)
-          .toPromise()
-          .then((events) => {
-            events
-              ?.filter((event) => !this.isEventPresent(event))
-              .forEach((event) => {
-                this.pageData.events.push({
-                  title: event.title,
-                  startTime: new Date(event.date.start),
-                  endTime: new Date(event.date.stop),
-                  allDay: false,
-                });
-              });
-          })
-          .then((_) => this.myCalendar.loadEvents());
+        this.syncAddedEvent(ipcMessageDate);
       } else if (IpcType.DeleteEvent === ipcMessage.type) {
         var index = this.pageData.events.findIndex(
           (event) => event.startTime.toISOString().split("T")[0] === ipcMessageDate
@@ -126,6 +111,25 @@ export class CalendarPage implements OnInit {
 
   private getDateString(date: Date): string {
     return formatDate(date, "yyyy-MM-dd", "en");
+  }
+
+  private syncAddedEvent(addedEventDate: string): void {
+    this.textEventsService
+    .getEventsByDateStart(addedEventDate)
+    .toPromise()
+    .then((events) => {
+      events
+        ?.filter((event) => !this.isEventPresent(event))
+        .forEach((event) => {
+          this.pageData.events.push({
+            title: event.title,
+            startTime: new Date(event.date.start),
+            endTime: new Date(event.date.stop),
+            allDay: false,
+          });
+        });
+    })
+    .then((_) => this.myCalendar.loadEvents());
   }
 
   private isEventPresent(event: Event): boolean {
