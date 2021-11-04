@@ -6,7 +6,7 @@ import { CalendarMode, IEvent } from "ionic2-calendar/calendar";
 import { Subscription } from "rxjs";
 import { DayEventsPage } from "src/app/dialogs/day-events/day-events.page";
 import { Event } from "src/app/model/event.model";
-import { IpcType } from "src/app/model/ipc-message";
+import { IpcMessage, IpcType } from "src/app/model/ipc-message";
 import { IpcMessagesService } from "src/app/services/ipc-messages.service";
 import { TextEventsService } from "src/app/services/text-events.service";
 
@@ -35,13 +35,7 @@ export class CalendarPage implements OnInit {
     private ipcMessagesService: IpcMessagesService
   ) {
     this.subscription = this.ipcMessagesService.watch().subscribe((ipcMessage) => {
-      var ipcMessageDate = new Date(ipcMessage.message).toISOString().split("T")[0];
-
-      if (IpcType.AddEvent === ipcMessage.type) {
-        this.syncAddedEvent(ipcMessageDate);
-      } else if (IpcType.DeleteEvent === ipcMessage.type) {
-        this.syncRemovedEvent(ipcMessageDate);
-      }
+      this.syncEvent(ipcMessage);
     });
   }
 
@@ -107,6 +101,16 @@ export class CalendarPage implements OnInit {
 
   private getDateString(date: Date): string {
     return formatDate(date, "yyyy-MM-dd", "en");
+  }
+
+  private syncEvent(ipcMessage: IpcMessage): void {
+    var ipcMessageDate = new Date(ipcMessage.message).toISOString().split("T")[0];
+
+    if (IpcType.AddEvent === ipcMessage.type) {
+      this.syncAddedEvent(ipcMessageDate);
+    } else if (IpcType.DeleteEvent === ipcMessage.type) {
+      this.syncRemovedEvent(ipcMessageDate);
+    }
   }
 
   private syncAddedEvent(addedEventDate: string): void {
