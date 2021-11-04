@@ -40,11 +40,7 @@ export class CalendarPage implements OnInit {
       if (IpcType.AddEvent === ipcMessage.type) {
         this.syncAddedEvent(ipcMessageDate);
       } else if (IpcType.DeleteEvent === ipcMessage.type) {
-        var index = this.pageData.events.findIndex(
-          (event) => event.startTime.toISOString().split("T")[0] === ipcMessageDate
-        );
-        this.pageData.events.splice(index, 1);
-        this.myCalendar.loadEvents();
+        this.syncRemovedEvent(ipcMessageDate);
       }
     });
   }
@@ -130,6 +126,14 @@ export class CalendarPage implements OnInit {
         });
     })
     .then((_) => this.myCalendar.loadEvents());
+  }
+
+  private syncRemovedEvent(removedEventDate: string): void {
+    var index = this.pageData.events.findIndex(
+      (event) => event.startTime.toISOString().split("T")[0] === removedEventDate
+    );
+    this.pageData.events.splice(index, 1);
+    this.myCalendar.loadEvents();
   }
 
   private isEventPresent(event: Event): boolean {
