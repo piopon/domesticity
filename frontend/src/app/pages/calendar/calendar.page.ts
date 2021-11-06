@@ -113,21 +113,21 @@ export class CalendarPage implements OnInit {
 
   private syncAddedEvent(addedEventDate: string): void {
     this.textEventsService
-    .getEventsByDateStart(addedEventDate)
-    .toPromise()
-    .then((events) => {
-      events
-        ?.filter((event) => !this.isEventPresent(event))
-        .forEach((event) => {
-          this.pageData.events.push({
-            title: event.title,
-            startTime: new Date(event.date.start),
-            endTime: new Date(event.date.stop),
-            allDay: false,
+      .getEventsByDateStart(addedEventDate)
+      .toPromise()
+      .then((events) => {
+        events
+          ?.filter((event) => !this.isEventPresent(event))
+          .forEach((event) => {
+            this.pageData.events.push({
+              title: event.title,
+              startTime: new Date(event.date.start),
+              endTime: new Date(event.date.stop),
+              allDay: false,
+            });
           });
-        });
-    })
-    .then((_) => this.myCalendar.loadEvents());
+      })
+      .then((_) => this.myCalendar.loadEvents());
   }
 
   private syncRemovedEvent(removedEventDate: string): void {
