@@ -34,7 +34,7 @@ export class CalendarPage implements OnInit {
     private textEventsService: TextEventsService,
     private ipcMessagesService: IpcMessagesService
   ) {
-    this.subscription = this.ipcMessagesService.watch().subscribe((ipcMessage) => this.syncEvent(ipcMessage));
+    this.subscription = this.ipcMessagesService.watch().subscribe((message) => this.syncEvent(message));
   }
 
   ngOnInit() {
