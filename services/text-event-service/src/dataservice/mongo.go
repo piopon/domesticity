@@ -40,10 +40,10 @@ func initMongoClient(config *utils.ConfigMongo) (*mongo.Client, error) {
 	defer cancel()
 	client, error := mongo.Connect(context, options.Client().ApplyURI(URI))
 	if error != nil {
-		return nil, fmt.Errorf("Error while creating a MongoDB client: "+URI, error.Error())
+		return nil, fmt.Errorf("error while creating a MongoDB client: "+URI, error.Error())
 	}
 	if error := client.Ping(context, readpref.Primary()); error != nil {
-		return nil, fmt.Errorf("Error while connecting to MongoDB server: "+URI, error.Error())
+		return nil, fmt.Errorf("error while connecting to MongoDB server: "+URI, error.Error())
 	}
 	return client, nil
 }
@@ -69,15 +69,15 @@ func (mongo MongoDB) GetEvents(queryParams url.Values) (*model.Events, error) {
 	defer cancel()
 	findOptions, error := mongo.filters.GetOptions(queryParams)
 	if error != nil {
-		return nil, fmt.Errorf("Cannot get query params: " + error.Error())
+		return nil, fmt.Errorf("cannot get query params: " + error.Error())
 	}
 	findFilters, error := mongo.filters.GetFilters(queryParams)
 	if error != nil {
-		return nil, fmt.Errorf("Cannot get query params: " + error.Error())
+		return nil, fmt.Errorf("cannot get query params: " + error.Error())
 	}
 	cursor, error := mongo.document.Find(context, findFilters, findOptions)
 	if error != nil {
-		return nil, fmt.Errorf("Cannot find elements: " + error.Error())
+		return nil, fmt.Errorf("cannot find elements: " + error.Error())
 	}
 	defer cursor.Close(context)
 	for cursor.Next(context) {

@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { EventPage } from './event.page';
+import { AddTextEventPage } from './add-text-event.page';
 
-describe('EventPage', () => {
-  let component: EventPage;
-  let fixture: ComponentFixture<EventPage>;
+describe('AddTextEventPage', () => {
+  let component: AddTextEventPage;
+  let fixture: ComponentFixture<AddTextEventPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EventPage ],
+      declarations: [ AddTextEventPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EventPage);
+    fixture = TestBed.createComponent(AddTextEventPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

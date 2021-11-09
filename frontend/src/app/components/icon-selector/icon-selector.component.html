@@ -1,0 +1,10 @@
+<ion-item lines="full">
+  <ion-thumbnail slot="start">
+    <ion-icon class="icon-thumb" name="{{ currentIcon }}"></ion-icon>
+  </ion-thumbnail>
+  <ion-label>
+    <h5>selected:</h5>
+    <p>{{ currentIcon }}</p>
+  </ion-label>
+  <ion-button fill="outline" slot="end" (click)="selectIcon()">change</ion-button>
+</ion-item>

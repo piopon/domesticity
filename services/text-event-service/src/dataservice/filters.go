@@ -45,6 +45,7 @@ var mongoFilters = availableFilters{
 	"owner":    {typeFilter, "owner", exactQuery},
 	"dayStart": {typeFilter, "date.start", dateQuery},
 	"dayStop":  {typeFilter, "date.stop", dateQuery},
+	"inMonth":  {typeFilter, "date.start", monthQuery},
 	"category": {typeFilter, "category", exactQuery},
 	"content":  {typeFilter, "content", regexQuery},
 }
@@ -71,18 +72,18 @@ func (filters Filters) GetOptions(queryParams url.Values) (*options.FindOptions,
 	for key, value := range queryParams {
 		if filter, ok := filters.available[key]; ok {
 			if filter.Type == typeInternal {
-				return nil, fmt.Errorf("Internal filters does not provide additional options")
+				return nil, fmt.Errorf("internal filters does not provide additional options")
 			}
 			if filter.Type != typeOption {
 				continue
 			}
 			valueParsed, error := strconv.ParseInt(value[0], 10, 64)
 			if error != nil {
-				return nil, fmt.Errorf("Filter '"+key+"': cannot parse input value %s", value[0])
+				return nil, fmt.Errorf("cannot parse input value '%s' for filter '"+key+"'", value[0])
 			}
 			filter.Query.(func(*options.FindOptions, int64))(&queryOptions, valueParsed)
 		} else {
-			return nil, fmt.Errorf("Filter named '" + key + "' is not available")
+			return nil, fmt.Errorf("filter named '" + key + "' is not available")
 		}
 	}
 	return &queryOptions, nil
@@ -105,7 +106,7 @@ func (filters Filters) GetFilters(queryParams url.Values) (interface{}, error) {
 			query := filter.Query.(func(string, []string) interface{})(filter.FieldDB, value)
 			queryFilter = append(queryFilter, query.(bson.M))
 		} else {
-			return nil, fmt.Errorf("Filter named '" + key + "' is not available")
+			return nil, fmt.Errorf("filter named '" + key + "' is not available")
 		}
 	}
 	if len(queryFilter) > 0 {
@@ -124,9 +125,17 @@ func (filters Filters) GetAvailable() []string {
 }
 
 func dateQuery(dbField string, value []string) interface{} {
-	day, _ := time.Parse("2006-02-01", value[0])
+	day, _ := time.Parse("2006-01-02", value[0])
 	minDayTime := time.Date(day.Year(), day.Month(), day.Day(), 0, 0, 0, 0, time.UTC)
 	maxDayTime := time.Date(day.Year(), day.Month(), day.Day(), 23, 59, 59, 9999999, time.UTC)
+	return bson.M{dbField: bson.M{"$gte": minDayTime, "$lte": maxDayTime}}
+}
+
+func monthQuery(dbField string, value []string) interface{} {
+	day, _ := time.Parse("2006-01-02", value[0])
+	daysInMonth := time.Date(day.Year(), day.Month() + 1, 0, 0, 0, 0, 0, time.UTC).Day()
+	minDayTime := time.Date(day.Year(), day.Month(), 1, 0, 0, 0, 0, time.UTC)
+	maxDayTime := time.Date(day.Year(), day.Month(), daysInMonth, 23, 59, 59, 9999999, time.UTC)
 	return bson.M{dbField: bson.M{"$gte": minDayTime, "$lte": maxDayTime}}
 }
 

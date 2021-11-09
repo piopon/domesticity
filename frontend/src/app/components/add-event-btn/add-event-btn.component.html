@@ -3,13 +3,13 @@
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
   <ion-fab-list side="start">
-    <ion-fab-button color="medium">
+    <ion-fab-button [class]="getTextEventState() ? 'online-service' : 'offline-service'" (click)="openNewTextEventDialog()">
       <ion-icon name="calendar"></ion-icon>
     </ion-fab-button>
-    <ion-fab-button color="medium">
+    <ion-fab-button [class]="getTodoEventState() ? 'online-service' : 'offline-service'" (click)="openNewTodoEventDialog()">
       <ion-icon name="checkbox"></ion-icon>
     </ion-fab-button>
-    <ion-fab-button color="medium">
+    <ion-fab-button [class]="getShopEventState() ? 'online-service' : 'offline-service'" (click)="openNewShopEventDialog()">
       <ion-icon name="cart"></ion-icon>
     </ion-fab-button>
   </ion-fab-list>

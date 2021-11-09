@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // Events is a type definition for slice of Event pointers
@@ -18,6 +19,7 @@ var availableFilters = map[string]interface{}{
 	"owner":    filterOwner,
 	"dayStart": filterDayStart,
 	"dayStop":  filterDayStop,
+	"inMonth":  filterInMonth,
 	"category": filterCategory,
 	"content":  filterContent,
 }
@@ -40,7 +42,7 @@ func (events *Events) Filter(params url.Values) (*Events, error) {
 func filterLimit(input *Events, limit string) error {
 	limitParsed, error := strconv.Atoi(limit)
 	if error != nil {
-		return fmt.Errorf("Filter limit: cannot parse limit value %s", limit)
+		return fmt.Errorf("filter limit - cannot parse limit value %s", limit)
 	}
 	if limitParsed > len(*input) {
 		limitParsed = len(*input)
@@ -53,7 +55,7 @@ func filterLimit(input *Events, limit string) error {
 func filterOffset(input *Events, offset string) error {
 	offsetParsed, error := strconv.Atoi(offset)
 	if error != nil {
-		return fmt.Errorf("Filter limit: cannot parse offset value %s", offset)
+		return fmt.Errorf("filter limit - cannot parse offset value %s", offset)
 	}
 	if offsetParsed > len(*input) {
 		offsetParsed = 0
@@ -101,6 +103,14 @@ func filterDayStart(input *Events, dateStart string) error {
 func filterDayStop(input *Events, dateStop string) error {
 	return filterEventField(input, func(event *Event) bool {
 		return event.Occurence.Stop.Format("2006-01-02") == dateStop
+	})
+}
+
+// filterInMonth filters results by event start month (used only in memory dataservice)
+func filterInMonth(input *Events, dateStart string) error {
+	return filterEventField(input, func(event *Event) bool {
+		day, _ := time.Parse("2006-01-02", dateStart)
+		return event.Occurence.Start.Month() == day.Month()
 	})
 }
 

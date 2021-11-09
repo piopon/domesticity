@@ -14,6 +14,22 @@ func TestNewHomeCreatesCorrectHomeHandler(t *testing.T) {
 	}
 }
 
+func TestGetHealthGeneratesCorrectResponse(t *testing.T) {
+	mockupHandler := NewCommonMockup()
+	home := mockupHandler.CreateHomeHandler("../../resources/index.html")
+	request, error := http.NewRequest("GET", "/health", nil)
+	if error != nil {
+		t.Errorf("Could not create a request: %s", error.Error())
+	}
+	recorder := httptest.NewRecorder()
+	home.GetHealth(recorder, request)
+	response := recorder.Result()
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusOK {
+		t.Errorf("Expected status 200 but received %d", response.StatusCode)
+	}
+}
+
 func TestGetIndexGeneratesCorrectResponse(t *testing.T) {
 	mockupHandler := NewCommonMockup()
 	home := mockupHandler.CreateHomeHandler("../../resources/index.html")

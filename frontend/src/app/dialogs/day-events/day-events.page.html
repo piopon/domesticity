@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding ion-text-center ion-align-self-center">
+    <ion-button fill="clear" slot="end" (click)="closeDialog()">
+      <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+    <ion-title>Events on {{ dayTime | date }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <add-event-btn class="ion-hide-md-up"></add-event-btn>
+  <ion-card>
+    <ion-list-header lines="full">
+      <ion-label>Todays events</ion-label>
+      <ion-button disabled="{{ dayEvents.length <= 0 }}" fill="outline" size="small" color="danger" (click)="deleteAllEvents()">
+        delete all
+      </ion-button>
+    </ion-list-header>
+    <ion-list *ngFor="let event of dayEvents; let i = index;" lines="none" detail="false">
+      <ion-item tappable (click)="toggleEventSelection(i)" [ngClass]="{'event-selected':isEventSelected(i), 'event-item':!isEventSelected(i)}">
+        <ion-icon slot="start" name="chevron-forward-outline" class="ion-no-margin" *ngIf="!isEventSelected(i)"></ion-icon>
+        <ion-icon slot="start" name="chevron-down-outline" class="ion-no-margin" *ngIf="isEventSelected(i)"></ion-icon>
+        <ion-icon name="{{ event.icon }}"></ion-icon>
+        <ion-label class="ion-text-left">{{ event.title }}</ion-label>
+        <ion-label class="ion-text-right event-info">
+          {{ event.date.start | date:'HH:mm' }} - {{ event.date.stop | date:'HH:mm' }}
+        </ion-label>
+      </ion-item>
+      <div *ngIf="isEventSelected(i)" class="selectedEventActions">
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col align-items-center>
+              <ion-button (click)="deleteEvent(i)" color="danger" expand="full" class="ion-text-lowercase">
+                delete
+                <ion-icon slot="end" name="trash-sharp"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col align-items-center>
+              <ion-button (click)="updateEvent(i)" color="primary" expand="full" class="ion-text-lowercase">
+                update
+                <ion-icon slot="end" name="create-sharp"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-list>
+    <ion-item class="empty-events-list" lines="none" *ngIf="dayEvents.length <= 0 || !dayEvents">
+      <ion-label class="ion-text-center">no events</ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>

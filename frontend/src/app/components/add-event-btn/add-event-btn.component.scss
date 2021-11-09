@@ -1,0 +1,14 @@
+ion-fab {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+ion-fab-button.online-service {
+    --color: var(--ion-color-primary-contrast);
+    --background: var(--ion-color-primary);
+}
+
+ion-fab-button.offline-service {
+    --color: black;
+    --background: dimgrey;
+}

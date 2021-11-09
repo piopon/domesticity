@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { EventPage } from './event.page';
+import { AddTextEventPage } from './add-text-event.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: EventPage
+    component: AddTextEventPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class EventPageRoutingModule {}
+export class AddTextEventPageRoutingModule {}

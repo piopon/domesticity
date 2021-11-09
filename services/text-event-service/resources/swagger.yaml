@@ -179,6 +179,12 @@ paths:
         name: dayStop
         type: string
         x-go-name: DayStop
+      - description: The month date for which to search events in format YYYY-MM-DD (day component is not used)
+        format: date-time
+        in: query
+        name: inMonth
+        type: string
+        x-go-name: InMonth
       - description: The string which has to match exact searched event category
         in: query
         name: category

@@ -49,3 +49,4 @@ func (events *Events) ValidationMiddleware(next http.Handler) http.Handler {
 		next.ServeHTTP(response, request)
 	})
 }
+

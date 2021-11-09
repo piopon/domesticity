@@ -70,7 +70,7 @@ func createValidationHandler() (http.Handler, testHandler) {
 func verifyValidationHandler(handler http.Handler, bodyOption io.Reader) (int, error) {
 	request, error := http.NewRequest("PUT", "/test", bodyOption)
 	if error != nil {
-		return -1, fmt.Errorf("Could not create a request: %s", error.Error())
+		return -1, fmt.Errorf("could not create a request: %s", error.Error())
 	}
 	recorder := httptest.NewRecorder()
 	handler.ServeHTTP(recorder, request)
