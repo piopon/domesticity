@@ -3,14 +3,14 @@ package com.domesticity.categoriesservice.model;
 import java.util.UUID;
 
 public class Category {
-    
+
     private final UUID id;
-    private final String color;
+    private final Colour colour;
     private final String icon;
-    
-    public Category(UUID id, String color, String icon) {
+
+    public Category(UUID id, Colour colour, String icon) {
         this.id = id;
-        this.color = color;
+        this.colour = colour;
         this.icon = icon;
     }
 
@@ -18,8 +18,8 @@ public class Category {
         return id;
     }
 
-    public String getColor() {
-        return color;
+    public Colour getColour() {
+        return colour;
     }
 
     public String getIcon() {
