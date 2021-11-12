@@ -6,6 +6,9 @@ import java.util.UUID;
 
 import com.domesticity.categoriesservice.model.Category;
 
+import org.springframework.stereotype.Repository;
+
+@Repository("memory")
 public class InMemoryCategoryDao implements CategoryDao {
 
     private static final List<Category> MEMORY_DB = new ArrayList<>();
