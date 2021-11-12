@@ -1,5 +1,7 @@
 package com.domesticity.categoriesservice.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Colour {
 
     private final String red;
@@ -7,7 +9,10 @@ public class Colour {
     private final String blue;
     private final String alpha;
 
-    public Colour(String red, String green, String blue, String alpha) {
+    public Colour(@JsonProperty("red") String red,
+                  @JsonProperty("green") String green,
+                  @JsonProperty("blue") String blue,
+                  @JsonProperty("apha") String alpha) {
         this.red = red;
         this.green = green;
         this.blue = blue;
