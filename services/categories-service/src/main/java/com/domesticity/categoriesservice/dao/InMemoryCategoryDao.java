@@ -18,4 +18,9 @@ public class InMemoryCategoryDao implements CategoryDao {
         MEMORY_DB.add(new Category(id, category.getColour(), category.getIcon()));
         return 1;
     }
+
+    @Override
+    public List<Category> getCategories() {
+        return MEMORY_DB;
+    }
 }
