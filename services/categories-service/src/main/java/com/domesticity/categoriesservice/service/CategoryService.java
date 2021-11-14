@@ -1,5 +1,7 @@
 package com.domesticity.categoriesservice.service;
 
+import java.util.List;
+
 import com.domesticity.categoriesservice.dao.CategoryDao;
 import com.domesticity.categoriesservice.model.Category;
 
@@ -21,4 +23,7 @@ public class CategoryService {
         return categoryDao.addCategory(category);
     }
 
+    public List<Category> getCategories() {
+        return categoryDao.getCategories();
+    }
 }
