@@ -15,7 +15,7 @@ public class InMemoryCategoryDao implements CategoryDao {
 
     @Override
     public int addCategory(UUID id, Category category) {
-        MEMORY_DB.add(new Category(id, category.getColour(), category.getIcon()));
+        MEMORY_DB.add(new Category(id, category.getName(), category.getColour(), category.getIcon()));
         return 1;
     }
 
