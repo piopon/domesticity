@@ -13,6 +13,10 @@ public interface CategoryDao {
 
     Optional<Category> getCategory(UUID id);
 
+    int deleteCategory(UUID id);
+
+    int updateCategory(UUID id, Category newCategory);
+
     default int addCategory(Category category) {
         final UUID id = UUID.randomUUID();
         return addCategory(id, category);

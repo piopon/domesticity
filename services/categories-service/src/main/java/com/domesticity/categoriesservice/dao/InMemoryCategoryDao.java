@@ -29,4 +29,28 @@ public class InMemoryCategoryDao implements CategoryDao {
     public Optional<Category> getCategory(UUID id) {
         return MEMORY_DB.stream().filter(category -> category.getId().equals(id)).findFirst();
     }
+
+    @Override
+    public int deleteCategory(UUID id) {
+        Optional<Category> foundCategory = getCategory(id);
+        if (foundCategory.isEmpty()) {
+            return 0;
+        }
+        MEMORY_DB.remove(foundCategory.get());
+        return 1;
+    }
+
+    @Override
+    public int updateCategory(UUID id, Category newCategory) {
+        return getCategory(id).map(category -> {
+            int toUpdateIndex = MEMORY_DB.indexOf(category);
+            if (toUpdateIndex >= 0) {
+                final Category updated = new Category(id, newCategory.getName(), newCategory.getColour(),
+                        newCategory.getIcon());
+                MEMORY_DB.set(toUpdateIndex, updated);
+                return 1;
+            }
+            return 0;
+        }).orElse(0);
+    }
 }
