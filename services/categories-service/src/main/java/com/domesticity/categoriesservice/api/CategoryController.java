@@ -9,6 +9,7 @@ import com.domesticity.categoriesservice.model.Category;
 import com.domesticity.categoriesservice.service.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,5 +40,10 @@ public class CategoryController {
     @GetMapping(path = "{id}")
     public Category getCategory(@PathParam("id") UUID id) {
         return categoryService.getCategory(id).orElse(null);
+    }
+
+    @DeleteMapping(path = "{id}")
+    public void deleteCategory(@PathParam("id") UUID id) {
+        categoryService.deleteCategory(id);
     }
 }

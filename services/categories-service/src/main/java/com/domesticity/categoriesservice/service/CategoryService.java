@@ -32,4 +32,8 @@ public class CategoryService {
     public Optional<Category> getCategory(UUID id) {
         return categoryDao.getCategory(id);
     }
+
+    public int deleteCategory(UUID id) {
+        return categoryDao.deleteCategory(id);
+    }
 }
