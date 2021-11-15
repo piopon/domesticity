@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,5 +46,11 @@ public class CategoryController {
     @DeleteMapping(path = "{id}")
     public void deleteCategory(@PathParam("id") UUID id) {
         categoryService.deleteCategory(id);
+    }
+
+    @PutMapping(path = "{id}")
+    public void updateCategory(@PathParam("ud") UUID id,
+                               @RequestBody Category category) {
+        categoryService.updateCategory(id, category);
     }
 }

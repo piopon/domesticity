@@ -36,4 +36,8 @@ public class CategoryService {
     public int deleteCategory(UUID id) {
         return categoryDao.deleteCategory(id);
     }
+
+    public int updateCategory(UUID id, Category newCategory) {
+        return categoryDao.updateCategory(id, newCategory);
+    }
 }
