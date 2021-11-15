@@ -2,6 +2,7 @@ package com.domesticity.categoriesservice.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.domesticity.categoriesservice.model.Category;
@@ -22,5 +23,10 @@ public class InMemoryCategoryDao implements CategoryDao {
     @Override
     public List<Category> getCategories() {
         return MEMORY_DB;
+    }
+
+    @Override
+    public Optional<Category> getCategory(UUID id) {
+        return MEMORY_DB.stream().filter(category -> category.getId().equals(id)).findFirst();
     }
 }

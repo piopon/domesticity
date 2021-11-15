@@ -1,6 +1,9 @@
 package com.domesticity.categoriesservice.api;
 
 import java.util.List;
+import java.util.UUID;
+
+import javax.websocket.server.PathParam;
 
 import com.domesticity.categoriesservice.model.Category;
 import com.domesticity.categoriesservice.service.CategoryService;
@@ -31,5 +34,10 @@ public class CategoryController {
     @GetMapping
     public List<Category> getCategories() {
         return categoryService.getCategories();
+    }
+
+    @GetMapping(path = "{id}")
+    public Category getCategory(@PathParam("id") UUID id) {
+        return categoryService.getCategory(id).orElse(null);
     }
 }
