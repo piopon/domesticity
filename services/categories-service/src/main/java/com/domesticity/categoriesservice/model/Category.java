@@ -2,14 +2,18 @@ package com.domesticity.categoriesservice.model;
 
 import java.util.UUID;
 
+import javax.validation.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Category {
 
     private final UUID id;
-    private final String name;
-    private final Colour colour;
     private final String icon;
+    @NotBlank(message = "Name may not be empty")
+    private final String name;
+    @NotBlank(message = "Colour may not be empty")
+    private final Colour colour;
 
     public Category(@JsonProperty("id") UUID id,
                     @JsonProperty("name") String name,
