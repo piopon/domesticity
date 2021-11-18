@@ -3,6 +3,8 @@ package com.domesticity.categoriesservice.api;
 import java.util.List;
 import java.util.UUID;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.websocket.server.PathParam;
 
 import com.domesticity.categoriesservice.model.Category;
@@ -29,7 +31,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public void addCategory(@RequestBody Category category) {
+    public void addCategory(@Valid @NotNull @RequestBody Category category) {
         categoryService.addCategory(category);
     }
 
@@ -50,7 +52,7 @@ public class CategoryController {
 
     @PutMapping(path = "{id}")
     public void updateCategory(@PathParam("ud") UUID id,
-                               @RequestBody Category category) {
+                               @Valid @NotNull @RequestBody Category category) {
         categoryService.updateCategory(id, category);
     }
 }
