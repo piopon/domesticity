@@ -6,8 +6,12 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Category {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
+public class Category {
+    @Id
     private final UUID id;
     private final String icon;
     private final Colour colour;
