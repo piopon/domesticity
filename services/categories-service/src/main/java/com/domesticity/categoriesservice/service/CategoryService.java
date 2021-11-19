@@ -2,7 +2,6 @@ package com.domesticity.categoriesservice.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import com.domesticity.categoriesservice.dao.CategoryDao;
 import com.domesticity.categoriesservice.model.Category;
@@ -29,15 +28,15 @@ public class CategoryService {
         return categoryDao.getCategories();
     }
 
-    public Optional<Category> getCategory(UUID id) {
+    public Optional<Category> getCategory(String id) {
         return categoryDao.getCategory(id);
     }
 
-    public int deleteCategory(UUID id) {
+    public int deleteCategory(String id) {
         return categoryDao.deleteCategory(id);
     }
 
-    public int updateCategory(UUID id, Category newCategory) {
+    public int updateCategory(String id, Category newCategory) {
         return categoryDao.updateCategory(id, newCategory);
     }
 }

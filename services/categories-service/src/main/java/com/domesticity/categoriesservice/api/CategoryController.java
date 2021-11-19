@@ -1,7 +1,6 @@
 package com.domesticity.categoriesservice.api;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -41,17 +40,17 @@ public class CategoryController {
     }
 
     @GetMapping(path = "{id}")
-    public Category getCategory(@PathParam("id") UUID id) {
+    public Category getCategory(@PathParam("id") String id) {
         return categoryService.getCategory(id).orElse(null);
     }
 
     @DeleteMapping(path = "{id}")
-    public void deleteCategory(@PathParam("id") UUID id) {
+    public void deleteCategory(@PathParam("id") String id) {
         categoryService.deleteCategory(id);
     }
 
     @PutMapping(path = "{id}")
-    public void updateCategory(@PathParam("ud") UUID id,
+    public void updateCategory(@PathParam("ud") String id,
                                @Valid @NotNull @RequestBody Category category) {
         categoryService.updateCategory(id, category);
     }

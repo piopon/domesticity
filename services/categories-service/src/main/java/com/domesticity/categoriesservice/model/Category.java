@@ -1,7 +1,5 @@
 package com.domesticity.categoriesservice.model;
 
-import java.util.UUID;
-
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,13 +10,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Category {
     @Id
-    private final UUID id;
+    private final String id;
     private final String icon;
     private final Colour colour;
     @NotBlank(message = "Name may not be empty")
     private final String name;
 
-    public Category(@JsonProperty("id") UUID id,
+    public Category(@JsonProperty("id") String id,
                     @JsonProperty("name") String name,
                     @JsonProperty("color") Colour colour,
                     @JsonProperty("icon") String icon) {
@@ -28,7 +26,7 @@ public class Category {
         this.icon = icon;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 

@@ -7,18 +7,18 @@ import com.domesticity.categoriesservice.model.Category;
 
 public interface CategoryDao {
 
-    int addCategory(UUID id, Category category);
+    int addCategory(String id, Category category);
 
     List<Category> getCategories();
 
-    Optional<Category> getCategory(UUID id);
+    Optional<Category> getCategory(String id);
 
-    int deleteCategory(UUID id);
+    int deleteCategory(String id);
 
-    int updateCategory(UUID id, Category newCategory);
+    int updateCategory(String id, Category newCategory);
 
     default int addCategory(Category category) {
-        final UUID id = UUID.randomUUID();
+        final String id = UUID.randomUUID().toString();
         return addCategory(id, category);
     }
 }

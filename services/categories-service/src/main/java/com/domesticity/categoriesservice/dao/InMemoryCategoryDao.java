@@ -3,7 +3,6 @@ package com.domesticity.categoriesservice.dao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import com.domesticity.categoriesservice.model.Category;
 
@@ -15,7 +14,7 @@ public class InMemoryCategoryDao implements CategoryDao {
     private static final List<Category> MEMORY_DB = new ArrayList<>();
 
     @Override
-    public int addCategory(UUID id, Category category) {
+    public int addCategory(String id, Category category) {
         MEMORY_DB.add(new Category(id, category.getName(), category.getColour(), category.getIcon()));
         return 1;
     }
@@ -26,12 +25,12 @@ public class InMemoryCategoryDao implements CategoryDao {
     }
 
     @Override
-    public Optional<Category> getCategory(UUID id) {
+    public Optional<Category> getCategory(String id) {
         return MEMORY_DB.stream().filter(category -> category.getId().equals(id)).findFirst();
     }
 
     @Override
-    public int deleteCategory(UUID id) {
+    public int deleteCategory(String id) {
         Optional<Category> foundCategory = getCategory(id);
         if (foundCategory.isEmpty()) {
             return 0;
@@ -41,7 +40,7 @@ public class InMemoryCategoryDao implements CategoryDao {
     }
 
     @Override
-    public int updateCategory(UUID id, Category newCategory) {
+    public int updateCategory(String id, Category newCategory) {
         return getCategory(id).map(category -> {
             int toUpdateIndex = MEMORY_DB.indexOf(category);
             if (toUpdateIndex >= 0) {
