@@ -10,10 +10,9 @@ public class Category {
 
     private final UUID id;
     private final String icon;
+    private final Colour colour;
     @NotBlank(message = "Name may not be empty")
     private final String name;
-    @NotBlank(message = "Colour may not be empty")
-    private final Colour colour;
 
     public Category(@JsonProperty("id") UUID id,
                     @JsonProperty("name") String name,

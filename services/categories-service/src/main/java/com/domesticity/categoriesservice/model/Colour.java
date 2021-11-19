@@ -1,12 +1,17 @@
 package com.domesticity.categoriesservice.model;
 
+import javax.validation.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Colour {
-
+    @NotBlank(message = "Red colour value may not be empty")
     private final String red;
+    @NotBlank(message = "Green colour value may not be empty")
     private final String green;
+    @NotBlank(message = "Blue colour value may not be empty")
     private final String blue;
+    @NotBlank(message = "Alpha colour value may not be empty")
     private final String alpha;
 
     public Colour(@JsonProperty("red") String red,
