@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository("postgres")
 public class PostgresCategoryDao implements CategoryDao {
 
-    private final static Colour TEMP_COLOUR = new Colour("200","200","200","1");
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -28,12 +27,16 @@ public class PostgresCategoryDao implements CategoryDao {
 
     @Override
     public List<Category> getCategories() {
-        final String sql = "SELECT id, name, colour, icon FROM category";
+        final String sql = "SELECT * FROM category cat, colour col WHERE cat.colour = col.name";
         return jdbcTemplate.query(sql, (results, i) -> {
             String id = results.getString("id");
             String name = results.getString("name");
             String icon = results.getString("icon");
-            return new Category(id, name, TEMP_COLOUR, icon);
+            final Colour colour = new Colour(results.getString("red"),
+                                             results.getString("green"),
+                                             results.getString("blue"),
+                                             results.getString("alpha"));
+            return new Category(id, name, colour, icon);
         });
     }
 
