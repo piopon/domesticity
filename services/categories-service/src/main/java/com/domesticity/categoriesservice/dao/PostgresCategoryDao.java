@@ -32,7 +32,8 @@ public class PostgresCategoryDao implements CategoryDao {
             String id = results.getString("id");
             String name = results.getString("name");
             String icon = results.getString("icon");
-            final Colour colour = new Colour(results.getString("red"),
+            final Colour colour = new Colour(results.getString("colour"),
+                                             results.getString("red"),
                                              results.getString("green"),
                                              results.getString("blue"),
                                              results.getString("alpha"));
@@ -46,7 +47,8 @@ public class PostgresCategoryDao implements CategoryDao {
         Category category = jdbcTemplate.queryForObject(sql, (results, i) -> {
             String name = results.getString("name");
             String icon = results.getString("icon");
-            final Colour colour = new Colour(results.getString("red"),
+            final Colour colour = new Colour(results.getString("colour"),
+                                             results.getString("red"),
                                              results.getString("green"),
                                              results.getString("blue"),
                                              results.getString("alpha"));
