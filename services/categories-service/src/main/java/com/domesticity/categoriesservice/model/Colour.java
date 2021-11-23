@@ -5,13 +5,9 @@ import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Colour {
-    @NotBlank(message = "Red colour value may not be empty")
     private final String red;
-    @NotBlank(message = "Green colour value may not be empty")
     private final String green;
-    @NotBlank(message = "Blue colour value may not be empty")
     private final String blue;
-    @NotBlank(message = "Alpha colour value may not be empty")
     private final String alpha;
 
     public Colour(@JsonProperty("red") String red,
@@ -24,18 +20,22 @@ public class Colour {
         this.alpha = alpha;
     }
 
+    @NotBlank(message = "Red colour value may not be empty")
     public String getRed() {
         return red;
     }
 
+    @NotBlank(message = "Green colour value may not be empty")
     public String getGreen() {
         return green;
     }
 
+    @NotBlank(message = "Blue colour value may not be empty")
     public String getBlue() {
         return blue;
     }
 
+    @NotBlank(message = "Alpha colour value may not be empty")
     public String getAlpha() {
         return alpha;
     }

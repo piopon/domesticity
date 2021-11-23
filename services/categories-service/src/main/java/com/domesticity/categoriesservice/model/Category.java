@@ -8,7 +8,6 @@ public class Category {
     private final String id;
     private final String icon;
     private final Colour colour;
-    @NotBlank(message = "Name may not be empty")
     private final String name;
 
     public Category(@JsonProperty("id") String id,
@@ -25,6 +24,7 @@ public class Category {
         return id;
     }
 
+    @NotBlank(message = "Name may not be empty")
     public String getName() {
         return name;
     }
