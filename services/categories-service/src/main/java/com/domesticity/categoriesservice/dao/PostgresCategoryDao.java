@@ -59,7 +59,8 @@ public class PostgresCategoryDao implements CategoryDao {
 
     @Override
     public int deleteCategory(String id) {
-        return 0;
+        final String sql = "DELETE FROM student WHERE student_id = ?";
+        return jdbcTemplate.update(sql, id);
     }
 
     @Override
