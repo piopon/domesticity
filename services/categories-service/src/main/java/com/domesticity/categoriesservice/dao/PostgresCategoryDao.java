@@ -22,7 +22,9 @@ public class PostgresCategoryDao implements CategoryDao {
 
     @Override
     public int addCategory(String id, Category category) {
-        return 0;
+        String sql = "INSERT INTO category (id, name, colour, icon) VALUES (?, ?, ?, ?)";
+        addColour(category.getColour());
+        return jdbcTemplate.update(sql, id, category.getName(), category.getColour().getName(), category.getIcon());
     }
 
     @Override
