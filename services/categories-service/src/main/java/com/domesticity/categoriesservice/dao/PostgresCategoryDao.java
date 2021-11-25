@@ -67,4 +67,10 @@ public class PostgresCategoryDao implements CategoryDao {
     public int updateCategory(String id, Category newCategory) {
         return 0;
     }
+
+    private int addColour(Colour colour) {
+        String sql = "INSERT INTO colour (name, red, green, blue, alpha) VALUES (?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, colour.getName(), colour.getRed(), colour.getGreen(), colour.getBlue(),
+                colour.getAlpha());
+    }
 }
