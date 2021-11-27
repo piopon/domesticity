@@ -16,7 +16,7 @@ public class CategoryService {
     private final CategoryDao categoryDao;
 
     @Autowired
-    public CategoryService(@Qualifier("memory") CategoryDao categoryDao) {
+    public CategoryService(@Qualifier("postgres") CategoryDao categoryDao) {
         this.categoryDao = categoryDao;
     }
 
