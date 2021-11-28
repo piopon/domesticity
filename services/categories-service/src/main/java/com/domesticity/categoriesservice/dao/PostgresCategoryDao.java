@@ -75,4 +75,9 @@ public class PostgresCategoryDao implements CategoryDao {
         return jdbcTemplate.update(sql, colour.getName(), colour.getRed(), colour.getGreen(), colour.getBlue(),
                 colour.getAlpha());
     }
+
+    private boolean isColourPresent(String name) {
+        String sql = "SELECT EXISTS (SELECT 1 FROM colour WHERE name = ?)";
+        return jdbcTemplate.queryForObject(sql, (resultSet, i) -> resultSet.getBoolean(1), name);
+    }
 }
