@@ -83,4 +83,9 @@ public class PostgresCategoryDao implements CategoryDao {
         String sql = "SELECT EXISTS (SELECT 1 FROM colour WHERE name = ?)";
         return jdbcTemplate.queryForObject(sql, (resultSet, i) -> resultSet.getBoolean(1), name);
     }
+
+    private boolean isCategoryPresent(String name) {
+        String sql = "SELECT EXISTS (SELECT 1 FROM category WHERE name = ?)";
+        return jdbcTemplate.queryForObject(sql, (resultSet, i) -> resultSet.getBoolean(1), name);
+    }
 }
