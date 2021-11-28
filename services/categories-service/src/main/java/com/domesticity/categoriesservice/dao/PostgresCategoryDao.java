@@ -71,9 +71,12 @@ public class PostgresCategoryDao implements CategoryDao {
     }
 
     private int addColour(Colour colour) {
-        String sql = "INSERT INTO colour (name, red, green, blue, alpha) VALUES (?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, colour.getName(), colour.getRed(), colour.getGreen(), colour.getBlue(),
-                colour.getAlpha());
+        if (!isColourPresent(colour.getName())) {
+            String sql = "INSERT INTO colour (name, red, green, blue, alpha) VALUES (?, ?, ?, ?, ?)";
+            return jdbcTemplate.update(sql, colour.getName(), colour.getRed(), colour.getGreen(), colour.getBlue(),
+                    colour.getAlpha());
+        }
+        return 0;
     }
 
     private boolean isColourPresent(String name) {
