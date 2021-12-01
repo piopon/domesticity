@@ -71,6 +71,7 @@ public class PostgresCategoryDao implements CategoryDao {
     @Override
     public int updateCategory(String id, Category newCategory) {
         if (isCategoryPresent(newCategory.getName())) {
+            updateColour(newCategory.getColour().getName(), newCategory.getColour());
             String sql = "UPDATE category SET name = ?, icon = ?, colour = ? WHERE id = ?";
             return jdbcTemplate.update(sql, newCategory.getName(), newCategory.getIcon(), newCategory.getColour(), id);
         }
