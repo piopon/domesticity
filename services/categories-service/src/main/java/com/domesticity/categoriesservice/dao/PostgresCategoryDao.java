@@ -70,7 +70,7 @@ public class PostgresCategoryDao implements CategoryDao {
 
     @Override
     public int updateCategory(String id, Category newCategory) {
-        String sql = "UPDATE category SET name = ? WHERE student_id = ?";
+        String sql = "UPDATE category SET name = ? WHERE id = ?";
         return jdbcTemplate.update(sql, newCategory.getName(), id);
     }
 
