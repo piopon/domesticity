@@ -15,7 +15,7 @@ public class CategoriesServiceApplicationConfig {
     private ApplicationContext context;
 
     @Bean
-    public CategoryDao CategoryDaoRepository(@Value("${dao.provider}") String qualifier) {
+    public CategoryDao CategoryDaoRepository(@Value("${repository.type}") String qualifier) {
         return (CategoryDao) context.getBean(qualifier);
     }
 }
