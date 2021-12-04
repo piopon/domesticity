@@ -7,12 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Category {
     private final String id;
     private final String icon;
-    private final Colour colour;
+    private final String colour;
     private final String name;
 
     public Category(@JsonProperty("id") String id,
                     @JsonProperty("name") String name,
-                    @JsonProperty("color") Colour colour,
+                    @JsonProperty("color") String colour,
                     @JsonProperty("icon") String icon) {
         this.id = id;
         this.name = name;
@@ -24,12 +24,13 @@ public class Category {
         return id;
     }
 
-    @NotBlank(message = "Name may not be empty")
+    @NotBlank(message = "Name cannot be empty")
     public String getName() {
         return name;
     }
 
-    public Colour getColour() {
+    @NotBlank(message = "Colour cannot be empty")
+    public String getColour() {
         return colour;
     }
 
