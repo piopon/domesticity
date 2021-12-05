@@ -22,7 +22,6 @@ public class PostgresCategoryDao implements CategoryDao {
 
     @Override
     public int addCategory(String id, Category category) {
-        addColour(category.getColour());
         if (!isCategoryPresent(category.getName())) {
             String sql = "INSERT INTO category (id, name, colour, icon) VALUES (?, ?, ?, ?)";
             return jdbcTemplate.update(sql, id, category.getName(), category.getColour(), category.getIcon());
@@ -63,7 +62,6 @@ public class PostgresCategoryDao implements CategoryDao {
     @Override
     public int updateCategory(String id, Category newCategory) {
         if (isCategoryPresent(newCategory.getName())) {
-            updateColour(newCategory.getColour().getName(), newCategory.getColour());
             String sql = "UPDATE category SET name = ?, icon = ?, colour = ? WHERE id = ?";
             return jdbcTemplate.update(sql, newCategory.getName(), newCategory.getIcon(), newCategory.getColour(), id);
         }
