@@ -25,38 +25,30 @@ public class PostgresCategoryDao implements CategoryDao {
         addColour(category.getColour());
         if (!isCategoryPresent(category.getName())) {
             String sql = "INSERT INTO category (id, name, colour, icon) VALUES (?, ?, ?, ?)";
-            return jdbcTemplate.update(sql, id, category.getName(), category.getColour().getName(), category.getIcon());
+            return jdbcTemplate.update(sql, id, category.getName(), category.getColour(), category.getIcon());
         }
         return 0;
     }
 
     @Override
     public List<Category> getCategories() {
-        final String sql = "SELECT * FROM category cat, colour col WHERE cat.colour = col.name";
+        final String sql = "SELECT * FROM category";
         return jdbcTemplate.query(sql, (results, i) -> {
             String id = results.getString("id");
             String name = results.getString("name");
+            String colour = results.getString("colour");
             String icon = results.getString("icon");
-            final Colour colour = new Colour(results.getString("colour"),
-                                             results.getString("red"),
-                                             results.getString("green"),
-                                             results.getString("blue"),
-                                             results.getString("alpha"));
             return new Category(id, name, colour, icon);
         });
     }
 
     @Override
     public Optional<Category> getCategory(String id) {
-        final String sql = "SELECT * FROM category cat, colour col WHERE cat.colour = col.name AND cat.id = ?";
+        final String sql = "SELECT * FROM category cat WHERE cat.id = ?";
         Category category = jdbcTemplate.queryForObject(sql, (results, i) -> {
             String name = results.getString("name");
+            String colour = results.getString("colour");
             String icon = results.getString("icon");
-            final Colour colour = new Colour(results.getString("colour"),
-                                             results.getString("red"),
-                                             results.getString("green"),
-                                             results.getString("blue"),
-                                             results.getString("alpha"));
             return new Category(id, name, colour, icon);
         }, id);
         return Optional.ofNullable(category);
