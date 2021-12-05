@@ -68,29 +68,6 @@ public class PostgresCategoryDao implements CategoryDao {
         return 0;
     }
 
-    private int addColour(Colour colour) {
-        if (!isColourPresent(colour.getName())) {
-            String sql = "INSERT INTO colour (name, red, green, blue, alpha) VALUES (?, ?, ?, ?, ?)";
-            return jdbcTemplate.update(sql, colour.getName(), colour.getRed(), colour.getGreen(), colour.getBlue(),
-                    colour.getAlpha());
-        }
-        return 0;
-    }
-
-    private int updateColour(String idName, Colour newColour) {
-        if (isColourPresent(idName)) {
-            String sql = "UPDATE colour SET red = ?, green = ?, blue = ?, alpha = ? WHERE name = ?";
-            return jdbcTemplate.update(sql, newColour.getRed(), newColour.getGreen(), newColour.getBlue(),
-                    newColour.getAlpha(), idName);
-        }
-        return 0;
-    }
-
-    private boolean isColourPresent(String name) {
-        String sql = "SELECT EXISTS (SELECT 1 FROM colour WHERE name = ?)";
-        return jdbcTemplate.queryForObject(sql, (resultSet, i) -> resultSet.getBoolean(1), name);
-    }
-
     private boolean isCategoryPresent(String name) {
         String sql = "SELECT EXISTS (SELECT 1 FROM category WHERE name = ?)";
         return jdbcTemplate.queryForObject(sql, (resultSet, i) -> resultSet.getBoolean(1), name);
