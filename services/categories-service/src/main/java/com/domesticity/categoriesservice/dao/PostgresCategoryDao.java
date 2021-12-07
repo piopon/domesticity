@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.domesticity.categoriesservice.model.Category;
-import com.domesticity.categoriesservice.model.Colour;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
