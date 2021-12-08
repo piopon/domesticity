@@ -35,8 +35,7 @@ public class InMemoryCategoryDao implements CategoryDao {
         if (foundCategory.isEmpty()) {
             return 0;
         }
-        MEMORY_DB.remove(foundCategory.get());
-        return 1;
+        return MEMORY_DB.remove(foundCategory.get()) ? 1 : 0;
     }
 
     @Override
