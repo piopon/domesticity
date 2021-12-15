@@ -24,12 +24,12 @@ public class Category {
         return id;
     }
 
-    @NotBlank(message = "Name cannot be empty")
+    @NotBlank(message = "Category name cannot be empty")
     public String getName() {
         return name;
     }
 
-    @NotBlank(message = "Colour cannot be empty")
+    @NotBlank(message = "Category colour cannot be empty")
     public String getColour() {
         return colour;
     }
