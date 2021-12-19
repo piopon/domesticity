@@ -12,6 +12,7 @@ import com.domesticity.categoriesservice.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +41,7 @@ public class CategoryController {
     }
 
     @GetMapping(path = "{id}")
-    public Category getCategory(@PathParam("id") String id) {
+    public Category getCategory(@PathVariable("id") String id) {
         return categoryService.getCategory(id).orElse(null);
     }
 
