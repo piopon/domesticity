@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.websocket.server.PathParam;
 
 import com.domesticity.categoriesservice.model.Category;
 import com.domesticity.categoriesservice.service.CategoryService;
