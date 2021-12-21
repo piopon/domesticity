@@ -60,15 +60,15 @@ public class PostgresCategoryDao implements CategoryDao {
 
     @Override
     public int updateCategory(String id, Category newCategory) {
-        if (isCategoryPresent(newCategory.getName())) {
+        if (isCategoryPresent(id)) {
             String sql = "UPDATE category SET name = ?, icon = ?, colour = ? WHERE id = ?";
             return jdbcTemplate.update(sql, newCategory.getName(), newCategory.getIcon(), newCategory.getColour(), id);
         }
         return 0;
     }
 
-    private boolean isCategoryPresent(String name) {
-        String sql = "SELECT EXISTS (SELECT 1 FROM category WHERE name = ?)";
-        return jdbcTemplate.queryForObject(sql, (results, i) -> results.getBoolean(1), name);
+    private boolean isCategoryPresent(String id) {
+        String sql = "SELECT EXISTS (SELECT 1 FROM category WHERE id = ?)";
+        return jdbcTemplate.queryForObject(sql, (results, i) -> results.getBoolean(1), id);
     }
 }
