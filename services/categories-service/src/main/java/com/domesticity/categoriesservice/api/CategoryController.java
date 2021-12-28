@@ -34,6 +34,12 @@ public class CategoryController {
         categoryService.addCategory(category);
     }
 
+    @PutMapping(path = "{id}")
+    public void updateCategory(@PathVariable("id") String id,
+                               @Valid @NotNull @RequestBody Category category) {
+        categoryService.updateCategory(id, category);
+    }
+
     @GetMapping
     public List<Category> getCategories() {
         return categoryService.getCategories();
@@ -47,11 +53,5 @@ public class CategoryController {
     @DeleteMapping(path = "{id}")
     public void deleteCategory(@PathVariable("id") String id) {
         categoryService.deleteCategory(id);
-    }
-
-    @PutMapping(path = "{id}")
-    public void updateCategory(@PathVariable("id") String id,
-                               @Valid @NotNull @RequestBody Category category) {
-        categoryService.updateCategory(id, category);
     }
 }
