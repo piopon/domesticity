@@ -44,6 +44,8 @@ public class CategoryControllerTest {
 
     @Test
     void deletingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
+        when(mockService.deleteCategory("123")).thenReturn(1);
+
         mockMvc.perform(MockMvcRequestBuilders.delete("/category/123")
                 .contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
