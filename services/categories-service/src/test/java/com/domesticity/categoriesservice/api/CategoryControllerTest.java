@@ -6,9 +6,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+
+import com.domesticity.categoriesservice.model.Category;
 import com.domesticity.categoriesservice.service.CategoryService;
 
 @SpringBootTest
@@ -23,15 +28,18 @@ public class CategoryControllerTest {
 
     @Test
     void receivingAllCategoriesWithCorrectUrlReturnsOkStatus() throws Exception {
-        mockMvc.perform(get("/category")
-                .contentType("application/json"))
-                .andExpect(status().isOk());
+        when(mockService.getCategories()).thenReturn(List.of(
+                new Category("1", "kategoria1", "#0000FF", "ikona1")));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/category"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(1));
     }
 
     @Test
     void deletingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
-        mockMvc.perform(delete("/category/123")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/category/123")
                 .contentType("application/json"))
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
