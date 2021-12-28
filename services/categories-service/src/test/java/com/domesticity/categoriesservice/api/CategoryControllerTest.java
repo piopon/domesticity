@@ -1,5 +1,11 @@
 package com.domesticity.categoriesservice.api;
 
+import java.util.List;
+import java.util.Optional;
+
+import com.domesticity.categoriesservice.model.Category;
+import com.domesticity.categoriesservice.service.CategoryService;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -8,13 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import static org.mockito.Mockito.when;
-
-import java.util.List;
-
-import com.domesticity.categoriesservice.model.Category;
-import com.domesticity.categoriesservice.service.CategoryService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
