@@ -43,6 +43,19 @@ public class CategoryControllerTest {
     }
 
     @Test
+    void receivingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
+        when(mockService.getCategory("123")).thenReturn(Optional.of(
+                new Category("123", "cat1", "#123456", "bball")));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/category/123"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("123"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("cat1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.color").value("#123456"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.icon").value("bball"));
+    }
+
+    @Test
     void deletingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
         when(mockService.deleteCategory("123")).thenReturn(1);
 
