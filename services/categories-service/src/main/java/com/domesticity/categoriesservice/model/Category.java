@@ -37,4 +37,8 @@ public class Category {
     public String getIcon() {
         return icon;
     }
+
+    public static Category empty() {
+        return new Category("", "", "", "");
+    }
 }
