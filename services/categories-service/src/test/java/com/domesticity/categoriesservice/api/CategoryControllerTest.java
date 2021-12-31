@@ -57,6 +57,14 @@ public class CategoryControllerTest {
     }
 
     @Test
+    void addingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/category")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\": \"kat2\", \"color\":\"red\", \"icon\":\"zzz\"}"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
     void deletingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
         when(mockService.deleteCategory("123")).thenReturn(1);
 
