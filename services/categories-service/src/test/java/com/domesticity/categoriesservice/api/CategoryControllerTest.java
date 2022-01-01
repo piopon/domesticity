@@ -14,6 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(CategoryController.class)
@@ -60,6 +64,7 @@ public class CategoryControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\": \"kat2\", \"color\":\"red\", \"icon\":\"zzz\"}"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+        verify(mockService).addCategory(any(Category.class));
     }
 
     @Test
@@ -68,6 +73,7 @@ public class CategoryControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\": \"kat2\", \"color\":\"red\", \"icon\":\"zzz\"}"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+        verify(mockService).updateCategory(eq("123"), any(Category.class));
     }
 
     @Test
@@ -77,5 +83,6 @@ public class CategoryControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/category/123")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+        verify(mockService).deleteCategory(eq("123"));
     }
 }
