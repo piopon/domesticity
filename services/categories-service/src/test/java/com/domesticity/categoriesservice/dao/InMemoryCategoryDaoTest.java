@@ -37,4 +37,16 @@ public class InMemoryCategoryDaoTest {
         assertEquals(1, testDao.getCategories().size());
         assertTrue(testDao.getCategories().get(0).getName().equals(""));
     }
+
+    @Test
+    void getCategoriesShouldRetrieveAllInMemoryList() {
+        testDao.addCategory("007", Category.empty());
+        testDao.addCategory("000", Category.empty());
+        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+
+        List<Category> actualList = testDao.getCategories();
+
+        assertEquals(3, actualList.size());
+        assertTrue(actualList.stream().filter(category -> category.getId().equals("123")).count() == 1);
+    }
 }
