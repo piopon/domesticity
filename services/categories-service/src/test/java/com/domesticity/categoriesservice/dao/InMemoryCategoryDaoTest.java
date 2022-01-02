@@ -3,6 +3,7 @@ package com.domesticity.categoriesservice.dao;
 import com.domesticity.categoriesservice.model.Category;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,5 +49,30 @@ public class InMemoryCategoryDaoTest {
 
         assertEquals(3, actualList.size());
         assertTrue(actualList.stream().filter(category -> category.getId().equals("123")).count() == 1);
+    }
+
+    @Test
+    void getCategoryShouldRetrieveSelectedItemFromMemoryList() {
+        testDao.addCategory("007", Category.empty());
+        testDao.addCategory("000", Category.empty());
+        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+
+        Optional<Category> actualItem = testDao.getCategory("123");
+
+        assertTrue(actualItem.isPresent());
+        assertTrue(actualItem.get().getName().equals("name"));
+        assertTrue(actualItem.get().getColour().equals("colour"));
+        assertTrue(actualItem.get().getIcon().equals("icon"));
+    }
+
+    @Test
+    void getCategoryShouldReturnEmptyItemIfIdIsNotFound() {
+        testDao.addCategory("007", Category.empty());
+        testDao.addCategory("000", Category.empty());
+        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+
+        Optional<Category> actualItem = testDao.getCategory("1");
+
+        assertTrue(actualItem.isEmpty());
     }
 }
