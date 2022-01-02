@@ -75,4 +75,17 @@ public class InMemoryCategoryDaoTest {
 
         assertTrue(actualItem.isEmpty());
     }
+
+    @Test
+    void deleteCategoryShouldRemoveExistingItem() {
+        testDao.addCategory("007", Category.empty());
+        testDao.addCategory("000", Category.empty());
+        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+
+        int result = testDao.deleteCategory("123");
+
+        assertEquals(1, result);
+        assertEquals(2, testDao.getCategories().size());
+        assertTrue(testDao.getCategories().stream().allMatch(category -> category.getName().equals("")));
+    }
 }
