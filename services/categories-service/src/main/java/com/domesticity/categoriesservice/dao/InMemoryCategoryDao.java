@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository("memory")
 public class InMemoryCategoryDao implements CategoryDao {
 
-    private static final List<Category> MEMORY_DB = new ArrayList<>();
+    private final List<Category> MEMORY_DB = new ArrayList<>();
 
     @Override
     public int addCategory(String id, Category category) {
