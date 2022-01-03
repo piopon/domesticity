@@ -113,4 +113,17 @@ public class InMemoryCategoryDaoTest {
         assertEquals(3, testDao.getCategories().size());
         assertTrue(testDao.getCategories().stream().filter(category -> category.getName().equals("name")).count() == 2);
     }
+
+    @Test
+    void modifyCategoryShouldDoNothingWithNotExistingItem() {
+        testDao.addCategory("007", Category.empty());
+        testDao.addCategory("000", Category.empty());
+        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+
+        int result = testDao.updateCategory("001", new Category("", "name", "colour", "icon"));
+
+        assertEquals(0, result);
+        assertEquals(3, testDao.getCategories().size());
+        assertTrue(testDao.getCategories().stream().filter(category -> category.getName().equals("name")).count() == 1);
+    }
 }
