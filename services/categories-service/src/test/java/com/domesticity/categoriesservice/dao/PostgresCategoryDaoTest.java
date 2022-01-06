@@ -20,7 +20,10 @@ public class PostgresCategoryDaoTest {
 
     @BeforeEach
     void setup() {
-        EmbeddedDatabase db = new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
+        EmbeddedDatabase db = new EmbeddedDatabaseBuilder()
+            .generateUniqueName(true)
+            .setType(EmbeddedDatabaseType.H2)
+            .setScriptEncoding("UTF-8")
             .addScript("schema.sql")
             .addScript("test-data.sql")
             .build();
