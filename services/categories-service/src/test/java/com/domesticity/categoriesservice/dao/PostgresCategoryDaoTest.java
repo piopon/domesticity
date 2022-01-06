@@ -29,6 +29,24 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
+    void addCategoryWithExplicitIdShouldUpdateInMemoryList() {
+        int result = testDao.addCategory("123", Category.empty());
+
+        assertEquals(1, result);
+        assertEquals(4, testDao.getCategories().size());
+        assertTrue(testDao.getCategories().get(3).getId().equals("123"));
+    }
+
+    @Test
+    void addCategoryWithImplicitIdShouldUpdateInMemoryList() {
+        int result = testDao.addCategory(Category.empty());
+
+        assertEquals(1, result);
+        assertEquals(4, testDao.getCategories().size());
+        assertTrue(testDao.getCategories().get(3).getName().equals(""));
+    }
+
+    @Test
     void getCategoriesShouldRetrieveAllStoredCategories() {
         assertEquals(3, testDao.getCategories().size());
         assertEquals("1", testDao.getCategories().get(0).getId());
