@@ -66,4 +66,11 @@ public class PostgresCategoryDaoTest {
         assertEquals("#FF0000", actualItem.get().getColour());
         assertEquals("icon1", actualItem.get().getIcon());
     }
+
+    @Test
+    void getCategoryShouldReturnEmptyItemIfIdIsNotFound() {
+        Optional<Category> actualItem = testDao.getCategory("123");
+
+        assertTrue(actualItem.isEmpty());
+    }
 }
