@@ -73,4 +73,20 @@ public class PostgresCategoryDaoTest {
 
         assertTrue(actualItem.isEmpty());
     }
+
+    @Test
+    void deleteCategoryShouldRemoveExistingItem() {
+        int result = testDao.deleteCategory("1");
+
+        assertEquals(1, result);
+        assertEquals(2, testDao.getCategories().size());
+    }
+
+    @Test
+    void deleteCategoryDoesNothingIfItemDoesNotExist() {
+        int result = testDao.deleteCategory("123");
+
+        assertEquals(0, result);
+        assertEquals(3, testDao.getCategories().size());
+    }
 }
