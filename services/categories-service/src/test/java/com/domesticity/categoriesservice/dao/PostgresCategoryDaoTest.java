@@ -1,6 +1,11 @@
 package com.domesticity.categoriesservice.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Optional;
+
+import com.domesticity.categoriesservice.model.Category;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,4 +36,13 @@ public class PostgresCategoryDaoTest {
         assertEquals("#0000FF", testDao.getCategories().get(2).getColour());
     }
 
+    @Test
+    void getCategoryShouldRetrieveSelectedItemFromDb() {
+        Optional<Category> actualItem = testDao.getCategory("1");
+
+        assertTrue(actualItem.isPresent());
+        assertEquals("red", actualItem.get().getName());
+        assertEquals("#FF0000", actualItem.get().getColour());
+        assertEquals("icon1", actualItem.get().getIcon());
+    }
 }
