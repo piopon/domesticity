@@ -21,7 +21,7 @@ public class PostgresCategoryDao implements CategoryDao {
 
     @Override
     public int addCategory(String id, Category category) {
-        if (!isCategoryPresent(category.getName())) {
+        if (!isCategoryPresent(id)) {
             String sql = "INSERT INTO category (id, name, colour, icon) VALUES (?, ?, ?, ?)";
             return jdbcTemplate.update(sql, id, category.getName(), category.getColour(), category.getIcon());
         }
