@@ -42,6 +42,9 @@ public class PostgresCategoryDao implements CategoryDao {
 
     @Override
     public Optional<Category> getCategory(String id) {
+        if (!isCategoryPresent(id)) {
+            return Optional.empty();
+        }
         final String sql = "SELECT * FROM category WHERE id = ?";
         Category category = jdbcTemplate.queryForObject(sql, (results, i) -> {
             String name = results.getString("name");
