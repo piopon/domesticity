@@ -89,4 +89,22 @@ public class PostgresCategoryDaoTest {
         assertEquals(0, result);
         assertEquals(3, testDao.getCategories().size());
     }
+
+    @Test
+    void modifyCategoryShouldUpdateExistingItem() {
+        int result = testDao.updateCategory("1", new Category("", "new", "#FFFFFF", ""));
+
+        assertEquals(1, result);
+        assertEquals(3, testDao.getCategories().size());
+        assertTrue(testDao.getCategories().stream().filter(category -> category.getName().equals("new")).count() == 1);
+    }
+
+    @Test
+    void modifyCategoryShouldDoNothingWithNotExistingItem() {
+        int result = testDao.updateCategory("123", new Category("", "name", "colour", "icon"));
+
+        assertEquals(0, result);
+        assertEquals(3, testDao.getCategories().size());
+        assertTrue(testDao.getCategories().stream().filter(category -> category.getId().equals("123")).count() == 0);
+    }
 }
