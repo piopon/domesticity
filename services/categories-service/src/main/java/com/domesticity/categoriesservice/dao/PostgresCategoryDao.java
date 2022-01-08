@@ -42,7 +42,7 @@ public class PostgresCategoryDao implements CategoryDao {
 
     @Override
     public Optional<Category> getCategory(String id) {
-        final String sql = "SELECT * FROM category cat WHERE cat.id = ?";
+        final String sql = "SELECT * FROM category WHERE id = ?";
         Category category = jdbcTemplate.queryForObject(sql, (results, i) -> {
             String name = results.getString("name");
             String colour = results.getString("colour");
