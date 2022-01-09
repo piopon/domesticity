@@ -30,6 +30,14 @@ public class CategoryServiceTest {
 	}
 
     @Test
+	public void addCategoryShouldAddNonExistingCategory() {
+        Category category = new Category("id1", "name1", "colour1", "icon1");
+        testService.addCategory(category);
+
+        verify(dao, times(1)).addCategory(category);
+    }
+
+    @Test
 	public void getCategoriesShouldReturnAllSavedCategories() {
         when(dao.getCategories()).thenReturn(List.of(
             new Category("id1", "name1", "color1", "icon1"),
