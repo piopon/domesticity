@@ -21,18 +21,18 @@ import org.mockito.MockitoAnnotations;
 public class CategoryServiceTest {
 
     @InjectMocks
-	CategoryService testService;
+    CategoryService testService;
 
-	@Mock
-	CategoryDao dao;
+    @Mock
+    CategoryDao dao;
 
-	@BeforeEach
-	public void setup() {
-		MockitoAnnotations.initMocks(this);
-	}
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
-	public void addCategoryShouldAddNonExistingCategory() {
+    public void addCategoryShouldAddNonExistingCategory() {
         Category category = new Category("id1", "name1", "colour1", "icon1");
         testService.addCategory(category);
 
@@ -40,7 +40,7 @@ public class CategoryServiceTest {
     }
 
     @Test
-	public void getCategoriesShouldReturnAllSavedCategories() {
+    public void getCategoriesShouldReturnAllSavedCategories() {
         when(dao.getCategories()).thenReturn(List.of(
             new Category("id1", "name1", "color1", "icon1"),
             new Category("id2", "name2", "color2", "icon2")
@@ -53,7 +53,7 @@ public class CategoryServiceTest {
     }
 
     @Test
-	public void getCategoryShouldReturnCorrectEntry() {
+    public void getCategoryShouldReturnCorrectEntry() {
         when(dao.getCategory("123")).thenReturn(Optional.of(new Category("123","nazwa","#FFFFFF","ball")));
 
         Optional<Category> result = testService.getCategory("123");
