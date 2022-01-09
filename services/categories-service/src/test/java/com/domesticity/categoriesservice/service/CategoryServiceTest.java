@@ -1,11 +1,13 @@
 package com.domesticity.categoriesservice.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.domesticity.categoriesservice.dao.CategoryDao;
 import com.domesticity.categoriesservice.model.Category;
@@ -48,5 +50,18 @@ public class CategoryServiceTest {
 
         assertEquals(2, result.size());
         verify(dao, times(1)).getCategories();
+    }
+
+    @Test
+	public void getCategoryShouldReturnCorrectEntry() {
+        when(dao.getCategory("123")).thenReturn(Optional.of(new Category("123","nazwa","#FFFFFF","ball")));
+
+        Optional<Category> result = testService.getCategory("123");
+
+        verify(dao, times(1)).getCategory("123");
+        assertTrue(result.isPresent());
+        assertEquals("nazwa", result.get().getName());
+        assertEquals("#FFFFFF", result.get().getColour());
+        assertEquals("ball", result.get().getIcon());
     }
 }
