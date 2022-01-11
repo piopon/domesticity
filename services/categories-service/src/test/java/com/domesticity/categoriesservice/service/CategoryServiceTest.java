@@ -64,4 +64,11 @@ public class CategoryServiceTest {
         assertEquals("#FFFFFF", result.get().getColour());
         assertEquals("ball", result.get().getIcon());
     }
+
+    @Test
+    public void deleteCategoryShouldRemoveCategory() {
+        testService.deleteCategory("123");
+
+        verify(dao, times(1)).deleteCategory("123");
+    }
 }
