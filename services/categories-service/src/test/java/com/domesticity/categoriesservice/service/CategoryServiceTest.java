@@ -71,4 +71,12 @@ public class CategoryServiceTest {
 
         verify(dao, times(1)).deleteCategory("123");
     }
+
+    @Test
+    public void updateCategoryShouldUpdateCategoryEntry() {
+        Category category = new Category("", "name1", "colour1", "icon1");
+        testService.updateCategory("123", category);
+
+        verify(dao, times(1)).updateCategory("123", category);
+    }
 }
