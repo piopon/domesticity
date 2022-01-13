@@ -37,13 +37,13 @@ public class CategoriesServiceApplicationConfig {
     }
 
     private ApiInfo getApiInfo() {
-        String title = "Categories service";
-        String description = "This service is a part of domesticity web application. It's responsible" +
-                "for managing global categories settings for all types of notes/lists.";
+        String title = "Domesticity Categories Service API";
+        String description = "Documentation for Category Service API used by Domesticity web application.\n" +
+                "This service is responsible for managing global categories settings for all types of notes/lists.";
         String version = "1.0";
         String docsUrl = "https://github.com/piopon/domesticity/blob/main/README.md";
         Contact contact = new Contact("Piotr Ponikowski", "", "piopon.github@gmail.com");
-        String licenseName = "GNU General Public License v3.0";
+        String licenseName = "License: GNU General Public License v3.0 (GPL-3.0)";
         String licenseUrl = "https://github.com/piopon/domesticity/blob/main/LICENSE";
 
         return new ApiInfo(title, description, version, docsUrl, contact, licenseName, licenseUrl, List.of());
