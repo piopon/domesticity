@@ -32,8 +32,8 @@ public class CategoriesServiceApplicationConfig {
     @Bean
     public Docket swaggerSettings() {
         return new Docket(DocumentationType.SWAGGER_2).select()
-            .paths(PathSelectors.ant("/category/**/"))
-            .build().apiInfo(getApiInfo());
+                .paths(PathSelectors.ant("/category/**/"))
+                .build().apiInfo(getApiInfo());
     }
 
     private ApiInfo getApiInfo() {
