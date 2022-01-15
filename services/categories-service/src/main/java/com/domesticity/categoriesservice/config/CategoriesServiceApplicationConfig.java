@@ -1,4 +1,4 @@
-package com.domesticity.categoriesservice;
+package com.domesticity.categoriesservice.config;
 
 import java.util.List;
 
