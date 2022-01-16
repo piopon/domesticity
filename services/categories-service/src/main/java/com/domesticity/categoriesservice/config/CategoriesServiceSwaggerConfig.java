@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -14,13 +16,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class CategoriesServiceSwaggerConfig {
+public class CategoriesServiceSwaggerConfig implements WebMvcConfigurer {
 
     @Bean
     public Docket swaggerSettings() {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .paths(PathSelectors.ant("/category/**/"))
                 .build().apiInfo(getApiInfo());
+    }
+
+    @Override
+    public void addViewControllers(final ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/docs", "/docs/swagger-ui/");
     }
 
     private ApiInfo getApiInfo() {
