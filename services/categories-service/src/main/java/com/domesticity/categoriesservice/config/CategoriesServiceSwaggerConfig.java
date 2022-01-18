@@ -36,9 +36,9 @@ public class CategoriesServiceSwaggerConfig implements WebMvcConfigurer {
                 "This service is responsible for managing global categories settings for all types of notes/lists.";
         String version = "1.0";
         String docsUrl = "https://github.com/piopon/domesticity/blob/main/README.md";
-        Contact contact = new Contact("Piotr Ponikowski", "", "piopon.github@gmail.com");
         String licenseName = "License: GNU General Public License v3.0 (GPL-3.0)";
         String licenseUrl = "https://github.com/piopon/domesticity/blob/main/LICENSE";
+        Contact contact = new Contact("Piotr Ponikowski", "", "piopon.github@gmail.com");
 
         return new ApiInfo(title, description, version, docsUrl, contact, licenseName, licenseUrl, List.of());
     }
