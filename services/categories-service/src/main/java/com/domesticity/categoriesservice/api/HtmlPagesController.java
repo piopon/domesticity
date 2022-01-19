@@ -24,6 +24,7 @@ public class HtmlPagesController {
     public String getHomePage(Model model) {
         UrlParser urlParser = new UrlParser(postgresUrl);
 
+        model.addAttribute("service_name", buildProperties.getArtifact());
         model.addAttribute("service_ver", "v" + buildProperties.getVersion());
         model.addAttribute("spring_ver", "v" + SpringVersion.getVersion());
         model.addAttribute("build_date", buildProperties.getTime());
