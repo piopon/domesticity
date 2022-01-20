@@ -19,6 +19,8 @@ public class HtmlPagesController {
     private String repositoryType;
     @Value("${spring.datasource.url}")
     private String postgresUrl;
+    @Value("${git.commit.id}")
+    private String commitId;
 
     @GetMapping("/")
     public String getHomePage(Model model) {
@@ -28,7 +30,7 @@ public class HtmlPagesController {
         model.addAttribute("service_ver", "v" + buildProperties.getVersion());
         model.addAttribute("spring_ver", "v" + SpringVersion.getVersion());
         model.addAttribute("build_date", buildProperties.getTime());
-        model.addAttribute("commit_sha", "2c3507de1c78cffab0440d5596fca30c1be1dcc3");
+        model.addAttribute("commit_sha", commitId);
         model.addAttribute("repo_type", repositoryType);
         model.addAttribute("sql_scheme", urlParser.getScheme());
         model.addAttribute("sql_ip", urlParser.getIP());
