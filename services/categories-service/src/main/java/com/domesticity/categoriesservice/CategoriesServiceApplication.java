@@ -19,7 +19,7 @@ public class CategoriesServiceApplication {
         propsConfig.setLocation(new ClassPathResource("git.properties"));
         propsConfig.setIgnoreResourceNotFound(true);
         propsConfig.setIgnoreUnresolvablePlaceholders(true);
-        
+
         return propsConfig;
     }
 }
