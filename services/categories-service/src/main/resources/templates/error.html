@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en" xmlns="https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Home page for Domesticity Categories Service">
+        <meta name="author" content="piopon.github@gmail.com">
+        <title th:text="categories-service"></title>
+    </head>
+    <body>
+        <h1 th:text="categories-service"></h1>
+        <hr>
+        <h3 th:text="'Error ' + ${status} +': ' + ${error}"></h3>
+        <ul>
+            <li th:text="'Date: ' + ${timestamp}"></li>
+            <li th:text="'URL path: ' + ${path}"></li>
+        </ul>
+    </body>
+</html>
