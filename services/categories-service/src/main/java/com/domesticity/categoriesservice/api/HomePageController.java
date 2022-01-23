@@ -23,7 +23,7 @@ public class HomePageController {
     private String commitId;
 
     @GetMapping("/")
-    public String getHomePage(Model model) {
+    public String handleIndex(Model model) {
         UrlParser urlParser = new UrlParser(postgresUrl);
 
         model.addAttribute("service_name", buildProperties.getArtifact());
