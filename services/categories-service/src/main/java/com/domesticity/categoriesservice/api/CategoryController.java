@@ -9,6 +9,7 @@ import com.domesticity.categoriesservice.model.Category;
 import com.domesticity.categoriesservice.service.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("category")
@@ -47,7 +49,8 @@ public class CategoryController {
 
     @GetMapping(path = "{id}")
     public Category getCategory(@PathVariable("id") String id) {
-        return categoryService.getCategory(id).orElse(null);
+        return categoryService.getCategory(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found"));
     }
 
     @DeleteMapping(path = "{id}")
