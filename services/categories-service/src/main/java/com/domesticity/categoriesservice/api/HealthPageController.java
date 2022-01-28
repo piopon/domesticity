@@ -22,7 +22,7 @@ public class HealthPageController implements HealthIndicator {
     }
 
     private boolean checkService() {
-        String queryStr = "select 1 from category";
+        String queryStr = "SELECT 1 FROM category";
 
         return jdbcTemplate.query(queryStr, new SingleColumnRowMapper<>()).size() > 0;
     }
