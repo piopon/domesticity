@@ -28,6 +28,18 @@ public class CategoryService {
         return categoryDao.getCategories();
     }
 
+    public List<Category> getCategoriesByName(String name) {
+        return categoryDao.getCategoriesByName(name);
+    }
+
+    public List<Category> getCategoriesByColor(String color) {
+        return categoryDao.getCategoriesByColor(color);
+    }
+
+    public List<Category> getCategoriesByIcon(String icon) {
+        return categoryDao.getCategoriesByIcon(icon);
+    }
+
     public Optional<Category> getCategory(String id) {
         return categoryDao.getCategory(id);
     }

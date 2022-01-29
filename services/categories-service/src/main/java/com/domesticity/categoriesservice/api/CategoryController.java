@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -45,6 +46,21 @@ public class CategoryController {
     @GetMapping
     public List<Category> getCategories() {
         return categoryService.getCategories();
+    }
+
+    @GetMapping(params = "name")
+    public List<Category> getCategoriesByName(@RequestParam("name") String name) {
+        return categoryService.getCategoriesByName(name);
+    }
+
+    @GetMapping(params = "color")
+    public List<Category> getCategoriesByColor(@RequestParam("color") String color) {
+        return categoryService.getCategoriesByColor(color);
+    }
+
+    @GetMapping(params = "icon")
+    public List<Category> getCategoriesByIcon(@RequestParam("icon") String icon) {
+        return categoryService.getCategoriesByIcon(icon);
     }
 
     @GetMapping(path = "{id}")
