@@ -41,6 +41,39 @@ public class PostgresCategoryDao implements CategoryDao {
     }
 
     @Override
+    public List<Category> getCategoriesByName(String name) {
+        final String sql = "SELECT * FROM category WHERE name = ?";
+        return jdbcTemplate.query(sql, (results, i) -> {
+            String id = results.getString("id");
+            String colour = results.getString("colour");
+            String icon = results.getString("icon");
+            return new Category(id, name, colour, icon);
+        }, name);
+    }
+
+    @Override
+    public List<Category> getCategoriesByColor(String color) {
+        final String sql = "SELECT * FROM category WHERE colour = ?";
+        return jdbcTemplate.query(sql, (results, i) -> {
+            String id = results.getString("id");
+            String name = results.getString("name");
+            String icon = results.getString("icon");
+            return new Category(id, name, color, icon);
+        }, color);
+    }
+
+    @Override
+    public List<Category> getCategoriesByIcon(String icon) {
+        final String sql = "SELECT * FROM category WHERE icon = ?";
+        return jdbcTemplate.query(sql, (results, i) -> {
+            String id = results.getString("id");
+            String name = results.getString("name");
+            String colour = results.getString("colour");
+            return new Category(id, name, colour, icon);
+        }, icon);
+    }
+
+    @Override
     public Optional<Category> getCategory(String id) {
         if (!isCategoryPresent(id)) {
             return Optional.empty();
