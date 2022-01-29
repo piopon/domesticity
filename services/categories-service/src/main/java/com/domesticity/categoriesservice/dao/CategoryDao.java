@@ -11,6 +11,12 @@ public interface CategoryDao {
 
     List<Category> getCategories();
 
+    List<Category> getCategoriesByName(String name);
+
+    List<Category> getCategoriesByColor(String color);
+
+    List<Category> getCategoriesByIcon(String icon);
+
     Optional<Category> getCategory(String id);
 
     int deleteCategory(String id);
