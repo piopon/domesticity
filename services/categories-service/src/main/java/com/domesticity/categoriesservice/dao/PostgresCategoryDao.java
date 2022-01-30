@@ -29,7 +29,7 @@ public class PostgresCategoryDao implements CategoryDao {
     }
 
     @Override
-    public List<Category> getCategories() {
+    public List<Category> getAllCategories() {
         final String sql = "SELECT * FROM category";
         return jdbcTemplate.query(sql, (results, i) -> {
             String id = results.getString("id");
@@ -41,36 +41,18 @@ public class PostgresCategoryDao implements CategoryDao {
     }
 
     @Override
-    public List<Category> getCategoriesByName(String name) {
-        final String sql = "SELECT * FROM category WHERE name = ?";
+    public List<Category> getFilteredCategories(String name, String color, String icon) {
+        final String nameSql = (name == null) ? "%" : name;
+        final String colorSql = (color == null) ? "%" : color;
+        final String iconSql = (icon == null) ? "%" : icon;
+        final String sql = "SELECT * FROM category WHERE name LIKE ? AND colour LIKE ? AND icon LIKE ?";
         return jdbcTemplate.query(sql, (results, i) -> {
-            String id = results.getString("id");
-            String colour = results.getString("colour");
-            String icon = results.getString("icon");
-            return new Category(id, name, colour, icon);
-        }, name);
-    }
-
-    @Override
-    public List<Category> getCategoriesByColor(String color) {
-        final String sql = "SELECT * FROM category WHERE colour = ?";
-        return jdbcTemplate.query(sql, (results, i) -> {
-            String id = results.getString("id");
-            String name = results.getString("name");
-            String icon = results.getString("icon");
-            return new Category(id, name, color, icon);
-        }, color);
-    }
-
-    @Override
-    public List<Category> getCategoriesByIcon(String icon) {
-        final String sql = "SELECT * FROM category WHERE icon = ?";
-        return jdbcTemplate.query(sql, (results, i) -> {
-            String id = results.getString("id");
-            String name = results.getString("name");
-            String colour = results.getString("colour");
-            return new Category(id, name, colour, icon);
-        }, icon);
+            String idStr = results.getString("id");
+            String nameStr = results.getString("name");
+            String colorStr = results.getString("colour");
+            String iconStr = results.getString("icon");
+            return new Category(idStr, nameStr, colorStr, iconStr);
+        }, nameSql, colorSql, iconSql);
     }
 
     @Override

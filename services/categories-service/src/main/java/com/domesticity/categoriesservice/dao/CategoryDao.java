@@ -9,13 +9,9 @@ public interface CategoryDao {
 
     int addCategory(String id, Category category);
 
-    List<Category> getCategories();
+    List<Category> getAllCategories();
 
-    List<Category> getCategoriesByName(String name);
-
-    List<Category> getCategoriesByColor(String color);
-
-    List<Category> getCategoriesByIcon(String icon);
+    List<Category> getFilteredCategories(String name, String color, String icon);
 
     Optional<Category> getCategory(String id);
 

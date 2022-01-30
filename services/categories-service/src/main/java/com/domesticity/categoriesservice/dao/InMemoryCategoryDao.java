@@ -20,23 +20,17 @@ public class InMemoryCategoryDao implements CategoryDao {
     }
 
     @Override
-    public List<Category> getCategories() {
+    public List<Category> getAllCategories() {
         return MEMORY_DB;
     }
 
     @Override
-    public List<Category> getCategoriesByName(String name) {
-        return MEMORY_DB.stream().filter(category -> category.getName().equals(name)).toList();
-    }
-
-    @Override
-    public List<Category> getCategoriesByColor(String color) {
-        return MEMORY_DB.stream().filter(category -> category.getColour().equals(color)).toList();
-    }
-
-    @Override
-    public List<Category> getCategoriesByIcon(String icon) {
-        return MEMORY_DB.stream().filter(category -> category.getIcon().equals(icon)).toList();
+    public List<Category> getFilteredCategories(String name, String color, String icon) {
+        return MEMORY_DB.stream()
+                .filter(category -> category.getName().equals(name))
+                .filter(category -> category.getColour().equals(color))
+                .filter(category -> category.getIcon().equals(icon))
+                .toList();
     }
 
     @Override
