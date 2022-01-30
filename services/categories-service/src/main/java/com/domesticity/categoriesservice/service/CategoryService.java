@@ -24,20 +24,12 @@ public class CategoryService {
         return categoryDao.addCategory(category);
     }
 
-    public List<Category> getCategories() {
-        return categoryDao.getCategories();
+    public List<Category> getAllCategories() {
+        return categoryDao.getAllCategories();
     }
 
-    public List<Category> getCategoriesByName(String name) {
-        return categoryDao.getCategoriesByName(name);
-    }
-
-    public List<Category> getCategoriesByColor(String color) {
-        return categoryDao.getCategoriesByColor(color);
-    }
-
-    public List<Category> getCategoriesByIcon(String icon) {
-        return categoryDao.getCategoriesByIcon(icon);
+    public List<Category> getFilteredCategories(String name, String color, String icon) {
+        return categoryDao.getFilteredCategories(name, color, icon);
     }
 
     public Optional<Category> getCategory(String id) {
