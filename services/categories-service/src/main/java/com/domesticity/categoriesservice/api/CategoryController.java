@@ -44,23 +44,13 @@ public class CategoryController {
     }
 
     @GetMapping
-    public List<Category> getCategories() {
-        return categoryService.getCategories();
-    }
-
-    @GetMapping(params = "name")
-    public List<Category> getCategoriesByName(@RequestParam("name") String name) {
-        return categoryService.getCategoriesByName(name);
-    }
-
-    @GetMapping(params = "color")
-    public List<Category> getCategoriesByColor(@RequestParam("color") String color) {
-        return categoryService.getCategoriesByColor(color);
-    }
-
-    @GetMapping(params = "icon")
-    public List<Category> getCategoriesByIcon(@RequestParam("icon") String icon) {
-        return categoryService.getCategoriesByIcon(icon);
+    public List<Category> getCategories(@RequestParam(required = false) String name,
+                                        @RequestParam(required = false) String color,
+                                        @RequestParam(required = false) String icon) {
+        if (name == null && color == null && icon == null) {
+            return categoryService.getAllCategories();
+        }
+        return categoryService.getFilteredCategories(name, color, icon);
     }
 
     @GetMapping(path = "{id}")
