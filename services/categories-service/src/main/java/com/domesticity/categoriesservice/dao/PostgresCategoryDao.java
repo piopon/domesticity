@@ -42,9 +42,6 @@ public class PostgresCategoryDao implements CategoryDao {
 
     @Override
     public List<Category> getFilteredCategories(String name, String color, String icon) {
-        final String nameSql = (name == null) ? "%" : name;
-        final String colorSql = (color == null) ? "%" : color;
-        final String iconSql = (icon == null) ? "%" : icon;
         final String sql = "SELECT * FROM category WHERE name LIKE ? AND colour LIKE ? AND icon LIKE ?";
         return jdbcTemplate.query(sql, (results, i) -> {
             String idStr = results.getString("id");
@@ -52,7 +49,7 @@ public class PostgresCategoryDao implements CategoryDao {
             String colorStr = results.getString("colour");
             String iconStr = results.getString("icon");
             return new Category(idStr, nameStr, colorStr, iconStr);
-        }, nameSql, colorSql, iconSql);
+        }, adjustFilter(name), adjustFilter(color), adjustFilter(icon));
     }
 
     @Override
@@ -88,5 +85,9 @@ public class PostgresCategoryDao implements CategoryDao {
     private boolean isCategoryPresent(String id) {
         String sql = "SELECT EXISTS (SELECT 1 FROM category WHERE id = ?)";
         return jdbcTemplate.queryForObject(sql, (results, i) -> results.getBoolean(1), id);
+    }
+
+    private String adjustFilter(final String input) {
+        return (input == null) ? "%" : input;
     }
 }
