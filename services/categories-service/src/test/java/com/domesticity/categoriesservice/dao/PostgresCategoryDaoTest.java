@@ -36,8 +36,8 @@ public class PostgresCategoryDaoTest {
         int result = testDao.addCategory("123", Category.empty());
 
         assertEquals(1, result);
-        assertEquals(4, testDao.getCategories().size());
-        assertTrue(testDao.getCategories().get(3).getId().equals("123"));
+        assertEquals(4, testDao.getAllCategories().size());
+        assertTrue(testDao.getAllCategories().get(3).getId().equals("123"));
     }
 
     @Test
@@ -45,16 +45,16 @@ public class PostgresCategoryDaoTest {
         int result = testDao.addCategory(Category.empty());
 
         assertEquals(1, result);
-        assertEquals(4, testDao.getCategories().size());
-        assertTrue(testDao.getCategories().get(3).getName().equals(""));
+        assertEquals(4, testDao.getAllCategories().size());
+        assertTrue(testDao.getAllCategories().get(3).getName().equals(""));
     }
 
     @Test
     void getCategoriesShouldRetrieveAllStoredCategories() {
-        assertEquals(3, testDao.getCategories().size());
-        assertEquals("1", testDao.getCategories().get(0).getId());
-        assertEquals("green", testDao.getCategories().get(1).getName());
-        assertEquals("#0000FF", testDao.getCategories().get(2).getColour());
+        assertEquals(3, testDao.getAllCategories().size());
+        assertEquals("1", testDao.getAllCategories().get(0).getId());
+        assertEquals("green", testDao.getAllCategories().get(1).getName());
+        assertEquals("#0000FF", testDao.getAllCategories().get(2).getColour());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class PostgresCategoryDaoTest {
         int result = testDao.deleteCategory("1");
 
         assertEquals(1, result);
-        assertEquals(2, testDao.getCategories().size());
+        assertEquals(2, testDao.getAllCategories().size());
     }
 
     @Test
@@ -87,7 +87,7 @@ public class PostgresCategoryDaoTest {
         int result = testDao.deleteCategory("123");
 
         assertEquals(0, result);
-        assertEquals(3, testDao.getCategories().size());
+        assertEquals(3, testDao.getAllCategories().size());
     }
 
     @Test
@@ -95,8 +95,8 @@ public class PostgresCategoryDaoTest {
         int result = testDao.updateCategory("1", new Category("", "new", "#FFFFFF", ""));
 
         assertEquals(1, result);
-        assertEquals(3, testDao.getCategories().size());
-        assertTrue(testDao.getCategories().stream().filter(category -> category.getName().equals("new")).count() == 1);
+        assertEquals(3, testDao.getAllCategories().size());
+        assertTrue(testDao.getAllCategories().stream().filter(category -> category.getName().equals("new")).count() == 1);
     }
 
     @Test
@@ -104,7 +104,7 @@ public class PostgresCategoryDaoTest {
         int result = testDao.updateCategory("123", new Category("", "name", "colour", "icon"));
 
         assertEquals(0, result);
-        assertEquals(3, testDao.getCategories().size());
-        assertTrue(testDao.getCategories().stream().filter(category -> category.getId().equals("123")).count() == 0);
+        assertEquals(3, testDao.getAllCategories().size());
+        assertTrue(testDao.getAllCategories().stream().filter(category -> category.getId().equals("123")).count() == 0);
     }
 }
