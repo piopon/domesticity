@@ -41,15 +41,15 @@ public class CategoryServiceTest {
 
     @Test
     public void getCategoriesShouldReturnAllSavedCategories() {
-        when(dao.getCategories()).thenReturn(List.of(
+        when(dao.getAllCategories()).thenReturn(List.of(
             new Category("id1", "name1", "color1", "icon1"),
             new Category("id2", "name2", "color2", "icon2")
         ));
 
-        List<Category> result = testService.getCategories();
+        List<Category> result = testService.getAllCategories();
 
         assertEquals(2, result.size());
-        verify(dao, times(1)).getCategories();
+        verify(dao, times(1)).getAllCategories();
     }
 
     @Test

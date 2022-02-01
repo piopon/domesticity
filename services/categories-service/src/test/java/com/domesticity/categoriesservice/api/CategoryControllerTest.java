@@ -31,7 +31,7 @@ public class CategoryControllerTest {
 
     @Test
     void receivingAllCategoriesWithCorrectUrlReturnsOkStatus() throws Exception {
-        when(mockService.getCategories()).thenReturn(List.of(
+        when(mockService.getAllCategories()).thenReturn(List.of(
                 new Category("1", "kategoria1", "#0000FF", "ikona1"),
                 new Category("2", "kategoria2", "#00FF00", "ikona2"),
                 new Category("3", "kategoria3", "#FF0000", "ikona3")));
