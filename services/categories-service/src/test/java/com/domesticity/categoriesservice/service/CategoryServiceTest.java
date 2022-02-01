@@ -53,6 +53,19 @@ public class CategoryServiceTest {
     }
 
     @Test
+    public void getFilteredCategoriesShouldReturnCorrectCategories() {
+        when(dao.getFilteredCategories(null, "color", null)).thenReturn(List.of(
+            new Category("id1", "name1", "color", "icon1"),
+            new Category("id2", "name2", "color", "icon2")
+        ));
+
+        List<Category> result = testService.getFilteredCategories(null, "color", null);
+
+        assertEquals(2, result.size());
+        verify(dao, times(1)).getFilteredCategories(null, "color", null);
+    }
+
+    @Test
     public void getCategoryShouldReturnCorrectEntry() {
         when(dao.getCategory("123")).thenReturn(Optional.of(new Category("123","nazwa","#FFFFFF","ball")));
 
