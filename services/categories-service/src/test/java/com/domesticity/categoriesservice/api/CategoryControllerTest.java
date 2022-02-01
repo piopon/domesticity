@@ -30,7 +30,7 @@ public class CategoryControllerTest {
     private CategoryService mockService;
 
     @Test
-    void receivingAllCategoriesWithCorrectUrlReturnsOkStatus() throws Exception {
+    public void receivingAllCategoriesWithCorrectUrlReturnsOkStatus() throws Exception {
         when(mockService.getAllCategories()).thenReturn(List.of(
                 new Category("1", "kategoria1", "#0000FF", "ikona1"),
                 new Category("2", "kategoria2", "#00FF00", "ikona2"),
@@ -46,7 +46,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void receivingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
+    public void receivingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
         when(mockService.getCategory("123")).thenReturn(Optional.of(
                 new Category("123", "cat1", "#123456", "bball")));
 
@@ -59,7 +59,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void addingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
+    public void addingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/category")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\": \"kat2\", \"color\":\"red\", \"icon\":\"zzz\"}"))
@@ -68,7 +68,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void updatingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
+    public void updatingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.put("/category/123")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\": \"kat2\", \"color\":\"red\", \"icon\":\"zzz\"}"))
@@ -77,7 +77,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void deletingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
+    public void deletingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
         when(mockService.deleteCategory("123")).thenReturn(1);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/category/123")

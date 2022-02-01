@@ -16,13 +16,13 @@ public class InMemoryCategoryDaoTest {
     private InMemoryCategoryDao testDao;
 
     @BeforeEach
-    void setup() {
+    public void setup() {
         testDao = new InMemoryCategoryDao();
         assertEquals(0, testDao.getAllCategories().size());
     }
 
     @Test
-    void addCategoryWithExplicitIdShouldUpdateInMemoryList() {
+    public void addCategoryWithExplicitIdShouldUpdateInMemoryList() {
         int result = testDao.addCategory("123", Category.empty());
 
         assertEquals(1, result);
@@ -31,7 +31,7 @@ public class InMemoryCategoryDaoTest {
     }
 
     @Test
-    void addCategoryWithImplicitIdShouldUpdateInMemoryList() {
+    public void addCategoryWithImplicitIdShouldUpdateInMemoryList() {
         int result = testDao.addCategory(Category.empty());
 
         assertEquals(1, result);
@@ -40,7 +40,7 @@ public class InMemoryCategoryDaoTest {
     }
 
     @Test
-    void getCategoriesShouldRetrieveAllInMemoryList() {
+    public void getAllCategoriesShouldRetrieveAllInMemoryList() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
         testDao.addCategory("123", new Category("", "name", "colour", "icon"));
@@ -52,7 +52,7 @@ public class InMemoryCategoryDaoTest {
     }
 
     @Test
-    void getCategoryShouldRetrieveSelectedItemFromMemoryList() {
+    public void getCategoryShouldRetrieveSelectedItemFromMemoryList() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
         testDao.addCategory("123", new Category("", "name", "colour", "icon"));
@@ -66,7 +66,7 @@ public class InMemoryCategoryDaoTest {
     }
 
     @Test
-    void getCategoryShouldReturnEmptyItemIfIdIsNotFound() {
+    public void getCategoryShouldReturnEmptyItemIfIdIsNotFound() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
         testDao.addCategory("123", new Category("", "name", "colour", "icon"));
@@ -77,7 +77,7 @@ public class InMemoryCategoryDaoTest {
     }
 
     @Test
-    void deleteCategoryShouldRemoveExistingItem() {
+    public void deleteCategoryShouldRemoveExistingItem() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
         testDao.addCategory("123", new Category("", "name", "colour", "icon"));
@@ -90,7 +90,7 @@ public class InMemoryCategoryDaoTest {
     }
 
     @Test
-    void deleteCategoryDoesNothingIfItemDoesNotExist() {
+    public void deleteCategoryDoesNothingIfItemDoesNotExist() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
         testDao.addCategory("123", new Category("", "name", "colour", "icon"));
@@ -102,7 +102,7 @@ public class InMemoryCategoryDaoTest {
     }
 
     @Test
-    void modifyCategoryShouldUpdateExistingItem() {
+    public void modifyCategoryShouldUpdateExistingItem() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
         testDao.addCategory("123", new Category("", "name", "colour", "icon"));
@@ -115,7 +115,7 @@ public class InMemoryCategoryDaoTest {
     }
 
     @Test
-    void modifyCategoryShouldDoNothingWithNotExistingItem() {
+    public void modifyCategoryShouldDoNothingWithNotExistingItem() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
         testDao.addCategory("123", new Category("", "name", "colour", "icon"));

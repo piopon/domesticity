@@ -19,7 +19,7 @@ public class PostgresCategoryDaoTest {
     private PostgresCategoryDao testDao;
 
     @BeforeEach
-    void setup() {
+    public void setup() {
         EmbeddedDatabase db = new EmbeddedDatabaseBuilder()
             .generateUniqueName(true)
             .setType(EmbeddedDatabaseType.H2)
@@ -32,7 +32,7 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
-    void addCategoryWithExplicitIdShouldUpdateInMemoryList() {
+    public void addCategoryWithExplicitIdShouldUpdateInMemoryList() {
         int result = testDao.addCategory("123", Category.empty());
 
         assertEquals(1, result);
@@ -41,7 +41,7 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
-    void addCategoryWithImplicitIdShouldUpdateInMemoryList() {
+    public void addCategoryWithImplicitIdShouldUpdateInMemoryList() {
         int result = testDao.addCategory(Category.empty());
 
         assertEquals(1, result);
@@ -50,7 +50,7 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
-    void getCategoriesShouldRetrieveAllStoredCategories() {
+    public void getAllCategoriesShouldRetrieveAllStoredCategories() {
         assertEquals(3, testDao.getAllCategories().size());
         assertEquals("1", testDao.getAllCategories().get(0).getId());
         assertEquals("green", testDao.getAllCategories().get(1).getName());
@@ -58,7 +58,7 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
-    void getCategoryShouldRetrieveSelectedItemFromDb() {
+    public void getCategoryShouldRetrieveSelectedItemFromDb() {
         Optional<Category> actualItem = testDao.getCategory("1");
 
         assertTrue(actualItem.isPresent());
@@ -68,14 +68,14 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
-    void getCategoryShouldReturnEmptyItemIfIdIsNotFound() {
+    public void getCategoryShouldReturnEmptyItemIfIdIsNotFound() {
         Optional<Category> actualItem = testDao.getCategory("123");
 
         assertTrue(actualItem.isEmpty());
     }
 
     @Test
-    void deleteCategoryShouldRemoveExistingItem() {
+    public void deleteCategoryShouldRemoveExistingItem() {
         int result = testDao.deleteCategory("1");
 
         assertEquals(1, result);
@@ -83,7 +83,7 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
-    void deleteCategoryDoesNothingIfItemDoesNotExist() {
+    public void deleteCategoryDoesNothingIfItemDoesNotExist() {
         int result = testDao.deleteCategory("123");
 
         assertEquals(0, result);
@@ -91,7 +91,7 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
-    void modifyCategoryShouldUpdateExistingItem() {
+    public void modifyCategoryShouldUpdateExistingItem() {
         int result = testDao.updateCategory("1", new Category("", "new", "#FFFFFF", ""));
 
         assertEquals(1, result);
@@ -100,7 +100,7 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
-    void modifyCategoryShouldDoNothingWithNotExistingItem() {
+    public void modifyCategoryShouldDoNothingWithNotExistingItem() {
         int result = testDao.updateCategory("123", new Category("", "name", "colour", "icon"));
 
         assertEquals(0, result);

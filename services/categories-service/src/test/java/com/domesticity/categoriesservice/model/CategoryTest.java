@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class CategoryTest {
 
     @Test
-    void getIdShouldReturnCorrectIdValue() {
+    public void getIdShouldReturnCorrectIdValue() {
         final String id = "test_id1";
         final Category category = new Category(id, "", "", "");
 
@@ -15,7 +15,7 @@ public class CategoryTest {
     }
 
     @Test
-    void getNameShouldReturnCorrectNameValue() {
+    public void getNameShouldReturnCorrectNameValue() {
         final String name = "my_awesomeTest name-123";
         final Category category = new Category("", name, "", "");
 
@@ -23,7 +23,7 @@ public class CategoryTest {
     }
 
     @Test
-    void getColourShouldReturnCorrectColourValue() {
+    public void getColourShouldReturnCorrectColourValue() {
         final String colour = "#123456";
         final Category category = new Category("", "", colour, "");
 
@@ -31,7 +31,7 @@ public class CategoryTest {
     }
 
     @Test
-    void getIconShouldReturnCorrectIconValue() {
+    public void getIconShouldReturnCorrectIconValue() {
         final String icon = "beer-outline";
         final Category category = new Category("", "", "", icon);
 
@@ -39,7 +39,7 @@ public class CategoryTest {
     }
 
     @Test
-    void emptyStaticMethodShouldReturnCategoryWithEmptyValues() {
+    public void emptyStaticMethodShouldReturnCategoryWithEmptyValues() {
         final Category category = Category.empty();
 
         assertEquals("", category.getId());

@@ -40,7 +40,7 @@ public class CategoryServiceTest {
     }
 
     @Test
-    public void getCategoriesShouldReturnAllSavedCategories() {
+    public void getAllCategoriesShouldReturnAllSavedCategories() {
         when(dao.getAllCategories()).thenReturn(List.of(
             new Category("id1", "name1", "color1", "icon1"),
             new Category("id2", "name2", "color2", "icon2")
