@@ -40,7 +40,8 @@ public class PostgresCategoryDao implements CategoryDao {
     @Override
     public List<Category> getFilteredCategories(String name, String color, String icon) {
         final String sql = "SELECT * FROM category WHERE name LIKE ? AND colour LIKE ? AND icon LIKE ?";
-        return jdbcTemplate.query(sql, new CategoryMapper(), adjustFilter(name), adjustFilter(color), adjustFilter(icon));
+        return jdbcTemplate.query(sql, new CategoryMapper(), adjustFilter(name), adjustFilter(color),
+                adjustFilter(icon));
     }
 
     @Override
@@ -63,7 +64,8 @@ public class PostgresCategoryDao implements CategoryDao {
     public int updateCategory(String id, Category newCategory) {
         if (isCategoryPresent(id)) {
             String sql = "UPDATE category SET name = ?, icon = ?, colour = ? WHERE id = ?";
-            return jdbcTemplate.update(sql, newCategory.getName(), newCategory.getIcon(), newCategory.getColour(), id);
+            return jdbcTemplate.update(sql, newCategory.getName(), newCategory.getIcon(),
+                    newCategory.getColour(), id);
         }
         return 0;
     }
