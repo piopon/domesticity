@@ -18,7 +18,7 @@ public class InMemoryCategoryDaoTest {
     @BeforeEach
     public void setup() {
         testDao = new InMemoryCategoryDao();
-        assertEquals(0, testDao.getAllCategories().size());
+        assertEquals(0, countAllCategories());
     }
 
     @Test
@@ -26,7 +26,7 @@ public class InMemoryCategoryDaoTest {
         int result = testDao.addCategory("123", Category.empty());
 
         assertEquals(1, result);
-        assertEquals(1, testDao.getAllCategories().size());
+        assertEquals(1, countAllCategories());
         assertTrue(testDao.getAllCategories().get(0).getId().equals("123"));
     }
 
@@ -35,7 +35,7 @@ public class InMemoryCategoryDaoTest {
         int result = testDao.addCategory(Category.empty());
 
         assertEquals(1, result);
-        assertEquals(1, testDao.getAllCategories().size());
+        assertEquals(1, countAllCategories());
         assertTrue(testDao.getAllCategories().get(0).getName().equals(""));
     }
 
@@ -85,7 +85,7 @@ public class InMemoryCategoryDaoTest {
         int result = testDao.deleteCategory("123");
 
         assertEquals(1, result);
-        assertEquals(2, testDao.getAllCategories().size());
+        assertEquals(2, countAllCategories());
         assertTrue(testDao.getAllCategories().stream().allMatch(category -> category.getName().equals("")));
     }
 
@@ -98,7 +98,7 @@ public class InMemoryCategoryDaoTest {
         int result = testDao.deleteCategory("1");
 
         assertEquals(0, result);
-        assertEquals(3, testDao.getAllCategories().size());
+        assertEquals(3, countAllCategories());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class InMemoryCategoryDaoTest {
         int result = testDao.updateCategory("000", new Category("", "name", "colour", "icon"));
 
         assertEquals(1, result);
-        assertEquals(3, testDao.getAllCategories().size());
+        assertEquals(3, countAllCategories());
         assertTrue(testDao.getAllCategories().stream().filter(category -> category.getName().equals("name")).count() == 2);
     }
 
@@ -123,7 +123,11 @@ public class InMemoryCategoryDaoTest {
         int result = testDao.updateCategory("001", new Category("", "name", "colour", "icon"));
 
         assertEquals(0, result);
-        assertEquals(3, testDao.getAllCategories().size());
+        assertEquals(3, countAllCategories());
         assertTrue(testDao.getAllCategories().stream().filter(category -> category.getName().equals("name")).count() == 1);
+    }
+
+    private int countAllCategories() {
+        return testDao.getAllCategories().size();
     }
 }
