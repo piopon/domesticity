@@ -11,6 +11,11 @@ public class CategoriesServiceCorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedHeaders("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
+                .maxAge(-1)
+                .allowCredentials(false);
     }
 }
