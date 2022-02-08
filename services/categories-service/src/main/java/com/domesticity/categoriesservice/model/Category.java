@@ -7,16 +7,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Category {
     private final String id;
     private final String icon;
-    private final String colour;
+    private final String color;
     private final String name;
 
     public Category(@JsonProperty("id") String id,
                     @JsonProperty("name") String name,
-                    @JsonProperty("color") String colour,
+                    @JsonProperty("color") String color,
                     @JsonProperty("icon") String icon) {
         this.id = id;
         this.name = name;
-        this.colour = colour;
+        this.color = color;
         this.icon = icon;
     }
 
@@ -29,9 +29,9 @@ public class Category {
         return name;
     }
 
-    @NotBlank(message = "Category colour cannot be empty")
-    public String getColour() {
-        return colour;
+    @NotBlank(message = "Category color cannot be empty")
+    public String getColor() {
+        return color;
     }
 
     public String getIcon() {
