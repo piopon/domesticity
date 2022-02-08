@@ -25,8 +25,8 @@ public class PostgresCategoryDao implements CategoryDao {
     @Override
     public int addCategory(String id, Category category) {
         if (!isCategoryPresent(id)) {
-            String sql = "INSERT INTO category (id, name, colour, icon) VALUES (?, ?, ?, ?)";
-            return jdbcTemplate.update(sql, id, category.getName(), category.getColour(), category.getIcon());
+            String sql = "INSERT INTO category (id, name, color, icon) VALUES (?, ?, ?, ?)";
+            return jdbcTemplate.update(sql, id, category.getName(), category.getColor(), category.getIcon());
         }
         return 0;
     }
@@ -39,7 +39,7 @@ public class PostgresCategoryDao implements CategoryDao {
 
     @Override
     public List<Category> getFilteredCategories(String name, String color, String icon) {
-        final String sql = "SELECT * FROM category WHERE name LIKE ? AND colour LIKE ? AND icon LIKE ?";
+        final String sql = "SELECT * FROM category WHERE name LIKE ? AND color LIKE ? AND icon LIKE ?";
         return jdbcTemplate.query(sql, new CategoryMapper(), adjustFilter(name), adjustFilter(color),
                 adjustFilter(icon));
     }
@@ -63,9 +63,9 @@ public class PostgresCategoryDao implements CategoryDao {
     @Override
     public int updateCategory(String id, Category newCategory) {
         if (isCategoryPresent(id)) {
-            String sql = "UPDATE category SET name = ?, icon = ?, colour = ? WHERE id = ?";
+            String sql = "UPDATE category SET name = ?, icon = ?, color = ? WHERE id = ?";
             return jdbcTemplate.update(sql, newCategory.getName(), newCategory.getIcon(),
-                    newCategory.getColour(), id);
+                    newCategory.getColor(), id);
         }
         return 0;
     }
@@ -85,10 +85,10 @@ public class PostgresCategoryDao implements CategoryDao {
         public Category mapRow(ResultSet resultSet, int row) throws SQLException {
             String id = resultSet.getString("id");
             String name = resultSet.getString("name");
-            String colour = resultSet.getString("colour");
+            String color = resultSet.getString("color");
             String icon = resultSet.getString("icon");
 
-            return new Category(id, name, colour, icon);
+            return new Category(id, name, color, icon);
         }
     }
 }

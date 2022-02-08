@@ -15,7 +15,7 @@ public class InMemoryCategoryDao implements CategoryDao {
 
     @Override
     public int addCategory(String id, Category category) {
-        MEMORY_DB.add(new Category(id, category.getName(), category.getColour(), category.getIcon()));
+        MEMORY_DB.add(new Category(id, category.getName(), category.getColor(), category.getIcon()));
         return 1;
     }
 
@@ -28,7 +28,7 @@ public class InMemoryCategoryDao implements CategoryDao {
     public List<Category> getFilteredCategories(String name, String color, String icon) {
         return MEMORY_DB.stream()
                 .filter(category -> name != null && category.getName().equals(name))
-                .filter(category -> color != null && category.getColour().equals(color))
+                .filter(category -> color != null && category.getColor().equals(color))
                 .filter(category -> icon != null && category.getIcon().equals(icon))
                 .toList();
     }
@@ -52,7 +52,7 @@ public class InMemoryCategoryDao implements CategoryDao {
         return getCategory(id).map(category -> {
             int toUpdateIndex = MEMORY_DB.indexOf(category);
             if (toUpdateIndex >= 0) {
-                final Category updated = new Category(id, newCategory.getName(), newCategory.getColour(),
+                final Category updated = new Category(id, newCategory.getName(), newCategory.getColor(),
                         newCategory.getIcon());
                 MEMORY_DB.set(toUpdateIndex, updated);
                 return 1;
