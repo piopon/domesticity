@@ -23,11 +23,11 @@ public class CategoryTest {
     }
 
     @Test
-    public void getColourShouldReturnCorrectColourValue() {
-        final String colour = "#123456";
-        final Category category = new Category("", "", colour, "");
+    public void getColorShouldReturnCorrectColorValue() {
+        final String color = "#123456";
+        final Category category = new Category("", "", color, "");
 
-        assertEquals(colour, category.getColour());
+        assertEquals(color, category.getColor());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class CategoryTest {
 
         assertEquals("", category.getId());
         assertEquals("", category.getName());
-        assertEquals("", category.getColour());
+        assertEquals("", category.getColor());
         assertEquals("", category.getIcon());
     }
 }

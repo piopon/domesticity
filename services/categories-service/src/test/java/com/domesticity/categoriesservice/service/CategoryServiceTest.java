@@ -33,7 +33,7 @@ public class CategoryServiceTest {
 
     @Test
     public void addCategoryShouldAddNonExistingCategory() {
-        Category category = new Category("id1", "name1", "colour1", "icon1");
+        Category category = new Category("id1", "name1", "color1", "icon1");
         testService.addCategory(category);
 
         verify(dao, times(1)).addCategory(category);
@@ -74,7 +74,7 @@ public class CategoryServiceTest {
         verify(dao, times(1)).getCategory("123");
         assertTrue(result.isPresent());
         assertEquals("nazwa", result.get().getName());
-        assertEquals("#FFFFFF", result.get().getColour());
+        assertEquals("#FFFFFF", result.get().getColor());
         assertEquals("ball", result.get().getIcon());
     }
 
@@ -87,7 +87,7 @@ public class CategoryServiceTest {
 
     @Test
     public void updateCategoryShouldUpdateCategoryEntry() {
-        Category category = new Category("", "name1", "colour1", "icon1");
+        Category category = new Category("", "name1", "color1", "icon1");
         testService.updateCategory("123", category);
 
         verify(dao, times(1)).updateCategory("123", category);

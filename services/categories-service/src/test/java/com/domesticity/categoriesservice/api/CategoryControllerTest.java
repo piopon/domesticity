@@ -41,7 +41,7 @@ public class CategoryControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(3))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value("1"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("kategoria2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[2].colour").value("#FF0000"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].color").value("#FF0000"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].icon").value("ikona1"));
     }
 
@@ -55,7 +55,7 @@ public class CategoryControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value("1"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("kategoria1"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].colour").value("blue"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].color").value("blue"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].icon").value("ikona1"));
     }
 
@@ -68,7 +68,7 @@ public class CategoryControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("123"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("cat1"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.colour").value("#123456"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.color").value("#123456"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.icon").value("bball"));
     }
 

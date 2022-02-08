@@ -43,7 +43,7 @@ public class InMemoryCategoryDaoTest {
     public void getAllCategoriesShouldRetrieveAllInMemoryList() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
-        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+        testDao.addCategory("123", new Category("", "name", "color", "icon"));
 
         List<Category> actualList = testDao.getAllCategories();
 
@@ -55,13 +55,13 @@ public class InMemoryCategoryDaoTest {
     public void getCategoryShouldRetrieveSelectedItemFromMemoryList() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
-        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+        testDao.addCategory("123", new Category("", "name", "color", "icon"));
 
         Optional<Category> actualItem = testDao.getCategory("123");
 
         assertTrue(actualItem.isPresent());
         assertTrue(actualItem.get().getName().equals("name"));
-        assertTrue(actualItem.get().getColour().equals("colour"));
+        assertTrue(actualItem.get().getColor().equals("color"));
         assertTrue(actualItem.get().getIcon().equals("icon"));
     }
 
@@ -69,7 +69,7 @@ public class InMemoryCategoryDaoTest {
     public void getCategoryShouldReturnEmptyItemIfIdIsNotFound() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
-        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+        testDao.addCategory("123", new Category("", "name", "color", "icon"));
 
         Optional<Category> actualItem = testDao.getCategory("1");
 
@@ -80,7 +80,7 @@ public class InMemoryCategoryDaoTest {
     public void deleteCategoryShouldRemoveExistingItem() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
-        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+        testDao.addCategory("123", new Category("", "name", "color", "icon"));
 
         int result = testDao.deleteCategory("123");
 
@@ -93,7 +93,7 @@ public class InMemoryCategoryDaoTest {
     public void deleteCategoryDoesNothingIfItemDoesNotExist() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
-        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+        testDao.addCategory("123", new Category("", "name", "color", "icon"));
 
         int result = testDao.deleteCategory("1");
 
@@ -105,9 +105,9 @@ public class InMemoryCategoryDaoTest {
     public void modifyCategoryShouldUpdateExistingItem() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
-        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+        testDao.addCategory("123", new Category("", "name", "color", "icon"));
 
-        int result = testDao.updateCategory("000", new Category("", "name", "colour", "icon"));
+        int result = testDao.updateCategory("000", new Category("", "name", "color", "icon"));
 
         assertEquals(1, result);
         assertEquals(3, countAllCategories());
@@ -118,9 +118,9 @@ public class InMemoryCategoryDaoTest {
     public void modifyCategoryShouldDoNothingWithNotExistingItem() {
         testDao.addCategory("007", Category.empty());
         testDao.addCategory("000", Category.empty());
-        testDao.addCategory("123", new Category("", "name", "colour", "icon"));
+        testDao.addCategory("123", new Category("", "name", "color", "icon"));
 
-        int result = testDao.updateCategory("001", new Category("", "name", "colour", "icon"));
+        int result = testDao.updateCategory("001", new Category("", "name", "color", "icon"));
 
         assertEquals(0, result);
         assertEquals(3, countAllCategories());

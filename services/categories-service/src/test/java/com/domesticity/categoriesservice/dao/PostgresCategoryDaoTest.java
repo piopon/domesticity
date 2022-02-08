@@ -54,7 +54,7 @@ public class PostgresCategoryDaoTest {
         assertEquals(3, countAllCategories());
         assertEquals("1", testDao.getAllCategories().get(0).getId());
         assertEquals("green", testDao.getAllCategories().get(1).getName());
-        assertEquals("#0000FF", testDao.getAllCategories().get(2).getColour());
+        assertEquals("#0000FF", testDao.getAllCategories().get(2).getColor());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class PostgresCategoryDaoTest {
 
         assertTrue(actualItem.isPresent());
         assertEquals("red", actualItem.get().getName());
-        assertEquals("#FF0000", actualItem.get().getColour());
+        assertEquals("#FF0000", actualItem.get().getColor());
         assertEquals("icon1", actualItem.get().getIcon());
     }
 
@@ -101,7 +101,7 @@ public class PostgresCategoryDaoTest {
 
     @Test
     public void modifyCategoryShouldDoNothingWithNotExistingItem() {
-        int result = testDao.updateCategory("123", new Category("", "name", "colour", "icon"));
+        int result = testDao.updateCategory("123", new Category("", "name", "color", "icon"));
 
         assertEquals(0, result);
         assertEquals(3, countAllCategories());
