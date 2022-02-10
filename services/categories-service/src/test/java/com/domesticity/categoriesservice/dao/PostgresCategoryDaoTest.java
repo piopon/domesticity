@@ -91,6 +91,16 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
+    public void getFilteredCategoriesByIconShouldRetrieveCorrectCategories() {
+        List<Category> result = testDao.getFilteredCategories(null, null, "icon1");
+
+        assertEquals(1, result.size());
+        assertEquals("red", testDao.getAllCategories().get(0).getName());
+        assertEquals("#FF0000", testDao.getAllCategories().get(0).getColor());
+        assertEquals("icon1", testDao.getAllCategories().get(0).getIcon());
+    }
+
+    @Test
     public void getCategoryShouldRetrieveSelectedItemFromDb() {
         Optional<Category> actualItem = testDao.getCategory("1");
 
