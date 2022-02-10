@@ -61,6 +61,16 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
+    public void getEmptyFilteredCategoriesShouldRetrieveAllStoredCategories() {
+        List<Category> result = testDao.getFilteredCategories(null, null, null);
+
+        assertEquals(3, result.size());
+        assertEquals("1", testDao.getAllCategories().get(0).getId());
+        assertEquals("green", testDao.getAllCategories().get(1).getName());
+        assertEquals("#0000FF", testDao.getAllCategories().get(2).getColor());
+    }
+
+    @Test
     public void getFilteredCategoriesByNameShouldRetrieveCorrectCategories() {
         List<Category> result = testDao.getFilteredCategories("red", null, null);
 
