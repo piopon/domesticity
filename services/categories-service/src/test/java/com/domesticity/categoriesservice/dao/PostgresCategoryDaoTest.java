@@ -76,6 +76,8 @@ public class PostgresCategoryDaoTest {
 
         assertEquals(1, result.size());
         assertEquals("red", testDao.getAllCategories().get(0).getName());
+        assertEquals("#FF0000", testDao.getAllCategories().get(0).getColor());
+        assertEquals("icon1", testDao.getAllCategories().get(0).getIcon());
     }
 
     @Test
