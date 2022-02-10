@@ -3,6 +3,7 @@ package com.domesticity.categoriesservice.dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.domesticity.categoriesservice.model.Category;
@@ -51,7 +52,9 @@ public class PostgresCategoryDaoTest {
 
     @Test
     public void getAllCategoriesShouldRetrieveAllStoredCategories() {
-        assertEquals(3, countAllCategories());
+        List<Category> result = testDao.getAllCategories();
+
+        assertEquals(3, result.size());
         assertEquals("1", testDao.getAllCategories().get(0).getId());
         assertEquals("green", testDao.getAllCategories().get(1).getName());
         assertEquals("#0000FF", testDao.getAllCategories().get(2).getColor());
