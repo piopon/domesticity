@@ -61,6 +61,14 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
+    public void getFilteredCategoriesByNameShouldRetrieveCorrectCategories() {
+        List<Category> result = testDao.getFilteredCategories("red", null, null);
+
+        assertEquals(1, result.size());
+        assertEquals("red", testDao.getAllCategories().get(0).getName());
+    }
+
+    @Test
     public void getCategoryShouldRetrieveSelectedItemFromDb() {
         Optional<Category> actualItem = testDao.getCategory("1");
 
