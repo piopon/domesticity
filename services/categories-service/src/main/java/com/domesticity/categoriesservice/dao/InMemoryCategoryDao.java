@@ -26,6 +26,9 @@ public class InMemoryCategoryDao implements CategoryDao {
 
     @Override
     public List<Category> getFilteredCategories(String name, String color, String icon) {
+        if (name == null && color == null && icon == null) {
+            return getAllCategories();
+        }
         return MEMORY_DB.stream()
                 .filter(category -> name != null && category.getName().equals(name))
                 .filter(category -> color != null && category.getColor().equals(color))
