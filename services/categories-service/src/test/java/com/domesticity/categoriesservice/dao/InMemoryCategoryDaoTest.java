@@ -60,9 +60,9 @@ public class InMemoryCategoryDaoTest {
         List<Category> actualList = testDao.getFilteredCategories(null, null, null);
 
         assertEquals(3, actualList.size());
-        assertEquals("name1", testDao.getAllCategories().get(0).getName());
-        assertEquals("color2", testDao.getAllCategories().get(1).getColor());
-        assertEquals("icon2", testDao.getAllCategories().get(2).getIcon());
+        assertEquals("name1", actualList.get(0).getName());
+        assertEquals("color2", actualList.get(1).getColor());
+        assertEquals("icon2", actualList.get(2).getIcon());
     }
 
     @Test
