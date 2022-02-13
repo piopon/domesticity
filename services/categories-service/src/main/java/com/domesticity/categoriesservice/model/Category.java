@@ -38,6 +38,11 @@ public class Category {
         return icon;
     }
 
+    @Override
+    public String toString() {
+        return "Category name: " + name + ", icon: " + icon + ", color: " + color;
+    }
+
     public static Category empty() {
         return new Category("", "", "", "");
     }
