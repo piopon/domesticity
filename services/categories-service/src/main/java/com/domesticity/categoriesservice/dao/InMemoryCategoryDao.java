@@ -3,6 +3,7 @@ package com.domesticity.categoriesservice.dao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import com.domesticity.categoriesservice.model.Category;
 
@@ -29,11 +30,11 @@ public class InMemoryCategoryDao implements CategoryDao {
         if (name == null && color == null && icon == null) {
             return getAllCategories();
         }
-        return MEMORY_DB.stream()
-                .filter(category -> name != null && category.getName().equals(name))
-                .filter(category -> color != null && category.getColor().equals(color))
-                .filter(category -> icon != null && category.getIcon().equals(icon))
-                .toList();
+        Predicate<Category> nameCheck = category -> name != null && category.getName().equals(name);
+        Predicate<Category> iconCheck = category -> icon != null && category.getIcon().equals(icon);
+        Predicate<Category> colorCheck = category -> color != null && category.getColor().equals(color);
+
+        return MEMORY_DB.stream().filter(nameCheck.or(iconCheck.or(colorCheck))).toList();
     }
 
     @Override
