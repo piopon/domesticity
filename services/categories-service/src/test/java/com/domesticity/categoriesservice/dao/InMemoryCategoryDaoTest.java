@@ -53,14 +53,16 @@ public class InMemoryCategoryDaoTest {
 
     @Test
     public void getEmptyFilteredCategoriesShouldRetrieveAllStoredCategories() {
-        testDao.addCategory("007", Category.empty());
-        testDao.addCategory("000", Category.empty());
-        testDao.addCategory("123", new Category("", "name", "color", "icon"));
+        testDao.addCategory("007", new Category("", "name1", "color1", "icon1"));
+        testDao.addCategory("000", new Category("", "name2", "color2", "icon1"));
+        testDao.addCategory("123", new Category("", "name3", "color2", "icon2"));
 
         List<Category> actualList = testDao.getFilteredCategories(null, null, null);
 
         assertEquals(3, actualList.size());
-        assertTrue(actualList.stream().filter(category -> category.getId().equals("123")).count() == 1);
+        assertEquals("name1", testDao.getAllCategories().get(0).getName());
+        assertEquals("color2", testDao.getAllCategories().get(1).getColor());
+        assertEquals("icon2", testDao.getAllCategories().get(2).getIcon());
     }
 
     @Test
