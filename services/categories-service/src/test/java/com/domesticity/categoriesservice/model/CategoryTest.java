@@ -39,6 +39,17 @@ public class CategoryTest {
     }
 
     @Test
+    public void toStringShouldReturnCorrectValue() {
+        final String expected = "Category name: name-123, icon: beer-outline, color: #123456";
+        final String name = "name-123";
+        final String color = "#123456";
+        final String icon = "beer-outline";
+        final Category category = new Category("", name, color, icon);
+
+        assertEquals(expected, category.toString());
+    }
+
+    @Test
     public void emptyStaticMethodShouldReturnCategoryWithEmptyValues() {
         final Category category = Category.empty();
 
