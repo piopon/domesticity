@@ -73,6 +73,15 @@ public class CategoryControllerTest {
     }
 
     @Test
+    public void receivingSingleCategoryWithIncorrectUrlReturnsError() throws Exception {
+        when(mockService.getCategory("123")).thenReturn(Optional.of(
+                new Category("123", "cat1", "#123456", "bball")));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/category/000"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
     public void addingSingleCategoryWithCorrectUrlReturnsOkStatus() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/category")
                 .contentType(MediaType.APPLICATION_JSON)
