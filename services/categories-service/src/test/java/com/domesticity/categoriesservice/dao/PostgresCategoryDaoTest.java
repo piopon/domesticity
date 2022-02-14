@@ -51,6 +51,16 @@ public class PostgresCategoryDaoTest {
     }
 
     @Test
+    public void addExistingCategoryShouldNotDoAnything() {
+        final String existingId = "1";
+
+        int result = testDao.addCategory(existingId, Category.empty());
+
+        assertEquals(0, result);
+        assertEquals(3, countAllCategories());
+    }
+
+    @Test
     public void getAllCategoriesShouldRetrieveAllStoredCategories() {
         List<Category> result = testDao.getAllCategories();
 
