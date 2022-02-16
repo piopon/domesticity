@@ -55,13 +55,10 @@ public class InMemoryCategoryDao implements CategoryDao {
     public int updateCategory(String id, Category newCategory) {
         return getCategory(id).map(category -> {
             int toUpdateIndex = MEMORY_DB.indexOf(category);
-            if (toUpdateIndex >= 0) {
-                final Category updated = new Category(id, newCategory.getName(), newCategory.getColor(),
-                        newCategory.getIcon());
-                MEMORY_DB.set(toUpdateIndex, updated);
-                return 1;
-            }
-            return 0;
+            final Category updated = new Category(id, newCategory.getName(), newCategory.getColor(),
+                    newCategory.getIcon());
+            MEMORY_DB.set(toUpdateIndex, updated);
+            return 1;
         }).orElse(0);
     }
 }
