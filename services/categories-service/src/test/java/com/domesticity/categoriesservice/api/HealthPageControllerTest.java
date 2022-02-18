@@ -22,7 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@WebMvcTest(HealthPageController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class HealthPageControllerTest {
 
     @Autowired
