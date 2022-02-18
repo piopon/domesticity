@@ -1,12 +1,12 @@
 package com.domesticity.categoriesservice.api;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +29,8 @@ public class HealthPageControllerTest {
 
     @Test
     public void healthShouldFailWhenDbConnectionIsDown() throws Exception {
-        when(jdbcTemplate.query(anyString(), any(RowMapper.class))).thenReturn(List.of(1));
+        List<Object> mockIntegers = List.of(1);
+        when(jdbcTemplate.query(anyString(), ArgumentMatchers.<RowMapper<Object>>any())).thenReturn(mockIntegers);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/health"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
