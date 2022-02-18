@@ -20,7 +20,6 @@ public class HomePageControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private BuildProperties buildProperties;
 
