@@ -29,11 +29,19 @@ public class HealthPageControllerTest {
 
     @Test
     public void healthShouldFailWhenDbConnectionIsDown() throws Exception {
+        List<Object> mockIntegers = List.of();
+        when(jdbcTemplate.query(anyString(), ArgumentMatchers.<RowMapper<Object>>any())).thenReturn(mockIntegers);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/health"))
+                .andExpect(MockMvcResultMatchers.status().is(503));
+    }
+
+    @Test
+    public void healthShouldPassWhenDbConnectionIsUp() throws Exception {
         List<Object> mockIntegers = List.of(1);
         when(jdbcTemplate.query(anyString(), ArgumentMatchers.<RowMapper<Object>>any())).thenReturn(mockIntegers);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/health"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
-
 }
