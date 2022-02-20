@@ -32,7 +32,7 @@ class CategoriesServiceApplicationTest {
 	}
 
 	@Test
-	void contextLoadsAllControllers() {
+	public void contextLoadsAllControllers() {
 		assertThat(categoryController).isNotNull();
 		assertThat(errorPageController).isNotNull();
 		assertThat(healthPageController).isNotNull();
@@ -40,7 +40,7 @@ class CategoriesServiceApplicationTest {
 	}
 
 	@Test
-	void contextLoadsCategoryService() {
+	public void contextLoadsCategoryService() {
 		assertThat(categoryService).isNotNull();
 	}
 }
