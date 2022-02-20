@@ -29,7 +29,7 @@ public class ErrorPageControllerTest {
         final String testName = "artifact-name";
 
         when(buildProperties.getArtifact()).thenReturn(testName);
-        
+
         mockMvc.perform(MockMvcRequestBuilders.get("/error"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
