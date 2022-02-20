@@ -27,6 +27,11 @@ class CategoriesServiceApplicationTest {
 	private CategoryService categoryService;
 
 	@Test
+	public void mainStartsApplicationCorrectly() {
+		CategoriesServiceApplication.main(new String[] {});
+	}
+
+	@Test
 	void contextLoadsAllControllers() {
 		assertThat(categoryController).isNotNull();
 		assertThat(errorPageController).isNotNull();
