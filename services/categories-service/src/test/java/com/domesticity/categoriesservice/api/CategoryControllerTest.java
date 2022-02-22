@@ -60,6 +60,20 @@ public class CategoryControllerTest {
     }
 
     @Test
+    public void receivingFilteredCategoriesWithTwoFiltersInUrlReturnsOkStatus() throws Exception {
+        when(mockService.getFilteredCategories(null, "blue", "ikona1")).thenReturn(List.of(
+                new Category("1", "kategoria1", "blue", "ikona1")));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/category?color=blue&icon=ikona1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value("1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("kategoria1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].color").value("blue"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].icon").value("ikona1"));
+    }
+
+    @Test
     public void receivingFilteredCategoriesWithNameFilterInUrlReturnsOkStatus() throws Exception {
         when(mockService.getFilteredCategories("kategoria1", null, null)).thenReturn(List.of(
                 new Category("1", "kategoria1", "blue", "ikona1")));
