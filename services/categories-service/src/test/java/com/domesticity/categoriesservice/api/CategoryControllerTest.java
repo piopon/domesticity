@@ -46,7 +46,7 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void receivingFilteredCategoriesWithCorrectUrlReturnsOkStatus() throws Exception {
+    public void receivingFilteredCategoriesWithAllFiltersInUrlReturnsOkStatus() throws Exception {
         when(mockService.getFilteredCategories("kategoria1", "blue", "ikona1")).thenReturn(List.of(
                 new Category("1", "kategoria1", "blue", "ikona1")));
 
