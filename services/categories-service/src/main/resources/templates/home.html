@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns="https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Home page for Domesticity Categories Service">
+        <meta name="author" content="piopon.github@gmail.com">
+        <title th:text="${service_name}"></title>
+    </head>
+    <body>
+        <h1 th:text="${service_name}"></h1>
+        <hr>
+        <h4>Build information:</h4>
+        <ul>
+            <li th:text="'Version: ' + ${service_ver}"></li>
+            <li th:text="'Spring Framework: ' + ${spring_ver}"></li>
+            <li th:text="'Build Time: ' + ${build_date}"></li>
+            <li th:text="'Commit SHA: ' + ${commit_sha}"></li>
+        </ul>
+        <h4>Database type:</h4>
+        <ul>
+            <li th:text="${repo_type}"></li>
+        </ul>
+        <h4>PostgreSQL:</h4>
+        <ul>
+            <li th:text="${sql_scheme} + '://' + ${sql_ip} + ':' + ${sql_port}"></li>
+        </ul>
+    </body>
+</html>
